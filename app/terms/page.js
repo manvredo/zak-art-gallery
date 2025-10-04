@@ -1,28 +1,26 @@
- 
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <a href="/">
+            <Link href="/">
               <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
                 ZAK ART GALLERY
               </h1>
-            </a>
-            <a href="/" className="text-gray-700 hover:text-gray-900">
+            </Link>
+            <Link href="/" className="text-gray-700 hover:text-gray-900">
               ← Back to Shop
-            </a>
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-light text-gray-900 mb-8">Terms & Conditions</h1>
         
@@ -32,12 +30,12 @@ export default function TermsPage() {
             <h2 className="text-2xl font-light text-gray-900 mb-4">1. Scope and Conclusion of Contract</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               These General Terms and Conditions (GTC) apply to all contracts concluded between 
-              ZAK Art Gallery (hereinafter "Seller") and customers (hereinafter "Buyer") for the 
+              ZAK Art Gallery (hereinafter &quot;Seller&quot;) and customers (hereinafter &quot;Buyer&quot;) for the 
               purchase of original oil paintings through the online shop.
             </p>
             <p className="text-gray-700 leading-relaxed">
               The presentation of products in the online shop does not constitute a legally binding 
-              offer but an invitation to place an order. By clicking the "Order with obligation to pay" 
+              offer but an invitation to place an order. By clicking the &quot;Order with obligation to pay&quot; 
               button, the Buyer submits a binding offer to purchase the products in the shopping cart. 
               The Seller can accept this offer within 5 days by sending an order confirmation by email.
             </p>
@@ -209,7 +207,6 @@ export default function TermsPage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-sm text-gray-600">

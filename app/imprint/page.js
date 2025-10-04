@@ -1,28 +1,26 @@
- 
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function ImprintPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <a href="/">
+            <Link href="/">
               <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
                 ZAK ART GALLERY
               </h1>
-            </a>
-            <a href="/" className="text-gray-700 hover:text-gray-900">
+            </Link>
+            <Link href="/" className="text-gray-700 hover:text-gray-900">
               ← Back to Shop
-            </a>
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-light text-gray-900 mb-8">Imprint</h1>
         
@@ -109,7 +107,6 @@ export default function ImprintPage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-sm text-gray-600">
