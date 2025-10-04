@@ -127,13 +127,6 @@ const ZakArtGallery = () => {
       setCheckoutLoading(true);
       setCheckoutError(null);
 
-      // Stripe laden
-      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-      
-      if (!stripe) {
-        throw new Error('Stripe konnte nicht geladen werden');
-      }
-
       // API-Anfrage an Backend
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -148,18 +141,14 @@ const ZakArtGallery = () => {
         throw new Error(errorData.error || 'Checkout-Fehler');
       }
 
-      const { sessionId } = await response.json();
+      const { url } = await response.json();
       
-      if (!sessionId) {
-        throw new Error('Keine Session-ID erhalten');
+      if (!url) {
+        throw new Error('Keine Checkout-URL erhalten');
       }
 
-      // Weiterleitung zu Stripe Checkout
-      const { error } = await stripe.redirectToCheckout({ sessionId });
-      
-      if (error) {
-        throw new Error(error.message);
-      }
+      // Direkte Weiterleitung zur Stripe Checkout-Seite
+      window.location.href = url;
 
     } catch (error) {
       console.error('Checkout-Fehler:', error);
