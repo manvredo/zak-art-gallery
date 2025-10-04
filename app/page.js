@@ -439,10 +439,10 @@ const ZakArtGallery = () => {
             <div>
               <h3 className="font-light text-lg mb-4">Customer Service</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li><a href="#" className="hover:text-gray-900">Shipping & Delivery</a></li>
-                <li><a href="#" className="hover:text-gray-900">Returns & Refunds</a></li>
-                <li><a href="#" className="hover:text-gray-900">Payment Methods</a></li>
-                <li><a href="#" className="hover:text-gray-900">FAQ</a></li>
+                <li><a href="#shipping" className="hover:text-gray-900">Shipping & Delivery</a></li>
+                <li><a href="#returns" className="hover:text-gray-900">Returns & Refunds</a></li>
+                <li><a href="#payment" className="hover:text-gray-900">Payment Methods</a></li>
+                <li><a href="#faq" className="hover:text-gray-900">FAQ</a></li>
               </ul>
             </div>
             <div>
