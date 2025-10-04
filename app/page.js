@@ -120,7 +120,7 @@ const ZakArtGallery = () => {
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleCheckout = async () => {
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+    const stripe = await loadStripe('pk_test_51SEUkdLRXpyBzh53A3Tkwmsaoyc03RJk1RBmtgKlah4aaB167efBD43Q2Z2DlemLKZBhYITzw1AzOWfZHohhVQFc00228QNebL');
     
     const response = await fetch('/api/checkout', {
       method: 'POST',
