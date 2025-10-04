@@ -119,6 +119,21 @@ const ZakArtGallery = () => {
   const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  const handleCheckout = async () => {
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+    
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ items: cart }),
+    });
+
+    const { sessionId } = await response.json();
+    await stripe.redirectToCheckout({ sessionId });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -343,7 +358,10 @@ const ZakArtGallery = () => {
                   <p className="text-sm text-gray-600 mb-6">
                     Shipping costs calculated at checkout
                   </p>
-                  <button className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center justify-center gap-2">
+                  <button 
+                    onClick={handleCheckout}
+                    className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center justify-center gap-2"
+                  >
                     Proceed to Checkout
                     <ChevronRight size={20} />
                   </button>
