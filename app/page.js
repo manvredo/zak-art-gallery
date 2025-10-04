@@ -2,12 +2,15 @@
 
 import React, { useState } from 'react';
 import { ShoppingCart, Menu, X, Search, ChevronRight } from 'lucide-react';
+import { loadStripe } from '@stripe/stripe-js';
 
 const ZakArtGallery = () => {
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState('shop');
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(null);
 
   const products = [
     {
@@ -120,18 +123,49 @@ const ZakArtGallery = () => {
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleCheckout = async () => {
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-    
-    const response = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ items: cart }),
-    });
+    try {
+      setCheckoutLoading(true);
+      setCheckoutError(null);
 
-    const { sessionId } = await response.json();
-    await stripe.redirectToCheckout({ sessionId });
+      // Stripe laden
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+      
+      if (!stripe) {
+        throw new Error('Stripe konnte nicht geladen werden');
+      }
+
+      // API-Anfrage an Backend
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items: cart }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Checkout-Fehler');
+      }
+
+      const { sessionId } = await response.json();
+      
+      if (!sessionId) {
+        throw new Error('Keine Session-ID erhalten');
+      }
+
+      // Weiterleitung zu Stripe Checkout
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      
+      if (error) {
+        throw new Error(error.message);
+      }
+
+    } catch (error) {
+      console.error('Checkout-Fehler:', error);
+      setCheckoutError(error.message);
+      setCheckoutLoading(false);
+    }
   };
 
   return (
@@ -358,12 +392,29 @@ const ZakArtGallery = () => {
                   <p className="text-sm text-gray-600 mb-6">
                     Shipping costs calculated at checkout
                   </p>
+                  
+                  {checkoutError && (
+                    <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+                      <strong>Fehler:</strong> {checkoutError}
+                    </div>
+                  )}
+
                   <button 
                     onClick={handleCheckout}
-                    className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center justify-center gap-2"
+                    disabled={checkoutLoading}
+                    className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Proceed to Checkout
-                    <ChevronRight size={20} />
+                    {checkoutLoading ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        Proceed to Checkout
+                        <ChevronRight size={20} />
+                      </>
+                    )}
                   </button>
                   <button 
                     onClick={() => setCurrentView('shop')}
