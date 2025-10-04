@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { ShoppingCart, Menu, X, Search, ChevronRight } from 'lucide-react';
 
 const ZakArtGallery = () => {
@@ -449,9 +448,9 @@ const ZakArtGallery = () => {
             <div>
               <h3 className="font-light text-lg mb-4">Legal</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li><Link href="/imprint" className="hover:text-gray-900">Imprint</Link></li>
-                <li><Link href="/privacy" className="hover:text-gray-900">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="hover:text-gray-900">Terms & Conditions</Link></li>
+                <li><a href="/imprint" className="hover:text-gray-900">Imprint</a></li>
+                <li><a href="/privacy" className="hover:text-gray-900">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-gray-900">Terms & Conditions</a></li>
               </ul>
             </div>
             <div>
