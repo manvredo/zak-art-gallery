@@ -10,6 +10,12 @@ const ZakArtGallery = () => {
   const [currentView, setCurrentView] = useState('welcome');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState(null);
+  
+  // Contact form state
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const [contactLoading, setContactLoading] = useState(false);
+  const [contactSuccess, setContactSuccess] = useState(false);
+  const [contactError, setContactError] = useState(null);
 
   const products = [
     {
@@ -153,6 +159,41 @@ const ZakArtGallery = () => {
       console.error('Checkout error:', error);
       setCheckoutError(error.message);
       setCheckoutLoading(false);
+    }
+  };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setContactLoading(true);
+    setContactError(null);
+    setContactSuccess(false);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactForm),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      setContactSuccess(true);
+      setContactForm({ name: '', email: '', message: '' });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setContactSuccess(false), 5000);
+
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setContactError(error.message);
+    } finally {
+      setContactLoading(false);
     }
   };
 
@@ -483,11 +524,26 @@ const ZakArtGallery = () => {
               </div>
 
               <div>
-                <form className="space-y-4">
+                <form onSubmit={handleContactSubmit} className="space-y-4">
+                  {contactSuccess && (
+                    <div className="p-4 bg-green-50 border border-green-200 rounded text-green-700 text-sm">
+                      Message sent successfully! We'll get back to you soon.
+                    </div>
+                  )}
+                  
+                  {contactError && (
+                    <div className="p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+                      {contactError}
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
                     <input 
                       type="text"
+                      value={contactForm.name}
+                      onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                      required
                       className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                       placeholder="Your name"
                     />
@@ -496,6 +552,9 @@ const ZakArtGallery = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                     <input 
                       type="email"
+                      value={contactForm.email}
+                      onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                      required
                       className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                       placeholder="your@email.com"
                     />
@@ -504,15 +563,19 @@ const ZakArtGallery = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
                     <textarea 
                       rows="5"
+                      value={contactForm.message}
+                      onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                      required
                       className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                       placeholder="Your message..."
                     ></textarea>
                   </div>
                   <button 
                     type="submit"
-                    className="w-full py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
+                    disabled={contactLoading}
+                    className="w-full py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {contactLoading ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               </div>
