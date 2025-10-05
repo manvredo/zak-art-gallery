@@ -13,7 +13,6 @@ export async function POST(request) {
       );
     }
 
-    // Email-Validierung
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
@@ -22,72 +21,59 @@ export async function POST(request) {
       );
     }
 
-    // Nodemailer Transporter erstellen
+    // E-Mail-Transporter konfigurieren - HARDCODED zum Testen
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT),
-      secure: false, // STARTTLS
+      host: 'plesk2.living-bots.net',
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: 'info@manfredzak.com',
+        pass: 'Ms$c@ZxH*3#gXGP'  // <-- Tragen Sie hier Ihr Passwort ein
       },
     });
 
-    // E-Mail an Sie (Shop-Betreiber)
+    // E-Mail an Sie
     await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: process.env.SMTP_FROM, // An Ihre eigene Adresse
-      replyTo: email, // Antworten gehen an den Kunden
-      subject: `New Contact Form Message from ${name}`,
-      text: `
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-      `,
+      from: 'info@manfredzak.com',
+      to: 'info@manfredzak.com',
+      replyTo: email,
+      subject: `🎨 ZAK Art Gallery Contact: ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
-        <h2>New Contact Form Message</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>New Message from ZAK Art Gallery Contact Form</h2>
+          <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <hr style="border: 1px solid #ddd; margin: 20px 0;">
+            <p><strong>Message:</strong></p>
+            <p style="white-space: pre-wrap;">${message}</p>
+          </div>
+        </div>
       `,
     });
 
-    // Bestätigungs-E-Mail an den Kunden
+    // Bestätigungs-E-Mail an Kunden
     await transporter.sendMail({
-      from: process.env.SMTP_FROM,
+      from: 'info@manfredzak.com',
       to: email,
       subject: 'Thank you for contacting ZAK Art Gallery',
-      text: `
-Dear ${name},
-
-Thank you for your message. We have received your inquiry and will get back to you as soon as possible.
-
-Your message:
-${message}
-
-Best regards,
-ZAK Art Gallery
-info@manfredzak.com
-      `,
+      text: `Dear ${name},\n\nThank you for your message. We will get back to you soon.\n\nBest regards,\nZAK Art Gallery`,
       html: `
-        <h2>Thank you for contacting ZAK Art Gallery</h2>
-        <p>Dear ${name},</p>
-        <p>Thank you for your message. We have received your inquiry and will get back to you as soon as possible.</p>
-        <p><strong>Your message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-        <br>
-        <p>Best regards,<br>
-        <strong>ZAK Art Gallery</strong><br>
-        info@manfredzak.com</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Thank you for contacting ZAK Art Gallery</h2>
+          <p>Dear ${name},</p>
+          <p>Thank you for your message. We have received your inquiry and will get back to you as soon as possible.</p>
+          <p style="white-space: pre-wrap;"><strong>Your message:</strong><br>${message}</p>
+          <br>
+          <p>Best regards,<br><strong>ZAK Art Gallery</strong></p>
+        </div>
       `,
     });
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: true,
-      message: 'Message sent successfully' 
+      message: 'Message sent successfully'
     });
 
   } catch (error) {
