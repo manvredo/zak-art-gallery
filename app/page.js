@@ -544,7 +544,7 @@ const ZakArtGallery = () => {
                       value={contactForm.name}
                       onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 placeholder-gray-400"
                       placeholder="Your name"
                     />
                   </div>
@@ -555,7 +555,7 @@ const ZakArtGallery = () => {
                       value={contactForm.email}
                       onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 placeholder-gray-400"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -566,7 +566,7 @@ const ZakArtGallery = () => {
                       value={contactForm.message}
                       onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 placeholder-gray-400"
                       placeholder="Your message..."
                     ></textarea>
                   </div>
@@ -766,13 +766,13 @@ const ZakArtGallery = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="font-light text-lg mb-4">About ZAK</h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-800">
                 Your destination for contemporary art and original oil paintings.
               </p>
             </div>
             <div>
               <h3 className="font-light text-lg mb-4">Customer Service</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm text-gray-800">
                 <li><a href="#shipping" className="hover:text-gray-900 cursor-pointer">Shipping & Delivery</a></li>
                 <li><a href="#returns" className="hover:text-gray-900 cursor-pointer">Returns & Refunds</a></li>
                 <li><a href="#payment" className="hover:text-gray-900 cursor-pointer">Payment Methods</a></li>
@@ -781,7 +781,7 @@ const ZakArtGallery = () => {
             </div>
             <div>
               <h3 className="font-light text-lg mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm text-gray-800">
                 <li><a href="/imprint" className="hover:text-gray-900 cursor-pointer">Imprint</a></li>
                 <li><a href="/privacy" className="hover:text-gray-900 cursor-pointer">Privacy Policy</a></li>
                 <li><a href="/terms" className="hover:text-gray-900 cursor-pointer">Terms & Conditions</a></li>
@@ -789,7 +789,7 @@ const ZakArtGallery = () => {
             </div>
             <div>
               <h3 className="font-light text-lg mb-4">Contact</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm text-gray-800">
                 <li>info@manfredzak.com</li>
                 <li>+49 (0) 123 456789</li>
                 <li>Mon-Fri: 10am-6pm</li>
