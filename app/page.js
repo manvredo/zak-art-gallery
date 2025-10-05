@@ -10,6 +10,7 @@ const ZakArtGallery = () => {
   const [currentView, setCurrentView] = useState('welcome');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState(null);
+  const [lightboxImage, setLightboxImage] = useState(null);
   
   // Contact form state
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
@@ -210,10 +211,12 @@ const ZakArtGallery = () => {
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
-              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer"
-                  onClick={() => setCurrentView('welcome')}>
-                ZAK ART GALLERY
-              </h1>
+              <img 
+                src="/logo.png" 
+                alt="ZAK Art Gallery" 
+                className="h-10 cursor-pointer"
+                onClick={() => setCurrentView('welcome')}
+              />
             </div>
             
             <nav className="hidden lg:flex space-x-8">
@@ -707,7 +710,8 @@ const ZakArtGallery = () => {
                 <img 
                   src={selectedProduct.image} 
                   alt={selectedProduct.name}
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg cursor-pointer hover:opacity-90 transition"
+                  onClick={() => setLightboxImage(selectedProduct.image)}
                 />
               </div>
               <div>
@@ -757,6 +761,27 @@ const ZakArtGallery = () => {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Lightbox für Vollbild-Ansicht */}
+      {lightboxImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button 
+            onClick={() => setLightboxImage(null)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 cursor-pointer z-10"
+          >
+            <X size={40} />
+          </button>
+          <img 
+            src={lightboxImage} 
+            alt="Full size"
+            className="max-w-full max-h-full object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
       )}
 
