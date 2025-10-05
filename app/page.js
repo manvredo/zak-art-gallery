@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ShoppingCart, Menu, X, Search, ChevronRight } from 'lucide-react';
-import { loadStripe } from '@stripe/stripe-js';
+import { ShoppingCart, Menu, X, Search, ChevronRight, Mail, Phone, MapPin } from 'lucide-react';
 
 const ZakArtGallery = () => {
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentView, setCurrentView] = useState('shop');
+  const [currentView, setCurrentView] = useState('welcome');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState(null);
 
@@ -94,6 +93,8 @@ const ZakArtGallery = () => {
     ? products 
     : products.filter(p => p.category === selectedCategory);
 
+  const featuredProducts = [products[0], products[1], products[4]];
+
   const addToCart = (product) => {
     const existing = cart.find(item => item.id === product.id);
     if (existing) {
@@ -127,7 +128,6 @@ const ZakArtGallery = () => {
       setCheckoutLoading(true);
       setCheckoutError(null);
 
-      // API-Anfrage an Backend
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
@@ -138,20 +138,19 @@ const ZakArtGallery = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Checkout-Fehler');
+        throw new Error(errorData.error || 'Checkout error');
       }
 
       const { url } = await response.json();
       
       if (!url) {
-        throw new Error('Keine Checkout-URL erhalten');
+        throw new Error('No checkout URL received');
       }
 
-      // Direkte Weiterleitung zur Stripe Checkout-Seite
       window.location.href = url;
 
     } catch (error) {
-      console.error('Checkout-Fehler:', error);
+      console.error('Checkout error:', error);
       setCheckoutError(error.message);
       setCheckoutLoading(false);
     }
@@ -165,41 +164,51 @@ const ZakArtGallery = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <button 
-                className="lg:hidden mr-4"
+                className="lg:hidden mr-4 cursor-pointer"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
-              <h1 className="text-2xl font-light tracking-wider text-gray-900">
+              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer"
+                  onClick={() => setCurrentView('welcome')}>
                 ZAK ART GALLERY
               </h1>
             </div>
             
             <nav className="hidden lg:flex space-x-8">
               <button 
+                onClick={() => setCurrentView('welcome')}
+                className={`transition cursor-pointer ${currentView === 'welcome' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
+              >
+                Welcome
+              </button>
+              <button 
+                onClick={() => setCurrentView('gallery')}
+                className={`transition cursor-pointer ${currentView === 'gallery' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
+              >
+                Gallery
+              </button>
+              <button 
                 onClick={() => setCurrentView('shop')}
-                className="text-gray-700 hover:text-gray-900 transition"
+                className={`transition cursor-pointer ${currentView === 'shop' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
               >
                 Shop
               </button>
-              <button className="text-gray-700 hover:text-gray-900 transition">
-                Artists
-              </button>
-              <button className="text-gray-700 hover:text-gray-900 transition">
-                About
-              </button>
-              <button className="text-gray-700 hover:text-gray-900 transition">
+              <button 
+                onClick={() => setCurrentView('contact')}
+                className={`transition cursor-pointer ${currentView === 'contact' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
+              >
                 Contact
               </button>
             </nav>
 
             <div className="flex items-center space-x-4">
-              <button className="text-gray-700 hover:text-gray-900">
+              <button className="text-gray-700 hover:text-gray-900 cursor-pointer">
                 <Search size={20} />
               </button>
               <button 
                 onClick={() => setCurrentView('cart')}
-                className="relative text-gray-700 hover:text-gray-900"
+                className="relative text-gray-700 hover:text-gray-900 cursor-pointer"
               >
                 <ShoppingCart size={20} />
                 {cartItemCount > 0 && (
@@ -217,18 +226,27 @@ const ZakArtGallery = () => {
           <div className="lg:hidden border-t border-gray-200 bg-white">
             <div className="px-4 py-4 space-y-3">
               <button 
+                onClick={() => {setCurrentView('welcome'); setMobileMenuOpen(false);}}
+                className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+              >
+                Welcome
+              </button>
+              <button 
+                onClick={() => {setCurrentView('gallery'); setMobileMenuOpen(false);}}
+                className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+              >
+                Gallery
+              </button>
+              <button 
                 onClick={() => {setCurrentView('shop'); setMobileMenuOpen(false);}}
-                className="block w-full text-left text-gray-700 hover:text-gray-900"
+                className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
               >
                 Shop
               </button>
-              <button className="block w-full text-left text-gray-700 hover:text-gray-900">
-                Artists
-              </button>
-              <button className="block w-full text-left text-gray-700 hover:text-gray-900">
-                About
-              </button>
-              <button className="block w-full text-left text-gray-700 hover:text-gray-900">
+              <button 
+                onClick={() => {setCurrentView('contact'); setMobileMenuOpen(false);}}
+                className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+              >
                 Contact
               </button>
             </div>
@@ -238,26 +256,96 @@ const ZakArtGallery = () => {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentView === 'shop' && (
-          <>
+        
+        {/* WELCOME PAGE */}
+        {currentView === 'welcome' && (
+          <div>
             {/* Hero Section */}
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+              <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" 
+                  alt="Artist Portrait"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <h2 className="text-5xl font-light text-gray-900 mb-6">
+                  Welcome to ZAK Art Gallery
+                </h2>
+                <p className="text-xl text-gray-600 mb-4">
+                  Original Oil Paintings & Charcoal Drawings
+                </p>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Welcome to my world of contemporary art. For over a decade, I have been creating original paintings in oil and charcoal drawings, inspired by the beauty of nature and human emotion.
+                </p>
+                <p className="text-gray-700 leading-relaxed mb-8">
+                  Each piece is a handcrafted original - created with passion, signed, and certified. Discover my current collection and find the perfect artwork for your home.
+                </p>
+                <div className="flex gap-4">
+                  <button 
+                    onClick={() => setCurrentView('gallery')}
+                    className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded"
+                  >
+                    View Gallery
+                  </button>
+                  <button 
+                    onClick={() => setCurrentView('shop')}
+                    className="px-8 py-3 border border-gray-900 text-gray-900 hover:bg-gray-50 transition rounded"
+                  >
+                    Visit Shop
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Featured Artworks */}
+            <div className="mb-16">
+              <h3 className="text-3xl font-light text-gray-900 mb-8 text-center">Featured Artworks</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {featuredProducts.map(product => (
+                  <div 
+                    key={product.id}
+                    className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer"
+                    onClick={() => setSelectedProduct(product)}
+                  >
+                    <div className="aspect-square overflow-hidden bg-gray-100">
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="w-full h-full object-cover hover:scale-105 transition duration-500"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h4 className="text-lg font-light text-gray-900 mb-2">{product.name}</h4>
+                      <p className="text-sm text-gray-600 mb-3">{product.size}</p>
+                      <p className="text-xl font-light text-gray-900">
+                        €{product.price.toLocaleString('en-US')}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* GALLERY PAGE */}
+        {currentView === 'gallery' && (
+          <>
             <div className="mb-12 text-center">
-              <h2 className="text-4xl font-light text-gray-900 mb-4">
-                Original Oil Paintings
-              </h2>
+              <h2 className="text-4xl font-light text-gray-900 mb-4">Gallery</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Discover unique artworks by contemporary artists. 
-                Each painting is a hand-signed original piece.
+                Browse our complete collection of original artworks
               </p>
             </div>
 
-            {/* Category Filter */}
             <div className="flex flex-wrap gap-3 mb-8 justify-center">
               {categories.map(category => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2 rounded-full transition ${
+                  className={`px-6 py-2 rounded-full transition cursor-pointer ${
                     selectedCategory === category
                       ? 'bg-gray-900 text-white'
                       : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
@@ -268,7 +356,6 @@ const ZakArtGallery = () => {
               ))}
             </div>
 
-            {/* Product Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProducts.map(product => (
                 <div 
@@ -285,9 +372,61 @@ const ZakArtGallery = () => {
                   </div>
                   <div className="p-6">
                     <p className="text-sm text-gray-500 mb-1">{product.artist}</p>
-                    <h3 className="text-lg font-light text-gray-900 mb-2">
-                      {product.name}
-                    </h3>
+                    <h3 className="text-lg font-light text-gray-900 mb-2">{product.name}</h3>
+                    <p className="text-sm text-gray-600 mb-3">{product.size}</p>
+                    <p className="text-xl font-light text-gray-900">
+                      €{product.price.toLocaleString('en-US')}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* SHOP PAGE */}
+        {currentView === 'shop' && (
+          <>
+            <div className="mb-12 text-center">
+              <h2 className="text-4xl font-light text-gray-900 mb-4">Shop</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Purchase original artworks. Each painting is hand-signed and comes with a certificate of authenticity.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3 mb-8 justify-center">
+              {categories.map(category => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-6 py-2 rounded-full transition ${
+                    selectedCategory === category
+                      ? 'bg-gray-900 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredProducts.map(product => (
+                <div 
+                  key={product.id}
+                  className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer"
+                  onClick={() => setSelectedProduct(product)}
+                >
+                  <div className="aspect-square overflow-hidden bg-gray-100">
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className="w-full h-full object-cover hover:scale-105 transition duration-500"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <p className="text-sm text-gray-500 mb-1">{product.artist}</p>
+                    <h3 className="text-lg font-light text-gray-900 mb-2">{product.name}</h3>
                     <p className="text-sm text-gray-600 mb-3">{product.size}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-xl font-light text-gray-900">
@@ -298,7 +437,7 @@ const ZakArtGallery = () => {
                           e.stopPropagation();
                           addToCart(product);
                         }}
-                        className="px-4 py-2 bg-gray-900 text-white text-sm hover:bg-gray-800 transition rounded"
+                        className="px-4 py-2 bg-gray-900 text-white text-sm hover:bg-gray-800 transition rounded cursor-pointer"
                       >
                         Add to Cart
                       </button>
@@ -310,6 +449,78 @@ const ZakArtGallery = () => {
           </>
         )}
 
+        {/* CONTACT PAGE */}
+        {currentView === 'contact' && (
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-light text-gray-900 mb-8 text-center">Contact</h2>
+            
+            <div className="grid md:grid-cols-2 gap-12">
+              <div>
+                <h3 className="text-2xl font-light text-gray-900 mb-6">Get in Touch</h3>
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-start gap-3">
+                    <Mail className="text-gray-600 mt-1" size={20} />
+                    <div>
+                      <p className="font-medium text-gray-900">Email</p>
+                      <p className="text-gray-600">info@manfredzak.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Phone className="text-gray-600 mt-1" size={20} />
+                    <div>
+                      <p className="font-medium text-gray-900">Phone</p>
+                      <p className="text-gray-600">+49 (0) 123 456789</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <MapPin className="text-gray-600 mt-1" size={20} />
+                    <div>
+                      <p className="font-medium text-gray-900">Hours</p>
+                      <p className="text-gray-600">Mon-Fri: 10am-6pm</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <form className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <input 
+                      type="text"
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input 
+                      type="email"
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                    <textarea 
+                      rows="5"
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      placeholder="Your message..."
+                    ></textarea>
+                  </div>
+                  <button 
+                    type="submit"
+                    className="w-full py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
+                  >
+                    Send Message
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* CART PAGE */}
         {currentView === 'cart' && (
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-light text-gray-900 mb-8">Shopping Cart</h2>
@@ -319,7 +530,7 @@ const ZakArtGallery = () => {
                 <p className="text-gray-600 mb-6">Your cart is empty</p>
                 <button 
                   onClick={() => setCurrentView('shop')}
-                  className="px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded"
+                  className="px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
                 >
                   Continue Shopping
                 </button>
@@ -342,21 +553,21 @@ const ZakArtGallery = () => {
                           <div className="flex items-center gap-2">
                             <button 
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-50"
+                              className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
                             >
                               -
                             </button>
                             <span className="w-8 text-center">{item.quantity}</span>
                             <button 
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-50"
+                              className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
                             >
                               +
                             </button>
                           </div>
                           <button 
                             onClick={() => removeFromCart(item.id)}
-                            className="text-sm text-red-600 hover:text-red-700"
+                            className="text-sm text-red-600 hover:text-red-700 cursor-pointer"
                           >
                             Remove
                           </button>
@@ -384,14 +595,14 @@ const ZakArtGallery = () => {
                   
                   {checkoutError && (
                     <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-                      <strong>Fehler:</strong> {checkoutError}
+                      <strong>Error:</strong> {checkoutError}
                     </div>
                   )}
 
                   <button 
                     onClick={handleCheckout}
                     disabled={checkoutLoading}
-                    className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     {checkoutLoading ? (
                       <>
@@ -407,7 +618,7 @@ const ZakArtGallery = () => {
                   </button>
                   <button 
                     onClick={() => setCurrentView('shop')}
-                    className="w-full mt-3 py-3 text-gray-700 hover:text-gray-900 transition"
+                    className="w-full mt-3 py-3 text-gray-700 hover:text-gray-900 transition cursor-pointer"
                   >
                     Continue Shopping
                   </button>
@@ -439,7 +650,7 @@ const ZakArtGallery = () => {
               <div>
                 <button 
                   onClick={() => setSelectedProduct(null)}
-                  className="float-right text-gray-400 hover:text-gray-600"
+                  className="float-right text-gray-400 hover:text-gray-600 cursor-pointer"
                 >
                   <X size={24} />
                 </button>
@@ -462,15 +673,17 @@ const ZakArtGallery = () => {
                   {selectedProduct.description}
                 </p>
 
-                <button 
-                  onClick={() => {
-                    addToCart(selectedProduct);
-                    setSelectedProduct(null);
-                  }}
-                  className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded"
-                >
-                  Add to Cart
-                </button>
+                {currentView === 'shop' && (
+                  <button 
+                    onClick={() => {
+                      addToCart(selectedProduct);
+                      setSelectedProduct(null);
+                    }}
+                    className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded"
+                  >
+                    Add to Cart
+                  </button>
+                )}
 
                 <div className="mt-6 text-sm text-gray-600 space-y-2">
                   <p>✓ Ready to ship in 2-3 business days</p>
@@ -497,24 +710,24 @@ const ZakArtGallery = () => {
             <div>
               <h3 className="font-light text-lg mb-4">Customer Service</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li><a href="#shipping" className="hover:text-gray-900">Shipping & Delivery</a></li>
-                <li><a href="#returns" className="hover:text-gray-900">Returns & Refunds</a></li>
-                <li><a href="#payment" className="hover:text-gray-900">Payment Methods</a></li>
-                <li><a href="#faq" className="hover:text-gray-900">FAQ</a></li>
+                <li><a href="#shipping" className="hover:text-gray-900 cursor-pointer">Shipping & Delivery</a></li>
+                <li><a href="#returns" className="hover:text-gray-900 cursor-pointer">Returns & Refunds</a></li>
+                <li><a href="#payment" className="hover:text-gray-900 cursor-pointer">Payment Methods</a></li>
+                <li><a href="#faq" className="hover:text-gray-900 cursor-pointer">FAQ</a></li>
               </ul>
             </div>
             <div>
               <h3 className="font-light text-lg mb-4">Legal</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li><a href="/imprint" className="hover:text-gray-900">Imprint</a></li>
-                <li><a href="/privacy" className="hover:text-gray-900">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-gray-900">Terms & Conditions</a></li>
+                <li><a href="/imprint" className="hover:text-gray-900 cursor-pointer">Imprint</a></li>
+                <li><a href="/privacy" className="hover:text-gray-900 cursor-pointer">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-gray-900 cursor-pointer">Terms & Conditions</a></li>
               </ul>
             </div>
             <div>
               <h3 className="font-light text-lg mb-4">Contact</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li>info@zakartgallery.com</li>
+                <li>info@manfredzak.com</li>
                 <li>+49 (0) 123 456789</li>
                 <li>Mon-Fri: 10am-6pm</li>
               </ul>
