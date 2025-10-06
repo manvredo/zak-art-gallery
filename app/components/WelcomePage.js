@@ -1,255 +1,78 @@
 "use client";
 
-import React, { useState } from 'react';
-import { X } from 'lucide-react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import WelcomePage from './components/WelcomePage';
-import GalleryPage from './components/GalleryPage';
-import ShopPage from './components/ShopPage';
-import ContactPage from './components/ContactPage';
-import CartPage from './components/CartPage';
-import ProductModal from './components/ProductModal';
-import { useLanguage } from './context/LanguageContext';
+import React from 'react';
+import ProductCard from './ProductCard';
+import { useLanguage } from '../context/LanguageContext';
 
-export default function ZakArtGallery() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [currentView, setCurrentView] = useState('welcome');
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [checkoutError, setCheckoutError] = useState(null);
-  const [lightboxImage, setLightboxImage] = useState(null);
-  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
-  const [contactLoading, setContactLoading] = useState(false);
-  const [contactSuccess, setContactSuccess] = useState(false);
-  const [contactError, setContactError] = useState(null);
-
+export default function WelcomePage({ featuredProducts, onProductClick, onNavigate }) {
   const { t } = useLanguage();
 
-  const products = [
-    {
-      id: 1,
-      name: 'Mountain Landscape at Dusk',
-      artist: 'Maria Schneider',
-      price: 890,
-      category: 'Landscape',
-      size: '80 x 60 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1549887534-1541e9326642?w=800&q=80',
-      description: 'An atmospheric portrayal of the Alps bathed in warm evening light, capturing the serene beauty of nature.'
-    },
-    {
-      id: 2,
-      name: 'Abstract Composition No. 7',
-      artist: 'Klaus Weber',
-      price: 1250,
-      category: 'Abstract',
-      size: '100 x 100 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80',
-      description: 'Powerful color compositions with dynamic structures, expressing energy and movement through bold brushwork.'
-    },
-    {
-      id: 3,
-      name: 'Silent Forest Lake',
-      artist: 'Anna Hoffmann',
-      price: 720,
-      category: 'Landscape',
-      size: '70 x 50 cm',
-      technique: 'Oil on Canvas',
-      year: 2023,
-      image: 'https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=800&q=80',
-      description: 'A poetic forest scene with subtle lighting, inviting contemplation and tranquility.'
-    },
-    {
-      id: 4,
-      name: 'Portrait of a Young Woman',
-      artist: 'Thomas Müller',
-      price: 1450,
-      category: 'Portrait',
-      size: '60 x 80 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=800&q=80',
-      description: 'An expressive portrait rendered in classical painting technique, capturing depth and character.'
-    },
-    {
-      id: 5,
-      name: 'Mediterranean Coast',
-      artist: 'Sophie Klein',
-      price: 980,
-      category: 'Landscape',
-      size: '90 x 60 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1520208422220-d12a3c588e6c?w=800&q=80',
-      description: 'Sun-drenched coastal landscape with luminous colors that evoke the warmth of the Mediterranean.'
-    },
-    {
-      id: 6,
-      name: 'Urban Rhythm',
-      artist: 'Klaus Weber',
-      price: 1100,
-      category: 'Abstract',
-      size: '120 x 80 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&q=80',
-      description: 'A modern interpretation of urban structures and movements, exploring the pulse of city life.'
-    }
-  ];
-
-  const categories = [t.categories.all, t.categories.landscape, t.categories.abstract, t.categories.portrait];
-  const [selectedCategory, setSelectedCategory] = useState(t.categories.all);
-
-  const filteredProducts = selectedCategory === t.categories.all 
-    ? products 
-    : products.filter(p => p.category === selectedCategory);
-
-  const featuredProducts = [products[0], products[1], products[4]];
-
-  const handleCheckout = async () => {
-    try {
-      setCheckoutLoading(true);
-      setCheckoutError(null);
-
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: cart }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Checkout error');
-      }
-
-      const { url } = await response.json();
-      if (!url) throw new Error('No checkout URL received');
-      window.location.href = url;
-
-    } catch (error) {
-      console.error('Checkout error:', error);
-      setCheckoutError(error.message);
-      setCheckoutLoading(false);
-    }
-  };
-
-  const handleContactSubmit = async (e) => {
-    e.preventDefault();
-    setContactLoading(true);
-    setContactError(null);
-    setContactSuccess(false);
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactForm),
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to send message');
-
-      setContactSuccess(true);
-      setContactForm({ name: '', email: '', message: '' });
-      setTimeout(() => setContactSuccess(false), 5000);
-
-    } catch (error) {
-      console.error('Contact form error:', error);
-      setContactError(error.message);
-    } finally {
-      setContactLoading(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header currentView={currentView} onNavigate={setCurrentView} />
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentView === 'welcome' && (
-          <WelcomePage 
-            featuredProducts={featuredProducts}
-            onProductClick={setSelectedProduct}
-            onNavigate={setCurrentView}
-          />
-        )}
-
-        {currentView === 'gallery' && (
-          <GalleryPage 
-            products={filteredProducts}
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            onProductClick={setSelectedProduct}
-          />
-        )}
-
-        {currentView === 'shop' && (
-          <ShopPage 
-            products={filteredProducts}
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            onProductClick={setSelectedProduct}
-          />
-        )}
-
-        {currentView === 'contact' && (
-          <ContactPage 
-            contactForm={contactForm}
-            onFormChange={setContactForm}
-            onSubmit={handleContactSubmit}
-            loading={contactLoading}
-            success={contactSuccess}
-            error={contactError}
-          />
-        )}
-
-        {currentView === 'cart' && (
-          <CartPage 
-            onNavigate={setCurrentView}
-            onCheckout={handleCheckout}
-            checkoutLoading={checkoutLoading}
-            checkoutError={checkoutError}
-          />
-        )}
-      </main>
-
-      {/* Product Detail Modal */}
-      {selectedProduct && (
-        <ProductModal 
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-          showAddToCart={currentView === 'shop'}
-          onImageClick={setLightboxImage}
+    <div>
+      {/* Banner */}
+      <div className="mb-12 rounded-lg overflow-hidden">
+        <img 
+          src="https://images.unsplash.com/photo-1577083288073-40892c0860e3?w=1400&h=350&fit=crop"
+          alt="Gallery Banner"
+          className="w-full h-[350px] object-cover"
         />
-      )}
+      </div>
 
-      {/* Lightbox */}
-      {lightboxImage && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
-          onClick={() => setLightboxImage(null)}
-        >
-          <button 
-            onClick={() => setLightboxImage(null)}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 z-10 cursor-pointer"
-          >
-            <X size={40} />
-          </button>
+      {/* Hero Section */}
+      <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
           <img 
-            src={lightboxImage} 
-            alt="Full size"
-            className="max-w-full max-h-full object-contain"
-            onClick={(e) => e.stopPropagation()}
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" 
+            alt="Artist Portrait"
+            className="w-full h-full object-cover"
           />
         </div>
-      )}
+        <div>
+          <h2 className="text-5xl font-light text-gray-900 mb-6">
+            {t.welcome.title}
+          </h2>
+          <p className="text-xl text-gray-600 mb-4">
+            {t.welcome.subtitle}
+          </p>
+          <p className="text-gray-700 leading-relaxed mb-6">
+            {t.welcome.intro1}
+          </p>
+          <p className="text-gray-700 leading-relaxed mb-8">
+            {t.welcome.intro2}
+          </p>
+          <div className="flex gap-4">
+            <button 
+              onClick={() => onNavigate('gallery')}
+              className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
+            >
+              {t.welcome.viewGallery}
+            </button>
+            <button 
+              onClick={() => onNavigate('shop')}
+              className="px-8 py-3 border border-gray-900 text-gray-900 hover:bg-gray-50 transition rounded cursor-pointer"
+            >
+              {t.welcome.visitShop}
+            </button>
+          </div>
+        </div>
+      </div>
 
-      <Footer />
+      {/* Featured Artworks */}
+      <div className="mb-16">
+        <h3 className="text-3xl font-light text-gray-900 mb-8 text-center">
+          {t.welcome.featured}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {featuredProducts.map(product => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onClick={() => onProductClick(product)}
+              showAddToCart={false}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
