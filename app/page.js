@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import WelcomePage from './components/WelcomePage';
@@ -13,6 +14,11 @@ import ProductModal from './components/ProductModal';
 import { useLanguage } from './context/LanguageContext';
 import { useCart } from './context/CartContext';
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
 export default function ZakArtGallery() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentView, setCurrentView] = useState('welcome');
@@ -23,84 +29,29 @@ export default function ZakArtGallery() {
   const [contactLoading, setContactLoading] = useState(false);
   const [contactSuccess, setContactSuccess] = useState(false);
   const [contactError, setContactError] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { t } = useLanguage();
   const { cart } = useCart();
 
-  const products = [
-    {
-      id: 1,
-      name: 'Mountain Landscape at Dusk',
-      artist: 'Maria Schneider',
-      price: 890,
-      category: 'Landscape',
-      size: '80 x 60 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1549887534-1541e9326642?w=800&q=80',
-      description: 'An atmospheric portrayal of the Alps bathed in warm evening light, capturing the serene beauty of nature.'
-    },
-    {
-      id: 2,
-      name: 'Abstract Composition No. 7',
-      artist: 'Klaus Weber',
-      price: 1250,
-      category: 'Abstract',
-      size: '100 x 100 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80',
-      description: 'Powerful color compositions with dynamic structures, expressing energy and movement through bold brushwork.'
-    },
-    {
-      id: 3,
-      name: 'Silent Forest Lake',
-      artist: 'Anna Hoffmann',
-      price: 720,
-      category: 'Landscape',
-      size: '70 x 50 cm',
-      technique: 'Oil on Canvas',
-      year: 2023,
-      image: 'https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=800&q=80',
-      description: 'A poetic forest scene with subtle lighting, inviting contemplation and tranquility.'
-    },
-    {
-      id: 4,
-      name: 'Portrait of a Young Woman',
-      artist: 'Thomas Müller',
-      price: 1450,
-      category: 'Portrait',
-      size: '60 x 80 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=800&q=80',
-      description: 'An expressive portrait rendered in classical painting technique, capturing depth and character.'
-    },
-    {
-      id: 5,
-      name: 'Mediterranean Coast',
-      artist: 'Sophie Klein',
-      price: 980,
-      category: 'Landscape',
-      size: '90 x 60 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1520208422220-d12a3c588e6c?w=800&q=80',
-      description: 'Sun-drenched coastal landscape with luminous colors that evoke the warmth of the Mediterranean.'
-    },
-    {
-      id: 6,
-      name: 'Urban Rhythm',
-      artist: 'Klaus Weber',
-      price: 1100,
-      category: 'Abstract',
-      size: '120 x 80 cm',
-      technique: 'Oil on Canvas',
-      year: 2024,
-      image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&q=80',
-      description: 'A modern interpretation of urban structures and movements, exploring the pulse of city life.'
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('id', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching products:', error);
+    } else {
+      setProducts(data || []);
     }
-  ];
+    setLoading(false);
+  };
 
   const categories = [t.categories.all, t.categories.landscape, t.categories.abstract, t.categories.portrait];
   const [selectedCategory, setSelectedCategory] = useState(t.categories.all);
@@ -109,7 +60,7 @@ export default function ZakArtGallery() {
     ? products 
     : products.filter(p => p.category === selectedCategory);
 
-  const featuredProducts = [products[0], products[1], products[4]];
+  const featuredProducts = products.slice(0, 3);
 
   const handleCheckout = async () => {
     try {
@@ -165,6 +116,17 @@ export default function ZakArtGallery() {
       setContactLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading gallery...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
