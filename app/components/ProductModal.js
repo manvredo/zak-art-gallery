@@ -6,10 +6,10 @@ import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function ProductModal({ product, onClose, showAddToCart = false, onImageClick }) {
-  if (!product) return null;
-
   const { addToCart } = useCart();
   const { t } = useLanguage();
+
+  if (!product) return null;
 
   const handleAddToCart = () => {
     addToCart(product);
