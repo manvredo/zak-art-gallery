@@ -11,6 +11,7 @@ import ContactPage from './components/ContactPage';
 import CartPage from './components/CartPage';
 import ProductModal from './components/ProductModal';
 import { useLanguage } from './context/LanguageContext';
+import { useCart } from './context/CartContext';
 
 export default function ZakArtGallery() {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -24,6 +25,7 @@ export default function ZakArtGallery() {
   const [contactError, setContactError] = useState(null);
 
   const { t } = useLanguage();
+  const { cart } = useCart();
 
   const products = [
     {
@@ -218,7 +220,6 @@ export default function ZakArtGallery() {
         )}
       </main>
 
-      {/* Product Detail Modal */}
       {selectedProduct && (
         <ProductModal 
           product={selectedProduct}
@@ -228,7 +229,6 @@ export default function ZakArtGallery() {
         />
       )}
 
-      {/* Lightbox */}
       {lightboxImage && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
