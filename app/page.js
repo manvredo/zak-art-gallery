@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -11,12 +12,182 @@ const ZakArtGallery = () => {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState(null);
   const [lightboxImage, setLightboxImage] = useState(null);
+  const [language, setLanguage] = useState('en');
   
-  // Contact form state
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [contactLoading, setContactLoading] = useState(false);
   const [contactSuccess, setContactSuccess] = useState(false);
   const [contactError, setContactError] = useState(null);
+
+  // Translations
+  const t = {
+    en: {
+      nav: {
+        welcome: 'Welcome',
+        gallery: 'Gallery',
+        shop: 'Shop',
+        contact: 'Contact'
+      },
+      welcome: {
+        title: 'Welcome to ZAK Art Gallery',
+        subtitle: 'Original Oil Paintings & Charcoal Drawings',
+        intro1: 'Welcome to my world of contemporary art. For over a decade, I have been creating original paintings in oil and charcoal drawings, inspired by the beauty of nature and human emotion.',
+        intro2: 'Each piece is a handcrafted original - created with passion, signed, and certified. Discover my current collection and find the perfect artwork for your home.',
+        viewGallery: 'View Gallery',
+        visitShop: 'Visit Shop',
+        featured: 'Featured Artworks'
+      },
+      gallery: {
+        title: 'Gallery',
+        subtitle: 'Browse our complete collection of original artworks'
+      },
+      shop: {
+        title: 'Shop',
+        subtitle: 'Purchase original artworks. Each painting is hand-signed and comes with a certificate of authenticity.',
+        addToCart: 'Add to Cart'
+      },
+      cart: {
+        title: 'Shopping Cart',
+        empty: 'Your cart is empty',
+        continueShopping: 'Continue Shopping',
+        subtotal: 'Subtotal',
+        shipping: 'Shipping costs calculated at checkout',
+        checkout: 'Proceed to Checkout',
+        remove: 'Remove',
+        processing: 'Processing...'
+      },
+      contact: {
+        title: 'Contact',
+        getInTouch: 'Get in Touch',
+        email: 'Email',
+        phone: 'Phone',
+        hours: 'Hours',
+        name: 'Name',
+        message: 'Message',
+        sendMessage: 'Send Message',
+        sending: 'Sending...',
+        success: 'Message sent successfully! We\'ll get back to you soon.',
+        yourName: 'Your name',
+        yourEmail: 'your@email.com',
+        yourMessage: 'Your message...'
+      },
+      product: {
+        size: 'Size',
+        medium: 'Medium',
+        year: 'Year',
+        category: 'Category',
+        readyToShip: 'Ready to ship in 2-3 business days',
+        insuredShipping: 'Insured shipping',
+        returnPolicy: '14-day return policy',
+        certificate: 'Certificate of authenticity included'
+      },
+      categories: {
+        all: 'All',
+        landscape: 'Landscape',
+        abstract: 'Abstract',
+        portrait: 'Portrait'
+      },
+      footer: {
+        about: 'Your destination for contemporary art and original oil paintings.',
+        customerService: 'Customer Service',
+        shipping: 'Shipping & Delivery',
+        returns: 'Returns & Refunds',
+        payment: 'Payment Methods',
+        faq: 'FAQ',
+        legal: 'Legal',
+        imprint: 'Imprint',
+        privacy: 'Privacy Policy',
+        terms: 'Terms & Conditions',
+        contactTitle: 'Contact',
+        monFri: 'Mon-Fri: 10am-6pm',
+        rights: '© 2024 ZAK Art Gallery. All rights reserved.'
+      }
+    },
+    de: {
+      nav: {
+        welcome: 'Willkommen',
+        gallery: 'Galerie',
+        shop: 'Shop',
+        contact: 'Kontakt'
+      },
+      welcome: {
+        title: 'Willkommen in der ZAK Art Gallery',
+        subtitle: 'Original Ölgemälde & Kohlekreide-Zeichnungen',
+        intro1: 'Willkommen in meiner Welt der zeitgenössischen Kunst. Seit über einem Jahrzehnt erschaffe ich Originalgemälde in Öl und Kohlekreide-Zeichnungen, inspiriert von der Schönheit der Natur und menschlicher Emotionen.',
+        intro2: 'Jedes Werk ist ein handgefertigtes Original - mit Leidenschaft erschaffen, signiert und zertifiziert. Entdecken Sie meine aktuelle Kollektion und finden Sie das perfekte Kunstwerk für Ihr Zuhause.',
+        viewGallery: 'Zur Galerie',
+        visitShop: 'Zum Shop',
+        featured: 'Ausgewählte Kunstwerke'
+      },
+      gallery: {
+        title: 'Galerie',
+        subtitle: 'Durchstöbern Sie unsere komplette Sammlung von Originalkunstwerken'
+      },
+      shop: {
+        title: 'Shop',
+        subtitle: 'Kaufen Sie Originalkunstwerke. Jedes Gemälde ist handsigniert und kommt mit einem Echtheitszertifikat.',
+        addToCart: 'In den Warenkorb'
+      },
+      cart: {
+        title: 'Warenkorb',
+        empty: 'Ihr Warenkorb ist leer',
+        continueShopping: 'Weiter einkaufen',
+        subtotal: 'Zwischensumme',
+        shipping: 'Versandkosten werden beim Checkout berechnet',
+        checkout: 'Zur Kasse',
+        remove: 'Entfernen',
+        processing: 'Verarbeitung...'
+      },
+      contact: {
+        title: 'Kontakt',
+        getInTouch: 'Kontaktieren Sie uns',
+        email: 'E-Mail',
+        phone: 'Telefon',
+        hours: 'Öffnungszeiten',
+        name: 'Name',
+        message: 'Nachricht',
+        sendMessage: 'Nachricht senden',
+        sending: 'Wird gesendet...',
+        success: 'Nachricht erfolgreich gesendet! Wir melden uns bald bei Ihnen.',
+        yourName: 'Ihr Name',
+        yourEmail: 'ihre@email.de',
+        yourMessage: 'Ihre Nachricht...'
+      },
+      product: {
+        size: 'Größe',
+        medium: 'Medium',
+        year: 'Jahr',
+        category: 'Kategorie',
+        readyToShip: 'Versandbereit in 2-3 Werktagen',
+        insuredShipping: 'Versicherter Versand',
+        returnPolicy: '14-Tage Rückgaberecht',
+        certificate: 'Echtheitszertifikat inklusive'
+      },
+      categories: {
+        all: 'Alle',
+        landscape: 'Landschaft',
+        abstract: 'Abstrakt',
+        portrait: 'Portrait'
+      },
+      footer: {
+        about: 'Ihre Destination für zeitgenössische Kunst und originale Ölgemälde.',
+        customerService: 'Kundenservice',
+        shipping: 'Versand & Lieferung',
+        returns: 'Rücksendungen & Erstattungen',
+        payment: 'Zahlungsmethoden',
+        faq: 'FAQ',
+        legal: 'Rechtliches',
+        imprint: 'Impressum',
+        privacy: 'Datenschutz',
+        terms: 'AGB',
+        contactTitle: 'Kontakt',
+        monFri: 'Mo-Fr: 10-18 Uhr',
+        rights: '© 2024 ZAK Art Gallery. Alle Rechte vorbehalten.'
+      }
+    }
+  };
+
+  const texts = t[language];
 
   const products = [
     {
@@ -93,8 +264,13 @@ const ZakArtGallery = () => {
     }
   ];
 
-  const categories = ['All', 'Landscape', 'Abstract', 'Portrait'];
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const categories = [
+    texts.categories.all, 
+    texts.categories.landscape, 
+    texts.categories.abstract, 
+    texts.categories.portrait
+  ];
+  const [selectedCategory, setSelectedCategory] = useState(texts.categories.all);
 
   const filteredProducts = selectedCategory === 'All' 
     ? products 
@@ -224,29 +400,35 @@ const ZakArtGallery = () => {
                 onClick={() => setCurrentView('welcome')}
                 className={`transition cursor-pointer ${currentView === 'welcome' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
               >
-                Welcome
+                {texts.nav.welcome}
               </button>
               <button 
                 onClick={() => setCurrentView('gallery')}
                 className={`transition cursor-pointer ${currentView === 'gallery' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
               >
-                Gallery
+                {texts.nav.gallery}
               </button>
               <button 
                 onClick={() => setCurrentView('shop')}
                 className={`transition cursor-pointer ${currentView === 'shop' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
               >
-                Shop
+                {texts.nav.shop}
               </button>
               <button 
                 onClick={() => setCurrentView('contact')}
                 className={`transition cursor-pointer ${currentView === 'contact' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'}`}
               >
-                Contact
+                {texts.nav.contact}
               </button>
             </nav>
 
             <div className="flex items-center space-x-4">
+              <button 
+                onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
+                className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+              >
+                {language === 'en' ? '🇩🇪 DE' : '🇬🇧 EN'}
+              </button>
               <button className="text-gray-700 hover:text-gray-900 cursor-pointer">
                 <Search size={20} />
               </button>
@@ -273,25 +455,25 @@ const ZakArtGallery = () => {
                 onClick={() => {setCurrentView('welcome'); setMobileMenuOpen(false);}}
                 className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
               >
-                Welcome
+                {texts.nav.welcome}
               </button>
               <button 
                 onClick={() => {setCurrentView('gallery'); setMobileMenuOpen(false);}}
                 className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
               >
-                Gallery
+                {texts.nav.gallery}
               </button>
               <button 
                 onClick={() => {setCurrentView('shop'); setMobileMenuOpen(false);}}
                 className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
               >
-                Shop
+                {texts.nav.shop}
               </button>
               <button 
                 onClick={() => {setCurrentView('contact'); setMobileMenuOpen(false);}}
                 className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
               >
-                Contact
+                {texts.nav.contact}
               </button>
             </div>
           </div>
@@ -345,7 +527,7 @@ const ZakArtGallery = () => {
 
             {/* Featured Artworks */}
             <div className="mb-16">
-              <h3 className="text-3xl font-light text-gray-900 mb-8 text-center">Featured Artworks</h3>
+              <h3 className="text-3xl font-light text-gray-900 mb-8 text-center">{texts.welcome.featured}</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {featuredProducts.map(product => (
                   <div 
@@ -378,9 +560,9 @@ const ZakArtGallery = () => {
         {currentView === 'gallery' && (
           <>
             <div className="mb-12 text-center">
-              <h2 className="text-4xl font-light text-gray-900 mb-4">Gallery</h2>
+              <h2 className="text-4xl font-light text-gray-900 mb-4">{texts.gallery.title}</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Browse our complete collection of original artworks
+                {texts.gallery.subtitle}
               </p>
             </div>
 
@@ -432,9 +614,9 @@ const ZakArtGallery = () => {
         {currentView === 'shop' && (
           <>
             <div className="mb-12 text-center">
-              <h2 className="text-4xl font-light text-gray-900 mb-4">Shop</h2>
+              <h2 className="text-4xl font-light text-gray-900 mb-4">{texts.shop.title}</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Purchase original artworks. Each painting is hand-signed and comes with a certificate of authenticity.
+                {texts.shop.subtitle}
               </p>
             </div>
 
@@ -483,7 +665,7 @@ const ZakArtGallery = () => {
                         }}
                         className="px-4 py-2 bg-gray-900 text-white text-sm hover:bg-gray-800 transition rounded cursor-pointer"
                       >
-                        Add to Cart
+                        {texts.shop.addToCart}
                       </button>
                     </div>
                   </div>
@@ -496,31 +678,31 @@ const ZakArtGallery = () => {
         {/* CONTACT PAGE */}
         {currentView === 'contact' && (
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-light text-gray-900 mb-8 text-center">Contact</h2>
+            <h2 className="text-4xl font-light text-gray-900 mb-8 text-center">{texts.contact.title}</h2>
             
             <div className="grid md:grid-cols-2 gap-12">
               <div>
-                <h3 className="text-2xl font-light text-gray-900 mb-6">Get in Touch</h3>
+                <h3 className="text-2xl font-light text-gray-900 mb-6">{texts.contact.getInTouch}</h3>
                 <div className="space-y-4 mb-8">
                   <div className="flex items-start gap-3">
                     <Mail className="text-gray-600 mt-1" size={20} />
                     <div>
-                      <p className="font-medium text-gray-900">Email</p>
+                      <p className="font-medium text-gray-900">{texts.contact.email}</p>
                       <p className="text-gray-600">info@manfredzak.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="text-gray-600 mt-1" size={20} />
                     <div>
-                      <p className="font-medium text-gray-900">Phone</p>
+                      <p className="font-medium text-gray-900">{texts.contact.phone}</p>
                       <p className="text-gray-600">+49 (0) 123 456789</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="text-gray-600 mt-1" size={20} />
                     <div>
-                      <p className="font-medium text-gray-900">Hours</p>
-                      <p className="text-gray-600">Mon-Fri: 10am-6pm</p>
+                      <p className="font-medium text-gray-900">{texts.contact.hours}</p>
+                      <p className="text-gray-600">{texts.footer.monFri}</p>
                     </div>
                   </div>
                 </div>
@@ -530,7 +712,7 @@ const ZakArtGallery = () => {
                 <form onSubmit={handleContactSubmit} className="space-y-4">
                   {contactSuccess && (
                     <div className="p-4 bg-green-50 border border-green-200 rounded text-green-700 text-sm">
-                      Message sent successfully! We'll get back to you soon.
+                      {texts.contact.success}
                     </div>
                   )}
                   
@@ -541,36 +723,36 @@ const ZakArtGallery = () => {
                   )}
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{texts.contact.name}</label>
                     <input 
                       type="text"
                       value={contactForm.name}
                       onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
                       required
                       className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 placeholder-gray-400"
-                      placeholder="Your name"
+                      placeholder={texts.contact.yourName}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{texts.contact.email}</label>
                     <input 
                       type="email"
                       value={contactForm.email}
                       onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
                       required
                       className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 placeholder-gray-400"
-                      placeholder="your@email.com"
+                      placeholder={texts.contact.yourEmail}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{texts.contact.message}</label>
                     <textarea 
                       rows="5"
                       value={contactForm.message}
                       onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
                       required
                       className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 placeholder-gray-400"
-                      placeholder="Your message..."
+                      placeholder={texts.contact.yourMessage}
                     ></textarea>
                   </div>
                   <button 
@@ -578,7 +760,7 @@ const ZakArtGallery = () => {
                     disabled={contactLoading}
                     className="w-full py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {contactLoading ? 'Sending...' : 'Send Message'}
+                    {contactLoading ? texts.contact.sending : texts.contact.sendMessage}
                   </button>
                 </form>
               </div>
@@ -589,16 +771,16 @@ const ZakArtGallery = () => {
         {/* CART PAGE */}
         {currentView === 'cart' && (
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-light text-gray-900 mb-8">Shopping Cart</h2>
+            <h2 className="text-3xl font-light text-gray-900 mb-8">{texts.cart.title}</h2>
             
             {cart.length === 0 ? (
               <div className="text-center py-16">
-                <p className="text-gray-600 mb-6">Your cart is empty</p>
+                <p className="text-gray-600 mb-6">{texts.cart.empty}</p>
                 <button 
                   onClick={() => setCurrentView('shop')}
                   className="px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
                 >
-                  Continue Shopping
+                  {texts.cart.continueShopping}
                 </button>
               </div>
             ) : (
@@ -635,7 +817,7 @@ const ZakArtGallery = () => {
                             onClick={() => removeFromCart(item.id)}
                             className="text-sm text-red-600 hover:text-red-700 cursor-pointer"
                           >
-                            Remove
+                            {texts.cart.remove}
                           </button>
                         </div>
                       </div>
@@ -650,13 +832,13 @@ const ZakArtGallery = () => {
 
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <div className="flex justify-between items-center mb-6">
-                    <span className="text-lg text-gray-700">Subtotal</span>
+                    <span className="text-lg text-gray-700">{texts.cart.subtotal}</span>
                     <span className="text-2xl font-light text-gray-900">
                       €{cartTotal.toLocaleString('en-US')}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600 mb-6">
-                    Shipping costs calculated at checkout
+                    {texts.cart.shipping}
                   </p>
                   
                   {checkoutError && (
@@ -673,11 +855,11 @@ const ZakArtGallery = () => {
                     {checkoutLoading ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Processing...
+                        {texts.cart.processing}
                       </>
                     ) : (
                       <>
-                        Proceed to Checkout
+                        {texts.cart.checkout}
                         <ChevronRight size={20} />
                       </>
                     )}
@@ -686,7 +868,7 @@ const ZakArtGallery = () => {
                     onClick={() => setCurrentView('shop')}
                     className="w-full mt-3 py-3 text-gray-700 hover:text-gray-900 transition cursor-pointer"
                   >
-                    Continue Shopping
+                    {texts.cart.continueShopping}
                   </button>
                 </div>
               </>
@@ -730,10 +912,10 @@ const ZakArtGallery = () => {
                 </p>
                 
                 <div className="border-t border-b border-gray-200 py-4 mb-6 space-y-2">
-                  <p className="text-sm"><span className="text-gray-600">Size:</span> {selectedProduct.size}</p>
-                  <p className="text-sm"><span className="text-gray-600">Medium:</span> {selectedProduct.technique}</p>
-                  <p className="text-sm"><span className="text-gray-600">Year:</span> {selectedProduct.year}</p>
-                  <p className="text-sm"><span className="text-gray-600">Category:</span> {selectedProduct.category}</p>
+                  <p className="text-sm"><span className="text-gray-600">{texts.product.size}:</span> {selectedProduct.size}</p>
+                  <p className="text-sm"><span className="text-gray-600">{texts.product.medium}:</span> {selectedProduct.technique}</p>
+                  <p className="text-sm"><span className="text-gray-600">{texts.product.year}:</span> {selectedProduct.year}</p>
+                  <p className="text-sm"><span className="text-gray-600">{texts.product.category}:</span> {selectedProduct.category}</p>
                 </div>
 
                 <p className="text-gray-700 mb-8 leading-relaxed">
@@ -792,37 +974,37 @@ const ZakArtGallery = () => {
             <div>
               <h3 className="font-light text-lg mb-4">About ZAK</h3>
               <p className="text-sm text-gray-800">
-                Your destination for contemporary art and original oil paintings.
+                {texts.footer.about}
               </p>
             </div>
             <div>
-              <h3 className="font-light text-lg mb-4">Customer Service</h3>
+              <h3 className="font-light text-lg mb-4">{texts.footer.customerService}</h3>
               <ul className="space-y-2 text-sm text-gray-800">
-                <li><a href="#shipping" className="hover:text-gray-900 cursor-pointer">Shipping & Delivery</a></li>
-                <li><a href="#returns" className="hover:text-gray-900 cursor-pointer">Returns & Refunds</a></li>
-                <li><a href="#payment" className="hover:text-gray-900 cursor-pointer">Payment Methods</a></li>
-                <li><a href="#faq" className="hover:text-gray-900 cursor-pointer">FAQ</a></li>
+                <li><a href="#shipping" className="hover:text-gray-900 cursor-pointer">{texts.footer.shipping}</a></li>
+                <li><a href="#returns" className="hover:text-gray-900 cursor-pointer">{texts.footer.returns}</a></li>
+                <li><a href="#payment" className="hover:text-gray-900 cursor-pointer">{texts.footer.payment}</a></li>
+                <li><a href="#faq" className="hover:text-gray-900 cursor-pointer">{texts.footer.faq}</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-light text-lg mb-4">Legal</h3>
+              <h3 className="font-light text-lg mb-4">{texts.footer.legal}</h3>
               <ul className="space-y-2 text-sm text-gray-800">
-                <li><a href="/imprint" className="hover:text-gray-900 cursor-pointer">Imprint</a></li>
-                <li><a href="/privacy" className="hover:text-gray-900 cursor-pointer">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-gray-900 cursor-pointer">Terms & Conditions</a></li>
+                <li><a href="/imprint" className="hover:text-gray-900 cursor-pointer">{texts.footer.imprint}</a></li>
+                <li><a href="/privacy" className="hover:text-gray-900 cursor-pointer">{texts.footer.privacy}</a></li>
+                <li><a href="/terms" className="hover:text-gray-900 cursor-pointer">{texts.footer.terms}</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-light text-lg mb-4">Contact</h3>
+              <h3 className="font-light text-lg mb-4">{texts.footer.contactTitle}</h3>
               <ul className="space-y-2 text-sm text-gray-800">
                 <li>info@manfredzak.com</li>
                 <li>+49 (0) 123 456789</li>
-                <li>Mon-Fri: 10am-6pm</li>
+                <li>{texts.footer.monFri}</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-200 mt-8 pt-8 text-center text-sm text-gray-600">
-            <p>© 2024 ZAK Art Gallery. All rights reserved.</p>
+            <p>{texts.footer.rights}</p>
           </div>
         </div>
       </footer>
