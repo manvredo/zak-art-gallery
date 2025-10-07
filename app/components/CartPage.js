@@ -11,8 +11,11 @@ export default function CartPage({
   checkoutLoading, 
   checkoutError 
 }) {
+  const [termsAccepted, setTermsAccepted] = React.useState(false);
+  const [withdrawalAccepted, setWithdrawalAccepted] = React.useState(false);
+  
   const { cart, updateQuantity, removeFromCart, cartTotal } = useCart();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <div className="max-w-4xl mx-auto">
