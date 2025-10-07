@@ -71,6 +71,11 @@ const Footer = () => {
                   {t.footer.widerruf}
                 </Link>
               </li>
+              <li>
+                <Link href="/cookies" className="hover:text-gray-900">
+                  {t.footer.cookies}
+                </Link>
+              </li>
             </ul>
           </div>
 
