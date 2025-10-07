@@ -49,9 +49,17 @@ export default function AdminProductsPage() {
     e.preventDefault();
     
     const productData = {
-      ...formData,
+      name: formData.name,
+      artist: formData.artist,
       price: parseFloat(formData.price),
-      year: parseInt(formData.year)
+      category: formData.category,
+      size: formData.size,
+      technique: formData.technique,
+      year: parseInt(formData.year),
+      image: formData.image,
+      description: formData.description,
+      sale_price: formData.sale_price ? parseFloat(formData.sale_price) : null,
+      sale_ends_at: formData.sale_ends_at || null
     };
 
     if (editingId) {
@@ -98,7 +106,9 @@ export default function AdminProductsPage() {
       technique: product.technique,
       year: product.year,
       image: product.image,
-      description: product.description
+      description: product.description,
+      sale_price: product.sale_price ? product.sale_price.toString() : '',
+      sale_ends_at: product.sale_ends_at ? new Date(product.sale_ends_at).toISOString().slice(0, 16) : ''
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -130,7 +140,9 @@ export default function AdminProductsPage() {
       technique: 'Oil on Canvas',
       year: new Date().getFullYear(),
       image: '',
-      description: ''
+      description: '',
+      sale_price: '',
+      sale_ends_at: ''
     });
     setEditingId(null);
   };
@@ -170,7 +182,7 @@ export default function AdminProductsPage() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                   placeholder="Mountain Landscape at Dusk"
                 />
               </div>
@@ -184,7 +196,7 @@ export default function AdminProductsPage() {
                   required
                   value={formData.artist}
                   onChange={(e) => setFormData({...formData, artist: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                   placeholder="Maria Schneider"
                 />
               </div>
@@ -200,7 +212,7 @@ export default function AdminProductsPage() {
                   step="0.01"
                   value={formData.price}
                   onChange={(e) => setFormData({...formData, price: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                   placeholder="890"
                 />
               </div>
@@ -212,7 +224,7 @@ export default function AdminProductsPage() {
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({...formData, category: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                 >
                   <option>Landscape</option>
                   <option>Abstract</option>
@@ -229,7 +241,7 @@ export default function AdminProductsPage() {
                   required
                   value={formData.size}
                   onChange={(e) => setFormData({...formData, size: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                   placeholder="80 x 60 cm"
                 />
               </div>
@@ -243,7 +255,7 @@ export default function AdminProductsPage() {
                   required
                   value={formData.technique}
                   onChange={(e) => setFormData({...formData, technique: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                   placeholder="Oil on Canvas"
                 />
               </div>
@@ -259,7 +271,7 @@ export default function AdminProductsPage() {
                   max="2100"
                   value={formData.year}
                   onChange={(e) => setFormData({...formData, year: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                 />
               </div>
 
@@ -272,7 +284,7 @@ export default function AdminProductsPage() {
                   required
                   value={formData.image}
                   onChange={(e) => setFormData({...formData, image: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                   placeholder="https://images.unsplash.com/..."
                 />
               </div>
@@ -287,9 +299,49 @@ export default function AdminProductsPage() {
                 rows="3"
                 value={formData.description}
                 onChange={(e) => setFormData({...formData, description: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                 placeholder="An atmospheric portrayal of the Alps..."
               />
+            </div>
+
+            {/* Sale Section */}
+            <div className="border-t border-gray-300 pt-6 mt-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                Sale / Limited Offer (Optional)
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Sale Price (€)
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value={formData.sale_price}
+                    onChange={(e) => setFormData({...formData, sale_price: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder="699 (leave empty for no sale)"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Sale Ends At
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={formData.sale_ends_at}
+                    onChange={(e) => setFormData({...formData, sale_ends_at: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                  />
+                </div>
+              </div>
+
+              <p className="text-sm text-gray-600 mt-2">
+                💡 Set a sale price and end date to create a limited-time offer with countdown timer
+              </p>
             </div>
 
             <div className="flex gap-3">
