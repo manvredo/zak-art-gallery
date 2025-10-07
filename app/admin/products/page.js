@@ -22,7 +22,9 @@ export default function AdminProductsPage() {
     technique: 'Oil on Canvas',
     year: new Date().getFullYear(),
     image: '',
-    description: ''
+    description: '',
+    sale_price: '',
+    sale_ends_at: ''
   });
 
   useEffect(() => {
