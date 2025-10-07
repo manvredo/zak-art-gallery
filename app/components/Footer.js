@@ -66,6 +66,11 @@ const Footer = () => {
                   {t.footer.terms}
                 </Link>
               </li>
+              <li>
+                <Link href="/withdrawal" className="hover:text-gray-900">
+                  {t.footer.widerruf}
+                </Link>
+              </li>
             </ul>
           </div>
 
