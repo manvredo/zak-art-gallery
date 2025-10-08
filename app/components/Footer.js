@@ -1,12 +1,11 @@
 "use client";
-
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 
 const Footer = () => {
   const { t } = useLanguage();
-
+  
   return (
     <footer className="bg-white border-t border-gray-200 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -14,7 +13,7 @@ const Footer = () => {
           
           {/* About Section */}
           <div>
-            <h3 className="font-light text-lg mb-4">ZAK Art Gallery</h3>
+            <h3 className="font-light text-lg mb-4 text-gray-900">ZAK Art Gallery</h3>
             <p className="text-sm text-gray-600">
               {t.footer.about}
             </p>
@@ -22,7 +21,7 @@ const Footer = () => {
 
           {/* Customer Service Section */}
           <div>
-            <h3 className="font-light text-lg mb-4">{t.footer.customerService}</h3>
+            <h3 className="font-light text-lg mb-4 text-gray-900">{t.footer.customerService}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>
                 <a href="#shipping" className="hover:text-gray-900">
@@ -49,7 +48,7 @@ const Footer = () => {
 
           {/* Legal Section */}
           <div>
-            <h3 className="font-light text-lg mb-4">{t.footer.legal}</h3>
+            <h3 className="font-light text-lg mb-4 text-gray-900">{t.footer.legal}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>
                 <Link href="/imprint" className="hover:text-gray-900">
@@ -81,7 +80,7 @@ const Footer = () => {
 
           {/* Contact Section */}
           <div>
-            <h3 className="font-light text-lg mb-4">{t.footer.contactTitle}</h3>
+            <h3 className="font-light text-lg mb-4 text-gray-900">{t.footer.contactTitle}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>info@zakartgallery.com</li>
               <li>+49 (0) 123 456789</li>
