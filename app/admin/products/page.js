@@ -32,6 +32,7 @@ export default function AdminProductsPage() {
   }, []);
 
   const fetchProducts = async () => {
+    setLoading(true); // Setze Loading auf true
     const { data, error } = await supabase
       .from('products')
       .select('*')
@@ -39,7 +40,9 @@ export default function AdminProductsPage() {
 
     if (error) {
       console.error('Error fetching products:', error);
+      setProducts([]);
     } else {
+      console.log('Fetched products:', data);
       setProducts(data || []);
     }
     setLoading(false);
