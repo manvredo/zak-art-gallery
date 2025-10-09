@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from '@vercel/analytics/react';
 import "./globals.css";
-import { CartProvider } from './context/CartContext';
-import { LanguageProvider } from './context/LanguageContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "ZAK Art Gallery - Original Oil Paintings",
-  description: "Contemporary art and original oil paintings by ZAK",
+  description: "Discover extraordinary art from emerging and established artists. Original oil paintings, contemporary art, and unique masterpieces.",
 };
 
 export default function RootLayout({ children }) {
@@ -24,11 +23,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LanguageProvider>
-          <CartProvider>
-            {children}
-          </CartProvider>
-        </LanguageProvider>
+        {children}
+        <Analytics />
       </body>
     </html>
   );
