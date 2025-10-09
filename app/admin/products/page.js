@@ -32,6 +32,7 @@ export default function AdminProductsPage() {
   }, []);
 
   const fetchProducts = async () => {
+    setLoading(true); // Setze Loading auf true
     const { data, error } = await supabase
       .from('products')
       .select('*')
@@ -39,7 +40,9 @@ export default function AdminProductsPage() {
 
     if (error) {
       console.error('Error fetching products:', error);
+      setProducts([]);
     } else {
+      console.log('Fetched products:', data);
       setProducts(data || []);
     }
     setLoading(false);
@@ -64,33 +67,41 @@ export default function AdminProductsPage() {
 
     if (editingId) {
       // Update existing product
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('products')
         .update(productData)
-        .eq('id', editingId);
+        .eq('id', editingId)
+        .select();
 
       if (error) {
         console.error('Error updating product:', error);
-        alert('Error updating product');
+        alert('Error updating product: ' + error.message);
       } else {
+        console.log('Update successful:', data);
         alert('Product updated successfully!');
         setEditingId(null);
         resetForm();
-        fetchProducts();
+        // Force fetch
+        await fetchProducts();
+        // Force scroll nach unten um Änderung zu sehen
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }
     } else {
       // Add new product
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('products')
-        .insert([productData]);
+        .insert([productData])
+        .select();
 
       if (error) {
         console.error('Error adding product:', error);
-        alert('Error adding product');
+        alert('Error adding product: ' + error.message);
       } else {
+        console.log('Insert successful:', data);
         alert('Product added successfully!');
         resetForm();
-        fetchProducts();
+        await fetchProducts();
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }
     }
   };
@@ -116,17 +127,24 @@ export default function AdminProductsPage() {
   const handleDelete = async (id) => {
     if (!confirm('Are you sure you want to delete this product?')) return;
 
-    const { error } = await supabase
+    console.log('Attempting to delete product ID:', id);
+
+    const { data, error } = await supabase
       .from('products')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .select();
+
+    console.log('Delete response:', { data, error });
 
     if (error) {
       console.error('Error deleting product:', error);
-      alert('Error deleting product');
+      alert('Error deleting product: ' + error.message);
     } else {
+      console.log('Delete successful, refreshing...');
       alert('Product deleted successfully!');
-      fetchProducts();
+      // Force fetch products
+      await fetchProducts();
     }
   };
 
