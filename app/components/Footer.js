@@ -24,24 +24,24 @@ const Footer = () => {
             <h3 className="font-light text-lg mb-4 text-gray-900">{t.footer.customerService}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>
-                <a href="#shipping" className="hover:text-gray-900">
+                <Link href="/shipping" className="hover:text-gray-900">
                   {t.footer.shipping}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#returns" className="hover:text-gray-900">
+                <Link href="/returns" className="hover:text-gray-900">
                   {t.footer.returns}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#payment" className="hover:text-gray-900">
+                <Link href="/payment" className="hover:text-gray-900">
                   {t.footer.payment}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#faq" className="hover:text-gray-900">
+                <Link href="/faq" className="hover:text-gray-900">
                   {t.footer.faq}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
