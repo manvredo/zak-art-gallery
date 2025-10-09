@@ -32,7 +32,6 @@ export default function AdminProductsPage() {
   }, []);
 
   const fetchProducts = async () => {
-    setLoading(true); // Setze Loading auf true
     const { data, error } = await supabase
       .from('products')
       .select('*')
@@ -40,9 +39,7 @@ export default function AdminProductsPage() {
 
     if (error) {
       console.error('Error fetching products:', error);
-      setProducts([]);
     } else {
-      console.log('Fetched products:', data);
       setProducts(data || []);
     }
     setLoading(false);
@@ -77,14 +74,13 @@ export default function AdminProductsPage() {
         console.error('Error updating product:', error);
         alert('Error updating product: ' + error.message);
       } else {
-        console.log('Update successful:', data);
         alert('Product updated successfully!');
+        // State sofort aktualisieren
+        setProducts(products.map(p => p.id === editingId ? {...p, ...productData} : p));
         setEditingId(null);
         resetForm();
-        // Force fetch
+        // Dann noch mal von DB holen zur Sicherheit
         await fetchProducts();
-        // Force scroll nach unten um Änderung zu sehen
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }
     } else {
       // Add new product
@@ -97,11 +93,9 @@ export default function AdminProductsPage() {
         console.error('Error adding product:', error);
         alert('Error adding product: ' + error.message);
       } else {
-        console.log('Insert successful:', data);
         alert('Product added successfully!');
         resetForm();
         await fetchProducts();
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }
     }
   };
@@ -141,9 +135,9 @@ export default function AdminProductsPage() {
       console.error('Error deleting product:', error);
       alert('Error deleting product: ' + error.message);
     } else {
-      console.log('Delete successful, refreshing...');
       alert('Product deleted successfully!');
-      // Force fetch products
+      // Sofort aus State entfernen
+      setProducts(products.filter(p => p.id !== id));
       await fetchProducts();
     }
   };
