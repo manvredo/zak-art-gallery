@@ -318,6 +318,12 @@ export default function AdminProductsPage() {
                   <CldUploadWidget
                     uploadPreset="zak_gallery"
                     cloudName="dhjcx2xdd"
+                    options={{
+                      folder: "shop",
+                      tags: ["product", "shop"],
+                      multiple: false,
+                      maxFiles: 1
+                    }}
                     onSuccess={handleUploadSuccess}
                   >
                     {({ open }) => (
