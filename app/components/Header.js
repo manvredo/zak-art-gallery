@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ShoppingCart, Menu, X, Search } from 'lucide-react';
+import Link from 'next/link';
+import { ShoppingCart, Menu, X, Search, ChevronDown } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Header({ currentView, onNavigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contentMenuOpen, setContentMenuOpen] = useState(false);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
 
@@ -54,6 +56,50 @@ export default function Header({ currentView, onNavigate }) {
             >
               {t.nav.shop}
             </button>
+            
+            {/* Content Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setContentMenuOpen(true)}
+              onMouseLeave={() => setContentMenuOpen(false)}
+            >
+              <button 
+                className="text-gray-700 hover:text-gray-900 transition cursor-pointer flex items-center gap-1"
+              >
+                Content
+                <ChevronDown size={16} />
+              </button>
+              
+              {contentMenuOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                  <Link 
+                    href="/news"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    📰 News
+                  </Link>
+                  <Link 
+                    href="/story"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    📖 Stories
+                  </Link>
+                  <Link 
+                    href="/press"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    📢 Press
+                  </Link>
+                  <Link 
+                    href="/private"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    🔒 Private
+                  </Link>
+                </div>
+              )}
+            </div>
+            
             <button 
               onClick={() => onNavigate('contact')}
               className={`transition cursor-pointer ${
@@ -89,6 +135,7 @@ export default function Header({ currentView, onNavigate }) {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-gray-200 bg-white">
           <div className="px-4 py-4 space-y-3">
@@ -110,6 +157,40 @@ export default function Header({ currentView, onNavigate }) {
             >
               {t.nav.shop}
             </button>
+            
+            {/* Mobile Content Links */}
+            <div className="border-t border-gray-200 pt-3 mt-3">
+              <p className="text-xs text-gray-500 uppercase mb-2 px-2">Content</p>
+              <Link 
+                href="/news"
+                className="block py-2 text-gray-700 hover:text-gray-900"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                📰 News
+              </Link>
+              <Link 
+                href="/story"
+                className="block py-2 text-gray-700 hover:text-gray-900"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                📖 Stories
+              </Link>
+              <Link 
+                href="/press"
+                className="block py-2 text-gray-700 hover:text-gray-900"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                📢 Press
+              </Link>
+              <Link 
+                href="/private"
+                className="block py-2 text-gray-700 hover:text-gray-900"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                🔒 Private
+              </Link>
+            </div>
+            
             <button 
               onClick={() => {onNavigate('contact'); setMobileMenuOpen(false);}} 
               className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
