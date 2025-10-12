@@ -3,16 +3,16 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import WelcomePage from './components/WelcomePage';
-import GalleryPage from './components/GalleryPage';
-import ShopPage from './components/ShopPage';
-import ContactPage from './components/ContactPage';
-import CartPage from './components/CartPage';
-import ProductModal from './components/ProductModal';
-import { useLanguage } from './context/LanguageContext';
-import { useCart } from './context/CartContext';
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
+import WelcomePage from '@/app/components/WelcomePage';
+import GalleryPage from '@/app/components/GalleryPage';
+import ShopPage from '@/app/components/ShopPage';
+import ContactPage from '@/app/components/ContactPage';
+import CartPage from '@/app/components/CartPage';
+import ProductModal from '@/app/components/ProductModal';
+import { useLanguage } from '@/app/context/LanguageContext';
+import { useCart } from '@/app/context/CartContext';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
