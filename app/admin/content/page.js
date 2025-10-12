@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { Trash2, Edit2, Plus, Save, X, Upload, Eye, FileText } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Trash2, Edit2, Plus, Save, X, Upload, Eye, LogOut } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
 
 const supabase = createClient(
@@ -13,6 +14,8 @@ const supabase = createClient(
 export default function AdminContentPage() {
   const [contents, setContents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -24,10 +27,40 @@ export default function AdminContentPage() {
     status: 'draft',
     author: ''
   });
+  const router = useRouter();
 
+  // Check authentication
   useEffect(() => {
-    fetchContents();
+    checkAuth();
   }, []);
+
+  const checkAuth = async () => {
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
+      if (error || !user) {
+        // Not authenticated - redirect to login
+        router.push('/admin/login');
+        return;
+      }
+
+      setUser(user);
+      setAuthLoading(false);
+      fetchContents();
+    } catch (error) {
+      console.error('Auth check error:', error);
+      router.push('/admin/login');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      router.push('/admin/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   // Auto-generate slug from title
   const generateSlug = (title) => {
@@ -164,6 +197,18 @@ export default function AdminContentPage() {
     return colors[category] || 'bg-gray-100 text-gray-800';
   };
 
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -178,9 +223,24 @@ export default function AdminContentPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-light text-gray-900 mb-2">Content Management</h1>
-          <p className="text-gray-600">Manage your news, stories, press releases, and private content</p>
+        {/* Header with Logout */}
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-light text-gray-900 mb-2">Content Management</h1>
+            <p className="text-gray-600">Manage your news, stories, press releases, and private content</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-600">
+              {user?.email}
+            </span>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+            >
+              <LogOut size={18} />
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Content Form */}
