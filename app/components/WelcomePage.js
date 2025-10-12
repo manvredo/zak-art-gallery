@@ -12,7 +12,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, onNaviga
       {/* Banner */}
       <div className="mb-12 rounded-lg overflow-hidden">
         <img 
-          src="https://images.unsplash.com/photo-1577083288073-40892c0860e3?w=1400&h=350&fit=crop"
+          src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299238/P2090288_flyxoj.png"
           alt="Gallery Banner"
           className="w-full h-[350px] object-cover"
         />
@@ -22,7 +22,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, onNaviga
       <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
         <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" 
+            src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299340/Gemini_Generated_Image_c9wnu5c9wnu5c9wn_inbghj.png" 
             alt="Artist Portrait"
             className="w-full h-full object-cover"
           />
