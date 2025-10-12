@@ -1,15 +1,62 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X, Search } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
 export default function Header({ currentView, onNavigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [availableCategories, setAvailableCategories] = useState([]);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
+  const pathname = usePathname();
+
+  // Prüfe welche Kategorien Published-Artikel haben
+  useEffect(() => {
+    const fetchAvailableCategories = async () => {
+      const categories = ['news', 'story', 'press', 'private'];
+      const available = [];
+
+      for (const category of categories) {
+        const { data, error } = await supabase
+          .from('content')
+          .select('id')
+          .eq('category', category)
+          .eq('status', 'published')
+          .limit(1);
+
+        if (!error && data && data.length > 0) {
+          available.push(category);
+        }
+      }
+
+      setAvailableCategories(available);
+    };
+
+    fetchAvailableCategories();
+  }, []);
+
+  // Prüfe ob wir auf einer Kategorie-Seite sind
+  const isOnCategoryPage = pathname?.startsWith('/news') || 
+                           pathname?.startsWith('/story') || 
+                           pathname?.startsWith('/press') || 
+                           pathname?.startsWith('/private');
+
+  const categoryLabels = {
+    news: 'News',
+    story: 'Stories',
+    press: 'Press',
+    private: 'Private'
+  };
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -56,31 +103,16 @@ export default function Header({ currentView, onNavigate }) {
               {t.nav.shop}
             </button>
             
-            {/* Einzelne Links statt Dropdown */}
-            <Link 
-              href="/news"
-              className="text-gray-700 hover:text-gray-900 transition cursor-pointer"
-            >
-              News
-            </Link>
-            <Link 
-              href="/story"
-              className="text-gray-700 hover:text-gray-900 transition cursor-pointer"
-            >
-              Stories
-            </Link>
-            <Link 
-              href="/press"
-              className="text-gray-700 hover:text-gray-900 transition cursor-pointer"
-            >
-              Press
-            </Link>
-            <Link 
-              href="/private"
-              className="text-gray-700 hover:text-gray-900 transition cursor-pointer"
-            >
-              Private
-            </Link>
+            {/* Dynamische Kategorie-Links */}
+            {availableCategories.map(category => (
+              <Link 
+                key={category}
+                href={`/${category}`}
+                className="text-gray-700 hover:text-gray-900 transition cursor-pointer"
+              >
+                {categoryLabels[category]}
+              </Link>
+            ))}
             
             <button 
               onClick={() => onNavigate('contact')}
@@ -140,35 +172,21 @@ export default function Header({ currentView, onNavigate }) {
               {t.nav.shop}
             </button>
             
-            {/* Mobile Content Links */}
-            <Link 
-              href="/news"
-              className="block py-2 text-gray-700 hover:text-gray-900"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              News
-            </Link>
-            <Link 
-              href="/story"
-              className="block py-2 text-gray-700 hover:text-gray-900"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Stories
-            </Link>
-            <Link 
-              href="/press"
-              className="block py-2 text-gray-700 hover:text-gray-900"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Press
-            </Link>
-            <Link 
-              href="/private"
-              className="block py-2 text-gray-700 hover:text-gray-900"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Private
-            </Link>
+            {/* Mobile Kategorie-Links */}
+            {availableCategories.length > 0 && (
+              <div className="border-t border-gray-200 pt-3 mt-3">
+                {availableCategories.map(category => (
+                  <Link 
+                    key={category}
+                    href={`/${category}`}
+                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {categoryLabels[category]}
+                  </Link>
+                ))}
+              </div>
+            )}
             
             <button 
               onClick={() => {onNavigate('contact'); setMobileMenuOpen(false);}} 
