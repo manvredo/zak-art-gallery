@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingCart, Menu, X, Search } from 'lucide-react';
+import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -16,6 +16,7 @@ const supabase = createClient(
 export default function Header({ currentView, onNavigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [availableCategories, setAvailableCategories] = useState([]);
+  const [user, setUser] = useState(null);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
@@ -45,11 +46,22 @@ export default function Header({ currentView, onNavigate }) {
     fetchAvailableCategories();
   }, []);
 
-  // Prüfe ob wir auf einer Kategorie-Seite sind
-  const isOnCategoryPage = pathname?.startsWith('/news') || 
-                           pathname?.startsWith('/story') || 
-                           pathname?.startsWith('/press') || 
-                           pathname?.startsWith('/private');
+  // Check if user is logged in
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    
+    checkUser();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const categoryLabels = {
     news: 'News',
@@ -127,13 +139,33 @@ export default function Header({ currentView, onNavigate }) {
           <div className="flex items-center space-x-4">
             <button 
               onClick={toggleLanguage} 
-              className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition cursor-pointer"
+              title={language === 'en' ? 'Deutsch' : 'English'}
             >
-              {language === 'en' ? '🇩🇪 DE' : '🇬🇧 EN'}
+              <span className="text-2xl">{language === 'en' ? '🇩🇪' : '🇬🇧'}</span>
             </button>
             <button className="text-gray-700 hover:text-gray-900 cursor-pointer">
               <Search size={20} />
             </button>
+            
+            {/* User Account Button */}
+            {user ? (
+              <Link 
+                href="/account"
+                className="flex items-center gap-2 text-gray-700 hover:text-gray-900 cursor-pointer"
+              >
+                <User size={20} />
+                <span className="hidden sm:inline text-sm">Account</span>
+              </Link>
+            ) : (
+              <Link 
+                href="/login"
+                className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+              >
+                Login
+              </Link>
+            )}
+            
             <button 
               onClick={() => onNavigate('cart')}
               className="relative text-gray-700 hover:text-gray-900 cursor-pointer"
@@ -194,6 +226,36 @@ export default function Header({ currentView, onNavigate }) {
             >
               {t.nav.contact}
             </button>
+            
+            {/* Mobile User Links */}
+            <div className="border-t border-gray-200 pt-3 mt-3">
+              {user ? (
+                <Link
+                  href="/account"
+                  className="block py-2 text-gray-700 hover:text-gray-900"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  👤 My Account
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
