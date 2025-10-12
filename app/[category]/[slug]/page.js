@@ -50,7 +50,8 @@ async function getRelatedContent(category, currentId) {
 }
 
 export default async function ArticlePage({ params }) {
-  const { category, slug } = params;
+  // Next.js 15: await params before accessing properties
+  const { category, slug } = await params;
 
   if (!CATEGORIES[category]) {
     notFound();

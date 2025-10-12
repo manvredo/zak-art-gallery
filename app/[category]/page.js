@@ -32,7 +32,8 @@ async function getContentByCategory(category) {
 }
 
 export default async function CategoryPage({ params }) {
-  const { category } = params;
+  // Next.js 15: await params before accessing properties
+  const { category } = await params;
 
   // Check if category is valid
   if (!CATEGORIES[category]) {
