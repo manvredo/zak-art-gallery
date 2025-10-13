@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 import { useLanguage } from '@/app/context/LanguageContext';
 import ContentHeader from '@/app/components/ContentHeader';
+import ContentSidebar from '@/app/components/ContentSidebar';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,

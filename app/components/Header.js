@@ -15,36 +15,10 @@ const supabase = createClient(
 
 export default function Header({ currentView, onNavigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [availableCategories, setAvailableCategories] = useState([]);
   const [user, setUser] = useState(null);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
-
-  // Prüfe welche Kategorien Published-Artikel haben
-  useEffect(() => {
-    const fetchAvailableCategories = async () => {
-      const categories = ['news', 'story', 'press', 'private'];
-      const available = [];
-
-      for (const category of categories) {
-        const { data, error } = await supabase
-          .from('content')
-          .select('id')
-          .eq('category', category)
-          .eq('status', 'published')
-          .limit(1);
-
-        if (!error && data && data.length > 0) {
-          available.push(category);
-        }
-      }
-
-      setAvailableCategories(available);
-    };
-
-    fetchAvailableCategories();
-  }, []);
 
   // Check if user is logged in
   useEffect(() => {
@@ -63,15 +37,8 @@ export default function Header({ currentView, onNavigate }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  const categoryLabels = {
-    news: 'News',
-    story: 'Stories',
-    press: 'Press',
-    private: 'Private'
-  };
-
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-gray-200">{/* Removed: sticky top-0 z-50 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -114,17 +81,6 @@ export default function Header({ currentView, onNavigate }) {
             >
               {t.nav.shop}
             </button>
-            
-            {/* Dynamische Kategorie-Links */}
-            {availableCategories.map(category => (
-              <Link 
-                key={category}
-                href={`/${category}`}
-                className="text-gray-700 hover:text-gray-900 transition cursor-pointer"
-              >
-                {categoryLabels[category]}
-              </Link>
-            ))}
             
             <button 
               onClick={() => onNavigate('contact')}
@@ -204,21 +160,7 @@ export default function Header({ currentView, onNavigate }) {
               {t.nav.shop}
             </button>
             
-            {/* Mobile Kategorie-Links */}
-            {availableCategories.length > 0 && (
-              <div className="border-t border-gray-200 pt-3 mt-3">
-                {availableCategories.map(category => (
-                  <Link 
-                    key={category}
-                    href={`/${category}`}
-                    className="block py-2 text-gray-700 hover:text-gray-900"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {categoryLabels[category]}
-                  </Link>
-                ))}
-              </div>
-            )}
+            {/* Mobile Kategorie-Links - ENTFERNT */}
             
             <button 
               onClick={() => {onNavigate('contact'); setMobileMenuOpen(false);}} 

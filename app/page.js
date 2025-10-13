@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
+import ContentSidebar from '@/app/components/ContentSidebar';
 import WelcomePage from '@/app/components/WelcomePage';
 import GalleryPage from '@/app/components/GalleryPage';
 import ShopPage from '@/app/components/ShopPage';
@@ -133,53 +134,61 @@ export default function ZakArtGallery() {
       <Header currentView={currentView} onNavigate={setCurrentView} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentView === 'welcome' && (
-          <WelcomePage 
-            featuredProducts={featuredProducts}
-            onProductClick={setSelectedProduct}
-            onNavigate={setCurrentView}
-          />
-        )}
+        <div className="flex gap-8">
+          {/* Hauptinhalt */}
+          <div className="flex-1">
+            {currentView === 'welcome' && (
+              <WelcomePage 
+                featuredProducts={featuredProducts}
+                onProductClick={setSelectedProduct}
+                onNavigate={setCurrentView}
+              />
+            )}
 
-        {currentView === 'gallery' && (
-          <GalleryPage 
-            products={filteredProducts}
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            onProductClick={setSelectedProduct}
-          />
-        )}
+            {currentView === 'gallery' && (
+              <GalleryPage 
+                products={filteredProducts}
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onCategoryChange={setSelectedCategory}
+                onProductClick={setSelectedProduct}
+              />
+            )}
 
-        {currentView === 'shop' && (
-          <ShopPage 
-            products={filteredProducts}
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            onProductClick={setSelectedProduct}
-          />
-        )}
+            {currentView === 'shop' && (
+              <ShopPage 
+                products={filteredProducts}
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onCategoryChange={setSelectedCategory}
+                onProductClick={setSelectedProduct}
+              />
+            )}
 
-        {currentView === 'contact' && (
-          <ContactPage 
-            contactForm={contactForm}
-            onFormChange={setContactForm}
-            onSubmit={handleContactSubmit}
-            loading={contactLoading}
-            success={contactSuccess}
-            error={contactError}
-          />
-        )}
+            {currentView === 'contact' && (
+              <ContactPage 
+                contactForm={contactForm}
+                onFormChange={setContactForm}
+                onSubmit={handleContactSubmit}
+                loading={contactLoading}
+                success={contactSuccess}
+                error={contactError}
+              />
+            )}
 
-        {currentView === 'cart' && (
-          <CartPage 
-            onNavigate={setCurrentView}
-            onCheckout={handleCheckout}
-            checkoutLoading={checkoutLoading}
-            checkoutError={checkoutError}
-          />
-        )}
+            {currentView === 'cart' && (
+              <CartPage 
+                onNavigate={setCurrentView}
+                onCheckout={handleCheckout}
+                checkoutLoading={checkoutLoading}
+                checkoutError={checkoutError}
+              />
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <ContentSidebar currentView={currentView} />
+        </div>
       </main>
 
       {selectedProduct && (

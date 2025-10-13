@@ -130,27 +130,6 @@ export default function ContentHeader({ currentCategory }) {
         </div>
       </div>
 
-      {/* Category Navigation Row */}
-      <div className="hidden lg:block bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex justify-center space-x-8 py-3">
-            {availableCategories.map(category => (
-              <Link 
-                key={category}
-                href={`/${category}`}
-                className={`transition cursor-pointer ${
-                  currentCategory === category 
-                    ? 'text-gray-900 font-medium border-b-2 border-gray-900 pb-1' 
-                    : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                {categoryLabels[category]}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </div>
-
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-gray-200 bg-white">
