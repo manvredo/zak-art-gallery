@@ -1,14 +1,15 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import ProductCard from './ProductCard';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function WelcomePage({ featuredProducts, onProductClick, onNavigate }) {
+export default function WelcomePage({ featuredProducts, onProductClick }) {
   const { t } = useLanguage();
-
+  
   return (
-    <div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Banner */}
       <div className="mb-12 rounded-lg overflow-hidden">
         <img 
@@ -27,6 +28,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, onNaviga
             className="w-full h-full object-cover"
           />
         </div>
+        
         <div>
           <h2 className="text-5xl font-light text-gray-900 mb-6">
             {t.welcome.title}
@@ -40,19 +42,20 @@ export default function WelcomePage({ featuredProducts, onProductClick, onNaviga
           <p className="text-gray-700 leading-relaxed mb-8">
             {t.welcome.intro2}
           </p>
+          
           <div className="flex gap-4">
-            <button 
-              onClick={() => onNavigate('gallery')}
-              className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
+            <Link 
+              href="/gallery"
+              className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer inline-block text-center"
             >
               {t.welcome.viewGallery}
-            </button>
-            <button 
-              onClick={() => onNavigate('shop')}
-              className="px-8 py-3 border border-gray-900 text-gray-900 hover:bg-gray-50 transition rounded cursor-pointer"
+            </Link>
+            <Link 
+              href="/shop"
+              className="px-8 py-3 border border-gray-900 text-gray-900 hover:bg-gray-50 transition rounded cursor-pointer inline-block text-center"
             >
               {t.welcome.visitShop}
-            </button>
+            </Link>
           </div>
         </div>
       </div>

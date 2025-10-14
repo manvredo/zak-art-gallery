@@ -2,196 +2,251 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { notFound, useParams } from 'next/navigation';
+import { Calendar, ArrowLeft, Share2 } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
-import ContentHeader from '@/app/components/ContentHeader';
-import ContentSidebar from '@/app/components/ContentSidebar';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-const CATEGORIES = {
-  news: { titleKey: 'news', emoji: '📰' },
-  story: { titleKey: 'stories', emoji: '📖' },
-  press: { titleKey: 'press', emoji: '📢' },
-  private: { titleKey: 'private', emoji: '🔒' }
+const CATEGORY_CONFIG = {
+  news: { icon: '📰', color: 'blue', titleDE: 'Neuigkeiten', titleEN: 'News' },
+  story: { icon: '🎬', color: 'purple', titleDE: 'Making-of', titleEN: 'Making-of' },
+  press: { icon: '📢', color: 'green', titleDE: 'Presse', titleEN: 'Press' },
+  private: { icon: '🔒', color: 'amber', titleDE: 'Privat', titleEN: 'Private' },
+  archive: { icon: '📦', color: 'gray', titleDE: 'Archiv', titleEN: 'Archive' }
 };
 
-export default function ArticlePage() {
+export default function ArticleDetailPage() {
   const params = useParams();
-  const category = params.category;
-  const slug = params.slug;
-  const { t } = useLanguage();
-  
-  const [content, setContent] = useState(null);
-  const [relatedContents, setRelatedContents] = useState([]);
+  const router = useRouter();
+  const { language } = useLanguage();
+  const [article, setArticle] = useState(null);
+  const [relatedArticles, setRelatedArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const category = params.category;
+  const slug = params.slug;
+  const config = CATEGORY_CONFIG[category];
+
   useEffect(() => {
-    if (!CATEGORIES[category]) {
-      notFound();
+    if (category && slug) {
+      fetchArticle();
     }
-    fetchContent();
   }, [category, slug]);
 
-  const fetchContent = async () => {
-    setLoading(true);
-    
-    // Get main content
-    const { data: contentData, error: contentError } = await supabase
-      .from('content')
-      .select('*')
-      .eq('category', category)
-      .eq('slug', slug)
-      .eq('status', 'published')
-      .single();
+  const fetchArticle = async () => {
+    try {
+      // Fetch main article
+      const { data: articleData, error: articleError } = await supabase
+        .from('content')
+        .select('*')
+        .eq('category', category)
+        .eq('slug', slug)
+        .eq('status', 'published')
+        .single();
 
-    if (contentError || !contentData) {
-      notFound();
-      return;
+      if (articleError) throw articleError;
+      setArticle(articleData);
+
+      // Fetch related articles
+      const { data: relatedData, error: relatedError } = await supabase
+        .from('content')
+        .select('*')
+        .eq('category', category)
+        .neq('slug', slug)
+        .eq('status', 'published')
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      if (!relatedError) {
+        setRelatedArticles(relatedData || []);
+      }
+
+    } catch (error) {
+      console.error('Error fetching article:', error);
+    } finally {
+      setLoading(false);
     }
-
-    setContent(contentData);
-
-    // Get related content
-    const { data: relatedData, error: relatedError } = await supabase
-      .from('content')
-      .select('*')
-      .eq('category', category)
-      .eq('status', 'published')
-      .neq('id', contentData.id)
-      .order('published_at', { ascending: false })
-      .limit(3);
-
-    if (!relatedError && relatedData) {
-      setRelatedContents(relatedData);
-    }
-
-    setLoading(false);
   };
 
-  if (!CATEGORIES[category]) {
-    notFound();
-  }
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
-  const categoryInfo = CATEGORIES[category];
-  const contentInfo = t.content[categoryInfo.titleKey];
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: article.title,
+          text: article.excerpt,
+          url: window.location.href
+        });
+      } catch (err) {
+        console.log('Share cancelled');
+      }
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(window.location.href);
+      alert(language === 'de' ? 'Link kopiert!' : 'Link copied!');
+    }
+  };
+
+  const colorClasses = {
+    blue: 'bg-blue-600',
+    purple: 'bg-purple-600',
+    green: 'bg-green-600',
+    amber: 'bg-amber-600',
+    gray: 'bg-gray-600'
+  };
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
-          <p className="text-gray-600">{t.common.loading}</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Lädt...</p>
         </div>
       </div>
     );
   }
 
-  if (!content) {
-    notFound();
+  if (!article) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
+          <p className="text-gray-600 mb-8">Artikel nicht gefunden</p>
+          <Link 
+            href={`/${category}`}
+            className="text-blue-600 hover:text-blue-700 font-medium"
+          >
+            ← Zurück zur Übersicht
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Content Header */}
-      <ContentHeader currentCategory={category} />
-
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Article Header */}
-        <article>
-          <div className="mb-8">
-            <Link
-              href={`/${category}`}
-              className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-4"
-            >
-              {categoryInfo.emoji} {contentInfo.title}
-            </Link>
-            <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
-              {content.title}
-            </h1>
-            <div className="flex items-center gap-3 text-gray-600">
-              {content.author && <span>{t.content.by} {content.author}</span>}
-              {content.published_at && (
-                <>
-                  <span>•</span>
-                  <time dateTime={content.published_at}>
-                    {new Date(content.published_at).toLocaleDateString('de-DE', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
-                </>
-              )}
-            </div>
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Link 
+            href={`/${category}`}
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+          >
+            <ArrowLeft size={20} />
+            {language === 'de' ? 'Zurück' : 'Back'}
+          </Link>
+          
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-4xl">{config.icon}</span>
+            <span className={`${colorClasses[config.color]} text-white px-3 py-1 rounded-full text-sm font-medium`}>
+              {language === 'de' ? config.titleDE : config.titleEN}
+            </span>
           </div>
+        </div>
+      </div>
 
+      {/* Main Content */}
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          
           {/* Featured Image */}
-          {content.featured_image && (
-            <div className="mb-8 rounded-lg overflow-hidden">
+          {article.featured_image && (
+            <div className="aspect-[21/9] overflow-hidden bg-gray-200">
               <img
-                src={content.featured_image}
-                alt={content.title}
-                className="w-full h-auto"
+                src={article.featured_image}
+                alt={article.title}
+                className="w-full h-full object-cover"
               />
             </div>
           )}
 
-          {/* Article Content */}
-          <div className="prose prose-lg max-w-none">
-            <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-              {content.content}
+          <div className="p-8 md:p-12">
+            {/* Meta */}
+            <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200">
+              <div className="flex items-center gap-2 text-gray-500">
+                <Calendar size={18} />
+                <time>{formatDate(article.created_at)}</time>
+              </div>
+              <button
+                onClick={handleShare}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition"
+              >
+                <Share2 size={18} />
+                <span className="hidden sm:inline">
+                  {language === 'de' ? 'Teilen' : 'Share'}
+                </span>
+              </button>
             </div>
-          </div>
-        </article>
 
-        {/* Related Content */}
-        {relatedContents.length > 0 && (
-          <div className="mt-16 pt-16 border-t border-gray-200">
-            <h2 className="text-2xl font-light text-gray-900 mb-8">
-              {t.content.moreFrom} {contentInfo.title}
+            {/* Title */}
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              {article.title}
+            </h1>
+
+            {/* Excerpt */}
+            {article.excerpt && (
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                {article.excerpt}
+              </p>
+            )}
+
+            {/* Content */}
+            <div 
+              className="prose prose-lg max-w-none"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          </div>
+        </div>
+
+        {/* Related Articles */}
+        {relatedArticles.length > 0 && (
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              {language === 'de' ? 'Weitere Artikel' : 'Related Articles'}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedContents.map((related) => (
+            <div className="grid md:grid-cols-3 gap-6">
+              {relatedArticles.map((related) => (
                 <Link
                   key={related.id}
                   href={`/${category}/${related.slug}`}
-                  className="group"
+                  className="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden group"
                 >
                   {related.featured_image && (
-                    <div className="aspect-video overflow-hidden bg-gray-100 rounded-lg mb-4">
+                    <div className="aspect-video overflow-hidden bg-gray-200">
                       <img
                         src={related.featured_image}
                         alt={related.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
                   )}
-                  <h3 className="font-light text-gray-900 mb-2 group-hover:text-gray-600 transition">
-                    {related.title}
-                  </h3>
-                  {related.excerpt && (
-                    <p className="text-sm text-gray-600 line-clamp-2">{related.excerpt}</p>
-                  )}
+                  <div className="p-4">
+                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition">
+                      {related.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 line-clamp-2">
+                      {related.excerpt}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
           </div>
         )}
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-sm text-gray-600">
-            <p>{t.footer.rights}</p>
-          </div>
-        </div>
-      </footer>
+      </article>
     </div>
   );
 }

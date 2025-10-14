@@ -5,15 +5,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
-import { useCart } from '../context/CartContext';
-import { useLanguage } from '../context/LanguageContext';
+import { useCart } from '@/app/context/CartContext';
+import { useLanguage } from '@/app/context/LanguageContext';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export default function Header({ currentView, onNavigate }) {
+export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const { cartItemCount } = useCart();
@@ -37,8 +37,14 @@ export default function Header({ currentView, onNavigate }) {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Helper function to check if route is active
+  const isActive = (path) => {
+    if (path === '/') return pathname === '/';
+    return pathname.startsWith(path);
+  };
+
   return (
-    <header className="bg-white border-b border-gray-200">{/* Removed: sticky top-0 z-50 */}
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -48,48 +54,49 @@ export default function Header({ currentView, onNavigate }) {
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            <img 
-              src="/logo.png" 
-              alt="ZAK Art Gallery" 
-              className="h-10 cursor-pointer"
-              onClick={() => onNavigate('welcome')}
-            />
+            <Link href="/">
+              <img 
+                src="/logo.png" 
+                alt="ZAK Art Gallery" 
+                className="h-10 cursor-pointer"
+              />
+            </Link>
           </div>
           
           <nav className="hidden lg:flex space-x-8">
-            <button 
-              onClick={() => onNavigate('welcome')}
+            <Link 
+              href="/"
               className={`transition cursor-pointer ${
-                currentView === 'welcome' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                isActive('/') && pathname === '/' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
               }`}
             >
               {t.nav.welcome}
-            </button>
-            <button 
-              onClick={() => onNavigate('gallery')}
+            </Link>
+            <Link 
+              href="/gallery"
               className={`transition cursor-pointer ${
-                currentView === 'gallery' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                isActive('/gallery') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
               }`}
             >
               {t.nav.gallery}
-            </button>
-            <button 
-              onClick={() => onNavigate('shop')}
+            </Link>
+            <Link 
+              href="/shop"
               className={`transition cursor-pointer ${
-                currentView === 'shop' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
               }`}
             >
               {t.nav.shop}
-            </button>
+            </Link>
             
-            <button 
-              onClick={() => onNavigate('contact')}
+            <Link 
+              href="/contact"
               className={`transition cursor-pointer ${
-                currentView === 'contact' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                isActive('/contact') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
               }`}
             >
               {t.nav.contact}
-            </button>
+            </Link>
           </nav>
 
           <div className="flex items-center space-x-4">
@@ -122,8 +129,8 @@ export default function Header({ currentView, onNavigate }) {
               </Link>
             )}
             
-            <button 
-              onClick={() => onNavigate('cart')}
+            <Link 
+              href="/cart"
               className="relative text-gray-700 hover:text-gray-900 cursor-pointer"
             >
               <ShoppingCart size={20} />
@@ -132,7 +139,7 @@ export default function Header({ currentView, onNavigate }) {
                   {cartItemCount}
                 </span>
               )}
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -141,33 +148,35 @@ export default function Header({ currentView, onNavigate }) {
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-gray-200 bg-white">
           <div className="px-4 py-4 space-y-3">
-            <button 
-              onClick={() => {onNavigate('welcome'); setMobileMenuOpen(false);}} 
+            <Link 
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
             >
               {t.nav.welcome}
-            </button>
-            <button 
-              onClick={() => {onNavigate('gallery'); setMobileMenuOpen(false);}} 
+            </Link>
+            <Link 
+              href="/gallery"
+              onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
             >
               {t.nav.gallery}
-            </button>
-            <button 
-              onClick={() => {onNavigate('shop'); setMobileMenuOpen(false);}} 
+            </Link>
+            <Link 
+              href="/shop"
+              onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
             >
               {t.nav.shop}
-            </button>
+            </Link>
             
-            {/* Mobile Kategorie-Links - ENTFERNT */}
-            
-            <button 
-              onClick={() => {onNavigate('contact'); setMobileMenuOpen(false);}} 
+            <Link 
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
             >
               {t.nav.contact}
-            </button>
+            </Link>
             
             {/* Mobile User Links */}
             <div className="border-t border-gray-200 pt-3 mt-3">

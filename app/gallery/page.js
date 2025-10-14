@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import WelcomePage from '@/app/components/WelcomePage';
+import GalleryPage from '@/app/components/GalleryPage';
 import ProductModal from '@/app/components/ProductModal';
-import ContentSidebar from '@/app/components/ContentSidebar';  // ← NEU
+import { useLanguage } from '@/app/context/LanguageContext';
 import { X } from 'lucide-react';
 
 const supabase = createClient(
@@ -12,10 +12,12 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export default function Home() {
+export default function Gallery() {
+  const { t } = useLanguage();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(t.categories.all);
   const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
@@ -36,7 +38,11 @@ export default function Home() {
     setLoading(false);
   };
 
-  const featuredProducts = products.slice(0, 3);
+  const categories = [t.categories.all, t.categories.landscape, t.categories.abstract, t.categories.portrait];
+  
+  const filteredProducts = selectedCategory === t.categories.all 
+    ? products 
+    : products.filter(p => p.category === selectedCategory);
 
   if (loading) {
     return (
@@ -50,24 +56,14 @@ export default function Home() {
   }
 
   return (
-    <>
-      {/* Layout mit Sidebar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          
-          {/* Sidebar links */}
-          <ContentSidebar currentCategory={null} />
-
-          {/* Hauptinhalt rechts */}
-          <div className="col-span-1 lg:col-span-3">
-            <WelcomePage 
-              featuredProducts={featuredProducts}
-              onProductClick={setSelectedProduct}
-            />
-          </div>
-
-        </div>
-      </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <GalleryPage 
+        products={filteredProducts}
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        onProductClick={setSelectedProduct}
+      />
 
       {selectedProduct && (
         <ProductModal 
@@ -97,6 +93,6 @@ export default function Home() {
           />
         </div>
       )}
-    </>
+    </div>
   );
 }

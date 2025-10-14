@@ -1,24 +1,21 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function CartPage({ 
-  onNavigate, 
   onCheckout, 
   checkoutLoading, 
   checkoutError 
 }) {
-  const [termsAccepted, setTermsAccepted] = React.useState(false);
-  const [withdrawalAccepted, setWithdrawalAccepted] = React.useState(false);
-  
   const { cart, updateQuantity, removeFromCart, cartTotal } = useCart();
   const { t, language } = useLanguage();
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h2 className="text-3xl font-light text-gray-900 mb-8">
         {t.cart.title}
       </h2>
@@ -26,12 +23,12 @@ export default function CartPage({
       {cart.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-gray-600 mb-6">{t.cart.empty}</p>
-          <button 
-            onClick={() => onNavigate('shop')}
-            className="px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
+          <Link 
+            href="/shop"
+            className="inline-block px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer"
           >
             {t.cart.continueShopping}
-          </button>
+          </Link>
         </div>
       ) : (
         <>
@@ -114,12 +111,13 @@ export default function CartPage({
                 </>
               )}
             </button>
-            <button 
-              onClick={() => onNavigate('shop')}
-              className="w-full mt-3 py-3 text-gray-700 hover:text-gray-900 transition cursor-pointer"
+            
+            <Link 
+              href="/shop"
+              className="block w-full mt-3 py-3 text-center text-gray-700 hover:text-gray-900 transition cursor-pointer"
             >
               {t.cart.continueShopping}
-            </button>
+            </Link>
           </div>
         </>
       )}
