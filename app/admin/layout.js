@@ -92,12 +92,22 @@ export default function AdminLayout({ children }) {
                 <a
                   href="/admin/products"
                   className={`px-4 py-2 rounded-lg font-medium transition ${
-                    pathname === '/admin/products'
-                      ? 'bg-gray-900 text-white'
+                    pathname === '/admin/products' || pathname?.startsWith('/admin/products/')
+                      ? 'bg-green-600 text-white'
                       : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
-                  Produkte
+                  🛒 Shop
+                </a>
+                <a
+                  href="/admin/gallery"
+                  className={`px-4 py-2 rounded-lg font-medium transition ${
+                    pathname === '/admin/gallery' || pathname?.startsWith('/admin/gallery/')
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  🖼️ Galerie
                 </a>
                 <a
                   href="/admin"

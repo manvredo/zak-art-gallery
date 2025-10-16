@@ -140,38 +140,71 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 mb-8">
         <h3 className="text-xl font-semibold text-gray-900 mb-6">Schnellzugriff</h3>
-        <div className="grid md:grid-cols-4 gap-4">
-          <a
-            href="/admin/products/new"
-            className="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-center group"
-          >
-            <Plus size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-blue-600" />
-            <p className="font-semibold text-gray-900">Neues Produkt</p>
-          </a>
-          
-          <a
-            href="/admin/products"
-            className="p-6 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition text-center group"
-          >
-            <Package size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-green-600" />
-            <p className="font-semibold text-gray-900">Produkte verwalten</p>
-          </a>
-          
-          <a
-            href="/admin"
-            className="p-6 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition text-center group"
-          >
-            <ShoppingCart size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-purple-600" />
-            <p className="font-semibold text-gray-900">Bestellungen</p>
-          </a>
+        
+        {/* Shop Section */}
+        <div className="mb-6">
+          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">🛒 Shop (Verkäuflich)</h4>
+          <div className="grid md:grid-cols-3 gap-4">
+            <a
+              href="/admin/products/new"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition text-center group"
+            >
+              <Plus size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-green-600" />
+              <p className="font-semibold text-gray-900">Neues Shop-Produkt</p>
+            </a>
+            
+            <a
+              href="/admin/products"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition text-center group"
+            >
+              <Package size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-green-600" />
+              <p className="font-semibold text-gray-900">Shop verwalten</p>
+            </a>
+            
+            <a
+              href="/admin"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition text-center group"
+            >
+              <ShoppingCart size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-green-600" />
+              <p className="font-semibold text-gray-900">Bestellungen</p>
+            </a>
+          </div>
+        </div>
 
-          <a
-            href="/admin/content"
-            className="p-6 border-2 border-gray-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-center group"
-          >
-            <FileText size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-amber-600" />
-            <p className="font-semibold text-gray-900">Content bearbeiten</p>
-          </a>
+        {/* Gallery Section */}
+        <div className="mb-6">
+          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">🖼️ Galerie (Nur Ansicht)</h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            <a
+              href="/admin/gallery/new"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-center group"
+            >
+              <Plus size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-blue-600" />
+              <p className="font-semibold text-gray-900">Neues Galeriewerk</p>
+            </a>
+            
+            <a
+              href="/admin/gallery"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-center group"
+            >
+              <FileText size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-blue-600" />
+              <p className="font-semibold text-gray-900">Galerie verwalten</p>
+            </a>
+          </div>
+        </div>
+
+        {/* Content Section */}
+        <div>
+          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">📝 Content</h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            <a
+              href="/admin/content"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition text-center group"
+            >
+              <FileText size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-purple-600" />
+              <p className="font-semibold text-gray-900">Content bearbeiten</p>
+            </a>
+          </div>
         </div>
       </div>
 

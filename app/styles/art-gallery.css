@@ -1,9 +1,9 @@
 /* ==========================================
-   ZAK ART GALLERY - GLOBAL STYLES
-   Elegantes, helles Design für Kunstgalerie
+   ZAK ART GALLERY - MONOCHROME STYLES
+   Elegantes Design nur in Grau/Weiß/Schwarz
    ========================================== */
 
-/* Root Variables - Farbpalette */
+/* Root Variables - Monochrome Farbpalette */
 :root {
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #fafafa;
@@ -13,22 +13,56 @@
   --color-text-muted: #9ca3af;
   --color-border: #e5e7eb;
   --color-border-light: #f3f4f6;
-  --color-accent: #374151;
-  --color-accent-hover: #1f2937;
+  --color-accent: #1f2937;
+  --color-accent-hover: #111827;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.08);
+  
+  /* Schriften */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-open-sans);
 }
 
 /* ==========================================
-   GENERAL LAYOUT
+   GENERAL LAYOUT & TYPOGRAPHY
    ========================================== */
 
 body {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Überschriften - Playfair Display */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), serif;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Fließtext - Open Sans */
+p, span, a, button, input, textarea {
+  font-family: var(--font-body), sans-serif;
 }
 
 /* Container */
@@ -53,6 +87,7 @@ nav a {
   font-weight: 500;
   font-size: 0.95rem;
   transition: color 0.2s ease;
+  letter-spacing: 0.01em;
 }
 
 nav a:hover {
@@ -83,11 +118,12 @@ nav a:hover {
 }
 
 .elegant-search-title {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--color-text-secondary);
   margin-bottom: 0.75rem;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
@@ -101,12 +137,13 @@ nav a:hover {
   color: var(--color-text-primary);
   background: var(--color-bg-primary);
   transition: all 0.2s ease;
+  font-family: var(--font-body), sans-serif;
 }
 
 .elegant-search-input:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.05);
+  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.05);
 }
 
 .elegant-search-input::placeholder {
@@ -122,11 +159,12 @@ nav a:hover {
 }
 
 .elegant-categories-title {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--color-text-secondary);
   margin-bottom: 1rem;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
@@ -143,6 +181,7 @@ nav a:hover {
   font-weight: 500;
   transition: all 0.2s ease;
   margin-bottom: 0.5rem;
+  font-family: var(--font-body), sans-serif;
 }
 
 .elegant-category-link:hover {
@@ -177,6 +216,7 @@ nav a:hover {
 .elegant-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
+  border-color: var(--color-accent);
 }
 
 .elegant-card-image {
@@ -191,7 +231,8 @@ nav a:hover {
 }
 
 .elegant-card-title {
-  font-size: 1.125rem;
+  font-family: var(--font-heading), serif;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 0.5rem;
@@ -205,6 +246,7 @@ nav a:hover {
   font-size: 0.8rem;
   color: var(--color-text-muted);
   margin-bottom: 0.75rem;
+  font-family: var(--font-body), sans-serif;
 }
 
 .elegant-card-excerpt {
@@ -212,6 +254,7 @@ nav a:hover {
   font-size: 0.9rem;
   line-height: 1.6;
   margin-bottom: 1rem;
+  font-family: var(--font-body), sans-serif;
 }
 
 .elegant-card-link {
@@ -222,6 +265,7 @@ nav a:hover {
   font-size: 0.875rem;
   font-weight: 500;
   transition: gap 0.2s ease;
+  font-family: var(--font-body), sans-serif;
 }
 
 .elegant-card-link:hover {
@@ -248,23 +292,26 @@ nav a:hover {
 }
 
 .elegant-hero-title {
-  font-size: 2rem;
-  font-weight: 300;
+  font-family: var(--font-heading), serif;
+  font-size: 2.5rem;
+  font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 0.75rem;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 .elegant-hero-description {
-  font-size: 1rem;
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.05rem;
   color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  font-weight: 400;
 }
 
 /* ==========================================
-   BUTTONS
+   BUTTONS - ALLE GRAU/SCHWARZ
    ========================================== */
 
 .elegant-button {
@@ -272,7 +319,7 @@ nav a:hover {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: var(--color-accent);
+  background: #1f2937;
   color: white;
   border: none;
   border-radius: 8px;
@@ -280,10 +327,11 @@ nav a:hover {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: var(--font-body), sans-serif;
 }
 
 .elegant-button:hover {
-  background: var(--color-accent-hover);
+  background: #111827;
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
@@ -331,26 +379,31 @@ nav a:hover {
 }
 
 .elegant-product-title {
-  font-size: 1rem;
+  font-family: var(--font-heading), serif;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 0.25rem;
 }
 
 .elegant-product-artist {
+  font-family: var(--font-body), sans-serif;
   font-size: 0.85rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.5rem;
+  font-style: italic;
 }
 
 .elegant-product-size {
+  font-family: var(--font-body), sans-serif;
   font-size: 0.8rem;
   color: var(--color-text-muted);
   margin-bottom: 0.75rem;
 }
 
 .elegant-product-price {
-  font-size: 1.25rem;
+  font-family: var(--font-heading), serif;
+  font-size: 1.35rem;
   font-weight: 600;
   color: var(--color-accent);
 }
@@ -367,7 +420,8 @@ footer {
 }
 
 footer h3 {
-  font-size: 0.875rem;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 1rem;
@@ -376,6 +430,7 @@ footer h3 {
 }
 
 footer a {
+  font-family: var(--font-body), sans-serif;
   color: var(--color-text-secondary);
   font-size: 0.875rem;
   transition: color 0.2s ease;
@@ -414,8 +469,16 @@ footer a:hover {
    ========================================== */
 
 @media (max-width: 768px) {
-  .elegant-hero-title {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
     font-size: 1.5rem;
+  }
+  
+  .elegant-hero-title {
+    font-size: 1.75rem;
   }
   
   .elegant-hero {
