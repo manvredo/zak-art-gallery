@@ -13,11 +13,11 @@ const supabase = createClient(
 );
 
 const CATEGORIES = {
-  news: { titleKey: 'news', icon: Newspaper },
-  story: { titleKey: 'stories', icon: Film },
-  press: { titleKey: 'press', icon: Megaphone },
-  private: { titleKey: 'private', icon: Lock },
-  archive: { titleKey: 'archive', icon: Archive }
+  news: { titleKey: 'news', Icon: Newspaper },
+  story: { titleKey: 'stories', Icon: Film },
+  press: { titleKey: 'press', Icon: Megaphone },
+  private: { titleKey: 'private', Icon: Lock },
+  archive: { titleKey: 'archive', Icon: Archive }
 };
 
 export default function ContentSidebar({ currentCategory = null, onSearch = null }) {
@@ -108,16 +108,19 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
         <div className="elegant-categories-box">
           <h3 className="elegant-categories-title">Kategorien</h3>
           <nav className="space-y-2">
-            {availableCategories.map(cat => (
-              <Link
-                key={cat}
-                href={`/${cat}`}
-                className={`elegant-category-link ${currentCategory === cat ? 'active' : ''}`}
-              >
-                <span className="elegant-category-emoji">{CATEGORIES[cat].emoji}</span>
-                <span>{categoryLabels[cat]}</span>
-              </Link>
-            ))}
+            {availableCategories.map(cat => {
+              const CategoryIcon = CATEGORIES[cat].Icon;
+              return (
+                <Link
+                  key={cat}
+                  href={`/${cat}`}
+                  className={`elegant-category-link ${currentCategory === cat ? 'active' : ''}`}
+                >
+                  <CategoryIcon size={20} strokeWidth={2} />
+                  <span>{categoryLabels[cat]}</span>
+                </Link>
+              );
+            })}
             
             {/* Vita Link */}
             <Link
@@ -125,7 +128,7 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
               className="elegant-category-link"
               style={{ marginTop: '1rem' }}
             >
-              <span className="elegant-category-emoji">👤</span>
+              <User size={20} strokeWidth={2} />
               <span>Künstler Vita</span>
             </Link>
           </nav>
