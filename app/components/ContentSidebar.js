@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { Search, Newspaper, Film, Megaphone, Lock, Archive, User } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 const supabase = createClient(
@@ -13,11 +13,11 @@ const supabase = createClient(
 );
 
 const CATEGORIES = {
-  news: { titleKey: 'news', emoji: '📰' },
-  story: { titleKey: 'stories', emoji: '🎬' },
-  press: { titleKey: 'press', emoji: '📢' },
-  private: { titleKey: 'private', emoji: '🔒' },
-  archive: { titleKey: 'archive', emoji: '📦' }
+  news: { titleKey: 'news', icon: Newspaper },
+  story: { titleKey: 'stories', icon: Film },
+  press: { titleKey: 'press', icon: Megaphone },
+  private: { titleKey: 'private', icon: Lock },
+  archive: { titleKey: 'archive', icon: Archive }
 };
 
 export default function ContentSidebar({ currentCategory = null, onSearch = null }) {
