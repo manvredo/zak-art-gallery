@@ -311,15 +311,23 @@ export default function NewGalleryItemPage() {
               console.log('Upload started:', result);
               setUploadingImage(true);
             }}
-            onSuccess={(result) => {
+            onSuccess={(result, { widget }) => {
               console.log('Upload success - Full result:', result);
-              console.log('Result info:', result?.info);
               
               // Verschiedene Wege, die URL zu bekommen
-              const imageUrl = result?.info?.secure_url || 
-                             result?.info?.url || 
-                             result?.url ||
-                             result?.secure_url;
+              let imageUrl = '';
+              
+              if (typeof result === 'string') {
+                imageUrl = result;
+              } else if (result?.event === 'success') {
+                imageUrl = result.info?.secure_url || result.info?.url;
+              } else if (result?.secure_url) {
+                imageUrl = result.secure_url;
+              } else if (result?.url) {
+                imageUrl = result.url;
+              } else if (result?.info?.secure_url) {
+                imageUrl = result.info.secure_url;
+              }
               
               console.log('Extracted URL:', imageUrl);
               
@@ -329,6 +337,7 @@ export default function NewGalleryItemPage() {
                   image: imageUrl
                 }));
                 console.log('Image URL set in formData:', imageUrl);
+                widget.close();
               } else {
                 console.error('Keine URL im Result gefunden!', result);
                 alert('Bild wurde hochgeladen, aber URL konnte nicht extrahiert werden.');
