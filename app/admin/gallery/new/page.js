@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/app/providers';
 import { createClient } from '@supabase/supabase-js';
 import { Save, X, Upload, ImageIcon, Loader } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
@@ -13,6 +14,7 @@ const supabase = createClient(
 
 export default function NewGalleryItemPage() {
   const router = useRouter();
+  const { session, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [formData, setFormData] = useState({
@@ -33,28 +35,78 @@ export default function NewGalleryItemPage() {
     setLoading(true);
 
     try {
+      console.log('📝 Starte Speicherung mit Session:', session?.user?.email);
+
+      if (!session) {
+        throw new Error('Keine gültige Session. Bitte melden Sie sich an.');
+      }
+
+      const insertData = {
+        title: formData.title || 'Ohne Titel',
+        artist: formData.artist || null,
+        category: formData.category || null,
+        width: formData.width ? parseInt(formData.width) : null,
+        height: formData.height ? parseInt(formData.height) : null,
+        technique: formData.technique || null,
+        year: formData.year || null,
+        description: formData.description || null,
+        image: formData.image || null,
+        featured: formData.featured
+      };
+
+      console.log('💾 Zu speichernde Daten:', insertData);
+
       const { data, error } = await supabase
         .from('gallery_items')
-        .insert([{
-          title: formData.title || 'Ohne Titel',
-          artist: formData.artist || null,
-          category: formData.category || null,
-          width: formData.width ? parseInt(formData.width) : null,
-          height: formData.height ? parseInt(formData.height) : null,
-          technique: formData.technique || null,
-          year: formData.year || null,
-          description: formData.description || null,
-          image: formData.image || null,
-          featured: formData.featured
-        }]);
+        .insert([insertData])
+        .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Supabase Error:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        throw error;
+      }
 
-      alert('Galeriewerk erfolgreich angelegt!');
-      router.push('/admin/gallery');
+      console.log('✅ Erfolgreich gespeichert:', data);
+      alert('✅ Galeriewerk erfolgreich angelegt!');
+      
+      setFormData({
+        title: '',
+        artist: '',
+        category: '',
+        width: '',
+        height: '',
+        technique: '',
+        year: '',
+        description: '',
+        image: '',
+        featured: false
+      });
+
+      setTimeout(() => {
+        router.push('/admin/gallery');
+      }, 1000);
+
     } catch (error) {
-      console.error('Error creating gallery item:', error);
-      alert('Fehler beim Anlegen des Galeriewerks!');
+      console.error('❌ Fehler:', error);
+      
+      let errorMessage = 'Fehler beim Anlegen des Galeriewerks!';
+      
+      if (error.message?.includes('Keine gültige Session')) {
+        errorMessage = 'Authentifizierungsfehler. Bitte melden Sie sich erneut an.';
+      } else if (error.message?.includes('permission denied')) {
+        errorMessage = 'Berechtigung verweigert. Überprüfen Sie Ihre Rolle.';
+      } else if (error.message?.includes('relation')) {
+        errorMessage = 'Datenbankfehler: Tabelle gallery_items nicht gefunden.';
+      } else if (error.message) {
+        errorMessage = `Fehler: ${error.message}`;
+      }
+      
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -68,42 +120,40 @@ export default function NewGalleryItemPage() {
     }));
   };
 
-  // Funktion zum Extrahieren der Bild-URL
   const extractImageUrl = (result) => {
-    if (typeof result === 'string') {
-      return result;
-    } else if (result?.event === 'success') {
-      return result.info?.secure_url || result.info?.url;
-    } else if (result?.secure_url) {
-      return result.secure_url;
-    } else if (result?.url) {
-      return result.url;
-    } else if (result?.info?.secure_url) {
-      return result.info.secure_url;
-    }
+    if (typeof result === 'string') return result;
+    if (result?.event === 'success') return result.info?.secure_url || result.info?.url;
+    if (result?.secure_url) return result.secure_url;
+    if (result?.url) return result.url;
+    if (result?.info?.secure_url) return result.info.secure_url;
     return '';
   };
 
-  // Handler für Upload Success - EINMAL definiert
   const handleUploadSuccess = (result, { widget }) => {
-    console.log('Upload success - Full result:', result);
-    
     const imageUrl = extractImageUrl(result);
-    console.log('Extracted URL:', imageUrl);
     
     if (imageUrl) {
       setFormData(prev => ({
         ...prev,
         image: imageUrl
       }));
-      console.log('Image URL set in formData:', imageUrl);
       widget.close();
     } else {
-      console.error('Keine URL im Result gefunden!', result);
       alert('Bild wurde hochgeladen, aber URL konnte nicht extrahiert werden.');
     }
     setUploadingImage(false);
   };
+
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Authentifizierung wird prüft...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -137,7 +187,7 @@ export default function NewGalleryItemPage() {
             value={formData.title}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-gray-900 text-gray-900 font-medium placeholder:text-gray-400"
-            placeholder="z.B. Sonnenuntergang am Meer (oder leer lassen)"
+            placeholder="z.B. Sonnenuntergang am Meer"
           />
         </div>
 
@@ -246,18 +296,16 @@ export default function NewGalleryItemPage() {
           />
         </div>
 
-        {/* Image Upload Section */}
+        {/* Image Upload */}
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Bild <span className="text-gray-400 text-xs">(optional)</span>
           </label>
           
-          {/* Cloudinary Upload Widget - NUR EINE onSuccess Prop */}
           <CldUploadWidget
             uploadPreset="gallery_preset"
             onSuccess={handleUploadSuccess}
-            onError={(error) => {
-              console.error('Upload error:', error);
+            onError={() => {
               alert('Fehler beim Hochladen des Bildes');
               setUploadingImage(false);
             }}
@@ -265,94 +313,36 @@ export default function NewGalleryItemPage() {
               maxFiles: 1,
               resourceType: 'image',
               clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-              maxFileSize: 10000000, // 10MB
+              maxFileSize: 10000000,
               cropping: true,
               croppingAspectRatio: 1.33,
               sources: ['local', 'url', 'camera'],
-              multiple: false,
-              styles: {
-                palette: {
-                  window: "#FFFFFF",
-                  windowBorder: "#E5E7EB",
-                  tabIcon: "#111827",
-                  menuIcons: "#6B7280",
-                  textDark: "#111827",
-                  textLight: "#6B7280",
-                  theme: "white",
-                  link: "#111827",
-                  action: "#111827",
-                  inactiveTabIcon: "#9CA3AF",
-                  error: "#EF4444",
-                  inProgress: "#3B82F6",
-                  complete: "#10B981",
-                  sourceBg: "#F9FAFB"
-                }
-              },
-              language: 'de',
-              text: {
-                de: {
-                  or: 'Oder',
-                  back: 'Zurück',
-                  advanced: 'Erweitert',
-                  close: 'Schließen',
-                  no_results: 'Keine Ergebnisse',
-                  search_placeholder: 'Suche...',
-                  about_uw: 'Über Upload Widget',
-                  menu: {
-                    files: 'Meine Dateien',
-                    web: 'Web Adresse',
-                    camera: 'Kamera',
-                  },
-                  local: {
-                    browse: 'Durchsuchen',
-                    main_title: 'Dateien hochladen',
-                    dd_title_single: 'Ziehen Sie eine Datei hierher',
-                    dd_title_multi: 'Ziehen Sie Dateien hierher',
-                  },
-                  url: {
-                    main_title: 'Bild-URL eingeben',
-                    input_placeholder: 'https://beispiel.de/bild.jpg'
-                  },
-                  camera: {
-                    capture: 'Foto aufnehmen',
-                    retry: 'Wiederholen'
-                  }
-                }
-              }
             }}
           >
             {({ open }) => (
               <div className="space-y-3">
-                {/* Upload Buttons */}
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setUploadingImage(true);
-                      open();
-                    }}
-                    disabled={uploadingImage}
-                    className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {uploadingImage ? (
-                      <>
-                        <Loader className="animate-spin" size={18} />
-                        <span>Wird hochgeladen...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Upload size={18} />
-                        <span>Bild hochladen</span>
-                      </>
-                    )}
-                  </button>
-                  
-                  <span className="text-sm text-gray-500">
-                    JPG, PNG, WebP bis 10MB
-                  </span>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUploadingImage(true);
+                    open();
+                  }}
+                  disabled={uploadingImage}
+                  className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium disabled:opacity-50"
+                >
+                  {uploadingImage ? (
+                    <>
+                      <Loader className="animate-spin" size={18} />
+                      Wird hochgeladen...
+                    </>
+                  ) : (
+                    <>
+                      <Upload size={18} />
+                      Bild hochladen
+                    </>
+                  )}
+                </button>
 
-                {/* Alternative: Direct URL Input */}
                 <div className="flex items-center gap-3">
                   <span className="text-sm text-gray-500">oder</span>
                   <input
@@ -388,7 +378,7 @@ export default function NewGalleryItemPage() {
                   className="w-full h-full object-contain"
                   onError={(e) => {
                     e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
+                    if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
                   }}
                 />
                 <div 
