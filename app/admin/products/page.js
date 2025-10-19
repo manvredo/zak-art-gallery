@@ -161,7 +161,16 @@ export default function AdminProductsPage() {
 
   const handleUploadSuccess = (result) => {
     console.log('Upload successful:', result);
-    setFormData({...formData, image: result.info.secure_url});
+    console.log('FormData before upload:', formData);
+    
+    setFormData(prevFormData => {
+      const updatedData = {
+        ...prevFormData, 
+        image: result.info.secure_url
+      };
+      console.log('FormData after upload:', updatedData);
+      return updatedData;
+    });
   };
 
   if (loading) {
