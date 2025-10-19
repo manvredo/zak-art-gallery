@@ -68,6 +68,43 @@ export default function NewGalleryItemPage() {
     }));
   };
 
+  // Funktion zum Extrahieren der Bild-URL
+  const extractImageUrl = (result) => {
+    if (typeof result === 'string') {
+      return result;
+    } else if (result?.event === 'success') {
+      return result.info?.secure_url || result.info?.url;
+    } else if (result?.secure_url) {
+      return result.secure_url;
+    } else if (result?.url) {
+      return result.url;
+    } else if (result?.info?.secure_url) {
+      return result.info.secure_url;
+    }
+    return '';
+  };
+
+  // Handler für Upload Success - EINMAL definiert
+  const handleUploadSuccess = (result, { widget }) => {
+    console.log('Upload success - Full result:', result);
+    
+    const imageUrl = extractImageUrl(result);
+    console.log('Extracted URL:', imageUrl);
+    
+    if (imageUrl) {
+      setFormData(prev => ({
+        ...prev,
+        image: imageUrl
+      }));
+      console.log('Image URL set in formData:', imageUrl);
+      widget.close();
+    } else {
+      console.error('Keine URL im Result gefunden!', result);
+      alert('Bild wurde hochgeladen, aber URL konnte nicht extrahiert werden.');
+    }
+    setUploadingImage(false);
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       
@@ -215,39 +252,15 @@ export default function NewGalleryItemPage() {
             Bild <span className="text-gray-400 text-xs">(optional)</span>
           </label>
           
-          {/* Cloudinary Upload Widget */}
+          {/* Cloudinary Upload Widget - NUR EINE onSuccess Prop */}
           <CldUploadWidget
             uploadPreset="gallery_preset"
-            onSuccess={(result, { widget }) => {
-              console.log('Upload erfolgt:', result);
-              
-              // Cloudinary gibt verschiedene Result-Strukturen zurück
-              let imageUrl = '';
-              
-              if (typeof result === 'string') {
-                imageUrl = result;
-              } else if (result?.event === 'success') {
-                imageUrl = result.info?.secure_url || result.info?.url;
-              } else if (result?.secure_url) {
-                imageUrl = result.secure_url;
-              } else if (result?.url) {
-                imageUrl = result.url;
-              } else if (result?.info?.secure_url) {
-                imageUrl = result.info.secure_url;
-              }
-              
-              console.log('Finale URL:', imageUrl);
-              
-              if (imageUrl) {
-                setFormData(prev => ({
-                  ...prev,
-                  image: imageUrl
-                }));
-                widget.close();
-              } else {
-                console.error('URL-Extraktion fehlgeschlagen:', result);
-              }
-            }} // Sie müssen diesen in Cloudinary erstellen
+            onSuccess={handleUploadSuccess}
+            onError={(error) => {
+              console.error('Upload error:', error);
+              alert('Fehler beim Hochladen des Bildes');
+              setUploadingImage(false);
+            }}
             options={{
               maxFiles: 1,
               resourceType: 'image',
@@ -307,48 +320,6 @@ export default function NewGalleryItemPage() {
                 }
               }
             }}
-            onUpload={(result) => {
-              console.log('Upload started:', result);
-              setUploadingImage(true);
-            }}
-            onSuccess={(result, { widget }) => {
-              console.log('Upload success - Full result:', result);
-              
-              // Verschiedene Wege, die URL zu bekommen
-              let imageUrl = '';
-              
-              if (typeof result === 'string') {
-                imageUrl = result;
-              } else if (result?.event === 'success') {
-                imageUrl = result.info?.secure_url || result.info?.url;
-              } else if (result?.secure_url) {
-                imageUrl = result.secure_url;
-              } else if (result?.url) {
-                imageUrl = result.url;
-              } else if (result?.info?.secure_url) {
-                imageUrl = result.info.secure_url;
-              }
-              
-              console.log('Extracted URL:', imageUrl);
-              
-              if (imageUrl) {
-                setFormData(prev => ({
-                  ...prev,
-                  image: imageUrl
-                }));
-                console.log('Image URL set in formData:', imageUrl);
-                widget.close();
-              } else {
-                console.error('Keine URL im Result gefunden!', result);
-                alert('Bild wurde hochgeladen, aber URL konnte nicht extrahiert werden.');
-              }
-              setUploadingImage(false);
-            }}
-            onError={(error) => {
-              console.error('Upload error:', error);
-              alert('Fehler beim Hochladen des Bildes');
-              setUploadingImage(false);
-            }}
           >
             {({ open }) => (
               <div className="space-y-3">
@@ -356,7 +327,10 @@ export default function NewGalleryItemPage() {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    onClick={open}
+                    onClick={() => {
+                      setUploadingImage(true);
+                      open();
+                    }}
                     disabled={uploadingImage}
                     className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   >
