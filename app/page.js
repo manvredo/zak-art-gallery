@@ -148,11 +148,7 @@ const ZakArtGallery = () => {
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
               
-              {<img 
-				src="/logo.png" 
-				alt="ZAK Art Gallery Logo"
-				className="w-12 h-12 flex-shrink-0"
-				/>}
+              {/* Logo Platzhalter */}
               <div className="w-12 h-12 bg-gray-300 rounded flex items-center justify-center flex-shrink-0">
                 <span className="text-xs text-gray-600 font-medium text-center px-1">LOGO</span>
               </div>
