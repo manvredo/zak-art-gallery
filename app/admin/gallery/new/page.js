@@ -217,7 +217,37 @@ export default function NewGalleryItemPage() {
           
           {/* Cloudinary Upload Widget */}
           <CldUploadWidget
-            uploadPreset="gallery_preset" // Sie müssen diesen in Cloudinary erstellen
+            uploadPreset="gallery_preset"
+            onSuccess={(result, { widget }) => {
+              console.log('Upload erfolgt:', result);
+              
+              // Cloudinary gibt verschiedene Result-Strukturen zurück
+              let imageUrl = '';
+              
+              if (typeof result === 'string') {
+                imageUrl = result;
+              } else if (result?.event === 'success') {
+                imageUrl = result.info?.secure_url || result.info?.url;
+              } else if (result?.secure_url) {
+                imageUrl = result.secure_url;
+              } else if (result?.url) {
+                imageUrl = result.url;
+              } else if (result?.info?.secure_url) {
+                imageUrl = result.info.secure_url;
+              }
+              
+              console.log('Finale URL:', imageUrl);
+              
+              if (imageUrl) {
+                setFormData(prev => ({
+                  ...prev,
+                  image: imageUrl
+                }));
+                widget.close();
+              } else {
+                console.error('URL-Extraktion fehlgeschlagen:', result);
+              }
+            }} // Sie müssen diesen in Cloudinary erstellen
             options={{
               maxFiles: 1,
               resourceType: 'image',
@@ -278,16 +308,32 @@ export default function NewGalleryItemPage() {
               }
             }}
             onUpload={(result) => {
+              console.log('Upload started:', result);
               setUploadingImage(true);
             }}
             onSuccess={(result) => {
-              if (result?.info && typeof result.info === 'object' && 'secure_url' in result.info) {
+              console.log('Upload success - Full result:', result);
+              console.log('Result info:', result?.info);
+              
+              // Verschiedene Wege, die URL zu bekommen
+              const imageUrl = result?.info?.secure_url || 
+                             result?.info?.url || 
+                             result?.url ||
+                             result?.secure_url;
+              
+              console.log('Extracted URL:', imageUrl);
+              
+              if (imageUrl) {
                 setFormData(prev => ({
                   ...prev,
-                  image: result.info.secure_url
+                  image: imageUrl
                 }));
-                setUploadingImage(false);
+                console.log('Image URL set in formData:', imageUrl);
+              } else {
+                console.error('Keine URL im Result gefunden!', result);
+                alert('Bild wurde hochgeladen, aber URL konnte nicht extrahiert werden.');
               }
+              setUploadingImage(false);
             }}
             onError={(error) => {
               console.error('Upload error:', error);
