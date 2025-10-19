@@ -16,7 +16,6 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Prüfe aktuelle Session
     const checkSession = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
@@ -31,7 +30,6 @@ export function AuthProvider({ children }) {
 
     checkSession();
 
-    // Höre auf Auth-Änderungen
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         console.log('Auth state changed:', event);
