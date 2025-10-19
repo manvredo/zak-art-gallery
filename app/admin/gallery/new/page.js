@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
-import { Save, X, Upload } from 'lucide-react';
+import { Save, X, Upload, ImageIcon, Loader } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
 
 const supabase = createClient(
@@ -14,6 +14,7 @@ const supabase = createClient(
 export default function NewGalleryItemPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     artist: '',
@@ -208,81 +209,179 @@ export default function NewGalleryItemPage() {
           />
         </div>
 
-        {/* Image URL */}
+        {/* Image Upload Section */}
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Bild <span className="text-gray-400 text-xs">(optional)</span>
           </label>
           
-          {/* Image URL Input */}
-          <input
-            type="url"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-gray-900 text-gray-900 font-medium placeholder:text-gray-400 mb-3"
-            placeholder="https://example.com/image.jpg"
-          />
+          {/* Cloudinary Upload Widget */}
+          <CldUploadWidget
+            uploadPreset="gallery_preset" // Sie müssen diesen in Cloudinary erstellen
+            options={{
+              maxFiles: 1,
+              resourceType: 'image',
+              clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+              maxFileSize: 10000000, // 10MB
+              cropping: true,
+              croppingAspectRatio: 1.33,
+              sources: ['local', 'url', 'camera'],
+              multiple: false,
+              styles: {
+                palette: {
+                  window: "#FFFFFF",
+                  windowBorder: "#E5E7EB",
+                  tabIcon: "#111827",
+                  menuIcons: "#6B7280",
+                  textDark: "#111827",
+                  textLight: "#6B7280",
+                  theme: "white",
+                  link: "#111827",
+                  action: "#111827",
+                  inactiveTabIcon: "#9CA3AF",
+                  error: "#EF4444",
+                  inProgress: "#3B82F6",
+                  complete: "#10B981",
+                  sourceBg: "#F9FAFB"
+                }
+              },
+              language: 'de',
+              text: {
+                de: {
+                  or: 'Oder',
+                  back: 'Zurück',
+                  advanced: 'Erweitert',
+                  close: 'Schließen',
+                  no_results: 'Keine Ergebnisse',
+                  search_placeholder: 'Suche...',
+                  about_uw: 'Über Upload Widget',
+                  menu: {
+                    files: 'Meine Dateien',
+                    web: 'Web Adresse',
+                    camera: 'Kamera',
+                  },
+                  local: {
+                    browse: 'Durchsuchen',
+                    main_title: 'Dateien hochladen',
+                    dd_title_single: 'Ziehen Sie eine Datei hierher',
+                    dd_title_multi: 'Ziehen Sie Dateien hierher',
+                  },
+                  url: {
+                    main_title: 'Bild-URL eingeben',
+                    input_placeholder: 'https://beispiel.de/bild.jpg'
+                  },
+                  camera: {
+                    capture: 'Foto aufnehmen',
+                    retry: 'Wiederholen'
+                  }
+                }
+              }
+            }}
+            onUpload={(result) => {
+              setUploadingImage(true);
+            }}
+            onSuccess={(result) => {
+              if (result?.info && typeof result.info === 'object' && 'secure_url' in result.info) {
+                setFormData(prev => ({
+                  ...prev,
+                  image: result.info.secure_url
+                }));
+                setUploadingImage(false);
+              }
+            }}
+            onError={(error) => {
+              console.error('Upload error:', error);
+              alert('Fehler beim Hochladen des Bildes');
+              setUploadingImage(false);
+            }}
+          >
+            {({ open }) => (
+              <div className="space-y-3">
+                {/* Upload Buttons */}
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={open}
+                    disabled={uploadingImage}
+                    className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {uploadingImage ? (
+                      <>
+                        <Loader className="animate-spin" size={18} />
+                        <span>Wird hochgeladen...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={18} />
+                        <span>Bild hochladen</span>
+                      </>
+                    )}
+                  </button>
+                  
+                  <span className="text-sm text-gray-500">
+                    JPG, PNG, WebP bis 10MB
+                  </span>
+                </div>
 
-          {/* Upload Button */}
-          <div className="flex items-center gap-3">
-            <label className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition cursor-pointer border border-gray-300">
-              <Upload size={18} />
-              <span className="text-sm font-medium">Bild hochladen</span>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0];
-                  if (!file) return;
+                {/* Alternative: Direct URL Input */}
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-gray-500">oder</span>
+                  <input
+                    type="url"
+                    name="image"
+                    value={formData.image}
+                    onChange={handleChange}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-gray-900 text-sm placeholder:text-gray-400"
+                    placeholder="Bild-URL direkt eingeben: https://..."
+                  />
+                </div>
+              </div>
+            )}
+          </CldUploadWidget>
 
-                  // Hier könnten Sie das Bild zu einem Service hochladen
-                  // Für jetzt: Lokale Preview
-                  const reader = new FileReader();
-                  reader.onload = (event) => {
-                    setFormData(prev => ({
-                      ...prev,
-                      image: event.target.result
-                    }));
-                  };
-                  reader.readAsDataURL(file);
-                }}
-                className="hidden"
-              />
-            </label>
-            <span className="text-xs text-gray-500">
-              oder URL oben eingeben
-            </span>
-          </div>
-
-          {/* Preview */}
+          {/* Image Preview */}
           {formData.image && (
             <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-medium text-gray-700">Vorschau:</p>
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-sm font-medium text-gray-700">Bildvorschau:</p>
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
-                  className="text-xs text-red-600 hover:text-red-700"
+                  className="text-sm text-red-600 hover:text-red-700 font-medium"
                 >
-                  Entfernen
+                  Bild entfernen
                 </button>
               </div>
-              <img 
-                src={formData.image} 
-                alt="Preview" 
-                className="max-w-xs rounded-lg border border-gray-200"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
+              <div className="relative aspect-[4/3] max-w-md mx-auto bg-white rounded-lg overflow-hidden border border-gray-200">
+                <img 
+                  src={formData.image} 
+                  alt="Vorschau" 
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div 
+                  className="absolute inset-0 flex items-center justify-center bg-gray-100"
+                  style={{ display: 'none' }}
+                >
+                  <div className="text-center">
+                    <ImageIcon size={48} className="mx-auto text-gray-400 mb-2" />
+                    <p className="text-sm text-gray-500">Bild kann nicht geladen werden</p>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-2 text-xs text-gray-500 text-center break-all">
+                {formData.image}
+              </p>
             </div>
           )}
         </div>
 
-        {/* Featured */}
+        {/* Featured Checkbox */}
         <div className="mb-6">
-          <label className="flex items-center gap-3 cursor-pointer">
+          <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition">
             <input
               type="checkbox"
               name="featured"
@@ -290,23 +389,28 @@ export default function NewGalleryItemPage() {
               onChange={handleChange}
               className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
-            <span className="text-sm font-medium text-gray-700">
-              Als hervorgehoben markieren
-            </span>
+            <div>
+              <span className="text-sm font-medium text-gray-700">
+                Als hervorgehoben markieren
+              </span>
+              <p className="text-xs text-gray-500">
+                Wird prominent auf der Startseite angezeigt
+              </p>
+            </div>
           </label>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit Buttons */}
         <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || uploadingImage}
             className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                Speichern...
+                Wird gespeichert...
               </>
             ) : (
               <>
