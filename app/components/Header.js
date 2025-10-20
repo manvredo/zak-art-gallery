@@ -56,8 +56,8 @@ export default function Header() {
             </button>
             <Link href="/">
               <img 
-                src="/logo.png" 
-                alt="ZAK Art Gallery" 
+                src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png" 
+                alt="ZAK Art Gallery Logo" 
                 className="h-10 cursor-pointer"
               />
             </Link>
