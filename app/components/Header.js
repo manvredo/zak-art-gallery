@@ -20,7 +20,6 @@ export default function Header() {
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
 
-  // Check if user is logged in
   useEffect(() => {
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -29,7 +28,6 @@ export default function Header() {
     
     checkUser();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
     });
@@ -37,7 +35,6 @@ export default function Header() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Helper function to check if route is active
   const isActive = (path) => {
     if (path === '/') return pathname === '/';
     return pathname.startsWith(path);
@@ -47,13 +44,17 @@ export default function Header() {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <button 
-              className="lg:hidden mr-4 cursor-pointer" 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden cursor-pointer" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Logo & Navigation - Centered */}
+          <div className="flex items-center justify-center flex-1">
             <Link href="/">
               <img 
                 src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png" 
@@ -61,44 +62,45 @@ export default function Header() {
                 className="h-10 cursor-pointer"
               />
             </Link>
-          </div>
-          
-          <nav className="hidden lg:flex space-x-8">
-            <Link 
-              href="/"
-              className={`transition cursor-pointer ${
-                isActive('/') && pathname === '/' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-              }`}
-            >
-              {t.nav.welcome}
-            </Link>
-            <Link 
-              href="/gallery"
-              className={`transition cursor-pointer ${
-                isActive('/gallery') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-              }`}
-            >
-              {t.nav.gallery}
-            </Link>
-            <Link 
-              href="/shop"
-              className={`transition cursor-pointer ${
-                isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-              }`}
-            >
-              {t.nav.shop}
-            </Link>
             
-            <Link 
-              href="/contact"
-              className={`transition cursor-pointer ${
-                isActive('/contact') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-              }`}
-            >
-              {t.nav.contact}
-            </Link>
-          </nav>
+            <nav className="hidden lg:flex space-x-8 ml-24">
+              <Link 
+                href="/"
+                className={`transition cursor-pointer ${
+                  isActive('/') && pathname === '/' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {t.nav.welcome}
+              </Link>
+              <Link 
+                href="/gallery"
+                className={`transition cursor-pointer ${
+                  isActive('/gallery') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {t.nav.gallery}
+              </Link>
+              <Link 
+                href="/shop"
+                className={`transition cursor-pointer ${
+                  isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {t.nav.shop}
+              </Link>
+              
+              <Link 
+                href="/contact"
+                className={`transition cursor-pointer ${
+                  isActive('/contact') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {t.nav.contact}
+              </Link>
+            </nav>
+          </div>
 
+          {/* Right Icons */}
           <div className="flex items-center space-x-4">
             <button 
               onClick={toggleLanguage} 
@@ -111,7 +113,6 @@ export default function Header() {
               <Search size={20} />
             </button>
             
-            {/* User Account Button */}
             {user ? (
               <Link 
                 href="/account"
@@ -178,7 +179,6 @@ export default function Header() {
               {t.nav.contact}
             </Link>
             
-            {/* Mobile User Links */}
             <div className="border-t border-gray-200 pt-3 mt-3">
               {user ? (
                 <Link
