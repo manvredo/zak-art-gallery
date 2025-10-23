@@ -1,71 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
-import { Search, Newspaper, Film, Megaphone, Lock, Archive, User } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Search, Newspaper, Film, Megaphone, Lock, User } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 const CATEGORIES = {
   news: { titleKey: 'news', Icon: Newspaper },
   story: { titleKey: 'stories', Icon: Film },
   press: { titleKey: 'press', Icon: Megaphone },
-  private: { titleKey: 'private', Icon: Lock },
-  archive: { titleKey: 'archive', Icon: Archive }
+  private: { titleKey: 'private', Icon: Lock }
 };
 
 export default function ContentSidebar({ currentCategory = null, onSearch = null }) {
   const { t } = useLanguage();
-  const router = useRouter();
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
-  const [availableCategories, setAvailableCategories] = useState([]);
-
-  useEffect(() => {
-    fetchAvailableCategories();
-  }, []);
-
-  const fetchAvailableCategories = async () => {
-    const categories = ['news', 'story', 'press', 'private', 'archive'];
-    const available = [];
-
-    for (const cat of categories) {
-      const { data, error } = await supabase
-        .from('content')
-        .select('id')
-        .eq('category', cat)
-        .eq('status', 'published')
-        .limit(1);
-
-      if (!error && data && data.length > 0) {
-        available.push(cat);
-      }
-    }
-
-    setAvailableCategories(available);
-  };
 
   const handleSearch = (e) => {
     e.preventDefault();
     const value = searchQuery.trim();
     
-    // Wenn onSearch Prop übergeben wurde (z.B. auf News-Seite)
     if (onSearch) {
       onSearch(value);
       return;
-    }
-    
-    // Ansonsten URL-basierte Suche
-    if (value) {
-      router.push(`${pathname}?search=${encodeURIComponent(value)}`);
-    } else {
-      router.push(pathname);
     }
   };
 
@@ -73,8 +32,7 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
     news: t.content?.news?.title || 'News',
     story: 'Making-of',
     press: t.content?.press?.title || 'Presse',
-    private: t.content?.private?.title || 'Privat',
-    archive: t.content?.archive?.title || 'Archiv'
+    private: t.content?.private?.title || 'Privat'
   };
 
   return (
@@ -104,11 +62,11 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
           </form>
         </div>
 
-        {/* Categories */}
+        {/* Categories - IMMER ALLE ANZEIGEN */}
         <div className="elegant-categories-box">
           <h3 className="elegant-categories-title">Kategorien</h3>
           <nav className="space-y-2">
-            {availableCategories.map(cat => {
+            {Object.keys(CATEGORIES).map(cat => {
               const CategoryIcon = CATEGORIES[cat].Icon;
               return (
                 <Link
