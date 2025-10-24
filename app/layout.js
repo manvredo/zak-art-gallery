@@ -6,7 +6,7 @@ import { AuthProvider } from './providers';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import "./globals.css";
-import "./styles/art-gallery.css";  // ← NEU: Elegantes Galerie-Styling
+import "./styles/art-gallery.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +21,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "ZAK Art Gallery - Original Oil Paintings",
   description: "Discover extraordinary art from emerging and established artists. Original oil paintings, contemporary art, and unique masterpieces.",
+  icons: {
+    icon: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947127/hi1xus7wdvma3mlv74ii.png",
+  },
 };
 
 export default function RootLayout({ children }) {
