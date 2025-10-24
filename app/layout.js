@@ -22,7 +22,12 @@ export const metadata = {
   title: "ZAK Art Gallery - Original Oil Paintings",
   description: "Discover extraordinary art from emerging and established artists. Original oil paintings, contemporary art, and unique masterpieces.",
   icons: {
-    icon: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947127/hi1xus7wdvma3mlv74ii.png",
+    icon: [
+      {
+        url: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947127/hi1xus7wdvma3mlv74ii.png",
+        sizes: "any",
+      }
+    ],
   },
 };
 
