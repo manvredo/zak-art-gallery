@@ -5,6 +5,7 @@ import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './providers';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import CookieBanner from './components/CookieBanner';
 import "./globals.css";
 import "./styles/art-gallery.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
                 </main>
                 <Footer />
               </div>
+              <CookieBanner />
             </CartProvider>
           </LanguageProvider>
         </AuthProvider>
