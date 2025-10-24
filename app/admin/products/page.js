@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
 
@@ -11,8 +12,11 @@ const supabase = createClient(
 );
 
 export default function AdminProductsPage() {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -28,9 +32,34 @@ export default function AdminProductsPage() {
     sale_ends_at: ''
   });
 
+  // Check authentication
   useEffect(() => {
-    fetchProducts();
+    checkAuth();
   }, []);
+
+  const checkAuth = async () => {
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
+      if (error || !user) {
+        router.push('/admin/login');
+        return;
+      }
+
+      setUser(user);
+      setAuthLoading(false);
+      fetchProducts();
+    } catch (error) {
+      console.error('Auth check error:', error);
+      router.push('/admin/login');
+    }
+  };
+
+  useEffect(() => {
+    if (!authLoading) {
+      fetchProducts();
+    }
+  }, [authLoading]);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -173,6 +202,18 @@ export default function AdminProductsPage() {
     });
   };
 
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Authentifizierung wird geprüft...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -187,9 +228,14 @@ export default function AdminProductsPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-light text-gray-900 mb-2">Product Management</h1>
-          <p className="text-gray-600">Add, edit, or delete products from your gallery</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-light text-gray-900 mb-2">Product Management</h1>
+            <p className="text-gray-600">Add, edit, or delete products from your gallery</p>
+          </div>
+          <span className="text-sm text-gray-600">
+            Angemeldet als: {user?.email}
+          </span>
         </div>
 
         {/* Product Form */}

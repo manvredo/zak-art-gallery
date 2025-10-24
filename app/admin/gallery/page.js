@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 import { Plus, Edit2, Trash2, Save, X, Upload, ImageIcon, Loader } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
 
@@ -11,8 +12,11 @@ const supabase = createClient(
 );
 
 export default function AdminGalleryPage() {
+  const router = useRouter();
   const [galleryItems, setGalleryItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('Alle');
   const [editingId, setEditingId] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -29,9 +33,28 @@ export default function AdminGalleryPage() {
     featured: false
   });
 
+  // Check authentication
   useEffect(() => {
-    fetchGalleryItems();
+    checkAuth();
   }, []);
+
+  const checkAuth = async () => {
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
+      if (error || !user) {
+        router.push('/admin/login');
+        return;
+      }
+
+      setUser(user);
+      setAuthLoading(false);
+      fetchGalleryItems();
+    } catch (error) {
+      console.error('Auth check error:', error);
+      router.push('/admin/login');
+    }
+  };
 
   const fetchGalleryItems = async () => {
     try {
@@ -177,6 +200,18 @@ export default function AdminGalleryPage() {
     ? galleryItems 
     : galleryItems.filter(item => item.category === selectedCategory);
 
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Authentifizierung wird geprüft...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -192,9 +227,14 @@ export default function AdminGalleryPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Galerie verwalten</h1>
-        <p className="text-gray-600">{galleryItems.length} Kunstwerke (nur Ansicht, nicht verkäuflich)</p>
+      <div className="mb-8 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Galerie verwalten</h1>
+          <p className="text-gray-600">{galleryItems.length} Kunstwerke (nur Ansicht, nicht verkäuflich)</p>
+        </div>
+        <span className="text-sm text-gray-600">
+          Angemeldet als: {user?.email}
+        </span>
       </div>
 
       {/* Info Box */}
