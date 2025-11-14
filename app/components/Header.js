@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
+import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { useCart } from '@/app/context/CartContext';
 import { useLanguage } from '@/app/context/LanguageContext';
@@ -108,9 +108,6 @@ export default function Header() {
               title={language === 'en' ? 'Deutsch' : 'English'}
             >
               <span className="text-2xl">{language === 'en' ? '🇩🇪' : '🇬🇧'}</span>
-            </button>
-            <button className="text-gray-700 hover:text-gray-900 cursor-pointer">
-              <Search size={20} />
             </button>
             
             {user ? (

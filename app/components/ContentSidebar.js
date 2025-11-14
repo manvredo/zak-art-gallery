@@ -1,23 +1,20 @@
 'use client';
-
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Search, Newspaper, Film, Megaphone, Lock, User } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
-
 const CATEGORIES = {
   news: { titleKey: 'news', Icon: Newspaper },
   story: { titleKey: 'stories', Icon: Film },
   press: { titleKey: 'press', Icon: Megaphone },
   private: { titleKey: 'private', Icon: Lock }
 };
-
 export default function ContentSidebar({ currentCategory = null, onSearch = null }) {
   const { t } = useLanguage();
   const pathname = usePathname();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-
   const handleSearch = (e) => {
     e.preventDefault();
     const value = searchQuery.trim();
@@ -26,15 +23,18 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
       onSearch(value);
       return;
     }
+    
+    // Weiterleitung zur Suchseite
+    if (value) {
+      router.push(`/search?q=${encodeURIComponent(value)}`);
+    }
   };
-
   const categoryLabels = {
     news: t.content?.news?.title || 'News',
     story: 'Making-of',
     press: t.content?.press?.title || 'Presse',
     private: t.content?.private?.title || 'Privat'
   };
-
   return (
     <aside className="elegant-sidebar">
       <div className="space-y-6">
@@ -61,7 +61,6 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
             </button>
           </form>
         </div>
-
         {/* Categories - IMMER ALLE ANZEIGEN */}
         <div className="elegant-categories-box">
           <h3 className="elegant-categories-title">Kategorien</h3>
@@ -91,7 +90,6 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
             </Link>
           </nav>
         </div>
-
       </div>
     </aside>
   );
