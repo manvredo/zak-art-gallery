@@ -39,7 +39,7 @@ export default function ImprintPage() {
               <div>
                 <p className="font-medium text-gray-900">Address</p>
                 <p>Rudolf-Breitscheid-Str.24</p>
-                <p>17326 Berlin</p>
+                <p>17326 Brüssow</p>
                 <p>Germany</p>
               </div>
 

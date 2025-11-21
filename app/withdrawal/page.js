@@ -158,11 +158,12 @@ export default function WithdrawalPage() {
             <div className="bg-gray-50 p-4 rounded text-gray-700 mb-4">
               <p className="font-medium text-gray-900">ZAK Art Gallery</p>
               <p>Manfred Zak</p>
-              <p>Großbeerenstr. 15</p>
-              <p>10963 Berlin</p>
+              <p>Rudolf-Breitscheid-Str.24</p>
+              <p>17326 Brüssow</p>
               <p>Germany</p>
               <p className="mt-2">Email: info@thefroggers.io</p>
-              <p>Phone: +49 (0) 123 456789</p>
+              <p>Phone: +49 (0) 39742 870978</p>
+			  <p>Phone: +49 (0) 152 25179626</p>
             </div>
 
             <p className="text-gray-700 leading-relaxed mb-4">
