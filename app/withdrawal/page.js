@@ -161,7 +161,7 @@ export default function WithdrawalPage() {
               <p>Rudolf-Breitscheid-Str.24</p>
               <p>17326 Brüssow</p>
               <p>Germany</p>
-              <p className="mt-2">Email: info@thefroggers.io</p>
+              <p className="mt-2">Email: info@manfredzak.com</p>
               <p>Phone: +49 (0) 39742 870978</p>
 			  <p>Phone: +49 (0) 152 25179626</p>
             </div>
