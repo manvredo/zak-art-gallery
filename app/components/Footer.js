@@ -83,7 +83,8 @@ const Footer = () => {
             <h3 className="font-light text-lg mb-4 text-gray-900">{t.footer.contactTitle}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>info@zakartgallery.com</li>
-              <li>+49 (0) 123 456789</li>
+              <li>+49 (0) 39742 870978</li>
+			  <li>+49 (0) 152 25179626</li>
               <li>{t.footer.monFri}</li>
             </ul>
           </div>
