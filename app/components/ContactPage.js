@@ -37,7 +37,7 @@ export default function ContactPage({
               <Phone className="text-gray-600 mt-1" size={20} />
               <div>
                 <p className="font-medium text-gray-900">{t.contact.phone}</p>
-                <p className="text-gray-600">+49 (0) 123 456789</p>
+                <p className="text-gray-600">+49 (0) 39742 870978</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
