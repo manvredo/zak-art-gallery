@@ -38,15 +38,16 @@ export default function ImprintPage() {
 
               <div>
                 <p className="font-medium text-gray-900">Address</p>
-                <p>Großbeerenstr. 15</p>
-                <p>10963 Berlin</p>
+                <p>Rudolf-Breitscheid-Str.24</p>
+                <p>17326 Berlin</p>
                 <p>Germany</p>
               </div>
 
               <div>
                 <p className="font-medium text-gray-900">Contact</p>
-                <p>Email: info@thefroggers.io</p>
-                <p>Phone: +49 (0) 123 456789</p>
+                <p>Email: info@manfredzak.com</p>
+                <p>Phone: +49 (0) 39742 870978</p>
+				<p>Phone: +49 (0) 152 25179626</p>
               </div>
 
               <div>
@@ -77,8 +78,8 @@ export default function ImprintPage() {
             </h2>
             <div className="text-gray-700">
               <p>Manfred Zak</p>
-              <p>Großbeerenstr. 15</p>
-              <p>10963 Berlin</p>
+              <p>Rudolf-Breitscheid-Str. 24</p>
+              <p>17326 Brüssow</p>
             </div>
           </section>
 
