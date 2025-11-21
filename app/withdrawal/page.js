@@ -46,11 +46,12 @@ export default function WithdrawalPage() {
             <div className="bg-gray-50 p-4 rounded text-gray-700 mb-4">
               <p className="font-medium text-gray-900">ZAK Art Gallery</p>
               <p>Manfred Zak</p>
-              <p>Großbeerenstr. 15</p>
-              <p>10963 Berlin</p>
+              <p>Rudolf-Breitscheid-Str. 15</p>
+              <p>17326 Brüssow</p>
               <p>Deutschland</p>
               <p className="mt-2">E-Mail: info@thefroggers.io</p>
-              <p>Telefon: +49 (0) 123 456789</p>
+              <p>Telefon: +49 (0) 39742 870978</p>
+			  <p>Telefon: +49 (0) 152 25179626</p>
             </div>
 
             <p className="text-gray-700 leading-relaxed mb-4">
@@ -111,10 +112,10 @@ export default function WithdrawalPage() {
                 <p className="ml-4">
                   ZAK Art Gallery<br />
                   Manfred Zak<br />
-                  Großbeerenstr. 15<br />
-                  10963 Berlin<br />
+                  Rudolf-Breitscheid-Str. 24<br />
+                  17326 Brüssow<br />
                   Deutschland<br />
-                  E-Mail: info@thefroggers.io
+                  E-Mail: info@manfredzak.com
                 </p>
                 
                 <p className="mt-4">
