@@ -78,9 +78,9 @@ export default function PrivacyPage() {
             <h3 className="text-xl font-light text-gray-900 mb-3 mt-6">Responsible Party</h3>
             <div className="bg-gray-50 p-4 rounded text-gray-700">
               <p className="mb-2 font-medium text-gray-900">ZAK Art Gallery</p>
-              <p>Großbeerenstr. 15</p>
-              <p>10963 Berlin, Germany</p>
-              <p>Email: info@thefroggers.io</p>
+              <p>Rudolf-Breitscheid-Str. 24</p>
+              <p>17326 Brüssow, Germany</p>
+              <p>Email: info@manfredzak.com</p>
               <p>VAT ID: DE243487042</p>
             </div>
           </section>
