@@ -184,7 +184,11 @@ export default function AdminContentPage() {
   };
 
   const handleUploadSuccess = (result) => {
-    setFormData({...formData, featured_image: result.info.secure_url});
+    // WICHTIG: Spread operator verwenden um bestehenden State zu erhalten
+    setFormData(prevData => ({
+      ...prevData,
+      featured_image: result.info.secure_url
+    }));
   };
 
   const getCategoryBadge = (category) => {
@@ -195,6 +199,16 @@ export default function AdminContentPage() {
       private: 'bg-gray-100 text-gray-800'
     };
     return colors[category] || 'bg-gray-100 text-gray-800';
+  };
+
+  const getCategoryLabel = (category) => {
+    const labels = {
+      news: 'News',
+      story: 'Work in Progress',
+      press: 'Presse',
+      private: 'Kundenlogin'
+    };
+    return labels[category] || category;
   };
 
   // Show loading while checking auth
@@ -291,9 +305,9 @@ export default function AdminContentPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                 >
                   <option value="news">📰 News</option>
-                  <option value="story">📖 Story</option>
-                  <option value="press">📢 Press</option>
-                  <option value="private">🔒 Private</option>
+                  <option value="story">🎨 Work in Progress</option>
+                  <option value="press">📢 Presse</option>
+                  <option value="private">🔒 Kundenlogin</option>
                 </select>
               </div>
 
@@ -457,7 +471,7 @@ export default function AdminContentPage() {
                           <h3 className="font-medium text-gray-900 text-lg mb-1">{content.title}</h3>
                           <div className="flex gap-2 items-center flex-wrap">
                             <span className={`px-2 py-1 text-xs rounded ${getCategoryBadge(content.category)}`}>
-                              {content.category}
+                              {getCategoryLabel(content.category)}
                             </span>
                             <span className={`px-2 py-1 text-xs rounded ${
                               content.status === 'published' 
