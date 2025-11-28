@@ -39,7 +39,6 @@ export default function AdminContentPage() {
       const { data: { user }, error } = await supabase.auth.getUser();
       
       if (error || !user) {
-        // Not authenticated - redirect to login
         router.push('/admin/login');
         return;
       }
@@ -66,6 +65,10 @@ export default function AdminContentPage() {
   const generateSlug = (title) => {
     return title
       .toLowerCase()
+      .replace(/ä/g, 'ae')
+      .replace(/ö/g, 'oe')
+      .replace(/ü/g, 'ue')
+      .replace(/ß/g, 'ss')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
   };
@@ -145,7 +148,7 @@ export default function AdminContentPage() {
       slug: content.slug,
       category: content.category,
       excerpt: content.excerpt || '',
-      content: content.content,
+      content: content.content || '',
       featured_image: content.featured_image || '',
       status: content.status,
       author: content.author || ''
@@ -184,7 +187,6 @@ export default function AdminContentPage() {
   };
 
   const handleUploadSuccess = (result) => {
-    // WICHTIG: Spread operator verwenden um bestehenden State zu erhalten
     setFormData(prevData => ({
       ...prevData,
       featured_image: result.info.secure_url
@@ -211,7 +213,6 @@ export default function AdminContentPage() {
     return labels[category] || category;
   };
 
-  // Show loading while checking auth
   if (authLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -339,86 +340,166 @@ export default function AdminContentPage() {
               </div>
             </div>
 
-            {/* Featured Image */}
+            {/* SECTION 1: PREVIEW FOR OVERVIEW PAGE */}
             <div className="border-t border-gray-200 pt-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Featured Image (Optional)</h3>
-              
-              <div className="flex gap-4 items-start">
-                <div className="flex-1">
-                  <input
-                    type="url"
-                    value={formData.featured_image}
-                    onChange={(e) => setFormData({...formData, featured_image: e.target.value})}
-                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder="https://res.cloudinary.com/..."
-                  />
-                </div>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-2 flex items-center gap-2">
+                  📋 Übersichts-Seite (Preview)
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Diese Felder werden auf der Übersichtsseite (/news, /story, etc.) angezeigt
+                </p>
+              </div>
+
+              {/* Featured Image for Preview */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Featured Image * (Hauptbild für Übersicht)
+                </label>
                 
+                <div className="flex gap-4 items-start">
+                  <div className="flex-1">
+                    <input
+                      type="url"
+                      value={formData.featured_image}
+                      onChange={(e) => setFormData({...formData, featured_image: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                      placeholder="https://res.cloudinary.com/..."
+                    />
+                  </div>
+                  
+                  <CldUploadWidget
+                    uploadPreset="zak_gallery"
+                    cloudName="dhjcx2xdd"
+                    options={{
+                      folder: "content",
+                      tags: ["content", formData.category],
+                      multiple: false,
+                      maxFiles: 1
+                    }}
+                    onSuccess={handleUploadSuccess}
+                  >
+                    {({ open }) => (
+                      <button
+                        type="button"
+                        onClick={() => open()}
+                        className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700 transition rounded flex items-center gap-2"
+                      >
+                        <Upload size={18} />
+                        Upload
+                      </button>
+                    )}
+                  </CldUploadWidget>
+                </div>
+
+                {formData.featured_image && (
+                  <div className="mt-4">
+                    <div className="w-full max-w-md h-48 border border-gray-300 rounded overflow-hidden bg-gray-100">
+                      <img 
+                        src={formData.featured_image} 
+                        alt="Featured" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Excerpt for Preview */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Excerpt * (Kurze Zusammenfassung für Übersicht)
+                </label>
+                <textarea
+                  required
+                  rows="3"
+                  value={formData.excerpt}
+                  onChange={(e) => setFormData({...formData, excerpt: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                  placeholder="Eine kurze Zusammenfassung (2-3 Sätze) die auf der Übersichtsseite angezeigt wird..."
+                />
+                <p className="text-xs text-gray-500 mt-1">💡 Dies ist der Text unter dem Bild in der Übersicht</p>
+              </div>
+            </div>
+
+            {/* SECTION 2: FULL ARTICLE CONTENT */}
+            <div className="border-t border-gray-200 pt-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-2 flex items-center gap-2">
+                  📄 Vollständiger Artikel (Detail-Seite)
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Hier kommt der komplette Artikel mit allen Bildern und Text - wird auf /news/slug angezeigt
+                </p>
+              </div>
+
+              {/* Multiple Images Upload */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Artikel-Bilder hochladen (mehrere möglich)
+                </label>
                 <CldUploadWidget
                   uploadPreset="zak_gallery"
                   cloudName="dhjcx2xdd"
                   options={{
                     folder: "content",
-                    tags: ["content", formData.category],
-                    multiple: false,
-                    maxFiles: 1
+                    tags: ["content", formData.category, "article"],
+                    multiple: true,
+                    maxFiles: 10
                   }}
-                  onSuccess={handleUploadSuccess}
+                  onSuccess={(result) => {
+                    // Füge <img> Tag automatisch ins Content-Feld ein
+                    const imgTag = `\n<img src="${result.info.secure_url}" alt="Bild" class="w-full rounded-lg my-4" />\n`;
+                    setFormData(prev => ({
+                      ...prev,
+                      content: prev.content + imgTag
+                    }));
+                  }}
                 >
                   {({ open }) => (
                     <button
                       type="button"
                       onClick={() => open()}
-                      className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700 transition rounded flex items-center gap-2"
+                      className="px-6 py-2 bg-green-600 text-white hover:bg-green-700 transition rounded flex items-center gap-2"
                     >
                       <Upload size={18} />
-                      Upload
+                      Bilder hochladen (wird automatisch eingefügt)
                     </button>
                   )}
                 </CldUploadWidget>
+                <p className="text-xs text-gray-500 mt-2">
+                  💡 Bilder werden automatisch als HTML-Code in den Artikel eingefügt
+                </p>
               </div>
 
-              {formData.featured_image && (
-                <div className="mt-4">
-                  <div className="w-full max-w-md h-48 border border-gray-300 rounded overflow-hidden bg-gray-100">
-                    <img 
-                      src={formData.featured_image} 
-                      alt="Featured" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+              {/* Full Article Content */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Vollständiger Artikel * (HTML möglich)
+                </label>
+                <textarea
+                  required
+                  rows="20"
+                  value={formData.content}
+                  onChange={(e) => setFormData({...formData, content: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 font-mono text-sm"
+                  placeholder="Schreibe hier den vollständigen Artikel...
+
+Beispiel mit HTML:
+<h2>Überschrift</h2>
+<p>Text mit <strong>fett</strong> und <em>kursiv</em>.</p>
+
+<img src='...' alt='Bild' class='w-full rounded-lg my-4' />
+
+<p>Mehr Text...</p>"
+                />
+                <div className="text-xs text-gray-500 mt-2 space-y-1">
+                  <p>💡 <strong>HTML-Tags die du verwenden kannst:</strong></p>
+                  <p>&lt;h2&gt;Überschrift&lt;/h2&gt; | &lt;p&gt;Absatz&lt;/p&gt; | &lt;strong&gt;fett&lt;/strong&gt; | &lt;em&gt;kursiv&lt;/em&gt;</p>
+                  <p>&lt;ul&gt;&lt;li&gt;Liste&lt;/li&gt;&lt;/ul&gt; | &lt;a href="url"&gt;Link&lt;/a&gt;</p>
+                  <p>📸 Bilder werden automatisch eingefügt wenn du oben "Bilder hochladen" klickst</p>
                 </div>
-              )}
-            </div>
-
-            {/* Excerpt */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Excerpt (Optional) - Short preview text
-              </label>
-              <textarea
-                rows="2"
-                value={formData.excerpt}
-                onChange={(e) => setFormData({...formData, excerpt: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                placeholder="A brief summary that appears in previews..."
-              />
-            </div>
-
-            {/* Main Content */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Content * (Full article text)
-              </label>
-              <textarea
-                required
-                rows="12"
-                value={formData.content}
-                onChange={(e) => setFormData({...formData, content: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 font-mono text-sm"
-                placeholder="Write your full content here..."
-              />
-              <p className="text-xs text-gray-500 mt-1">💡 Supports line breaks and paragraphs</p>
+              </div>
             </div>
 
             <div className="flex gap-3">
