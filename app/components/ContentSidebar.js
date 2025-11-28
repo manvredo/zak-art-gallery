@@ -81,10 +81,10 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
   };
 
   const categoryLabels = {
-    news: t.content?.news?.title || 'News',
-    story: 'Making-of',
-    press: t.content?.press?.title || 'Presse',
-    private: t.content?.private?.title || 'Privat'
+    news: language === 'de' ? 'News' : 'News',
+    story: language === 'de' ? 'Work in Progress' : 'Work in Progress',
+    press: language === 'de' ? 'Presse' : 'Press',
+    private: language === 'de' ? 'Kundenlogin' : 'Customer Login'
   };
 
   return (
@@ -95,14 +95,14 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
         <div className="elegant-search-box">
           <h3 className="elegant-search-title">
             <Search size={18} />
-            Suche
+            {language === 'de' ? 'Suche' : 'Search'}
           </h3>
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Artikel durchsuchen..."
+              placeholder={language === 'de' ? 'Artikel durchsuchen...' : 'Search articles...'}
               className="elegant-search-input"
             />
             <button 
@@ -116,7 +116,7 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
 
         {/* Categories - Im Admin alle anzeigen, im Public nur mit Content */}
         <div className="elegant-categories-box">
-          <h3 className="elegant-categories-title">Kategorien</h3>
+          <h3 className="elegant-categories-title">{language === 'de' ? 'Kategorien' : 'Categories'}</h3>
           <nav className="space-y-2">
             {isLoadingCategories ? (
               // Loading Skeleton
@@ -153,7 +153,7 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
               style={{ marginTop: '1rem' }}
             >
               <User size={20} strokeWidth={2} />
-              <span>Künstler Vita</span>
+              <span>{language === 'de' ? 'Künstler Vita' : 'Artist Bio'}</span>
             </Link>
           </nav>
         </div>
