@@ -436,39 +436,88 @@ export default function AdminContentPage() {
               {/* Multiple Images Upload */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Artikel-Bilder hochladen (mehrere möglich)
+                  Artikel-Bilder hochladen
                 </label>
-                <CldUploadWidget
-                  uploadPreset="zak_gallery"
-                  cloudName="dhjcx2xdd"
-                  options={{
-                    folder: "content",
-                    tags: ["content", formData.category, "article"],
-                    multiple: true,
-                    maxFiles: 10
-                  }}
-                  onSuccess={(result) => {
-                    // Füge <img> Tag automatisch ins Content-Feld ein
-                    const imgTag = `\n<img src="${result.info.secure_url}" alt="Bild" class="w-full rounded-lg my-4" />\n`;
-                    setFormData(prev => ({
-                      ...prev,
-                      content: prev.content + imgTag
-                    }));
-                  }}
-                >
-                  {({ open }) => (
-                    <button
-                      type="button"
-                      onClick={() => open()}
-                      className="px-6 py-2 bg-green-600 text-white hover:bg-green-700 transition rounded flex items-center gap-2"
-                    >
-                      <Upload size={18} />
-                      Bilder hochladen (wird automatisch eingefügt)
-                    </button>
-                  )}
-                </CldUploadWidget>
+                
+                <div className="flex gap-3">
+                  {/* Single Image Upload */}
+                  <CldUploadWidget
+                    uploadPreset="zak_gallery"
+                    cloudName="dhjcx2xdd"
+                    options={{
+                      folder: "content",
+                      tags: ["content", formData.category, "article"],
+                      multiple: false,
+                      maxFiles: 1
+                    }}
+                    onSuccess={(result) => {
+                      // Füge einzelnes Bild ein (volle Breite)
+                      const imgTag = `\n<img src="${result.info.secure_url}" alt="Bild" class="w-full rounded-lg my-4" />\n`;
+                      setFormData(prev => ({
+                        ...prev,
+                        content: prev.content + imgTag
+                      }));
+                    }}
+                  >
+                    {({ open }) => (
+                      <button
+                        type="button"
+                        onClick={() => open()}
+                        className="px-6 py-2 bg-green-600 text-white hover:bg-green-700 transition rounded flex items-center gap-2"
+                      >
+                        <Upload size={18} />
+                        1 Bild (volle Breite)
+                      </button>
+                    )}
+                  </CldUploadWidget>
+
+                  {/* Double Image Upload */}
+                  <CldUploadWidget
+                    uploadPreset="zak_gallery"
+                    cloudName="dhjcx2xdd"
+                    options={{
+                      folder: "content",
+                      tags: ["content", formData.category, "article"],
+                      multiple: true,
+                      maxFiles: 2
+                    }}
+                    onSuccess={(result) => {
+                      // Sammle beide Bilder und füge sie als Grid ein
+                      const imgTag = `<img src="${result.info.secure_url}" alt="Bild" class="w-full rounded-lg" />`;
+                      
+                      // Prüfe ob bereits ein Grid geöffnet ist
+                      const lastContent = formData.content;
+                      if (lastContent.includes('<div class="grid grid-cols-2 gap-4 my-4">') && 
+                          !lastContent.endsWith('</div>\n')) {
+                        // Grid ist offen, füge zweites Bild hinzu und schließe
+                        setFormData(prev => ({
+                          ...prev,
+                          content: prev.content + '\n  ' + imgTag + '\n</div>\n'
+                        }));
+                      } else {
+                        // Öffne neues Grid
+                        setFormData(prev => ({
+                          ...prev,
+                          content: prev.content + '\n<div class="grid grid-cols-2 gap-4 my-4">\n  ' + imgTag
+                        }));
+                      }
+                    }}
+                  >
+                    {({ open }) => (
+                      <button
+                        type="button"
+                        onClick={() => open()}
+                        className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700 transition rounded flex items-center gap-2"
+                      >
+                        <Upload size={18} />
+                        2 Bilder (nebeneinander)
+                      </button>
+                    )}
+                  </CldUploadWidget>
+                </div>
+                
                 <p className="text-xs text-gray-500 mt-2">
-                  💡 Bilder werden automatisch als HTML-Code in den Artikel eingefügt
+                  💡 Wähle "1 Bild" für volle Breite oder "2 Bilder" für nebeneinander
                 </p>
               </div>
 
@@ -497,9 +546,35 @@ Beispiel mit HTML:
                   <p>💡 <strong>HTML-Tags die du verwenden kannst:</strong></p>
                   <p>&lt;h2&gt;Überschrift&lt;/h2&gt; | &lt;p&gt;Absatz&lt;/p&gt; | &lt;strong&gt;fett&lt;/strong&gt; | &lt;em&gt;kursiv&lt;/em&gt;</p>
                   <p>&lt;ul&gt;&lt;li&gt;Liste&lt;/li&gt;&lt;/ul&gt; | &lt;a href="url"&gt;Link&lt;/a&gt;</p>
-                  <p>📸 Bilder werden automatisch eingefügt wenn du oben "Bilder hochladen" klickst</p>
+                  <p>📸 Bilder werden automatisch eingefügt wenn du oben Upload-Buttons klickst</p>
                 </div>
               </div>
+
+              {/* LIVE PREVIEW */}
+              {formData.content && (
+                <div className="border-t border-gray-200 pt-6">
+                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      👁️ Live-Vorschau
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      So wird der Artikel auf der Detail-Seite aussehen
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-300 rounded-lg p-8 max-h-[600px] overflow-y-auto">
+                    <div 
+                      className="prose prose-lg max-w-none
+                        prose-headings:font-light prose-headings:text-gray-900
+                        prose-p:text-gray-700 prose-p:leading-relaxed
+                        prose-a:text-gray-900 prose-a:underline hover:prose-a:text-gray-600
+                        prose-strong:text-gray-900 prose-strong:font-medium
+                        prose-img:rounded-lg prose-img:shadow-sm"
+                      dangerouslySetInnerHTML={{ __html: formData.content }}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex gap-3">
