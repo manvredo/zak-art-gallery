@@ -24,12 +24,14 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [availableCategories, setAvailableCategories] = useState(Object.keys(CATEGORIES));
+  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
 
   // Prüfe welche Kategorien Content haben (nur im Public-Modus)
   useEffect(() => {
     if (isAdminMode) {
       // Im Admin-Modus: Zeige ALLE Kategorien
       setAvailableCategories(Object.keys(CATEGORIES));
+      setIsLoadingCategories(false);
     } else {
       // Im Public-Modus: Prüfe welche Kategorien Content haben
       checkAvailableCategories();
@@ -58,6 +60,8 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
       console.error('Error checking categories:', error);
       // Bei Fehler: Zeige alle Kategorien
       setAvailableCategories(Object.keys(CATEGORIES));
+    } finally {
+      setIsLoadingCategories(false);
     }
   };
 
@@ -114,19 +118,33 @@ export default function ContentSidebar({ currentCategory = null, onSearch = null
         <div className="elegant-categories-box">
           <h3 className="elegant-categories-title">Kategorien</h3>
           <nav className="space-y-2">
-            {availableCategories.map(cat => {
-              const CategoryIcon = CATEGORIES[cat].Icon;
-              return (
-                <Link
-                  key={cat}
-                  href={`/${cat}`}
-                  className={`elegant-category-link ${currentCategory === cat ? 'active' : ''}`}
-                >
-                  <CategoryIcon size={20} strokeWidth={2} />
-                  <span>{categoryLabels[cat]}</span>
-                </Link>
-              );
-            })}
+            {isLoadingCategories ? (
+              // Loading Skeleton
+              <>
+                {[1, 2, 3, 4].map((i) => (
+                  <div 
+                    key={i}
+                    className="h-10 bg-gray-200 rounded animate-pulse"
+                  />
+                ))}
+              </>
+            ) : (
+              <>
+                {availableCategories.map(cat => {
+                  const CategoryIcon = CATEGORIES[cat].Icon;
+                  return (
+                    <Link
+                      key={cat}
+                      href={`/${cat}`}
+                      className={`elegant-category-link ${currentCategory === cat ? 'active' : ''}`}
+                    >
+                      <CategoryIcon size={20} strokeWidth={2} />
+                      <span>{categoryLabels[cat]}</span>
+                    </Link>
+                  );
+                })}
+              </>
+            )}
             
             {/* Vita Link - immer anzeigen */}
             <Link
