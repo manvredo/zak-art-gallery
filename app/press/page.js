@@ -80,16 +80,16 @@ export default function PressPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Main Content - OHNE Hero Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
-          {/* Sidebar */}
+          {/* Sidebar - Zeigt NUR Kategorien mit Content (isAdminMode nicht gesetzt = false) */}
           <ContentSidebar 
             currentCategory={CATEGORY}
             onSearch={handleSearch}
           />
 
           {/* Articles Grid */}
-          <div className="lg:col-span-3">
+          <div className="col-span-1 lg:col-span-3">
             {filteredArticles.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-xl shadow-sm">
                 <p className="text-gray-500 text-lg">
@@ -101,9 +101,10 @@ export default function PressPage() {
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
                 {filteredArticles.map((article) => (
-                  <article 
+                  <Link 
                     key={article.id}
-                    className="elegant-card"
+                    href={`/${CATEGORY}/${article.slug}`}
+                    className="elegant-card group cursor-pointer block"
                   >
                     {/* Featured Image */}
                     {article.featured_image && (
@@ -135,16 +136,13 @@ export default function PressPage() {
                         {article.excerpt}
                       </p>
 
-                      {/* Read More Link */}
-                      <Link 
-                        href={`/${CATEGORY}/${article.slug}`}
-                        className="elegant-card-link"
-                      >
+                      {/* Read More Link - jetzt nur noch visuell */}
+                      <span className="elegant-card-link">
                         {language === 'de' ? 'Weiterlesen' : 'Read more'}
                         <ArrowRight size={18} />
-                      </Link>
+                      </span>
                     </div>
-                  </article>
+                  </Link>
                 ))}
               </div>
             )}

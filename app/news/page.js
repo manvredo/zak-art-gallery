@@ -101,9 +101,10 @@ export default function NewsPage() {
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
                 {filteredArticles.map((article) => (
-                  <article 
+                  <Link 
                     key={article.id}
-                    className="elegant-card"
+                    href={`/${CATEGORY}/${article.slug}`}
+                    className="elegant-card group cursor-pointer block"
                   >
                     {/* Featured Image */}
                     {article.featured_image && (
@@ -135,16 +136,13 @@ export default function NewsPage() {
                         {article.excerpt}
                       </p>
 
-                      {/* Read More Link */}
-                      <Link 
-                        href={`/${CATEGORY}/${article.slug}`}
-                        className="elegant-card-link"
-                      >
+                      {/* Read More Link - jetzt nur noch visuell */}
+                      <span className="elegant-card-link">
                         {language === 'de' ? 'Weiterlesen' : 'Read more'}
                         <ArrowRight size={18} />
-                      </Link>
+                      </span>
                     </div>
-                  </article>
+                  </Link>
                 ))}
               </div>
             )}
