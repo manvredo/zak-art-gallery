@@ -31,7 +31,7 @@ export default function ShippingPage() {
         {
           icon: Globe,
           title: 'Internationaler Versand',
-          text: 'Wir versenden weltweit. Die Versandkosten und Lieferzeiten variieren je nach Zielland. Alle Zollgebühren sind vom Käufer zu tragen.'
+          text: 'Wir versenden weltweit. Die Versandkosten variieren je nach Zielland:\n• Europa: ab 35€\n• Übersee: ab 60€\n\nAlle Sendungen sind vollständig versichert. Zollgebühren und Einfuhrsteuern sind vom Käufer zu tragen. Für genaue Kosten und Lieferzeiten kontaktieren Sie uns bitte vor der Bestellung.'
         },
         {
           icon: Shield,
@@ -79,7 +79,7 @@ export default function ShippingPage() {
         {
           icon: Globe,
           title: 'International Shipping',
-          text: 'We ship worldwide. Shipping costs and delivery times vary by destination. All customs fees are the responsibility of the buyer.'
+          text: 'We ship worldwide. Shipping costs vary by destination:\n• Europe: from €35\n• Overseas: from €60\n\nAll shipments are fully insured. Customs fees and import taxes are the responsibility of the buyer. Please contact us before ordering for exact costs and delivery times.'
         },
         {
           icon: Shield,
