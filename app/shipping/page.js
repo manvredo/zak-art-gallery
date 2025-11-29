@@ -21,10 +21,11 @@ export default function ShippingPage() {
           icon: Truck,
           title: 'Versandoptionen',
           items: [
-            'Standardversand (5-7 Werktage) - Kostenlos ab 500€',
-            'Expressversand (2-3 Werktage) - 29€',
-            'Overnight Express (1 Werktag) - 59€',
-            'Persönliche Übergabe in Berlin nach Vereinbarung'
+            'Standardversand Deutschland (5-7 Werktage) - 15€',
+            'Standardversand ab 500€ Warenwert - Kostenlos',
+            'Expressversand (2-3 Werktage) - 45€',
+            'Overnight Express (1 Werktag) - 75€',
+            'Persönliche Übergabe in Berlin nach Vereinbarung - Kostenlos'
           ]
         },
         {
@@ -68,10 +69,11 @@ export default function ShippingPage() {
           icon: Truck,
           title: 'Shipping Options',
           items: [
-            'Standard Shipping (5-7 business days) - Free over €500',
-            'Express Shipping (2-3 business days) - €29',
-            'Overnight Express (1 business day) - €59',
-            'Personal handover in Berlin by appointment'
+            'Standard Shipping Germany (5-7 business days) - €15',
+            'Standard Shipping over €500 - Free',
+            'Express Shipping (2-3 business days) - €45',
+            'Overnight Express (1 business day) - €75',
+            'Personal handover in Berlin by appointment - Free'
           ]
         },
         {
