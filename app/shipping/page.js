@@ -143,16 +143,14 @@ export default function ShippingPage() {
                 </div>
               </div>
 
-              {/* Image Placeholder after Packaging section (index 0) */}
+              {/* Image after Packaging section (index 0) */}
               {index === 0 && (
                 <div className="mt-8 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                  <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                    <div className="text-center">
-                      <Package size={64} className="text-gray-400 mx-auto mb-3" />
-                      <p className="text-gray-500 text-lg font-medium">Bild: Professionelle Kunstverpackung</p>
-                      <p className="text-gray-400 text-sm mt-1">Platzhalter für Verpackungsfoto</p>
-                    </div>
-                  </div>
+                  <img 
+                    src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1764411602/ph4js0yzkflpljq9wc6y.png" 
+                    alt="Professionelle Kunstverpackung"
+                    className="w-full aspect-video object-cover"
+                  />
                 </div>
               )}
             </div>
