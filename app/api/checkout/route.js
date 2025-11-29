@@ -14,7 +14,6 @@ export async function POST(request) {
         'paypal',         // PayPal
         'amazon_pay',     // Amazon Pay
         'klarna',         // Klarna (Ratenzahlung + Sofort)
-        'customer_balance' // Banküberweisung (wenn freigeschaltet)
       ],
       
       line_items: items.map(item => ({
