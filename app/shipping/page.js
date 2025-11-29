@@ -118,28 +118,43 @@ export default function ShippingPage() {
         {/* Main Sections */}
         <div className="space-y-8 mb-12">
           {lang.sections.map((section, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-gray-100 rounded-lg">
-                  <section.icon size={24} className="text-gray-700" />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-2xl font-semibold text-gray-900 mb-3">{section.title}</h2>
-                  {section.text && (
-                    <p className="text-gray-600 leading-relaxed">{section.text}</p>
-                  )}
-                  {section.items && (
-                    <ul className="space-y-2 mt-3">
-                      {section.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-gray-600">
-                          <span className="text-gray-400 mt-1">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+            <div key={index}>
+              <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-gray-100 rounded-lg">
+                    <section.icon size={24} className="text-gray-700" />
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-semibold text-gray-900 mb-3">{section.title}</h2>
+                    {section.text && (
+                      <p className="text-gray-600 leading-relaxed">{section.text}</p>
+                    )}
+                    {section.items && (
+                      <ul className="space-y-2 mt-3">
+                        {section.items.map((item, i) => (
+                          <li key={i} className="flex items-start gap-2 text-gray-600">
+                            <span className="text-gray-400 mt-1">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
+
+              {/* Image Placeholder after Packaging section (index 0) */}
+              {index === 0 && (
+                <div className="mt-8 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                  <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                    <div className="text-center">
+                      <Package size={64} className="text-gray-400 mx-auto mb-3" />
+                      <p className="text-gray-500 text-lg font-medium">Bild: Professionelle Kunstverpackung</p>
+                      <p className="text-gray-400 text-sm mt-1">Platzhalter für Verpackungsfoto</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
