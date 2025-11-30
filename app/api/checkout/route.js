@@ -5,54 +5,37 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
   try {
-    const { items } = await request.json();
+    const { items, language = 'de' } = await request.json();
+    
+    // Determine locale for Stripe Checkout
+    const locale = language === 'de' ? 'de' : 'en';
 
     const session = await stripe.checkout.sessions.create({
-      // ALLE Payment-Methoden aktiviert
-      payment_method_types: [
-        'card',           // Kreditkarten (Visa, Mastercard, Amex)
-        'paypal',         // PayPal
-        'amazon_pay',     // Amazon Pay
-        'klarna',         // Klarna (Ratenzahlung + Sofort)
-      ],
-      
+      payment_method_types: ['card', 'paypal', 'amazon_pay', 'klarna'],
       line_items: items.map(item => ({
         price_data: {
           currency: 'eur',
           product_data: {
             name: item.name,
             images: [item.image],
-            description: `${item.artist} - ${item.size}`,
+            description: item.description || '',
           },
-          unit_amount: item.price * 100, // Stripe nutzt Cents
+          unit_amount: item.price * 100, // Stripe uses cents
         },
         quantity: item.quantity,
       })),
-      
       mode: 'payment',
-      
-      // URLs
       success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${request.headers.get('origin')}/cart`,
-      
-      // Automatische Steuerberechnung (optional)
-      automatic_tax: {
-        enabled: false, // Auf true setzen wenn du Stripe Tax nutzt
-      },
-      
-      // Shipping Address Collection (falls du Adressen brauchst)
+      cancel_url: `${request.headers.get('origin')}/cart?canceled=true`,
+      locale: locale, // German or English Stripe interface
       shipping_address_collection: {
-        allowed_countries: ['DE', 'AT', 'CH', 'FR', 'IT', 'NL', 'BE', 'ES', 'PT', 'GB', 'US'],
+        allowed_countries: ['DE', 'AT', 'CH', 'FR', 'IT', 'NL', 'BE', 'ES', 'PT', 'GB', 'US']
       },
-      
-      // Locale (Sprache)
-      locale: 'de',
     });
 
-    return NextResponse.json({ url: session.url });
-    
+    return NextResponse.json({ sessionId: session.id });
   } catch (err) {
-    console.error('Stripe Fehler:', err);
+    console.error('Stripe checkout error:', err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

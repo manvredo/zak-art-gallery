@@ -1,21 +1,24 @@
-"use client";
+'use client';
 
-import React, { useState } from 'react';
-import { X, ZoomIn, Check, Truck, Shield, RotateCcw, Award } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { useLanguage } from '../context/LanguageContext';
+import { X, Award, Check } from 'lucide-react';
+import { useState } from 'react';
+import { useLanguage } from '@/app/context/LanguageContext';
 
-export default function ProductModal({ product, onClose, showAddToCart = false, onImageClick }) {
-  const { addToCart } = useCart();
-  const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('details');
-  const [addedToCart, setAddedToCart] = useState(false);
+export default function ProductModal({ product, onClose, onAddToCart }) {
+  const [activeTab, setActiveTab] = useState('description');
+  const [added, setAdded] = useState(false);
+  
+  // Use your existing LanguageContext!
+  const { language, t } = useLanguage();
 
   if (!product) return null;
 
+  const locale = language === 'de' ? 'de-DE' : 'en-US';
+  const pm = t.productModal; // ProductModal translations
+
   const handleAddToCart = () => {
-    addToCart(product);
-    setAddedToCart(true);
+    onAddToCart(product);
+    setAdded(true);
     setTimeout(() => {
       onClose();
     }, 1500);
@@ -27,223 +30,208 @@ export default function ProductModal({ product, onClose, showAddToCart = false, 
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-lg max-w-6xl w-full max-h-[95vh] overflow-y-auto"
+        className="bg-white rounded-lg max-w-6xl w-full max-h-[95vh] overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center z-10">
-          <div>
-            <p className="text-sm text-gray-500">{product.artist}</p>
-            <h2 className="text-2xl font-light text-gray-900">{product.name}</h2>
+        {/* Sticky Header */}
+        <div className="sticky top-0 bg-white z-10 border-b border-gray-200 px-8 py-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm text-gray-500">{product.artist}</p>
+              <h2 className="text-2xl font-light text-gray-900">{product.name}</h2>
+            </div>
+            <button 
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 transition"
+            >
+              <X size={28} />
+            </button>
           </div>
-          <button 
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition"
-          >
-            <X size={28} />
-          </button>
         </div>
 
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-8 p-8">
-          
-          {/* Left: Image */}
+        <div className="grid md:grid-cols-2 gap-8 p-8">
+          {/* Left: Large Image with Zoom */}
           <div className="space-y-4">
-            <div className="relative group">
+            <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg">
               <img 
                 src={product.image} 
                 alt={product.name}
-                className="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
-                onClick={() => onImageClick && onImageClick(product.image)}
+                className="w-full transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg flex items-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                <ZoomIn size={18} className="text-gray-700" />
-                <span className="text-sm text-gray-700">Vergrößern</span>
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition">
+                {pm.enlarge}
               </div>
             </div>
 
-            {/* Quick Info Badges */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
-                <Check className="mx-auto mb-1 text-green-600" size={20} />
-                <p className="text-xs text-green-800 font-medium">Sofort lieferbar</p>
+            {/* Status Badges */}
+            <div className="flex gap-2">
+              <div className="flex items-center gap-1 px-3 py-2 bg-green-50 text-green-700 rounded-lg text-sm">
+                <Check size={16} />
+                {pm.available}
               </div>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
-                <Award className="mx-auto mb-1 text-blue-600" size={20} />
-                <p className="text-xs text-blue-800 font-medium">Original Unikat</p>
+              <div className="flex items-center gap-1 px-3 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm">
+                <Award size={16} />
+                {pm.original}
               </div>
             </div>
           </div>
 
-          {/* Right: Details */}
+          {/* Right: Product Details */}
           <div className="space-y-6">
-            
-            {/* Price & CTA */}
-            <div className="bg-gray-50 rounded-lg p-6">
-              <p className="text-3xl font-light text-gray-900 mb-4">
-                €{product.price.toLocaleString('de-DE')}
-              </p>
-              <p className="text-sm text-gray-600 mb-4">inkl. MwSt. zzgl. Versand</p>
+            {/* Premium Price Box */}
+            <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+              <div className="text-4xl font-light text-gray-900 mb-2">
+                €{product.price.toLocaleString(locale)}
+              </div>
+              <p className="text-sm text-gray-600 mb-4">{pm.inclVAT}</p>
               
-              {showAddToCart && (
-                <button 
-                  onClick={handleAddToCart}
-                  disabled={addedToCart}
-                  className={`w-full py-4 rounded-lg font-medium transition ${
-                    addedToCart 
-                      ? 'bg-green-600 text-white' 
-                      : 'bg-gray-900 text-white hover:bg-gray-800'
-                  }`}
-                >
-                  {addedToCart ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <Check size={20} />
-                      In den Warenkorb gelegt
-                    </span>
-                  ) : (
-                    'In den Warenkorb'
-                  )}
-                </button>
-              )}
-
-              <div className="mt-4 space-y-2 text-sm text-gray-600">
-                <div className="flex items-center gap-2">
-                  <Truck size={16} className="text-gray-400" />
-                  <span>Versandfertig in 2-3 Werktagen</span>
+              {/* Quick Info Icons */}
+              <div className="grid grid-cols-3 gap-3 mb-4 text-xs text-gray-600">
+                <div className="text-center">
+                  <div className="mb-1">📦</div>
+                  <div>{pm.insured}</div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Shield size={16} className="text-gray-400" />
-                  <span>Versicherte Lieferung</span>
+                <div className="text-center">
+                  <div className="mb-1">🔄</div>
+                  <div>{pm.returns}</div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <RotateCcw size={16} className="text-gray-400" />
-                  <span>30 Tage Rückgaberecht</span>
+                <div className="text-center">
+                  <div className="mb-1">✓</div>
+                  <div>{pm.certificate}</div>
                 </div>
               </div>
+
+              {/* Add to Cart Button with Animation */}
+              <button 
+                onClick={handleAddToCart}
+                className={`w-full py-4 transition-all rounded-lg font-medium text-lg ${
+                  added 
+                    ? 'bg-green-600 text-white' 
+                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                }`}
+              >
+                {added ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Check size={20} />
+                    {pm.added}
+                  </span>
+                ) : (
+                  pm.addToCart
+                )}
+              </button>
             </div>
 
-            {/* Technical Specs */}
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Technische Details</h3>
+            {/* Technical Details Table */}
+            <div className="border-t border-b border-gray-200 py-6">
+              <h3 className="text-sm font-medium text-gray-900 mb-4">{pm.technicalDetails}</h3>
               <div className="space-y-3 text-sm">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Größe</span>
-                  <span className="font-medium text-gray-900">{product.size}</span>
+                <div className="grid grid-cols-2 gap-4">
+                  <span className="text-gray-600">{pm.size}:</span>
+                  <span className="text-gray-900 font-medium">{product.size}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Technik</span>
-                  <span className="font-medium text-gray-900">{product.technique}</span>
+                <div className="grid grid-cols-2 gap-4">
+                  <span className="text-gray-600">{pm.technique}:</span>
+                  <span className="text-gray-900 font-medium">{product.technique}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Jahr</span>
-                  <span className="font-medium text-gray-900">{product.year}</span>
+                <div className="grid grid-cols-2 gap-4">
+                  <span className="text-gray-600">{pm.year}:</span>
+                  <span className="text-gray-900 font-medium">{product.year}</span>
                 </div>
-                <div className="flex justify-between py-2">
-                  <span className="text-gray-600">Kategorie</span>
-                  <span className="font-medium text-gray-900">{product.category}</span>
+                <div className="grid grid-cols-2 gap-4">
+                  <span className="text-gray-600">{pm.category}:</span>
+                  <span className="text-gray-900 font-medium">{product.category}</span>
                 </div>
               </div>
             </div>
 
-            {/* Tabs */}
+            {/* Tab System */}
             <div>
               <div className="flex border-b border-gray-200">
                 <button
-                  onClick={() => setActiveTab('details')}
-                  className={`px-6 py-3 text-sm font-medium transition border-b-2 ${
-                    activeTab === 'details'
-                      ? 'border-gray-900 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                  onClick={() => setActiveTab('description')}
+                  className={`px-4 py-3 text-sm font-medium transition ${
+                    activeTab === 'description'
+                      ? 'border-b-2 border-gray-900 text-gray-900'
+                      : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  Beschreibung
+                  {pm.description}
                 </button>
                 <button
                   onClick={() => setActiveTab('shipping')}
-                  className={`px-6 py-3 text-sm font-medium transition border-b-2 ${
+                  className={`px-4 py-3 text-sm font-medium transition ${
                     activeTab === 'shipping'
-                      ? 'border-gray-900 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                      ? 'border-b-2 border-gray-900 text-gray-900'
+                      : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  Versand & Rückgabe
+                  {pm.shippingReturns}
                 </button>
               </div>
 
               <div className="py-6">
-                {activeTab === 'details' && (
-                  <div className="prose prose-sm max-w-none">
+                {activeTab === 'description' ? (
+                  <div className="space-y-4">
                     <p className="text-gray-700 leading-relaxed">
                       {product.description}
                     </p>
                     
-                    <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h4 className="text-sm font-medium text-blue-900 mb-2">
-                        ✓ Garantierte Echtheit
-                      </h4>
-                      <p className="text-xs text-blue-800">
-                        Jedes Werk wird mit Echtheitszertifikat und Signatur des Künstlers geliefert.
-                      </p>
+                    {/* Authenticity Certificate Box */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+                      <div className="flex items-start gap-3">
+                        <Award className="text-blue-600 flex-shrink-0 mt-1" size={20} />
+                        <div>
+                          <h4 className="font-medium text-blue-900 mb-1">{pm.certTitle}</h4>
+                          <p className="text-sm text-blue-800">
+                            {pm.certText}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                )}
-
-                {activeTab === 'shipping' && (
+                ) : (
                   <div className="space-y-4 text-sm text-gray-700">
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Versand</h4>
-                      <p className="text-gray-600">
-                        Professionell verpackt und versichert. Lieferzeit 2-7 Werktage 
-                        innerhalb Deutschlands. Internationaler Versand auf Anfrage.
-                      </p>
+                      <h4 className="font-medium text-gray-900 mb-2">{pm.shippingTitle}</h4>
+                      <p className="mb-2">{pm.shippingText}</p>
+                      <p className="text-gray-600">{pm.shippingDetails}</p>
                     </div>
+                    
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Rückgabe</h4>
-                      <p className="text-gray-600">
-                        30 Tage Rückgaberecht. Das Kunstwerk muss im Originalzustand 
-                        zurückgesendet werden.
-                      </p>
+                      <h4 className="font-medium text-gray-900 mb-2">{pm.returnsTitle}</h4>
+                      <p>{pm.returnsText}</p>
                     </div>
+
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Zahlungsmethoden</h4>
-                      <p className="text-gray-600">
-                        Kreditkarte, PayPal, Amazon Pay, Klarna, Banküberweisung
-                      </p>
+                      <h4 className="font-medium text-gray-900 mb-2">{pm.paymentTitle}</h4>
+                      <p className="text-gray-600">{pm.paymentMethods}</p>
                     </div>
                   </div>
                 )}
               </div>
             </div>
 
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="border-t border-gray-200 bg-gray-50 px-8 py-6">
-          <div className="grid md:grid-cols-4 gap-6 text-center">
-            <div>
-              <Truck className="mx-auto mb-2 text-gray-400" size={24} />
-              <p className="text-xs font-medium text-gray-900">Kostenloser Versand</p>
-              <p className="text-xs text-gray-600">ab 500€</p>
-            </div>
-            <div>
-              <Shield className="mx-auto mb-2 text-gray-400" size={24} />
-              <p className="text-xs font-medium text-gray-900">Versichert</p>
-              <p className="text-xs text-gray-600">Vollständig geschützt</p>
-            </div>
-            <div>
-              <Award className="mx-auto mb-2 text-gray-400" size={24} />
-              <p className="text-xs font-medium text-gray-900">Original</p>
-              <p className="text-xs text-gray-600">Mit Zertifikat</p>
-            </div>
-            <div>
-              <RotateCcw className="mx-auto mb-2 text-gray-400" size={24} />
-              <p className="text-xs font-medium text-gray-900">30 Tage</p>
-              <p className="text-xs text-gray-600">Rückgaberecht</p>
+            {/* Trust Badges Footer */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-gray-200">
+              <div className="text-center">
+                <div className="text-2xl mb-2">📦</div>
+                <p className="text-xs text-gray-600">{pm.freeShipping}<br/>{pm.freeShippingDetail}</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl mb-2">🛡️</div>
+                <p className="text-xs text-gray-600">{pm.insuredUp}<br/>{pm.insuredDetail}</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl mb-2">✓</div>
+                <p className="text-xs text-gray-600">{pm.originalWith}<br/>{pm.originalDetail}</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl mb-2">🔄</div>
+                <p className="text-xs text-gray-600">{pm.daysReturn}<br/>{pm.returnDetail}</p>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

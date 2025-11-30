@@ -27,7 +27,7 @@ const translations = {
       viewGallery: 'View Gallery',
       visitShop: 'Visit Shop',
       featured: 'Featured Artworks'
-    },
+    },	
     
     // Gallery
     gallery: { 
@@ -81,6 +81,43 @@ const translations = {
       insuredShipping: 'Insured shipping', 
       returnPolicy: '14-day return policy', 
       certificate: 'Certificate of authenticity included' 
+    },
+    
+    // NEW: Product Modal
+    productModal: {
+      enlarge: 'Enlarge',
+      available: 'In Stock',
+      original: 'Original Artwork',
+      inclVAT: 'incl. VAT plus shipping',
+      insured: 'Insured',
+      returns: 'Returns',
+      certificate: 'Certificate',
+      addToCart: 'Add to Cart',
+      added: 'Added',
+      technicalDetails: 'Technical Details',
+      size: 'Size',
+      technique: 'Technique',
+      year: 'Year',
+      category: 'Category',
+      description: 'Description',
+      shippingReturns: 'Shipping & Returns',
+      certTitle: 'Certificate of Authenticity',
+      certText: 'Each artwork comes with a signed certificate of authenticity confirming the origin and authenticity of the piece.',
+      shippingTitle: 'Shipping',
+      shippingText: 'We ship all artworks carefully packaged and fully insured. Delivery time is 2-3 business days within Germany.',
+      shippingDetails: 'Free shipping over €500 | Insured up to €10,000',
+      returnsTitle: 'Returns',
+      returnsText: 'You have 30 days to examine the artwork. If you\'re not satisfied, you can return it free of charge.',
+      paymentTitle: 'Payment Methods',
+      paymentMethods: 'Credit Card • PayPal • Amazon Pay • Klarna • Google Pay • Apple Pay',
+      freeShipping: 'Free Shipping',
+      freeShippingDetail: 'over €500',
+      insuredUp: 'Insured',
+      insuredDetail: 'up to €10,000',
+      originalWith: 'Original with',
+      originalDetail: 'Certificate',
+      daysReturn: '30 Days',
+      returnDetail: 'Returns'
     },
     
     // Categories
@@ -329,6 +366,43 @@ const translations = {
       insuredShipping: 'Versicherter Versand', 
       returnPolicy: '14-Tage Rückgaberecht', 
       certificate: 'Echtheitszertifikat inklusive' 
+    },
+    
+    // NEW: Product Modal
+    productModal: {
+      enlarge: 'Vergrößern',
+      available: 'Sofort lieferbar',
+      original: 'Original Unikat',
+      inclVAT: 'inkl. MwSt. zzgl. Versand',
+      insured: 'Versichert',
+      returns: 'Rückgabe',
+      certificate: 'Zertifikat',
+      addToCart: 'In den Warenkorb',
+      added: 'Hinzugefügt',
+      technicalDetails: 'Technische Details',
+      size: 'Größe',
+      technique: 'Technik',
+      year: 'Jahr',
+      category: 'Kategorie',
+      description: 'Beschreibung',
+      shippingReturns: 'Versand & Rückgabe',
+      certTitle: 'Echtheitszertifikat',
+      certText: 'Jedes Werk wird mit einem signierten Echtheitszertifikat geliefert, das die Authentizität und Herkunft des Kunstwerks bestätigt.',
+      shippingTitle: 'Versand',
+      shippingText: 'Wir versenden alle Werke sorgfältig verpackt und vollständig versichert. Die Lieferzeit beträgt 2-3 Werktage innerhalb Deutschlands.',
+      shippingDetails: 'Kostenloser Versand ab €500 | Versichert bis €10.000',
+      returnsTitle: 'Rückgabe',
+      returnsText: 'Sie haben 30 Tage Zeit, das Werk in Ruhe zu prüfen. Bei Nichtgefallen können Sie es kostenfrei zurücksenden.',
+      paymentTitle: 'Zahlungsmethoden',
+      paymentMethods: 'Kreditkarte • PayPal • Amazon Pay • Klarna • Google Pay • Apple Pay',
+      freeShipping: 'Kostenloser',
+      freeShippingDetail: 'Versand ab €500',
+      insuredUp: 'Versichert',
+      insuredDetail: 'bis €10.000',
+      originalWith: 'Original mit',
+      originalDetail: 'Zertifikat',
+      daysReturn: '30 Tage',
+      returnDetail: 'Rückgabe'
     },
     
     // Categories
