@@ -107,7 +107,7 @@ export default function Header() {
               className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition cursor-pointer"
               title={language === 'en' ? 'Deutsch' : 'English'}
             >
-              <span className="text-2xl">{language === 'en' ? '🇩🇪' : '🇬🇧'}</span>
+              <span className="text-3xl md:text-4xl">{language === 'en' ? '🇩🇪' : '🇬🇧'}</span>
             </button>
             
             {user ? (
@@ -116,14 +116,14 @@ export default function Header() {
                 className="flex items-center gap-2 text-gray-700 hover:text-gray-900 cursor-pointer"
               >
                 <User size={20} />
-                <span className="hidden sm:inline text-sm">Account</span>
+                <span className="hidden sm:inline text-sm">{t.nav.account}</span>
               </Link>
             ) : (
               <Link 
                 href="/login"
                 className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
               >
-                Login
+                {t.nav.login}
               </Link>
             )}
             
@@ -183,7 +183,7 @@ export default function Header() {
                   className="block py-2 text-gray-700 hover:text-gray-900"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  👤 My Account
+                  👤 {t.nav.account}
                 </Link>
               ) : (
                 <>
@@ -192,14 +192,14 @@ export default function Header() {
                     className="block py-2 text-gray-700 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Login
+                    {t.nav.login}
                   </Link>
                   <Link
                     href="/register"
                     className="block py-2 text-gray-700 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Register
+                    {t.nav.register}
                   </Link>
                 </>
               )}
