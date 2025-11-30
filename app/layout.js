@@ -5,6 +5,7 @@ import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './providers';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import FooterExtension from './components/FooterExtension';
 import CookieBanner from './components/CookieBanner';
 import "./globals.css";
 import "./styles/art-gallery.css";
@@ -35,6 +36,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="/footer-extension.css" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -46,6 +50,7 @@ export default function RootLayout({ children }) {
                 <main className="flex-1">
                   {children}
                 </main>
+                <FooterExtension />
                 <Footer />
               </div>
               <CookieBanner />

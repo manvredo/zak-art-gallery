@@ -1,0 +1,86 @@
+/* ==========================================
+   FOOTER EXTENSION (Above existing footer)
+   ========================================== */
+
+.footer-extension {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footer-extension-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.footer-extension-header h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 300;
+  color: #1f2937;
+  margin-bottom: 0;
+}
+
+/* Mobile: Collapsed by default */
+.footer-extension-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.footer-extension-content.open {
+  max-height: 500px;
+}
+
+/* Desktop: Always open */
+@media (min-width: 768px) {
+  .footer-extension-header {
+    cursor: default;
+  }
+  
+  .footer-extension-content {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.footer-extension a {
+  font-family: 'Open Sans', sans-serif;
+  color: #6b7280;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.footer-extension a:hover {
+  color: #1f2937;
+}
+
+/* Payment & Shipping Logos */
+.payment-logo-placeholder,
+.shipping-logo-placeholder,
+.trust-badge-placeholder {
+  display: inline-block;
+}
+
+.payment-logo-placeholder img,
+.shipping-logo-placeholder img,
+.trust-badge-placeholder img {
+  max-height: 2rem;
+  width: auto;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.payment-logo-placeholder img:hover,
+.shipping-logo-placeholder img:hover,
+.trust-badge-placeholder img:hover {
+  filter: grayscale(0%);
+  opacity: 1 !important;
+}
+
+.shipping-logo-placeholder img {
+  max-height: 2.5rem;
+}
+
+.trust-badge-placeholder img {
+  max-height: 3rem;
+}
