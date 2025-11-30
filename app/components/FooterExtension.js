@@ -19,9 +19,9 @@ const FooterExtension = () => {
           <div className="footer-extension-column">
             <button
               onClick={() => toggleSection('service')}
-              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block"
+              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-lg text-gray-900">Service</h3>
+              <h3 className="font-light text-xl text-gray-900">Service</h3>
               <span className="md:hidden">
                 {openSection === 'service' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
@@ -41,9 +41,9 @@ const FooterExtension = () => {
           <div className="footer-extension-column">
             <button
               onClick={() => toggleSection('payment')}
-              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block"
+              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-lg text-gray-900">Sichere Zahlung</h3>
+              <h3 className="font-light text-xl text-gray-900">Sichere Zahlung</h3>
               <span className="md:hidden">
                 {openSection === 'payment' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
@@ -114,9 +114,9 @@ const FooterExtension = () => {
           <div className="footer-extension-column">
             <button
               onClick={() => toggleSection('shipping')}
-              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block"
+              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-lg text-gray-900">Zuverlässiger Versand</h3>
+              <h3 className="font-light text-xl text-gray-900">Zuverlässiger Versand</h3>
               <span className="md:hidden">
                 {openSection === 'shipping' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
@@ -154,9 +154,9 @@ const FooterExtension = () => {
           <div className="footer-extension-column">
             <button
               onClick={() => toggleSection('customer')}
-              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block"
+              className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-lg text-gray-900">Kundenservice</h3>
+              <h3 className="font-light text-xl text-gray-900">Kundenservice</h3>
               <span className="md:hidden">
                 {openSection === 'customer' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
