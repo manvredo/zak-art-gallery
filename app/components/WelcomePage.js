@@ -1,8 +1,8 @@
 "use client";
-
 import React from 'react';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
+import HeroSlider from './HeroSlider';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function WelcomePage({ featuredProducts, onProductClick }) {
@@ -10,14 +10,9 @@ export default function WelcomePage({ featuredProducts, onProductClick }) {
   
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Banner */}
-      <div className="mb-12 rounded-lg overflow-hidden">
-        <img 
-          src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299238/P2090288_flyxoj.png"
-          alt="Gallery Banner"
-          className="w-full h-[350px] object-cover"
-        />
-      </div>
+      
+      {/* Hero Slider - ersetzt das alte Banner */}
+      <HeroSlider />
 
       {/* Hero Section */}
       <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
