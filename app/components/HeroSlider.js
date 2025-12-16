@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Slide-Daten - hier kannst du später deine eigenen Bilder und Texte eintragen
 const slides = [
   {
     id: 1,
@@ -51,14 +50,17 @@ export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Automatisches Weitersliden alle 6 Sekunden
   useEffect(() => {
     const timer = setInterval(() => {
-      nextSlide();
+      if (!isAnimating) {
+        setIsAnimating(true);
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+        setTimeout(() => setIsAnimating(false), 500);
+      }
     }, 6000);
 
     return () => clearInterval(timer);
-  }, [currentSlide]);
+  }, [isAnimating]);
 
   const nextSlide = () => {
     if (isAnimating) return;
@@ -83,7 +85,6 @@ export default function HeroSlider() {
 
   return (
     <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden rounded-lg mb-12">
-      {/* Slides */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -91,16 +92,13 @@ export default function HeroSlider() {
             index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
-          {/* Hintergrundbild */}
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slide.image})` }}
           >
-            {/* Dunkler Overlay für bessere Lesbarkeit */}
             <div className="absolute inset-0 bg-black/40" />
           </div>
 
-          {/* Content */}
           <div className="relative h-full flex flex-col items-center justify-center text-center px-4 z-20">
             <h2 
               className={`text-4xl md:text-6xl font-light text-white mb-4 transition-all duration-700 ${
@@ -139,7 +137,6 @@ export default function HeroSlider() {
         </div>
       ))}
 
-      {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full transition-all"
@@ -156,7 +153,6 @@ export default function HeroSlider() {
         <ChevronRight className="w-6 h-6 text-white" />
       </button>
 
-      {/* Dots Navigation */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-3">
         {slides.map((_, index) => (
           <button
@@ -173,3 +169,4 @@ export default function HeroSlider() {
       </div>
     </div>
   );
+}
