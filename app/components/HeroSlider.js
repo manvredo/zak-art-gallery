@@ -84,7 +84,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden rounded-lg mb-12">
+    <div className="relative w-full aspect-[4/3] max-h-[450px] overflow-hidden rounded-lg mb-12">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -101,7 +101,7 @@ export default function HeroSlider() {
 
           <div className="relative h-full flex flex-col items-center justify-center text-center px-4 z-20">
             <h2 
-              className={`text-4xl md:text-6xl font-light text-white mb-4 transition-all duration-700 ${
+              className={`text-3xl md:text-5xl font-light text-white mb-3 transition-all duration-700 ${
                 index === currentSlide 
                   ? 'translate-y-0 opacity-100' 
                   : 'translate-y-8 opacity-0'
@@ -112,7 +112,7 @@ export default function HeroSlider() {
             </h2>
             
             <p 
-              className={`text-lg md:text-xl text-gray-200 mb-8 max-w-2xl transition-all duration-700 ${
+              className={`text-base md:text-lg text-white mb-6 max-w-2xl transition-all duration-700 ${
                 index === currentSlide 
                   ? 'translate-y-0 opacity-100' 
                   : 'translate-y-8 opacity-0'
@@ -124,7 +124,7 @@ export default function HeroSlider() {
             
             <Link
               href={slide.buttonLink}
-              className={`px-8 py-3 bg-white text-gray-900 hover:bg-gray-100 transition-all duration-700 rounded font-medium ${
+              className={`px-6 py-2 bg-white text-gray-900 hover:bg-gray-100 transition-all duration-700 rounded font-medium ${
                 index === currentSlide 
                   ? 'translate-y-0 opacity-100' 
                   : 'translate-y-8 opacity-0'
@@ -153,14 +153,14 @@ export default function HeroSlider() {
         <ChevronRight className="w-6 h-6 text-white" />
       </button>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentSlide 
-                ? 'bg-white w-8' 
+                ? 'bg-white w-6' 
                 : 'bg-white/50 hover:bg-white/70'
             }`}
             aria-label={`Slide ${index + 1}`}
