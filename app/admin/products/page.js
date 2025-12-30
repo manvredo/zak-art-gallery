@@ -41,14 +41,14 @@ const SIZE_FORMATS = [
   { label: 'Benutzerdefiniert / Custom', value: 'custom', width: 0, height: 0 },
 ];
 
-// Categories
+// Categories with German translation
 const CATEGORIES = [
-  'Landscape',
-  'Seascape',
-  'Portrait',
-  'Still Life',
-  'Figurative',
-  'Abstract',
+  'Landscape (Landschaft)',
+  'Seascape (Seelandschaft)',
+  'Portrait (Porträt)',
+  'Still Life (Stillleben)',
+  'Figurative (Figurativ)',
+  'Abstract (Abstrakt)',
 ];
 
 // Techniques with German translation
