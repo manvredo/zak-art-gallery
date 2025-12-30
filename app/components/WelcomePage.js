@@ -2,18 +2,14 @@
 import React from 'react';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
-import HeroSlider from './HeroSlider';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function WelcomePage({ featuredProducts, onProductClick }) {
+export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true }) {
   const { t } = useLanguage();
   
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="w-full">
       
-      {/* Hero Slider - ersetzt das alte Banner */}
-      <HeroSlider />
-
       {/* Hero Section */}
       <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
         <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden">

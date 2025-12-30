@@ -1,10 +1,10 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import WelcomePage from '@/app/components/WelcomePage';
 import ProductModal from '@/app/components/ProductModal';
-import ContentSidebar from '@/app/components/ContentSidebar';  // ← NEU
+import ContentSidebar from '@/app/components/ContentSidebar';
+import HeroSlider from '@/app/components/HeroSlider';
 import { X } from 'lucide-react';
 
 const supabase = createClient(
@@ -51,21 +51,28 @@ export default function Home() {
 
   return (
     <>
-      {/* Layout mit Sidebar */}
+      {/* Hero Slider - Volle Breite oben */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="max-w-7xl mx-auto">
+          <HeroSlider />
+        </div>
+      </div>
+
+      {/* Content mit Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
           {/* Sidebar links */}
           <ContentSidebar currentCategory={null} />
-
+          
           {/* Hauptinhalt rechts */}
           <div className="col-span-1 lg:col-span-3">
             <WelcomePage 
               featuredProducts={featuredProducts}
               onProductClick={setSelectedProduct}
+              showSlider={false}
             />
           </div>
-
         </div>
       </div>
 
