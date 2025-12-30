@@ -2,6 +2,17 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { 
+  FaCcVisa, 
+  FaCcMastercard, 
+  FaCcApplePay, 
+  FaCcPaypal, 
+  FaStripe,
+  FaDhl,
+  FaShieldAlt,
+  FaLock
+} from 'react-icons/fa';
+import { SiKlarna } from 'react-icons/si';
 
 const FooterExtension = () => {
   const [openSection, setOpenSection] = useState(null);
@@ -49,63 +60,37 @@ const FooterExtension = () => {
               </span>
             </button>
             <div className={`footer-extension-content ${openSection === 'payment' ? 'open' : ''}`}>
-              <div className="flex flex-wrap gap-3 mt-4">
-                {/* Platzhalter für Payment-Logos */}
-                <div className="payment-logo-placeholder">
-                  <img 
-                    src="/images/payment/visa.svg" 
-                    alt="Visa" 
-                    className="h-8 w-auto opacity-70 hover:opacity-100 transition"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<div class="w-16 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">VISA</div>';
-                    }}
-                  />
-                </div>
-                <div className="payment-logo-placeholder">
-                  <img 
-                    src="/images/payment/mastercard.svg" 
-                    alt="Mastercard" 
-                    className="h-8 w-auto opacity-70 hover:opacity-100 transition"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<div class="w-16 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">MC</div>';
-                    }}
-                  />
-                </div>
-                <div className="payment-logo-placeholder">
-                  <img 
-                    src="/images/payment/apple-pay.svg" 
-                    alt="Apple Pay" 
-                    className="h-8 w-auto opacity-70 hover:opacity-100 transition"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<div class="w-16 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">Apple Pay</div>';
-                    }}
-                  />
-                </div>
-                <div className="payment-logo-placeholder">
-                  <img 
-                    src="/images/payment/paypal.svg" 
-                    alt="PayPal" 
-                    className="h-8 w-auto opacity-70 hover:opacity-100 transition"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<div class="w-16 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">PayPal</div>';
-                    }}
-                  />
-                </div>
-                <div className="payment-logo-placeholder">
-                  <img 
-                    src="/images/payment/stripe.svg" 
-                    alt="Stripe" 
-                    className="h-8 w-auto opacity-70 hover:opacity-100 transition"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<div class="w-16 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">Stripe</div>';
-                    }}
-                  />
-                </div>
+              <div className="flex flex-wrap gap-3 mt-4 items-center">
+                <FaCcVisa 
+                  size={40} 
+                  className="text-[#1A1F71] opacity-80 hover:opacity-100 transition" 
+                  title="Visa"
+                />
+                <FaCcMastercard 
+                  size={40} 
+                  className="text-[#EB001B] opacity-80 hover:opacity-100 transition" 
+                  title="Mastercard"
+                />
+                <FaCcApplePay 
+                  size={40} 
+                  className="text-gray-800 opacity-80 hover:opacity-100 transition" 
+                  title="Apple Pay"
+                />
+                <FaCcPaypal 
+                  size={40} 
+                  className="text-[#003087] opacity-80 hover:opacity-100 transition" 
+                  title="PayPal"
+                />
+                <SiKlarna 
+                  size={32} 
+                  className="text-[#FFB3C7] opacity-80 hover:opacity-100 transition" 
+                  title="Klarna"
+                />
+                <FaStripe 
+                  size={40} 
+                  className="text-[#635BFF] opacity-80 hover:opacity-100 transition" 
+                  title="Stripe"
+                />
               </div>
             </div>
           </div>
@@ -122,29 +107,14 @@ const FooterExtension = () => {
               </span>
             </button>
             <div className={`footer-extension-content ${openSection === 'shipping' ? 'open' : ''}`}>
-              <div className="flex flex-wrap gap-4 mt-4">
-                {/* Platzhalter für Shipping-Logos */}
-                <div className="shipping-logo-placeholder">
-                  <img 
-                    src="/images/shipping/dhl.svg" 
-                    alt="DHL" 
-                    className="h-10 w-auto opacity-70 hover:opacity-100 transition"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<div class="w-20 h-10 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">DHL</div>';
-                    }}
-                  />
-                </div>
-                <div className="shipping-logo-placeholder">
-                  <img 
-                    src="/images/shipping/gls.svg" 
-                    alt="GLS" 
-                    className="h-10 w-auto opacity-70 hover:opacity-100 transition"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<div class="w-20 h-10 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">GLS</div>';
-                    }}
-                  />
+              <div className="flex flex-wrap gap-4 mt-4 items-center">
+                <FaDhl 
+                  size={50} 
+                  className="text-[#FFCC00] opacity-80 hover:opacity-100 transition" 
+                  title="DHL"
+                />
+                <div className="px-3 py-2 bg-[#003E80] text-white text-sm font-bold rounded opacity-80 hover:opacity-100 transition">
+                  GLS
                 </div>
               </div>
             </div>
@@ -163,23 +133,23 @@ const FooterExtension = () => {
             </button>
             <div className={`footer-extension-content ${openSection === 'customer' ? 'open' : ''}`}>
               <div className="mt-4 space-y-3">
-                {/* Hotline */}
+                {/* Kontakt */}
                 <div className="text-sm">
-                  <p className="text-gray-600 mb-1">24h-Bestell-Hotline</p>
+                  <p className="text-gray-600 mb-1">Kontakt</p>
                   <a 
-                    href="tel:+491234567890" 
+                    href="tel:+4915225179626" 
                     className="text-gray-900 font-medium hover:text-gray-600 transition"
                   >
-                    +49 123 456 7890
+                    +49 152 251 79 626
                   </a>
                 </div>
                 
                 {/* Links */}
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li>
-                    <Link href="/contact" className="hover:text-gray-900 transition">
-                      E-Mail senden
-                    </Link>
+                    <a href="mailto:info@manfredzak.com" className="hover:text-gray-900 transition">
+                      info@manfredzak.com
+                    </a>
                   </li>
                   <li>
                     <Link href="/faq" className="hover:text-gray-900 transition">
@@ -188,29 +158,15 @@ const FooterExtension = () => {
                   </li>
                 </ul>
 
-                {/* Trust Badges Platzhalter */}
-                <div className="flex gap-3 mt-4 pt-4 border-t border-gray-200">
-                  <div className="trust-badge-placeholder">
-                    <img 
-                      src="/images/trust/trusted-shops.png" 
-                      alt="Trusted Shops" 
-                      className="h-12 w-auto opacity-70 hover:opacity-100 transition"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.parentElement.innerHTML = '<div class="w-16 h-12 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">Trust</div>';
-                      }}
-                    />
+                {/* Trust Badges */}
+                <div className="flex gap-4 mt-4 pt-4 border-t border-gray-200 items-center">
+                  <div className="flex items-center gap-1 text-green-600" title="Sicher einkaufen">
+                    <FaShieldAlt size={24} />
+                    <span className="text-xs font-medium">Sicher</span>
                   </div>
-                  <div className="trust-badge-placeholder">
-                    <img 
-                      src="/images/trust/ssl-secure.png" 
-                      alt="SSL Secure" 
-                      className="h-12 w-auto opacity-70 hover:opacity-100 transition"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.parentElement.innerHTML = '<div class="w-16 h-12 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">SSL</div>';
-                      }}
-                    />
+                  <div className="flex items-center gap-1 text-blue-600" title="SSL verschlüsselt">
+                    <FaLock size={20} />
+                    <span className="text-xs font-medium">SSL</span>
                   </div>
                 </div>
               </div>
