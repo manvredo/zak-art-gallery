@@ -3,22 +3,27 @@
 import { X, Award, Check } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '@/app/context/LanguageContext';
+import { useCart } from '@/app/context/CartContext';
+import Link from 'next/link';
 
 export default function ProductModal({ product, onClose, onAddToCart }) {
   const [activeTab, setActiveTab] = useState('description');
-  const [added, setAdded] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
   
-  // Use your existing LanguageContext!
   const { language, t } = useLanguage();
+  const { isInCart } = useCart();
 
   if (!product) return null;
 
+  const alreadyInCart = isInCart(product.id);
   const locale = language === 'de' ? 'de-DE' : 'en-US';
-  const pm = t.productModal; // ProductModal translations
+  const pm = t.productModal;
 
   const handleAddToCart = () => {
+    if (alreadyInCart) return; // Don't add if already in cart
+    
     onAddToCart(product);
-    setAdded(true);
+    setJustAdded(true);
     setTimeout(() => {
       onClose();
     }, 1500);
@@ -101,24 +106,23 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 </div>
               </div>
 
-              {/* Add to Cart Button with Animation */}
-              <button 
-                onClick={handleAddToCart}
-                className={`w-full py-4 transition-all rounded-lg font-medium text-lg ${
-                  added 
-                    ? 'bg-green-600 text-white' 
-                    : 'bg-gray-900 text-white hover:bg-gray-800'
-                }`}
-              >
-                {added ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Check size={20} />
-                    {pm.added}
-                  </span>
-                ) : (
-                  pm.addToCart
-                )}
-              </button>
+              {/* Add to Cart Button - Changes based on cart status */}
+              {alreadyInCart || justAdded ? (
+                <Link 
+                  href="/cart"
+                  className="w-full py-4 bg-green-600 text-white rounded-lg font-medium text-lg flex items-center justify-center gap-2 hover:bg-green-700 transition"
+                >
+                  <Check size={20} />
+                  {pm.added || 'Im Warenkorb'} – {pm.viewCart || 'Ansehen'}
+                </Link>
+              ) : (
+                <button 
+                  onClick={handleAddToCart}
+                  className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-lg font-medium text-lg"
+                >
+                  {pm.addToCart}
+                </button>
+              )}
             </div>
 
             {/* Technical Details Table */}
