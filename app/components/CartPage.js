@@ -11,7 +11,7 @@ export default function CartPage({
   checkoutLoading, 
   checkoutError 
 }) {
-  const { cart, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const { cart, removeFromCart, cartTotal } = useCart();
   const { t, language } = useLanguage();
 
   return (
@@ -44,22 +44,7 @@ export default function CartPage({
                   <h3 className="font-light text-lg text-gray-900">{item.name}</h3>
                   <p className="text-sm text-gray-600">{item.artist}</p>
                   <p className="text-sm text-gray-500 mt-1">{item.size}</p>
-                  <div className="flex items-center gap-4 mt-3">
-                    <div className="flex items-center gap-2">
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
-                      >
-                        -
-                      </button>
-                      <span className="w-8 text-center">{item.quantity}</span>
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
-                      >
-                        +
-                      </button>
-                    </div>
+                  <div className="mt-3">
                     <button 
                       onClick={() => removeFromCart(item.id)}
                       className="text-sm text-red-600 hover:text-red-700 cursor-pointer"
@@ -70,7 +55,7 @@ export default function CartPage({
                 </div>
                 <div className="text-right">
                   <p className="text-lg font-light text-gray-900">
-                    €{(item.price * item.quantity).toLocaleString('en-US')}
+                    €{item.price.toLocaleString('en-US')}
                   </p>
                 </div>
               </div>
