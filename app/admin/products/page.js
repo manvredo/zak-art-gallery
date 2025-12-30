@@ -54,7 +54,7 @@ const CATEGORIES = [
 // Techniques with German translation
 const TECHNIQUES = [
   'Oil on Canvas (Öl auf Leinwand)',
-  'Oil Stick on Paper (Ölstick auf Papier)',
+  'Oil Pastel on Paper (Ölpastell auf Papier)',
   'Mixed Media on Paper (Mixed Media auf Papier)',
 ];
 
@@ -498,9 +498,10 @@ export default function AdminProductsPage() {
                   required
                   min={MIN_YEAR}
                   max={CURRENT_YEAR}
+                  step="1"
                   value={formData.year}
                   onChange={(e) => setFormData({...formData, year: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-auto [&::-webkit-inner-spin-button]:appearance-auto"
                 />
               </div>
             </div>
