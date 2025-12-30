@@ -20,20 +20,28 @@ export async function POST(request) {
             images: [item.image],
             description: item.description || '',
           },
-          unit_amount: item.price * 100, // Stripe uses cents
+          unit_amount: Math.round(item.price * 100), // Stripe uses cents
         },
         quantity: item.quantity,
       })),
       mode: 'payment',
       success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.headers.get('origin')}/cart?canceled=true`,
-      locale: locale, // German or English Stripe interface
+      locale: locale,
       shipping_address_collection: {
         allowed_countries: ['DE', 'AT', 'CH', 'FR', 'IT', 'NL', 'BE', 'ES', 'PT', 'GB', 'US']
       },
+      // Automatically send receipt to customer
+      payment_intent_data: {
+        receipt_email: null, // Will use the email from checkout
+      },
+      // Request customer email and send receipt
+      customer_email: undefined, // Let customer enter email
+      invoice_creation: {
+        enabled: true, // Creates invoice with receipt
+      },
     });
 
-    // FIX: Return both sessionId AND url
     return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (err) {
     console.error('Stripe checkout error:', err);
