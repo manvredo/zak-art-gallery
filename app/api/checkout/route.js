@@ -33,7 +33,8 @@ export async function POST(request) {
       },
     });
 
-    return NextResponse.json({ sessionId: session.id });
+    // FIX: Return both sessionId AND url
+    return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (err) {
     console.error('Stripe checkout error:', err);
     return NextResponse.json({ error: err.message }, { status: 500 });
