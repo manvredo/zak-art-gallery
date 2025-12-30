@@ -31,14 +31,9 @@ export async function POST(request) {
       shipping_address_collection: {
         allowed_countries: ['DE', 'AT', 'CH', 'FR', 'IT', 'NL', 'BE', 'ES', 'PT', 'GB', 'US']
       },
-      // Automatically send receipt to customer
-      payment_intent_data: {
-        receipt_email: null, // Will use the email from checkout
-      },
-      // Request customer email and send receipt
-      customer_email: undefined, // Let customer enter email
+      // Automatically create invoice with receipt for customer
       invoice_creation: {
-        enabled: true, // Creates invoice with receipt
+        enabled: true,
       },
     });
 
