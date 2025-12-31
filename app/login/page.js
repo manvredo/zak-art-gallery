@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
+import { translateSupabaseError } from '@/app/utils/translateSupabaseError';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -38,31 +39,8 @@ export default function CustomerLoginPage() {
       }
     } catch (error) {
       console.error('Login error:', error);
-      setError(error.message || t.auth.errors.loginFailed);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: email.trim(),
-        password: password,
-      });
-
-      if (error) throw error;
-
-      if (data.user) {
-        router.push('/account');
-      }
-    } catch (error) {
-      console.error('Register error:', error);
-      setError(error.message || t.auth.errors.registerFailed);
+      // ✅ VERWENDE translateSupabaseError statt direkt error.message
+      setError(translateSupabaseError(error, t));
     } finally {
       setLoading(false);
     }
@@ -100,7 +78,7 @@ export default function CustomerLoginPage() {
 
           {/* Form */}
           <div className="bg-white rounded-lg shadow-sm p-8">
-            <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-6">
               {/* Error Message */}
               {error && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
@@ -155,7 +133,7 @@ export default function CustomerLoginPage() {
 
               {/* Submit Button */}
               <button
-                type="submit"
+                onClick={handleLogin}
                 disabled={loading}
                 className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium"
               >
@@ -168,7 +146,30 @@ export default function CustomerLoginPage() {
                   t.auth.login.submitButton
                 )}
               </button>
-            </form>
+            </div>
+
+            {/* Register Link */}
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                {t.auth.login.noAccount}{' '}
+                <Link href="/register" className="text-gray-900 font-medium hover:underline">
+                  {t.auth.login.createOne}
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          {/* Guest Checkout Note */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-500 mb-2">
+              {t.auth.login.guestCheckout}
+            </p>
+            <Link 
+              href="/"
+              className="text-sm text-gray-900 font-medium hover:underline"
+            >
+              {t.auth.login.continueAsGuest} →
+            </Link>
           </div>
         </div>
       </div>

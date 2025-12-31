@@ -212,7 +212,12 @@ const translations = {
         passwordTooShort: 'Password must be at least 6 characters',
         registrationFailed: 'Registration failed. Please try again.',
         emailNotConfirmed: 'Email not confirmed. Please check your inbox.',
-        genericError: 'An error occurred. Please try again.'
+        genericError: 'An error occurred. Please try again.',
+        // ✅ NEU: Supabase-Fehlerübersetzungen
+        emailAlreadyExists: 'This email address is already registered.',
+        invalidCredentials: 'Invalid credentials. Please check your email and password.',
+        weakPassword: 'Password is too weak. Use at least 6 characters.',
+        invalidEmail: 'Invalid email address.'
       }
     },
     
@@ -497,7 +502,12 @@ const translations = {
         passwordTooShort: 'Passwort muss mindestens 6 Zeichen lang sein',
         registrationFailed: 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.',
         emailNotConfirmed: 'E-Mail nicht bestätigt. Bitte prüfen Sie Ihr Postfach.',
-        genericError: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.'
+        genericError: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+        // ✅ NEU: Supabase-Fehlerübersetzungen
+        emailAlreadyExists: 'Diese E-Mail-Adresse ist bereits registriert.',
+        invalidCredentials: 'Ungültige Anmeldedaten. Bitte überprüfen Sie E-Mail und Passwort.',
+        weakPassword: 'Passwort ist zu schwach. Verwenden Sie mindestens 6 Zeichen.',
+        invalidEmail: 'Ungültige E-Mail-Adresse.'
       }
     },
     

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { User, Mail, Lock, AlertCircle, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
+import { translateSupabaseError } from '@/app/utils/translateSupabaseError';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -45,7 +46,7 @@ export default function RegisterPage() {
     }
 
     try {
-      // ✅ ECHTE Supabase Registrierung
+      // Registrierung mit Supabase
       const { data, error } = await supabase.auth.signUp({
         email: formData.email.trim(),
         password: formData.password,
@@ -72,7 +73,8 @@ export default function RegisterPage() {
 
     } catch (error) {
       console.error('Registration error:', error);
-      setError(error.message || t.auth.errors.registrationFailed);
+      // ✅ VERWENDE translateSupabaseError statt direkt error.message
+      setError(translateSupabaseError(error, t));
     } finally {
       setLoading(false);
     }
