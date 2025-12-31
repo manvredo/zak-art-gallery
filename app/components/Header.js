@@ -102,14 +102,34 @@ export default function Header() {
 
           {/* Right Icons */}
           <div className="flex items-center space-x-4">
-            {/* ✅ KORRIGIERT: Language Toggle with SVG Flags */}
-            <button 
-              onClick={toggleLanguage} 
-              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition cursor-pointer"
-              title={language === 'de' ? 'Switch to English' : 'Zu Deutsch wechseln'}
-            >
-              {language === 'de' ? (
-                // Zeigt UK Flag wenn Deutsch aktiv (zum Wechseln zu Englisch!)
+            {/* ✅ OPTION B: Beide Flaggen (eine ausgegraut) */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50">
+              {/* Deutsche Flagge */}
+              <button
+                onClick={() => language !== 'de' && toggleLanguage()}
+                className={`transition cursor-pointer ${
+                  language === 'de' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
+                }`}
+                title="Deutsch"
+              >
+                <svg className="w-8 h-6" viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="5" height="3" fill="#000"/>
+                  <rect width="5" height="2" y="1" fill="#D00"/>
+                  <rect width="5" height="1" y="2" fill="#FFCE00"/>
+                </svg>
+              </button>
+              
+              {/* Trennlinie */}
+              <div className="h-6 w-px bg-gray-300"></div>
+              
+              {/* Englische Flagge */}
+              <button
+                onClick={() => language !== 'en' && toggleLanguage()}
+                className={`transition cursor-pointer ${
+                  language === 'en' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
+                }`}
+                title="English"
+              >
                 <svg className="w-8 h-6" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
                   <clipPath id="t">
                     <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
@@ -120,15 +140,8 @@ export default function Header() {
                   <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
                   <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
                 </svg>
-              ) : (
-                // Zeigt German Flag wenn Englisch aktiv (zum Wechseln zu Deutsch!)
-                <svg className="w-8 h-6" viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="5" height="3" fill="#000"/>
-                  <rect width="5" height="2" y="1" fill="#D00"/>
-                  <rect width="5" height="1" y="2" fill="#FFCE00"/>
-                </svg>
-              )}
-            </button>
+              </button>
+            </div>
             
             {/* Login & Register ODER Account */}
             {user ? (
