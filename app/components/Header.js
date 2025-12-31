@@ -102,14 +102,14 @@ export default function Header() {
 
           {/* Right Icons */}
           <div className="flex items-center space-x-4">
-            {/* Language Toggle with SVG Flags */}
+            {/* ✅ KORRIGIERT: Language Toggle with SVG Flags */}
             <button 
               onClick={toggleLanguage} 
               className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition cursor-pointer"
-              title={language === 'de' ? 'English' : 'Deutsch'}
+              title={language === 'de' ? 'Switch to English' : 'Zu Deutsch wechseln'}
             >
               {language === 'de' ? (
-                // UK Flag (zeigt Englisch an wenn Deutsch aktiv ist)
+                // Zeigt UK Flag wenn Deutsch aktiv (zum Wechseln zu Englisch!)
                 <svg className="w-8 h-6" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
                   <clipPath id="t">
                     <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
@@ -121,7 +121,7 @@ export default function Header() {
                   <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
                 </svg>
               ) : (
-                // German Flag (zeigt Deutsch an wenn Englisch aktiv ist)
+                // Zeigt German Flag wenn Englisch aktiv (zum Wechseln zu Deutsch!)
                 <svg className="w-8 h-6" viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
                   <rect width="5" height="3" fill="#000"/>
                   <rect width="5" height="2" y="1" fill="#D00"/>
@@ -130,7 +130,7 @@ export default function Header() {
               )}
             </button>
             
-            {/* ✅ Login & Register ODER Account */}
+            {/* Login & Register ODER Account */}
             {user ? (
               <Link 
                 href="/account"
