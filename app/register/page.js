@@ -1,7 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { User, Mail, Lock, AlertCircle, CheckCircle } from 'lucide-react';
+import { useLanguage } from '@/app/context/LanguageContext';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -13,110 +22,60 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  
-  // Sprachumschaltung (für Demo - in der echten App kommt das aus LanguageContext)
-  const [language, setLanguage] = useState('de');
-  
-  const translations = {
-    de: {
-      title: 'Konto erstellen',
-      subtitle: 'Werden Sie Teil der ZAK Art Gallery Community',
-      fullNameLabel: 'Vollständiger Name',
-      fullNamePlaceholder: 'Max Mustermann',
-      emailLabel: 'E-Mail-Adresse',
-      emailPlaceholder: 'max@beispiel.de',
-      passwordLabel: 'Passwort',
-      passwordPlaceholder: '••••••••',
-      confirmPasswordLabel: 'Passwort bestätigen',
-      passwordHint: 'Mindestens 6 Zeichen',
-      submitButton: 'Konto erstellen',
-      creating: 'Konto wird erstellt...',
-      haveAccount: 'Bereits ein Konto?',
-      signIn: 'Anmelden',
-      guestNote: 'Kein Konto nötig? Sie können jederzeit als Gast zur Kasse gehen.',
-      benefitsTitle: 'Vorteile eines Kontos:',
-      benefits: {
-        trackOrders: 'Bestellungen verfolgen',
-        saveFavorites: 'Lieblingskunstwerke speichern',
-        earlyAccess: 'Früher Zugang zu neuen Kollektionen',
-        newsletter: 'Exklusive Newsletter-Updates'
-      },
-      successTitle: 'Willkommen bei ZAK Art Gallery!',
-      successMessage: 'Ihr Konto wurde erfolgreich erstellt.',
-      redirecting: 'Weiterleitung zu Ihrem Konto...',
-      backToShop: 'Zurück zum Shop',
-      errors: {
-        passwordMismatch: 'Passwörter stimmen nicht überein',
-        passwordTooShort: 'Passwort muss mindestens 6 Zeichen lang sein',
-        registrationFailed: 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.'
-      }
-    },
-    en: {
-      title: 'Create Account',
-      subtitle: 'Join ZAK Art Gallery community',
-      fullNameLabel: 'Full Name',
-      fullNamePlaceholder: 'John Doe',
-      emailLabel: 'Email Address',
-      emailPlaceholder: 'john@example.com',
-      passwordLabel: 'Password',
-      passwordPlaceholder: '••••••••',
-      confirmPasswordLabel: 'Confirm Password',
-      passwordHint: 'At least 6 characters',
-      submitButton: 'Create Account',
-      creating: 'Creating account...',
-      haveAccount: 'Already have an account?',
-      signIn: 'Sign in',
-      guestNote: 'No account needed? You can checkout as a guest anytime.',
-      benefitsTitle: 'Account Benefits:',
-      benefits: {
-        trackOrders: 'Track your orders',
-        saveFavorites: 'Save favorite artworks',
-        earlyAccess: 'Early access to new collections',
-        newsletter: 'Exclusive newsletter updates'
-      },
-      successTitle: 'Welcome to ZAK Art Gallery!',
-      successMessage: 'Your account has been created successfully.',
-      redirecting: 'Redirecting to your account...',
-      backToShop: 'Back to Shop',
-      errors: {
-        passwordMismatch: "Passwords don't match",
-        passwordTooShort: 'Password must be at least 6 characters',
-        registrationFailed: 'Registration failed. Please try again.'
-      }
-    }
-  };
-  
-  const t = translations[language];
+  const router = useRouter();
+  const { t } = useLanguage();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     // Validierung: Passwörter müssen übereinstimmen
     if (formData.password !== formData.confirmPassword) {
-      setError(t.errors.passwordMismatch);
+      setError(t.auth.errors.passwordMismatch);
       setLoading(false);
       return;
     }
 
     // Validierung: Passwort-Mindestlänge
     if (formData.password.length < 6) {
-      setError(t.errors.passwordTooShort);
+      setError(t.auth.errors.passwordTooShort);
       setLoading(false);
       return;
     }
 
-    // Simuliere Registrierung (in der echten App: Supabase Auth)
-    setTimeout(() => {
+    try {
+      // ✅ ECHTE Supabase Registrierung
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email.trim(),
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.name.trim(),
+          }
+        }
+      });
+
+      if (error) throw error;
+
+      // Erfolg!
       setSuccess(true);
-      setLoading(false);
       
-      // Nach 2 Sekunden "weiterleiten"
+      // Nach 2 Sekunden zum Account-Bereich weiterleiten
       setTimeout(() => {
-        console.log('Redirecting to account page...');
+        if (data.user) {
+          router.push('/account');
+        } else {
+          router.push('/login');
+        }
       }, 2000);
-    }, 1500);
+
+    } catch (error) {
+      console.error('Registration error:', error);
+      setError(error.message || t.auth.errors.registrationFailed);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Erfolgs-Ansicht
@@ -128,13 +87,13 @@ export default function RegisterPage() {
             <CheckCircle className="text-green-600" size={32} />
           </div>
           <h2 className="text-2xl font-light text-gray-900 mb-2">
-            {t.successTitle}
+            {t.auth.register.successTitle}
           </h2>
           <p className="text-gray-600 mb-4">
-            {t.successMessage}
+            {t.auth.register.successMessage}
           </p>
           <p className="text-sm text-gray-500">
-            {t.redirecting}
+            {t.auth.register.redirecting}
           </p>
         </div>
       </div>
@@ -147,21 +106,14 @@ export default function RegisterPage() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-              ZAK ART GALLERY
-            </h1>
-            <div className="flex items-center gap-4">
-              {/* Sprachumschaltung */}
-              <button 
-                onClick={() => setLanguage(language === 'de' ? 'en' : 'de')}
-                className="text-sm text-gray-600 hover:text-gray-900 border border-gray-300 px-3 py-1 rounded"
-              >
-                {language === 'de' ? '🇬🇧 EN' : '🇩🇪 DE'}
-              </button>
-              <span className="text-gray-700 hover:text-gray-900 cursor-pointer">
-                ← {t.backToShop}
-              </span>
-            </div>
+            <Link href="/">
+              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
+                ZAK ART GALLERY
+              </h1>
+            </Link>
+            <Link href="/" className="text-gray-700 hover:text-gray-900">
+              ← {t.auth.login.backToShop}
+            </Link>
           </div>
         </div>
       </header>
@@ -175,9 +127,9 @@ export default function RegisterPage() {
               <User className="text-white" size={32} />
             </div>
             <h1 className="text-3xl font-light text-gray-900 mb-2">
-              {t.title}
+              {t.auth.register.title}
             </h1>
-            <p className="text-gray-600">{t.subtitle}</p>
+            <p className="text-gray-600">{t.auth.register.subtitle}</p>
           </div>
 
           {/* Form */}
@@ -196,7 +148,7 @@ export default function RegisterPage() {
               {/* Name Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.fullNameLabel} *
+                  {t.auth.register.fullNameLabel} *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -208,7 +160,7 @@ export default function RegisterPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.fullNamePlaceholder}
+                    placeholder={t.auth.register.fullNamePlaceholder}
                     disabled={loading}
                   />
                 </div>
@@ -217,7 +169,7 @@ export default function RegisterPage() {
               {/* Email Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.emailLabel} *
+                  {t.auth.register.emailLabel} *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -229,7 +181,7 @@ export default function RegisterPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.emailPlaceholder}
+                    placeholder={t.auth.register.emailPlaceholder}
                     disabled={loading}
                   />
                 </div>
@@ -238,7 +190,7 @@ export default function RegisterPage() {
               {/* Password Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.passwordLabel} *
+                  {t.auth.register.passwordLabel} *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -250,17 +202,17 @@ export default function RegisterPage() {
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.passwordPlaceholder}
+                    placeholder={t.auth.register.passwordPlaceholder}
                     disabled={loading}
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">{t.passwordHint}</p>
+                <p className="text-xs text-gray-500 mt-1">{t.auth.register.passwordHint}</p>
               </div>
 
               {/* Confirm Password Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.confirmPasswordLabel} *
+                  {t.auth.register.confirmPasswordLabel} *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -272,7 +224,7 @@ export default function RegisterPage() {
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.passwordPlaceholder}
+                    placeholder={t.auth.register.passwordPlaceholder}
                     disabled={loading}
                   />
                 </div>
@@ -287,10 +239,10 @@ export default function RegisterPage() {
                 {loading ? (
                   <div className="flex items-center justify-center gap-2">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    <span>{t.creating}</span>
+                    <span>{t.auth.register.creating}</span>
                   </div>
                 ) : (
-                  t.submitButton
+                  t.auth.register.submitButton
                 )}
               </button>
             </div>
@@ -298,40 +250,40 @@ export default function RegisterPage() {
             {/* Login Link */}
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
-                {t.haveAccount}{' '}
-                <span className="text-gray-900 font-medium hover:underline cursor-pointer">
-                  {t.signIn}
-                </span>
+                {t.auth.register.haveAccount}{' '}
+                <Link href="/login" className="text-gray-900 font-medium hover:underline">
+                  {t.auth.register.signIn}
+                </Link>
               </p>
             </div>
           </div>
 
           {/* Guest Note */}
           <p className="text-center text-gray-500 text-sm mt-6">
-            {t.guestNote}
+            {t.auth.register.guestNote}
           </p>
 
           {/* Benefits Section */}
           <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-4">
-              {t.benefitsTitle}
+              {t.auth.register.benefitsTitle}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.benefits.trackOrders}</span>
+                <span className="text-gray-700">{t.auth.register.benefits.trackOrders}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.benefits.saveFavorites}</span>
+                <span className="text-gray-700">{t.auth.register.benefits.saveFavorites}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.benefits.earlyAccess}</span>
+                <span className="text-gray-700">{t.auth.register.benefits.earlyAccess}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.benefits.newsletter}</span>
+                <span className="text-gray-700">{t.auth.register.benefits.newsletter}</span>
               </li>
             </ul>
           </div>

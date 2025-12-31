@@ -130,6 +130,7 @@ export default function Header() {
               )}
             </button>
             
+            {/* ✅ NEU: Login & Register ODER Account */}
             {user ? (
               <Link 
                 href="/account"
@@ -139,12 +140,21 @@ export default function Header() {
                 <span className="hidden sm:inline text-sm">{t.nav.account}</span>
               </Link>
             ) : (
-              <Link 
-                href="/login"
-                className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
-              >
-                {t.nav.login}
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link 
+                  href="/login"
+                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+                >
+                  {t.nav.login}
+                </Link>
+                <span className="text-gray-300">|</span>
+                <Link 
+                  href="/register"
+                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+                >
+                  {t.nav.register}
+                </Link>
+              </div>
             )}
             
             <Link 
