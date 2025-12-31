@@ -39,7 +39,7 @@ export default function CustomerLoginPage() {
       }
     } catch (error) {
       console.error('Login error:', error);
-      // ✅ VERWENDE translateSupabaseError statt direkt error.message
+      // ✅ Verwende translateSupabaseError für übersetzte Fehlermeldungen
       setError(translateSupabaseError(error, t));
     } finally {
       setLoading(false);
@@ -78,7 +78,7 @@ export default function CustomerLoginPage() {
 
           {/* Form */}
           <div className="bg-white rounded-lg shadow-sm p-8">
-            <div className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-6">
               {/* Error Message */}
               {error && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
@@ -133,7 +133,7 @@ export default function CustomerLoginPage() {
 
               {/* Submit Button */}
               <button
-                onClick={handleLogin}
+                type="submit"
                 disabled={loading}
                 className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium"
               >
@@ -146,7 +146,7 @@ export default function CustomerLoginPage() {
                   t.auth.login.submitButton
                 )}
               </button>
-            </div>
+            </form>
 
             {/* Register Link */}
             <div className="mt-6 text-center">

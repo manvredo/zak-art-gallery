@@ -130,7 +130,7 @@ export default function Header() {
               )}
             </button>
             
-            {/* ✅ NEU: Login & Register ODER Account */}
+            {/* ✅ Login & Register ODER Account */}
             {user ? (
               <Link 
                 href="/account"
