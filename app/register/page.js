@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { User, Mail, Lock, AlertCircle, CheckCircle } from 'lucide-react';
+import { User, Mail, Lock, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { translateSupabaseError } from '@/app/utils/translateSupabaseError';
 
@@ -22,6 +22,8 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
   const { t } = useLanguage();
 
@@ -53,14 +55,13 @@ export default function RegisterPage() {
           data: {
             full_name: formData.name.trim(),
           },
-          // ✅ E-Mail-Bestätigung aktivieren
           emailRedirectTo: `${window.location.origin}/account`
         }
       });
 
       if (error) throw error;
 
-      // ✅ Erfolg! Weiterleitung zur E-Mail-Bestätigungsseite
+      // Erfolg! Weiterleitung zur E-Mail-Bestätigungsseite
       router.push('/verify-email');
 
     } catch (error) {
@@ -158,7 +159,7 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Password Field */}
+              {/* Password Field mit Sichtbarkeits-Toggle */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   {t.auth.register.passwordLabel} *
@@ -168,19 +169,32 @@ export default function RegisterPage() {
                     <Lock className="text-gray-400" size={18} />
                   </div>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                     placeholder={t.auth.register.passwordPlaceholder}
                     disabled={loading}
                   />
+                  {/* Auge-Symbol zum Ein/Ausblenden */}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
+                  </button>
                 </div>
                 <p className="text-xs text-gray-500 mt-1">{t.auth.register.passwordHint}</p>
               </div>
 
-              {/* Confirm Password Field */}
+              {/* Confirm Password Field mit Sichtbarkeits-Toggle */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   {t.auth.register.confirmPasswordLabel} *
@@ -190,14 +204,27 @@ export default function RegisterPage() {
                     <Lock className="text-gray-400" size={18} />
                   </div>
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     required
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                     placeholder={t.auth.register.passwordPlaceholder}
                     disabled={loading}
                   />
+                  {/* Auge-Symbol zum Ein/Ausblenden */}
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                    tabIndex={-1}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
+                  </button>
                 </div>
               </div>
 
