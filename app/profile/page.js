@@ -1,72 +1,76 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { User, Mail, Calendar, LogOut, Package, Heart, Bell, Sparkles } from 'lucide-react';
+import { User, Mail, Lock, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
+import { translateSupabaseError } from '@/app/utils/translateSupabaseError';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export default function AccountPage() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+export default function RegisterPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
   const { t } = useLanguage();
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-  const checkAuth = async () => {
-    try {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      
-      if (error || !user) {
-        router.push('/login');
-        return;
-      }
-
-      setUser(user);
+    // Validierung: Passwörter müssen übereinstimmen
+    if (formData.password !== formData.confirmPassword) {
+      setError(t.auth.errors.passwordMismatch);
       setLoading(false);
-    } catch (error) {
-      console.error('Auth check error:', error);
-      router.push('/login');
+      return;
     }
-  };
 
-  const handleLogout = async () => {
+    // Validierung: Passwort-Mindestlänge
+    if (formData.password.length < 6) {
+      setError(t.auth.errors.passwordTooShort);
+      setLoading(false);
+      return;
+    }
+
     try {
-      await supabase.auth.signOut();
-      router.push('/');
+      // Registrierung mit Supabase
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email.trim(),
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.name.trim(),
+          },
+          emailRedirectTo: `${window.location.origin}/profile`
+        }
+      });
+
+      if (error) throw error;
+
+      // Erfolg! Weiterleitung zur E-Mail-Bestätigungsseite
+      router.push('/verify-email');
+
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error('Registration error:', error);
+      setError(translateSupabaseError(error, t));
+    } finally {
+      setLoading(false);
     }
   };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
-          <p className="text-gray-600">{t.common.loading}</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -86,191 +90,203 @@ export default function AccountPage() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Welcome Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-light text-gray-900 mb-2">
-            {t.auth.account.title}, {user?.user_metadata?.full_name || 'Art Lover'}!
-          </h1>
-          <p className="text-gray-600">{t.auth.account.subtitle}</p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Account Info */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Account Information Card */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-medium text-gray-900">
-                  {t.auth.account.accountInfo}
-                </h2>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-red-600 transition"
-                >
-                  <LogOut size={18} />
-                  <span>{t.auth.account.signOut}</span>
-                </button>
-              </div>
-
-              <div className="space-y-4">
-                {/* Full Name */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                    <User className="text-gray-600" size={20} />
-                  </div>
-                  <div className="flex-1">
-                    <label className="text-sm font-medium text-gray-500">
-                      {t.auth.account.fullNameLabel}
-                    </label>
-                    <p className="text-gray-900 mt-1">
-                      {user?.user_metadata?.full_name || t.auth.account.notSet}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                    <Mail className="text-gray-600" size={20} />
-                  </div>
-                  <div className="flex-1">
-                    <label className="text-sm font-medium text-gray-500">
-                      {t.auth.account.emailLabel}
-                    </label>
-                    <p className="text-gray-900 mt-1">{user?.email}</p>
-                  </div>
-                </div>
-
-                {/* Member Since */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                    <Calendar className="text-gray-600" size={20} />
-                  </div>
-                  <div className="flex-1">
-                    <label className="text-sm font-medium text-gray-500">
-                      {t.auth.account.memberSince}
-                    </label>
-                    <p className="text-gray-900 mt-1">
-                      {formatDate(user?.created_at)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+      {/* Registration Form */}
+      <div className="flex items-center justify-center px-4 py-12">
+        <div className="max-w-md w-full">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-900 rounded-full mb-4">
+              <User className="text-white" size={32} />
             </div>
-
-            {/* Coming Soon Features */}
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-8 border border-gray-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Sparkles className="text-gray-900" size={24} />
-                <h3 className="text-lg font-medium text-gray-900">
-                  {t.auth.account.comingSoon}
-                </h3>
-              </div>
-              <p className="text-gray-600 mb-6">
-                {t.auth.account.comingSoonMessage}
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
-                  <Package className="mx-auto mb-2 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">{t.auth.account.orders}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
-                </div>
-                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
-                  <Heart className="mx-auto mb-2 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">{t.auth.account.favorites}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
-                </div>
-                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
-                  <Bell className="mx-auto mb-2 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">{t.auth.account.newsletter}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
-                </div>
-              </div>
-            </div>
+            <h1 className="text-3xl font-light text-gray-900 mb-2">
+              {t.auth.register.title}
+            </h1>
+            <p className="text-gray-600">{t.auth.register.subtitle}</p>
           </div>
 
-          {/* Right Column - Benefits */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
-              <h3 className="text-lg font-medium text-gray-900 mb-6">
-                {t.auth.account.benefitsTitle}
-              </h3>
-
-              <div className="space-y-6">
-                {/* Early Access */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Sparkles className="text-green-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
-                      {t.auth.account.benefits.earlyAccess}
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      {t.auth.account.benefits.earlyAccessDesc}
-                    </p>
+          {/* Form */}
+          <div className="bg-white rounded-lg shadow-sm p-8">
+            <form onSubmit={handleRegister} className="space-y-6">
+              {/* Error Message */}
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
+                  <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
+                  <div className="flex-1">
+                    <p className="text-sm text-red-800">{error}</p>
                   </div>
                 </div>
+              )}
 
-                {/* Order Tracking */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Package className="text-blue-600" size={24} />
+              {/* Name Field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t.auth.register.fullNameLabel} *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="text-gray-400" size={18} />
                   </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
-                      {t.auth.account.benefits.orderTracking}
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      {t.auth.account.benefits.orderTrackingDesc}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Newsletter */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Bell className="text-purple-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
-                      {t.auth.account.benefits.newsletter}
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      {t.auth.account.benefits.newsletterDesc}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Save Favorites */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                    <Heart className="text-red-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
-                      {t.auth.account.benefits.saveFavorites}
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      {t.auth.account.benefits.saveFavoritesDesc}
-                    </p>
-                  </div>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder={t.auth.register.fullNamePlaceholder}
+                    disabled={loading}
+                  />
                 </div>
               </div>
 
-              {/* Browse Art Button */}
-              <Link
-                href="/shop"
-                className="mt-8 block w-full bg-gray-900 text-white text-center py-3 rounded-lg hover:bg-gray-800 transition font-medium"
+              {/* Email Field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t.auth.register.emailLabel} *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="text-gray-400" size={18} />
+                  </div>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder={t.auth.register.emailPlaceholder}
+                    disabled={loading}
+                  />
+                </div>
+              </div>
+
+              {/* Password Field mit Sichtbarkeits-Toggle */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t.auth.register.passwordLabel} *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="text-gray-400" size={18} />
+                  </div>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={formData.password}
+                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                    className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder={t.auth.register.passwordPlaceholder}
+                    disabled={loading}
+                  />
+                  {/* Auge-Symbol zum Ein/Ausblenden */}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
+                  </button>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">{t.auth.register.passwordHint}</p>
+              </div>
+
+              {/* Confirm Password Field mit Sichtbarkeits-Toggle */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t.auth.register.confirmPasswordLabel} *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="text-gray-400" size={18} />
+                  </div>
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    required
+                    value={formData.confirmPassword}
+                    onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                    className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder={t.auth.register.passwordPlaceholder}
+                    disabled={loading}
+                  />
+                  {/* Auge-Symbol zum Ein/Ausblenden */}
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                    tabIndex={-1}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium"
               >
-                {t.shop.title}
-              </Link>
+                {loading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>{t.auth.register.creating}</span>
+                  </div>
+                ) : (
+                  t.auth.register.submitButton
+                )}
+              </button>
+            </form>
+
+            {/* Login Link */}
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                {t.auth.register.haveAccount}{' '}
+                <Link href="/login" className="text-gray-900 font-medium hover:underline">
+                  {t.auth.register.signIn}
+                </Link>
+              </p>
             </div>
           </div>
+
+          {/* Guest Note */}
+          <p className="text-center text-gray-500 text-sm mt-6">
+            {t.auth.register.guestNote}
+          </p>
+
+          {/* Benefits Section */}
+          <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">
+              {t.auth.register.benefitsTitle}
+            </h3>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <span className="text-gray-700">{t.auth.register.benefits.trackOrders}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <span className="text-gray-700">{t.auth.register.benefits.saveFavorites}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <span className="text-gray-700">{t.auth.register.benefits.earlyAccess}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <span className="text-gray-700">{t.auth.register.benefits.newsletter}</span>
+              </li>
+            </ul>
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
