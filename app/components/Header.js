@@ -146,7 +146,7 @@ export default function Header() {
             {/* Login & Register ODER Account */}
             {user ? (
               <Link 
-                href="/account"
+                href="/profile"
                 className="flex items-center gap-2 text-gray-700 hover:text-gray-900 cursor-pointer"
               >
                 <User size={20} />
@@ -222,7 +222,7 @@ export default function Header() {
             <div className="border-t border-gray-200 pt-3 mt-3">
               {user ? (
                 <Link
-                  href="/account"
+                  href="/profile"
                   className="block py-2 text-gray-700 hover:text-gray-900"
                   onClick={() => setMobileMenuOpen(false)}
                 >
