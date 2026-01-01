@@ -205,6 +205,25 @@ const translations = {
         soon: 'Soon'
       },
       
+      // ✅ NEU: E-Mail-Bestätigung
+      verifyEmail: {
+        title: 'Verify Your Email',
+        subtitle: 'We have sent you an email',
+        description: 'Please check your inbox and click on the confirmation link in the email.',
+        nextSteps: 'Next Steps:',
+        step1: 'Open your email inbox',
+        step2: 'Find the email from ZAK Art Gallery',
+        step3: 'Click on the confirmation link',
+        step4: 'You will be automatically redirected',
+        noEmail: 'Didn\'t receive an email?',
+        emailResent: 'Email has been sent again!',
+        resending: 'Sending...',
+        resendButton: 'Resend Email',
+        checkSpam: 'Also check your spam folder',
+        supportText: 'If you have problems, contact us at',
+        backToLogin: 'Back to Login'
+      },
+      
       // Error Messages
       errors: {
         loginFailed: 'Login failed. Please check your credentials.',
@@ -213,7 +232,6 @@ const translations = {
         registrationFailed: 'Registration failed. Please try again.',
         emailNotConfirmed: 'Email not confirmed. Please check your inbox.',
         genericError: 'An error occurred. Please try again.',
-        // ✅ NEU: Supabase-Fehlerübersetzungen
         emailAlreadyExists: 'This email address is already registered.',
         invalidCredentials: 'Invalid credentials. Please check your email and password.',
         weakPassword: 'Password is too weak. Use at least 6 characters.',
@@ -495,6 +513,25 @@ const translations = {
         soon: 'Bald'
       },
       
+      // ✅ NEU: E-Mail-Bestätigung
+      verifyEmail: {
+        title: 'E-Mail bestätigen',
+        subtitle: 'Wir haben Ihnen eine E-Mail gesendet',
+        description: 'Bitte prüfen Sie Ihr Postfach und klicken Sie auf den Bestätigungslink in der E-Mail.',
+        nextSteps: 'Nächste Schritte:',
+        step1: 'Öffnen Sie Ihr E-Mail-Postfach',
+        step2: 'Finden Sie die E-Mail von ZAK Art Gallery',
+        step3: 'Klicken Sie auf den Bestätigungslink',
+        step4: 'Sie werden automatisch weitergeleitet',
+        noEmail: 'Keine E-Mail erhalten?',
+        emailResent: 'E-Mail wurde erneut gesendet!',
+        resending: 'Wird gesendet...',
+        resendButton: 'E-Mail erneut senden',
+        checkSpam: 'Prüfen Sie auch Ihren Spam-Ordner',
+        supportText: 'Bei Problemen kontaktieren Sie uns unter',
+        backToLogin: 'Zurück zur Anmeldung'
+      },
+      
       // Error Messages
       errors: {
         loginFailed: 'Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Zugangsdaten.',
@@ -503,7 +540,6 @@ const translations = {
         registrationFailed: 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.',
         emailNotConfirmed: 'E-Mail nicht bestätigt. Bitte prüfen Sie Ihr Postfach.',
         genericError: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
-        // ✅ NEU: Supabase-Fehlerübersetzungen
         emailAlreadyExists: 'Diese E-Mail-Adresse ist bereits registriert.',
         invalidCredentials: 'Ungültige Anmeldedaten. Bitte überprüfen Sie E-Mail und Passwort.',
         weakPassword: 'Passwort ist zu schwach. Verwenden Sie mindestens 6 Zeichen.',
