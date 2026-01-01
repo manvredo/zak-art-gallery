@@ -22,7 +22,6 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
   const router = useRouter();
   const { t } = useLanguage();
 
@@ -53,54 +52,24 @@ export default function RegisterPage() {
         options: {
           data: {
             full_name: formData.name.trim(),
-          }
+          },
+          // ✅ E-Mail-Bestätigung aktivieren
+          emailRedirectTo: `${window.location.origin}/account`
         }
       });
 
       if (error) throw error;
 
-      // Erfolg!
-      setSuccess(true);
-      
-      // Nach 2 Sekunden zum Account-Bereich weiterleiten
-      setTimeout(() => {
-        if (data.user) {
-          router.push('/account');
-        } else {
-          router.push('/login');
-        }
-      }, 2000);
+      // ✅ Erfolg! Weiterleitung zur E-Mail-Bestätigungsseite
+      router.push('/verify-email');
 
     } catch (error) {
       console.error('Registration error:', error);
-      // ✅ Verwende translateSupabaseError für übersetzte Fehlermeldungen
       setError(translateSupabaseError(error, t));
     } finally {
       setLoading(false);
     }
   };
-
-  // Erfolgs-Ansicht
-  if (success) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <CheckCircle className="text-green-600" size={32} />
-          </div>
-          <h2 className="text-2xl font-light text-gray-900 mb-2">
-            {t.auth.register.successTitle}
-          </h2>
-          <p className="text-gray-600 mb-4">
-            {t.auth.register.successMessage}
-          </p>
-          <p className="text-sm text-gray-500">
-            {t.auth.register.redirecting}
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
