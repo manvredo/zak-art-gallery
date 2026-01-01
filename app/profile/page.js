@@ -55,7 +55,7 @@ export default function RegisterPage() {
           data: {
             full_name: formData.name.trim(),
           },
-          emailRedirectTo: `${window.location.origin}/profile`
+          emailRedirectTo: 'https://manfredzak.com/profile'
         }
       });
 
