@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
-import { useCart } from '@/app/context/CartContext';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { User, Mail, Calendar, LogOut, Package, Heart, Bell, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 const supabase = createClient(
@@ -13,243 +12,254 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function AccountPage() {
   const [user, setUser] = useState(null);
-  const { cartItemCount } = useCart();
-  const { language, toggleLanguage, t } = useLanguage();
-  const pathname = usePathname();
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const { t } = useLanguage();
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    
-    checkUser();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
-    });
-
-    return () => subscription.unsubscribe();
+    checkAuth();
   }, []);
 
-  const isActive = (path) => {
-    if (path === '/') return pathname === '/';
-    return pathname.startsWith(path);
+  const checkAuth = async () => {
+    try {
+      // Warte kurz damit die Session nach Email-Bestätigung aktiv wird
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
+      if (error || !user) {
+        console.log('No user found, redirecting to login...');
+        router.push('/login');
+        return;
+      }
+
+      console.log('User authenticated:', user.email);
+      setUser(user);
+      setLoading(false);
+    } catch (error) {
+      console.error('Auth check error:', error);
+      router.push('/login');
+    }
   };
 
-  return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          
-          {/* Mobile Menu Button */}
-          <button 
-            className="lg:hidden cursor-pointer" 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
-          {/* Logo & Navigation - Centered */}
-          <div className="flex items-center justify-center flex-1">
-            <Link href="/">
-              <img 
-                src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png" 
-                alt="ZAK Art Gallery Logo" 
-                className="h-10 cursor-pointer"
-              />
-            </Link>
-            
-            <nav className="hidden lg:flex space-x-8 ml-24">
-              <Link 
-                href="/"
-                className={`transition cursor-pointer ${
-                  isActive('/') && pathname === '/' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                {t.nav.welcome}
-              </Link>
-              <Link 
-                href="/gallery"
-                className={`transition cursor-pointer ${
-                  isActive('/gallery') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                {t.nav.gallery}
-              </Link>
-              <Link 
-                href="/shop"
-                className={`transition cursor-pointer ${
-                  isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                {t.nav.shop}
-              </Link>
-              
-              <Link 
-                href="/contact"
-                className={`transition cursor-pointer ${
-                  isActive('/contact') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                {t.nav.contact}
-              </Link>
-            </nav>
-          </div>
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('de-DE', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
-          {/* Right Icons */}
-          <div className="flex items-center space-x-4">
-            {/* ✅ OPTION B: Beide Flaggen (eine ausgegraut) */}
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50">
-              {/* Deutsche Flagge */}
-              <button
-                onClick={() => language !== 'de' && toggleLanguage()}
-                className={`transition cursor-pointer ${
-                  language === 'de' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
-                }`}
-                title="Deutsch"
-              >
-                <svg className="w-8 h-6" viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="5" height="3" fill="#000"/>
-                  <rect width="5" height="2" y="1" fill="#D00"/>
-                  <rect width="5" height="1" y="2" fill="#FFCE00"/>
-                </svg>
-              </button>
-              
-              {/* Trennlinie */}
-              <div className="h-6 w-px bg-gray-300"></div>
-              
-              {/* Englische Flagge */}
-              <button
-                onClick={() => language !== 'en' && toggleLanguage()}
-                className={`transition cursor-pointer ${
-                  language === 'en' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
-                }`}
-                title="English"
-              >
-                <svg className="w-8 h-6" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-                  <clipPath id="t">
-                    <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
-                  </clipPath>
-                  <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-                  <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
-                  <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/>
-                  <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
-                  <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
-                </svg>
-              </button>
-            </div>
-            
-            {/* Login & Register ODER Account */}
-            {user ? (
-              <Link 
-                href="/profile"
-                className="flex items-center gap-2 text-gray-700 hover:text-gray-900 cursor-pointer"
-              >
-                <User size={20} />
-                <span className="hidden sm:inline text-sm">{t.nav.account}</span>
-              </Link>
-            ) : (
-              <div className="flex items-center gap-3">
-                <Link 
-                  href="/login"
-                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
-                >
-                  {t.nav.login}
-                </Link>
-                <span className="text-gray-300">|</span>
-                <Link 
-                  href="/register"
-                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
-                >
-                  {t.nav.register}
-                </Link>
-              </div>
-            )}
-            
-            <Link 
-              href="/cart"
-              className="relative text-gray-700 hover:text-gray-900 cursor-pointer"
-            >
-              <ShoppingCart size={20} />
-              {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-gray-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItemCount}
-                </span>
-              )}
-            </Link>
-          </div>
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">{t.common.loading}</p>
         </div>
       </div>
+    );
+  }
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-gray-200 bg-white">
-          <div className="px-4 py-4 space-y-3">
-            <Link 
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
-            >
-              {t.nav.welcome}
-            </Link>
-            <Link 
-              href="/gallery"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
-            >
-              {t.nav.gallery}
-            </Link>
-            <Link 
-              href="/shop"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
-            >
-              {t.nav.shop}
-            </Link>
-            
-            <Link 
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
-            >
-              {t.nav.contact}
-            </Link>
-            
-            <div className="border-t border-gray-200 pt-3 mt-3">
-              {user ? (
-                <Link
-                  href="/profile"
-                  className="block py-2 text-gray-700 hover:text-gray-900"
-                  onClick={() => setMobileMenuOpen(false)}
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Welcome Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-light text-gray-900 mb-2">
+            {t.auth.account.title}, {user?.user_metadata?.full_name || 'Art Lover'}!
+          </h1>
+          <p className="text-gray-600">{t.auth.account.subtitle}</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Account Info */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Account Information Card */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-medium text-gray-900">
+                  {t.auth.account.accountInfo}
+                </h2>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-red-600 transition"
                 >
-                  👤 {t.nav.account}
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="block py-2 text-gray-700 hover:text-gray-900"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {t.nav.login}
-                  </Link>
-                  <Link
-                    href="/register"
-                    className="block py-2 text-gray-700 hover:text-gray-900"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {t.nav.register}
-                  </Link>
-                </>
-              )}
+                  <LogOut size={18} />
+                  <span>{t.auth.account.signOut}</span>
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {/* Full Name */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                    <User className="text-gray-600" size={20} />
+                  </div>
+                  <div className="flex-1">
+                    <label className="text-sm font-medium text-gray-500">
+                      {t.auth.account.fullNameLabel}
+                    </label>
+                    <p className="text-gray-900 mt-1">
+                      {user?.user_metadata?.full_name || t.auth.account.notSet}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Mail className="text-gray-600" size={20} />
+                  </div>
+                  <div className="flex-1">
+                    <label className="text-sm font-medium text-gray-500">
+                      {t.auth.account.emailLabel}
+                    </label>
+                    <p className="text-gray-900 mt-1">{user?.email}</p>
+                  </div>
+                </div>
+
+                {/* Member Since */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Calendar className="text-gray-600" size={20} />
+                  </div>
+                  <div className="flex-1">
+                    <label className="text-sm font-medium text-gray-500">
+                      {t.auth.account.memberSince}
+                    </label>
+                    <p className="text-gray-900 mt-1">
+                      {formatDate(user?.created_at)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Coming Soon Features */}
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-8 border border-gray-200">
+              <div className="flex items-center gap-3 mb-4">
+                <Sparkles className="text-gray-900" size={24} />
+                <h3 className="text-lg font-medium text-gray-900">
+                  {t.auth.account.comingSoon}
+                </h3>
+              </div>
+              <p className="text-gray-600 mb-6">
+                {t.auth.account.comingSoonMessage}
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
+                  <Package className="mx-auto mb-2 text-gray-400" size={32} />
+                  <p className="text-sm font-medium text-gray-900">{t.auth.account.orders}</p>
+                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
+                </div>
+                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
+                  <Heart className="mx-auto mb-2 text-gray-400" size={32} />
+                  <p className="text-sm font-medium text-gray-900">{t.auth.account.favorites}</p>
+                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
+                </div>
+                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
+                  <Bell className="mx-auto mb-2 text-gray-400" size={32} />
+                  <p className="text-sm font-medium text-gray-900">{t.auth.account.newsletter}</p>
+                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Benefits */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
+              <h3 className="text-lg font-medium text-gray-900 mb-6">
+                {t.auth.account.benefitsTitle}
+              </h3>
+
+              <div className="space-y-6">
+                {/* Early Access */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <Sparkles className="text-green-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-1">
+                      {t.auth.account.benefits.earlyAccess}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {t.auth.account.benefits.earlyAccessDesc}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Order Tracking */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <Package className="text-blue-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-1">
+                      {t.auth.account.benefits.orderTracking}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {t.auth.account.benefits.orderTrackingDesc}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Newsletter */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <Bell className="text-purple-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-1">
+                      {t.auth.account.benefits.newsletter}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {t.auth.account.benefits.newsletterDesc}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Save Favorites */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                    <Heart className="text-red-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-1">
+                      {t.auth.account.benefits.saveFavorites}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {t.auth.account.benefits.saveFavoritesDesc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Browse Art Button */}
+              <Link
+                href="/shop"
+                className="mt-8 block w-full bg-gray-900 text-white text-center py-3 rounded-lg hover:bg-gray-800 transition font-medium"
+              >
+                {t.shop.title}
+              </Link>
             </div>
           </div>
         </div>
-      )}
-    </header>
+      </main>
+    </div>
   );
 }
