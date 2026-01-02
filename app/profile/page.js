@@ -1,292 +1,255 @@
 "use client";
 
-import React, { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { User, Mail, Lock, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { ShoppingCart, Menu, X, User } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+import { useCart } from '@/app/context/CartContext';
 import { useLanguage } from '@/app/context/LanguageContext';
-import { translateSupabaseError } from '@/app/utils/translateSupabaseError';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export default function RegisterPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const router = useRouter();
-  const { t } = useLanguage();
+export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const { cartItemCount } = useCart();
+  const { language, toggleLanguage, t } = useLanguage();
+  const pathname = usePathname();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    
+    checkUser();
 
-    // Validierung: Passwörter müssen übereinstimmen
-    if (formData.password !== formData.confirmPassword) {
-      setError(t.auth.errors.passwordMismatch);
-      setLoading(false);
-      return;
-    }
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
 
-    // Validierung: Passwort-Mindestlänge
-    if (formData.password.length < 6) {
-      setError(t.auth.errors.passwordTooShort);
-      setLoading(false);
-      return;
-    }
+    return () => subscription.unsubscribe();
+  }, []);
 
-    try {
-      // Registrierung mit Supabase
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email.trim(),
-        password: formData.password,
-        options: {
-          data: {
-            full_name: formData.name.trim(),
-          },
-          emailRedirectTo: 'https://manfredzak.com/profile'
-        }
-      });
-
-      if (error) throw error;
-
-      // Erfolg! Weiterleitung zur E-Mail-Bestätigungsseite
-      router.push('/verify-email');
-
-    } catch (error) {
-      console.error('Registration error:', error);
-      setError(translateSupabaseError(error, t));
-    } finally {
-      setLoading(false);
-    }
+  const isActive = (path) => {
+    if (path === '/') return pathname === '/';
+    return pathname.startsWith(path);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden cursor-pointer" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Logo & Navigation - Centered */}
+          <div className="flex items-center justify-center flex-1">
             <Link href="/">
-              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK ART GALLERY
-              </h1>
+              <img 
+                src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png" 
+                alt="ZAK Art Gallery Logo" 
+                className="h-10 cursor-pointer"
+              />
             </Link>
-            <Link href="/" className="text-gray-700 hover:text-gray-900">
-              ← {t.auth.login.backToShop}
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      {/* Registration Form */}
-      <div className="flex items-center justify-center px-4 py-12">
-        <div className="max-w-md w-full">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-900 rounded-full mb-4">
-              <User className="text-white" size={32} />
-            </div>
-            <h1 className="text-3xl font-light text-gray-900 mb-2">
-              {t.auth.register.title}
-            </h1>
-            <p className="text-gray-600">{t.auth.register.subtitle}</p>
-          </div>
-
-          {/* Form */}
-          <div className="bg-white rounded-lg shadow-sm p-8">
-            <form onSubmit={handleRegister} className="space-y-6">
-              {/* Error Message */}
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                  <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
-                  <div className="flex-1">
-                    <p className="text-sm text-red-800">{error}</p>
-                  </div>
-                </div>
-              )}
-
-              {/* Name Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.auth.register.fullNameLabel} *
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="text-gray-400" size={18} />
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.auth.register.fullNamePlaceholder}
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-
-              {/* Email Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.auth.register.emailLabel} *
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="text-gray-400" size={18} />
-                  </div>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.auth.register.emailPlaceholder}
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-
-              {/* Password Field mit Sichtbarkeits-Toggle */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.auth.register.passwordLabel} *
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="text-gray-400" size={18} />
-                  </div>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    required
-                    value={formData.password}
-                    onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.auth.register.passwordPlaceholder}
-                    disabled={loading}
-                  />
-                  {/* Auge-Symbol zum Ein/Ausblenden */}
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                    tabIndex={-1}
-                  >
-                    {showPassword ? (
-                      <EyeOff size={18} />
-                    ) : (
-                      <Eye size={18} />
-                    )}
-                  </button>
-                </div>
-                <p className="text-xs text-gray-500 mt-1">{t.auth.register.passwordHint}</p>
-              </div>
-
-              {/* Confirm Password Field mit Sichtbarkeits-Toggle */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t.auth.register.confirmPasswordLabel} *
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="text-gray-400" size={18} />
-                  </div>
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    required
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                    className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                    placeholder={t.auth.register.passwordPlaceholder}
-                    disabled={loading}
-                  />
-                  {/* Auge-Symbol zum Ein/Ausblenden */}
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                    tabIndex={-1}
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff size={18} />
-                    ) : (
-                      <Eye size={18} />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+            
+            <nav className="hidden lg:flex space-x-8 ml-24">
+              <Link 
+                href="/"
+                className={`transition cursor-pointer ${
+                  isActive('/') && pathname === '/' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
               >
-                {loading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    <span>{t.auth.register.creating}</span>
-                  </div>
-                ) : (
-                  t.auth.register.submitButton
-                )}
-              </button>
-            </form>
-
-            {/* Login Link */}
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                {t.auth.register.haveAccount}{' '}
-                <Link href="/login" className="text-gray-900 font-medium hover:underline">
-                  {t.auth.register.signIn}
-                </Link>
-              </p>
-            </div>
+                {t.nav.welcome}
+              </Link>
+              <Link 
+                href="/gallery"
+                className={`transition cursor-pointer ${
+                  isActive('/gallery') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {t.nav.gallery}
+              </Link>
+              <Link 
+                href="/shop"
+                className={`transition cursor-pointer ${
+                  isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {t.nav.shop}
+              </Link>
+              
+              <Link 
+                href="/contact"
+                className={`transition cursor-pointer ${
+                  isActive('/contact') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                }`}
+              >
+                {t.nav.contact}
+              </Link>
+            </nav>
           </div>
 
-          {/* Guest Note */}
-          <p className="text-center text-gray-500 text-sm mt-6">
-            {t.auth.register.guestNote}
-          </p>
-
-          {/* Benefits Section */}
-          <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              {t.auth.register.benefitsTitle}
-            </h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.auth.register.benefits.trackOrders}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.auth.register.benefits.saveFavorites}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.auth.register.benefits.earlyAccess}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
-                <span className="text-gray-700">{t.auth.register.benefits.newsletter}</span>
-              </li>
-            </ul>
+          {/* Right Icons */}
+          <div className="flex items-center space-x-4">
+            {/* ✅ OPTION B: Beide Flaggen (eine ausgegraut) */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50">
+              {/* Deutsche Flagge */}
+              <button
+                onClick={() => language !== 'de' && toggleLanguage()}
+                className={`transition cursor-pointer ${
+                  language === 'de' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
+                }`}
+                title="Deutsch"
+              >
+                <svg className="w-8 h-6" viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="5" height="3" fill="#000"/>
+                  <rect width="5" height="2" y="1" fill="#D00"/>
+                  <rect width="5" height="1" y="2" fill="#FFCE00"/>
+                </svg>
+              </button>
+              
+              {/* Trennlinie */}
+              <div className="h-6 w-px bg-gray-300"></div>
+              
+              {/* Englische Flagge */}
+              <button
+                onClick={() => language !== 'en' && toggleLanguage()}
+                className={`transition cursor-pointer ${
+                  language === 'en' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
+                }`}
+                title="English"
+              >
+                <svg className="w-8 h-6" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+                  <clipPath id="t">
+                    <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+                  </clipPath>
+                  <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                  <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
+                  <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/>
+                  <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
+                  <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
+                </svg>
+              </button>
+            </div>
+            
+            {/* Login & Register ODER Account */}
+            {user ? (
+              <Link 
+                href="/profile"
+                className="flex items-center gap-2 text-gray-700 hover:text-gray-900 cursor-pointer"
+              >
+                <User size={20} />
+                <span className="hidden sm:inline text-sm">{t.nav.account}</span>
+              </Link>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link 
+                  href="/login"
+                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+                >
+                  {t.nav.login}
+                </Link>
+                <span className="text-gray-300">|</span>
+                <Link 
+                  href="/register"
+                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+                >
+                  {t.nav.register}
+                </Link>
+              </div>
+            )}
+            
+            <Link 
+              href="/cart"
+              className="relative text-gray-700 hover:text-gray-900 cursor-pointer"
+            >
+              <ShoppingCart size={20} />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-gray-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="px-4 py-4 space-y-3">
+            <Link 
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+            >
+              {t.nav.welcome}
+            </Link>
+            <Link 
+              href="/gallery"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+            >
+              {t.nav.gallery}
+            </Link>
+            <Link 
+              href="/shop"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+            >
+              {t.nav.shop}
+            </Link>
+            
+            <Link 
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+            >
+              {t.nav.contact}
+            </Link>
+            
+            <div className="border-t border-gray-200 pt-3 mt-3">
+              {user ? (
+                <Link
+                  href="/profile"
+                  className="block py-2 text-gray-700 hover:text-gray-900"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  👤 {t.nav.account}
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {t.nav.login}
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {t.nav.register}
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }
