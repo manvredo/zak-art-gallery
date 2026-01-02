@@ -9,8 +9,8 @@ import { useLanguage } from '@/app/context/LanguageContext';
 import { translateSupabaseError } from '@/app/utils/translateSupabaseError';
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  'https://xirvysecnblcegbpsmru.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpcnZ5c2VjbmJsY2VnYnBzbXJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0ODUyNjgsImV4cCI6MjA3NTA2MTI2OH0.adu6jdxVqPs9mC9H5Ih-XBkpmJYW72gt4Oz9koKY78I'
 );
 
 export default function CustomerLoginPage() {
@@ -35,11 +35,10 @@ export default function CustomerLoginPage() {
       if (error) throw error;
 
       if (data.user) {
-        router.push('/account');
+        router.push('/profile');
       }
     } catch (error) {
       console.error('Login error:', error);
-      // ✅ Verwende translateSupabaseError für übersetzte Fehlermeldungen
       setError(translateSupabaseError(error, t));
     } finally {
       setLoading(false);
@@ -146,6 +145,16 @@ export default function CustomerLoginPage() {
                   t.auth.login.submitButton
                 )}
               </button>
+
+              {/* Forgot Password Link */}
+              <div className="text-center">
+                <Link 
+                  href="/forgot-password" 
+                  className="text-sm text-gray-600 hover:text-gray-900 transition"
+                >
+                  Passwort vergessen? / Forgot password?
+                </Link>
+              </div>
             </form>
 
             {/* Register Link */}
