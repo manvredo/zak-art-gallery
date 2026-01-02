@@ -39,9 +39,11 @@ export default function RegisterPage() {
       return;
     }
 
-    // Validierung: Passwort-Mindestlänge
-    if (formData.password.length < 6) {
-      setError(t.auth.errors.passwordTooShort);
+    // Validierung: Passwort-Stärke
+    // Mindestens 8 Zeichen, 1 Großbuchstabe, 1 Zahl
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      setError(t.auth.errors.passwordTooWeak || "Passwort muss mindestens 8 Zeichen, einen Großbuchstaben und eine Zahl enthalten");
       setLoading(false);
       return;
     }
@@ -191,7 +193,7 @@ export default function RegisterPage() {
                     )}
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">{t.auth.register.passwordHint}</p>
+                <p className="text-xs text-gray-500 mt-1">Mindestens 8 Zeichen, 1 Großbuchstabe und 1 Zahl</p>
               </div>
 
               {/* Confirm Password Field mit Sichtbarkeits-Toggle */}
