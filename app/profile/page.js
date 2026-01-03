@@ -87,11 +87,12 @@ export default function AccountPage() {
       if (error) throw error;
 
       // Get product details for each favorite
-      const productIds = favoritesData?.map(f => f.product_id) || [];
+      // Convert product_id from text to integer
+      const productIds = favoritesData?.map(f => parseInt(f.product_id, 10)).filter(id => !isNaN(id)) || [];
       
       if (productIds.length > 0) {
         const { data: productsData, error: productsError } = await supabase
-          .from('gallery_items')
+          .from('products')
           .select('*')
           .in('id', productIds);
 
@@ -255,10 +256,10 @@ export default function AccountPage() {
                     >
                       {/* Image */}
                       <div className="relative aspect-square bg-gray-100">
-                        {favorite.product?.image_url ? (
+                        {favorite.product?.image ? (
                           <Image
-                            src={favorite.product.image_url}
-                            alt={favorite.product.title || 'Artwork'}
+                            src={favorite.product.image}
+                            alt={favorite.product.name || 'Artwork'}
                             fill
                             className="object-cover"
                           />
@@ -272,7 +273,7 @@ export default function AccountPage() {
                       {/* Info */}
                       <div className="p-4">
                         <h3 className="font-medium text-gray-900 mb-1">
-                          {favorite.product?.title || 'Untitled'}
+                          {favorite.product?.name || 'Untitled'}
                         </h3>
                         <p className="text-lg font-semibold text-gray-900 mb-3">
                           €{favorite.product?.price?.toLocaleString('de-DE') || '0'}
