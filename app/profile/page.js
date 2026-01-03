@@ -72,10 +72,14 @@ export default function AccountPage() {
   };
 
   const loadFavorites = async () => {
-    if (!user) return;
+    if (!user) {
+      console.log('❌ No user, skipping favorites load');
+      return;
+    }
     
     try {
       setFavoritesLoading(true);
+      console.log('🔍 Loading favorites for user:', user.id);
 
       // Get user's favorites
       const { data: favoritesData, error } = await supabase
@@ -84,37 +88,56 @@ export default function AccountPage() {
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Error fetching favorites:', error);
+        throw error;
+      }
+
+      console.log('✅ Favorites from DB:', favoritesData);
 
       // Get product details for each favorite
       // Convert product_id from text to integer
-      const productIds = favoritesData?.map(f => parseInt(f.product_id, 10)).filter(id => !isNaN(id)) || [];
+      const productIds = favoritesData?.map(f => {
+        const id = parseInt(f.product_id, 10);
+        console.log('🔍 Converting product_id:', f.product_id, '→', id);
+        return id;
+      }).filter(id => !isNaN(id)) || [];
       
+      console.log('🔍 Product IDs to search:', productIds);
+
       if (productIds.length > 0) {
         const { data: productsData, error: productsError } = await supabase
           .from('products')
           .select('*')
           .in('id', productIds);
 
-        if (productsError) throw productsError;
+        if (productsError) {
+          console.error('❌ Error fetching products:', productsError);
+          throw productsError;
+        }
+
+        console.log('✅ Products found:', productsData);
 
         // Combine favorites with product data
         const favoritesWithProducts = favoritesData.map(fav => {
-          const product = productsData.find(p => p.id === fav.product_id);
+          const product = productsData.find(p => p.id === parseInt(fav.product_id, 10));
+          console.log('🔍 Matching favorite', fav.product_id, 'with product:', product);
           return {
             ...fav,
             product
           };
         }).filter(f => f.product);
 
+        console.log('✅ Final favorites with products:', favoritesWithProducts);
         setFavorites(favoritesWithProducts);
       } else {
+        console.log('⚠️ No valid product IDs found');
         setFavorites([]);
       }
 
       setFavoritesLoading(false);
     } catch (error) {
-      console.error('Error loading favorites:', error);
+      console.error('❌ Error loading favorites:', error);
       setFavoritesLoading(false);
     }
   };
