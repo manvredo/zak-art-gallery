@@ -4,23 +4,32 @@ import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { User, Mail, Calendar, LogOut, Package, Heart, Bell, Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import { User, Mail, Calendar, LogOut, Package, Heart, Bell, Sparkles, Trash2 } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  'https://xirvysecnblcegbpsmru.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpcnZ5c2VjbmJsY2VnYnBzbXJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0ODUyNjgsImV4cCI6MjA3NTA2MTI2OH0.adu6jdxVqPs9mC9H5Ih-XBkpmJYW72gt4Oz9koKY78I'
 );
 
 export default function AccountPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
+  const [favoritesLoading, setFavoritesLoading] = useState(true);
   const router = useRouter();
   const { t } = useLanguage();
 
   useEffect(() => {
     checkAuth();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      loadFavorites();
+    }
+  }, [user]);
 
   const checkAuth = async () => {
     try {
@@ -60,6 +69,69 @@ export default function AccountPage() {
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const loadFavorites = async () => {
+    if (!user) return;
+    
+    try {
+      setFavoritesLoading(true);
+
+      // Get user's favorites
+      const { data: favoritesData, error } = await supabase
+        .from('favorites')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Get product details for each favorite
+      const productIds = favoritesData?.map(f => f.product_id) || [];
+      
+      if (productIds.length > 0) {
+        const { data: productsData, error: productsError } = await supabase
+          .from('gallery_items')
+          .select('*')
+          .in('id', productIds);
+
+        if (productsError) throw productsError;
+
+        // Combine favorites with product data
+        const favoritesWithProducts = favoritesData.map(fav => {
+          const product = productsData.find(p => p.id === fav.product_id);
+          return {
+            ...fav,
+            product
+          };
+        }).filter(f => f.product);
+
+        setFavorites(favoritesWithProducts);
+      } else {
+        setFavorites([]);
+      }
+
+      setFavoritesLoading(false);
+    } catch (error) {
+      console.error('Error loading favorites:', error);
+      setFavoritesLoading(false);
+    }
+  };
+
+  const removeFavorite = async (favoriteId) => {
+    try {
+      const { error } = await supabase
+        .from('favorites')
+        .delete()
+        .eq('id', favoriteId);
+
+      if (error) throw error;
+
+      // Update UI
+      setFavorites(favorites.filter(f => f.id !== favoriteId));
+    } catch (error) {
+      console.error('Error removing favorite:', error);
+    }
   };
 
   if (loading) {
@@ -148,33 +220,109 @@ export default function AccountPage() {
               </div>
             </div>
 
-            {/* Coming Soon Features */}
+            {/* Favoriten Section */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-2xl font-light text-gray-900 mb-6">
+                Meine Favoriten ({favorites.length})
+              </h2>
+
+              {favoritesLoading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+                </div>
+              ) : favorites.length === 0 ? (
+                <div className="text-center py-12">
+                  <Heart className="mx-auto mb-4 text-gray-300" size={48} />
+                  <h3 className="text-xl font-medium text-gray-900 mb-2">
+                    Keine Favoriten
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Sie haben noch keine Kunstwerke zu Ihren Favoriten hinzugefügt.
+                  </p>
+                  <Link
+                    href="/shop"
+                    className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+                  >
+                    Kunstwerke entdecken
+                  </Link>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {favorites.map((favorite) => (
+                    <div
+                      key={favorite.id}
+                      className="bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition group"
+                    >
+                      {/* Image */}
+                      <div className="relative aspect-square bg-gray-100">
+                        {favorite.product?.image_url ? (
+                          <Image
+                            src={favorite.product.image_url}
+                            alt={favorite.product.title || 'Artwork'}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            Kein Bild
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Info */}
+                      <div className="p-4">
+                        <h3 className="font-medium text-gray-900 mb-1">
+                          {favorite.product?.title || 'Untitled'}
+                        </h3>
+                        <p className="text-lg font-semibold text-gray-900 mb-3">
+                          €{favorite.product?.price?.toLocaleString('de-DE') || '0'}
+                        </p>
+
+                        {/* Actions */}
+                        <div className="flex gap-2">
+                          <Link
+                            href={`/shop/${favorite.product_id}`}
+                            className="flex-1 bg-gray-900 text-white text-center py-2 rounded-lg hover:bg-gray-800 transition text-sm font-medium"
+                          >
+                            Ansehen
+                          </Link>
+                          <button
+                            onClick={() => removeFavorite(favorite.id)}
+                            className="p-2 border border-gray-300 rounded-lg hover:bg-red-50 hover:border-red-300 transition group"
+                            aria-label="Remove from favorites"
+                          >
+                            <Trash2 size={18} className="text-gray-600 group-hover:text-red-600" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Coming Soon Features - Orders & Newsletter */}
             <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-8 border border-gray-200">
               <div className="flex items-center gap-3 mb-4">
                 <Sparkles className="text-gray-900" size={24} />
                 <h3 className="text-lg font-medium text-gray-900">
-                  {t.auth.account.comingSoon}
+                  Demnächst verfügbar
                 </h3>
               </div>
               <p className="text-gray-600 mb-6">
-                {t.auth.account.comingSoonMessage}
+                Bestellhistorie und Newsletter folgen in Kürze!
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
                   <Package className="mx-auto mb-2 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">{t.auth.account.orders}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
-                </div>
-                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
-                  <Heart className="mx-auto mb-2 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">{t.auth.account.favorites}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
+                  <p className="text-sm font-medium text-gray-900">Bestellungen</p>
+                  <p className="text-xs text-gray-500 mt-1">Bald</p>
                 </div>
                 <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
                   <Bell className="mx-auto mb-2 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">{t.auth.account.newsletter}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
+                  <p className="text-sm font-medium text-gray-900">Newsletter</p>
+                  <p className="text-xs text-gray-500 mt-1">Bald</p>
                 </div>
               </div>
             </div>
