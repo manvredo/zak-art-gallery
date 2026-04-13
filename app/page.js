@@ -51,6 +51,23 @@ export default function Home() {
 
   return (
     <>
+      {/* Baustellen-Banner */}
+      <div className="w-full bg-amber-50 border-b-2 border-amber-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-center gap-3">
+            <div className="w-10 h-10 bg-amber-400 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <div className="text-center">
+              <p className="text-amber-800 font-semibold text-lg">Diese Seite befindet sich im Aufbau</p>
+              <p className="text-amber-600 text-sm">Wir arbeiten gerade an neuen Inhalten - bald geht es hier weiter!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Hero Slider - Volle Breite oben */}
       <div className="w-full px-4 sm:px-6 lg:px-8 pt-8">
         <div className="max-w-7xl mx-auto">

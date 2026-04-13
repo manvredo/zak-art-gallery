@@ -82,7 +82,7 @@ export default function ContentHeader({ currentCategory }) {
               </button>
               <Link href="/">
                 <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                  ZAK ART GALLERY
+                  ZAK FINE ART
                 </h1>
               </Link>
             </div>

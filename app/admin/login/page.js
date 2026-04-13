@@ -152,7 +152,7 @@ export default function AdminLoginPage() {
 
         {/* Footer */}
         <p className="text-center text-gray-400 text-sm mt-6">
-          © 2024 ZAK Art Gallery - Admin Panel
+          © 2024 ZAK Fine Art - Admin Panel
         </p>
       </div>
     </div>

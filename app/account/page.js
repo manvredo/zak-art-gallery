@@ -76,7 +76,7 @@ export default function AccountPage() {
           <div className="flex justify-between items-center h-16">
             <Link href="/">
               <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK ART GALLERY
+                ZAK FINE ART
               </h1>
             </Link>
             <Link href="/" className="text-gray-700 hover:text-gray-900">

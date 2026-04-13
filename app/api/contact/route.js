@@ -64,7 +64,7 @@ export async function POST(request) {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_TO,
       replyTo: email,
-      subject: `🎨 ZAK Art Gallery Contact: ${name}`,
+      subject: `🎨 ZAK Fine Art Contact: ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -85,8 +85,8 @@ export async function POST(request) {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Thank you for contacting ZAK Art Gallery',
-      text: `Dear ${name},\n\nThank you for your message. We will get back to you soon.\n\nBest regards,\nZAK Art Gallery`,
+      subject: 'Thank you for contacting ZAK Fine Art',
+      text: `Dear ${name},\n\nThank you for your message. We will get back to you soon.\n\nBest regards,\nZAK Fine Art`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333;">Thank you for contacting us</h2>
@@ -96,10 +96,10 @@ export async function POST(request) {
             <p><strong>Your message:</strong></p>
             <p style="white-space: pre-wrap;">${message}</p>
           </div>
-          <p>Best regards,<br>ZAK Art Gallery Team</p>
+          <p>Best regards,<br>ZAK Fine Art Team</p>
           <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
           <p style="color: #666; font-size: 12px;">
-            ZAK Art Gallery<br>
+            ZAK Fine Art<br>
             Großbeerenstr. 15<br>
             10963 Berlin<br>
             info@zakartgallery.com

@@ -37,7 +37,7 @@ export default function VerifyEmailPage() {
           <div className="flex justify-between items-center h-16">
             <Link href="/">
               <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK ART GALLERY
+                ZAK FINE ART
               </h1>
             </Link>
             <Link href="/" className="text-gray-700 hover:text-gray-900">
@@ -91,7 +91,7 @@ export default function VerifyEmailPage() {
                   2
                 </span>
                 <span className="text-gray-700">
-                  {t.auth.verifyEmail?.step2 || 'Finden Sie die E-Mail von ZAK Art Gallery'}
+                  {t.auth.verifyEmail?.step2 || 'Finden Sie die E-Mail von ZAK Fine Art'}
                 </span>
               </li>
               

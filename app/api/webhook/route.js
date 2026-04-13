@@ -90,7 +90,7 @@ export async function POST(request) {
       const customerEmailContent = {
         from: process.env.EMAIL_USER,
         to: customerEmail,
-        subject: 'Order Confirmation - ZAK Art Gallery',
+        subject: 'Order Confirmation - ZAK Fine Art',
         html: `
           <!DOCTYPE html>
           <html>
@@ -108,7 +108,7 @@ export async function POST(request) {
             <body>
               <div class="container">
                 <div class="header">
-                  <h1 style="margin: 0; font-weight: 300; letter-spacing: 2px;">ZAK ART GALLERY</h1>
+                  <h1 style="margin: 0; font-weight: 300; letter-spacing: 2px;">ZAK FINE ART</h1>
                 </div>
                 
                 <div class="content">
@@ -116,7 +116,7 @@ export async function POST(request) {
                   
                   <p>Dear ${customerName},</p>
                   
-                  <p>Thank you for your purchase at ZAK Art Gallery. Your order has been confirmed and will be carefully packaged and shipped within 2-3 business days.</p>
+                  <p>Thank you for your purchase at ZAK Fine Art. Your order has been confirmed and will be carefully packaged and shipped within 2-3 business days.</p>
                   
                   <h3 style="margin-top: 30px;">Order Details</h3>
                   
@@ -149,12 +149,12 @@ export async function POST(request) {
                   <p>If you have any questions, please contact us at <a href="mailto:info@zakartgallery.com">info@zakartgallery.com</a></p>
                   
                   <p>Best regards,<br>
-                  <strong>ZAK Art Gallery Team</strong></p>
+                  <strong>ZAK Fine Art Team</strong></p>
                 </div>
                 
                 <div class="footer">
-                  <p>ZAK Art Gallery | Großbeerenstr. 15 | 10963 Berlin | Germany</p>
-                  <p>© 2024 ZAK Art Gallery. All rights reserved.</p>
+                  <p>ZAK Fine Art | Großbeerenstr. 15 | 10963 Berlin | Germany</p>
+                  <p>© 2024 ZAK Fine Art. All rights reserved.</p>
                 </div>
               </div>
             </body>

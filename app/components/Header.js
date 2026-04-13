@@ -58,7 +58,7 @@ export default function Header() {
             <Link href="/">
               <img 
                 src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png" 
-                alt="ZAK Art Gallery Logo" 
+                alt="ZAK Fine Art Logo" 
                 className="h-10 cursor-pointer"
               />
             </Link>

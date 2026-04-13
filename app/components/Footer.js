@@ -13,7 +13,7 @@ const Footer = () => {
           
           {/* About Section */}
           <div>
-            <h3 className="font-light text-lg mb-4 text-gray-900">ZAK Art Gallery</h3>
+            <h3 className="font-light text-lg mb-4 text-gray-900">ZAK Fine Art</h3>
             <p className="text-sm text-gray-600">
               {t.footer.about}
             </p>

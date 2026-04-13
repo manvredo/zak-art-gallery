@@ -11,7 +11,7 @@ export default function PaymentPage() {
           <div className="flex justify-between items-center h-16">
             <Link href="/">
               <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK ART GALLERY
+                ZAK FINE ART
               </h1>
             </Link>
             <Link href="/" className="text-gray-700 hover:text-gray-900">
@@ -30,7 +30,7 @@ export default function PaymentPage() {
             <h2 className="text-2xl font-light text-gray-900 mb-4">Secure Payment Options</h2>
             <div className="text-gray-700 space-y-4">
               <p>
-                At ZAK Art Gallery, we offer a variety of secure payment methods to make your 
+                At ZAK Fine Art, we offer a variety of secure payment methods to make your 
                 purchase convenient and safe. All transactions are encrypted and processed through 
                 trusted payment providers.
               </p>
@@ -256,7 +256,7 @@ export default function PaymentPage() {
       <footer className="bg-white border-t border-gray-200 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-sm text-gray-600">
-            <p>© 2024 ZAK Art Gallery. All rights reserved.</p>
+            <p>© 2024 ZAK Fine Art. All rights reserved.</p>
           </div>
         </div>
       </footer>

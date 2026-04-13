@@ -1,0 +1,23 @@
+# ZAK Fine Art — Manfred Zak
+# https://www.manfredzak.com
+
+User-agent: *
+Allow: /
+
+# Private and admin pages
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /arbeitsplan/
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /account
+Disallow: /profile
+Disallow: /cart
+Disallow: /success
+
+# Sitemap
+Sitemap: https://www.manfredzak.com/sitemap.xml

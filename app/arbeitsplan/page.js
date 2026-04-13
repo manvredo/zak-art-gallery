@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-// Arbeitsplan-Komponente für ZAK Art Gallery
+// Arbeitsplan-Komponente für ZAK Fine Art
 // Kann später mit Supabase verbunden werden für Persistenz
 
 export default function Arbeitsplan() {

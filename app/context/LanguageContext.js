@@ -20,7 +20,7 @@ const translations = {
     
     // Welcome Page
     welcome: {
-      title: 'Welcome to ZAK Art Gallery',
+      title: 'Welcome to ZAK Fine Art',
       subtitle: 'Original Oil Paintings & Charcoal Drawings',
       intro1: 'Welcome to my world of contemporary art. For over a decade, I have been creating original paintings in oil and charcoal drawings, inspired by the beauty of nature and human emotion.',
       intro2: 'Each piece is a handcrafted original - created with passion, signed, and certified. Discover my current collection and find the perfect artwork for your home.',
@@ -149,7 +149,7 @@ const translations = {
       // Registration
       register: {
         title: 'Create Account',
-        subtitle: 'Join ZAK Art Gallery community',
+        subtitle: 'Join ZAK Fine Art community',
         fullNameLabel: 'Full Name',
         fullNamePlaceholder: 'John Doe',
         emailLabel: 'Email Address',
@@ -170,7 +170,7 @@ const translations = {
           earlyAccess: 'Early access to new collections',
           newsletter: 'Exclusive newsletter updates'
         },
-        successTitle: 'Welcome to ZAK Art Gallery!',
+        successTitle: 'Welcome to ZAK Fine Art!',
         successMessage: 'Your account has been created successfully.',
         redirecting: 'Redirecting to your account...'
       },
@@ -212,7 +212,7 @@ const translations = {
         description: 'Please check your inbox and click on the confirmation link in the email.',
         nextSteps: 'Next Steps:',
         step1: 'Open your email inbox',
-        step2: 'Find the email from ZAK Art Gallery',
+        step2: 'Find the email from ZAK Fine Art',
         step3: 'Click on the confirmation link',
         step4: 'You will be automatically redirected',
         noEmail: 'Didn\'t receive an email?',
@@ -295,7 +295,7 @@ const translations = {
     
     // Footer
     footer: { 
-      about: 'Your destination for contemporary art and original oil paintings.', 
+      about: 'Contemporary oil paintings by Manfred Zak. Original artwork, prints and commissions.', 
       customerService: 'Customer Service', 
       shipping: 'Shipping & Delivery', 
       returns: 'Returns & Refunds', 
@@ -309,7 +309,7 @@ const translations = {
       cookies: 'Cookie Policy', 
       contactTitle: 'Contact', 
       monFri: 'Mon-Fri: 10am-6pm', 
-      rights: '© 2024 ZAK Art Gallery. All rights reserved.' 
+      rights: '© 2024 ZAK Fine Art. All rights reserved.' 
     }
   },
   
@@ -328,7 +328,7 @@ const translations = {
     
     // Welcome Page
     welcome: {
-      title: 'Willkommen in der ZAK Art Gallery',
+      title: 'Willkommen in der ZAK Fine Art',
       subtitle: 'Original Ölgemälde & Kohlekreide-Zeichnungen',
       intro1: 'Willkommen in meiner Welt der zeitgenössischen Kunst. Seit über einem Jahrzehnt erschaffe ich Originalgemälde in Öl und Kohlekreide-Zeichnungen, inspiriert von der Schönheit der Natur und menschlicher Emotionen.',
       intro2: 'Jedes Werk ist ein handgefertigtes Original - mit Leidenschaft erschaffen, signiert und zertifiziert. Entdecken Sie meine aktuelle Kollektion und finden Sie das perfekte Kunstwerk für Ihr Zuhause.',
@@ -457,7 +457,7 @@ const translations = {
       // Registration
       register: {
         title: 'Konto erstellen',
-        subtitle: 'Werden Sie Teil der ZAK Art Gallery Community',
+        subtitle: 'Werden Sie Teil der ZAK Fine Art Community',
         fullNameLabel: 'Vollständiger Name',
         fullNamePlaceholder: 'Max Mustermann',
         emailLabel: 'E-Mail-Adresse',
@@ -478,7 +478,7 @@ const translations = {
           earlyAccess: 'Früher Zugang zu neuen Kollektionen',
           newsletter: 'Exklusive Newsletter-Updates'
         },
-        successTitle: 'Willkommen bei ZAK Art Gallery!',
+        successTitle: 'Willkommen bei ZAK Fine Art!',
         successMessage: 'Ihr Konto wurde erfolgreich erstellt.',
         redirecting: 'Weiterleitung zu Ihrem Konto...'
       },
@@ -520,7 +520,7 @@ const translations = {
         description: 'Bitte prüfen Sie Ihr Postfach und klicken Sie auf den Bestätigungslink in der E-Mail.',
         nextSteps: 'Nächste Schritte:',
         step1: 'Öffnen Sie Ihr E-Mail-Postfach',
-        step2: 'Finden Sie die E-Mail von ZAK Art Gallery',
+        step2: 'Finden Sie die E-Mail von ZAK Fine Art',
         step3: 'Klicken Sie auf den Bestätigungslink',
         step4: 'Sie werden automatisch weitergeleitet',
         noEmail: 'Keine E-Mail erhalten?',
@@ -603,7 +603,7 @@ const translations = {
     
     // Footer
     footer: { 
-      about: 'Ihre Destination für zeitgenössische Kunst und originale Ölgemälde.', 
+      about: 'Zeitgenössische Ölgemälde von Manfred Zak. Originalkunst, Drucke und Auftragsarbeiten.', 
       customerService: 'Kundenservice', 
       shipping: 'Versand & Lieferung', 
       returns: 'Rücksendungen & Erstattungen', 
@@ -617,7 +617,7 @@ const translations = {
       cookies: 'Cookie-Richtlinie', 
       contactTitle: 'Kontakt', 
       monFri: 'Mo-Fr: 10-18 Uhr', 
-      rights: '© 2024 ZAK Art Gallery. Alle Rechte vorbehalten.' 
+      rights: '© 2024 ZAK Fine Art. Alle Rechte vorbehalten.' 
     }
   }
 };

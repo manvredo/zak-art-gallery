@@ -11,7 +11,7 @@ export default function ImprintPage() {
           <div className="flex justify-between items-center h-16">
             <Link href="/">
               <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK ART GALLERY
+                ZAK FINE ART
               </h1>
             </Link>
             <Link href="/" className="text-gray-700 hover:text-gray-900">
@@ -33,7 +33,7 @@ export default function ImprintPage() {
             <div className="space-y-4 text-gray-700">
               <div>
                 <p className="font-medium text-gray-900">Company Name</p>
-                <p>ZAK Art Gallery</p>
+                <p>ZAK Fine Art</p>
               </div>
 
               <div>
@@ -111,7 +111,7 @@ export default function ImprintPage() {
       <footer className="bg-white border-t border-gray-200 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-sm text-gray-600">
-            <p>© 2024 ZAK Art Gallery. All rights reserved.</p>
+            <p>© 2024 ZAK Fine Art. All rights reserved.</p>
           </div>
         </div>
       </footer>
