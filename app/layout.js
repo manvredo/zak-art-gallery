@@ -44,6 +44,9 @@ export const metadata = {
   ],
   authors: [{ name: "Manfred Zak" }],
   creator: "Manfred Zak",
+  verification: {
+    google: "BgvFvpANeaS6QMU87MuetLkegA1-pQlUzEDPjo9WiYs",
+  },
   metadataBase: new URL("https://www.manfredzak.com"),
   openGraph: {
     title: "ZAK Fine Art — Manfred Zak | Contemporary Fine Art",
