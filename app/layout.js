@@ -22,17 +22,32 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: {
-    default: "ZAK Fine Art — Manfred Zak | Contemporary Art",
+    default: "ZAK Fine Art — Manfred Zak | Contemporary Fine Art",
     template: "%s | ZAK Fine Art — Manfred Zak",
   },
-  description: "Contemporary oil paintings by Manfred Zak. Original artwork, landscapes, wildlife and florals. Prints and originals available.",
-  keywords: ["Manfred Zak", "ZAK Fine Art", "oil painting", "contemporary art", "original paintings", "art prints", "landscape painting", "wildlife art"],
+  description: "Contemporary fine art by Manfred Zak (ZAK). Large-format oil paintings and oil stick works with dark earthy tones. Originals and prints available.",
+  keywords: [
+    "Manfred Zak",
+    "ZAK Fine Art",
+    "ZAK Artist",
+    "ZAK Künstler",
+    "oil painting",
+    "oil stick",
+    "charcoal drawing",
+    "contemporary fine art",
+    "large format painting",
+    "semi-realistic painting",
+    "original paintings",
+    "art prints",
+    "fine art Germany",
+    "bildender Künstler",
+  ],
   authors: [{ name: "Manfred Zak" }],
   creator: "Manfred Zak",
   metadataBase: new URL("https://www.manfredzak.com"),
   openGraph: {
-    title: "ZAK Fine Art — Manfred Zak | Contemporary Art",
-    description: "Contemporary oil paintings by Manfred Zak. Original artwork, landscapes, wildlife and florals.",
+    title: "ZAK Fine Art — Manfred Zak | Contemporary Fine Art",
+    description: "Contemporary fine art by Manfred Zak (ZAK). Large-format oil paintings and oil stick works with dark earthy tones.",
     url: "https://www.manfredzak.com",
     siteName: "ZAK Fine Art",
     locale: "en_US",
@@ -41,7 +56,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ZAK Fine Art — Manfred Zak",
-    description: "Contemporary oil paintings by Manfred Zak.",
+    description: "Contemporary fine art by Manfred Zak (ZAK). Large-format oil paintings and oil stick works.",
   },
   robots: {
     index: true,
@@ -62,6 +77,8 @@ export default function RootLayout({ children }) {
     <html lang="en" dir="ltr">
       <head>
         <link rel="stylesheet" href="/footer-extension.css" />
+
+        {/* Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -71,11 +88,11 @@ export default function RootLayout({ children }) {
               "name": "ZAK Fine Art",
               "url": "https://www.manfredzak.com",
               "logo": "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png",
-              "description": "Contemporary oil paintings by Manfred Zak. Original artwork, landscapes, wildlife and florals.",
+              "description": "Contemporary fine art by Manfred Zak (ZAK). Large-format oil paintings and oil stick works with dark earthy tones. Originals and prints available.",
               "founder": {
                 "@type": "Person",
                 "name": "Manfred Zak",
-                "jobTitle": "Artist",
+                "jobTitle": "Fine Artist",
                 "url": "https://www.manfredzak.com/vita"
               },
               "contactPoint": {
@@ -93,6 +110,8 @@ export default function RootLayout({ children }) {
             })
           }}
         />
+
+        {/* WebSite Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -106,6 +125,41 @@ export default function RootLayout({ children }) {
                 "target": "https://www.manfredzak.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
+            })
+          }}
+        />
+
+        {/* Person / VisualArtist Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Manfred Zak",
+              "alternateName": "ZAK",
+              "url": "https://www.manfredzak.com",
+              "image": "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png",
+              "jobTitle": "Fine Artist",
+              "description": "Manfred Zak, known as ZAK, is a contemporary fine artist based in Germany. He works with oil paint, oil stick, charcoal and pencil, creating large-format semi-realistic works with dark earthy tones.",
+              "knowsAbout": [
+                "Oil Painting",
+                "Oil Stick",
+                "Charcoal Drawing",
+                "Fine Art",
+                "Contemporary Art",
+                "Large Format Painting"
+              ],
+              "nationality": {
+                "@type": "Country",
+                "name": "Germany"
+              },
+              "worksFor": {
+                "@type": "Organization",
+                "name": "ZAK Fine Art",
+                "url": "https://www.manfredzak.com"
+              },
+              "sameAs": []
             })
           }}
         />
