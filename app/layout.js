@@ -25,7 +25,7 @@ export const metadata = {
     default: "ZAK Fine Art — Manfred Zak | Contemporary Fine Art",
     template: "%s | ZAK Fine Art — Manfred Zak",
   },
-  description: "Contemporary fine art by Manfred Zak (ZAK). Large-format oil paintings and oil stick works with dark earthy tones. Originals and prints available.",
+  description: "Manfred Zak, born 1970 in Stuttgart, is a German painter, draughtsman and graphic artist. Landscape is his territory — worked in oil, oil stick and drawing, mostly in the studio, sometimes under open skies.",
   keywords: [
     "Manfred Zak",
     "ZAK Fine Art",
