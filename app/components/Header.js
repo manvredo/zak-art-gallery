@@ -64,34 +64,34 @@ export default function Header() {
             </Link>
             
             <nav className="hidden lg:flex space-x-8 ml-24">
-              <Link 
+              <Link
                 href="/"
-                className={`transition cursor-pointer ${
+                className={`transition cursor-pointer uppercase ${
                   isActive('/') && pathname === '/' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 {t.nav.welcome}
               </Link>
-              <Link 
+              <Link
                 href="/gallery"
-                className={`transition cursor-pointer ${
+                className={`transition cursor-pointer uppercase ${
                   isActive('/gallery') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 {t.nav.gallery}
               </Link>
-              <Link 
+              <Link
                 href="/shop"
-                className={`transition cursor-pointer ${
+                className={`transition cursor-pointer uppercase ${
                   isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 {t.nav.shop}
               </Link>
-              
-              <Link 
+
+              <Link
                 href="/contact"
-                className={`transition cursor-pointer ${
+                className={`transition cursor-pointer uppercase ${
                   isActive('/contact') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
@@ -189,32 +189,32 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-gray-200 bg-white">
           <div className="px-4 py-4 space-y-3">
-            <Link 
+            <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
             >
               {t.nav.welcome}
             </Link>
-            <Link 
+            <Link
               href="/gallery"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
             >
               {t.nav.gallery}
             </Link>
-            <Link 
+            <Link
               href="/shop"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
             >
               {t.nav.shop}
             </Link>
-            
-            <Link 
+
+            <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
             >
               {t.nav.contact}
             </Link>

@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // 1. CREATE: app/admin/login/page.js
 // ============================================
 'use client';
@@ -152,7 +152,7 @@ export default function AdminLoginPage() {
 
         {/* Footer */}
         <p className="text-center text-gray-400 text-sm mt-6">
-          © 2024 ZAK Fine Art - Admin Panel
+          © 2026 ZAK Fine Art - Admin Panel
         </p>
       </div>
     </div>

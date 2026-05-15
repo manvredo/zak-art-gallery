@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { createContext, useContext, useState } from 'react';
 
@@ -309,7 +309,7 @@ const translations = {
       cookies: 'Cookie Policy', 
       contactTitle: 'Contact', 
       monFri: 'Mon-Fri: 10am-6pm', 
-      rights: '© 2024 ZAK Fine Art. All rights reserved.' 
+      rights: '© 2026 ZAK Fine Art. All rights reserved.' 
     }
   },
   
@@ -617,7 +617,7 @@ const translations = {
       cookies: 'Cookie-Richtlinie', 
       contactTitle: 'Kontakt', 
       monFri: 'Mo-Fr: 10-18 Uhr', 
-      rights: '© 2024 ZAK Fine Art. Alle Rechte vorbehalten.' 
+      rights: '© 2026 ZAK Fine Art. Alle Rechte vorbehalten.' 
     }
   }
 };

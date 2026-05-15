@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
@@ -154,7 +154,7 @@ export async function POST(request) {
                 
                 <div class="footer">
                   <p>ZAK Fine Art | Großbeerenstr. 15 | 10963 Berlin | Germany</p>
-                  <p>© 2024 ZAK Fine Art. All rights reserved.</p>
+                  <p>© 2026 ZAK Fine Art. All rights reserved.</p>
                 </div>
               </div>
             </body>
