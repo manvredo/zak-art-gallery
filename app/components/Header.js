@@ -73,14 +73,6 @@ export default function Header() {
                 {t.nav.welcome}
               </Link>
               <Link
-                href="/gallery"
-                className={`transition cursor-pointer uppercase ${
-                  isActive('/gallery') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                {t.nav.gallery}
-              </Link>
-              <Link
                 href="/shop"
                 className={`transition cursor-pointer uppercase ${
                   isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
@@ -195,13 +187,6 @@ export default function Header() {
               className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
             >
               {t.nav.welcome}
-            </Link>
-            <Link
-              href="/gallery"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
-            >
-              {t.nav.gallery}
             </Link>
             <Link
               href="/shop"
