@@ -1,6 +1,5 @@
 'use client';
 
-import Header from '@/app/components/Header';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 export default function AboutPage() {
@@ -8,7 +7,6 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
 
       {/* Hero */}
       <section className="bg-gray-50 py-20">
@@ -65,12 +63,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-gray-500">
-          <p>© 2026 ZAK Fine Art. {language === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}</p>
-        </div>
-      </footer>
     </div>
   );
 }
