@@ -7,10 +7,10 @@ const LanguageContext = createContext();
 const translations = {
   en: {
     // Navigation
-    nav: { 
-      welcome: 'Welcome', 
-      gallery: 'Gallery', 
-      shop: 'Shop', 
+    nav: {
+      welcome: 'Welcome',
+      about: 'About',
+      shop: 'Shop',
       contact: 'Contact',
       login: 'Login',
       register: 'Register',
@@ -315,10 +315,10 @@ const translations = {
   
   de: {
     // Navigation
-    nav: { 
-      welcome: 'Willkommen', 
-      gallery: 'Galerie', 
-      shop: 'Shop', 
+    nav: {
+      welcome: 'Willkommen',
+      about: 'Über mich',
+      shop: 'Shop',
       contact: 'Kontakt',
       login: 'Anmelden',
       register: 'Registrieren',
