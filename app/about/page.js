@@ -20,42 +20,58 @@ const about = {
   ],
 };
 
+const howIWork = {
+  title: { de: 'Wie ich arbeite', en: 'How I Work' },
+  subtitle: { de: '… und warum ich so arbeite', en: '… and why I work this way' },
+  paragraphs: {
+    de: [
+      'Ich habe früh gelernt, dass Freiheit in der Malerei davon abhängt, Gewissheit so lange wie möglich hinauszuzögern. Ich versuche, mich nicht zu früh auf Details oder feste Entscheidungen festzulegen. Stattdessen arbeite ich vom Ganzen nach außen und lasse das Bild sich langsam entwickeln und seine eigene Richtung finden.',
+      'Deshalb beginne ich selten mit kleinen Details. Ich konzentriere mich zunächst auf Struktur, Rhythmus, Atmosphäre und Balance und halte jeden Teil der Leinwand lebendig und offen für Veränderungen. Details können später entstehen, wenn das Bild sein inneres Gewicht gefunden hat.',
+      'Ölmalerei gibt mir genau diese Freiheit. Sie bleibt fluid, anpassungsfähig und verzeihend. Mit breiten Pinseln, Palettenmessern, Tüchern und geschichteten Oberflächen kann ich Schwerpunkte ständig verschieben, löschen, neu aufbauen, Bereiche weicher oder intensiver gestalten. Nichts ist je vollständig festgelegt.',
+      'Für mich wird ein Bild nicht mechanisch konstruiert. Es wächst. Manchmal langsam, manchmal heftig, manchmal über Monate. Ich arbeite, bis das Bild beginnt, seine eigene Präsenz zu tragen, unabhängig von Absicht oder Erklärung.',
+      'Was mich am meisten interessiert, ist nicht Perfektion, sondern Vitalität: der Moment, in dem ein Bild beginnt, von selbst zu atmen.',
+    ],
+    en: [
+      'I learned early on that freedom in painting depends on postponing certainty for as long as possible. I try not to commit too soon to details or fixed decisions. Instead, I work from the whole image outward, allowing the painting to evolve gradually and reveal its own direction over time.',
+      'Because of this, I rarely begin with small details. I concentrate first on structure, rhythm, atmosphere, and balance, keeping every part of the canvas alive and open to change. Details can emerge later, once the painting has found its internal weight.',
+      'Oil painting gives me exactly this freedom. It remains fluid, adaptable, and forgiving. With broad brushes, palette knives, cloths, and layered surfaces, I can constantly shift emphasis, erase, rebuild, soften, or intensify areas of the image. Nothing is ever entirely fixed.',
+      'For me, a painting is not constructed mechanically. It grows. Sometimes slowly, sometimes violently, sometimes over months. I work until the image begins to carry its own presence, independent of intention or explanation.',
+      'What interests me most is not perfection, but vitality: the moment when a painting starts to breathe on its own.',
+    ],
+  },
+};
+
 export default function AboutPage() {
   const { language } = useLanguage();
   const paragraphs = language === 'de' ? about.de : about.en;
+  const workParagraphs = language === 'de' ? howIWork.paragraphs.de : howIWork.paragraphs.en;
 
   return (
     <div className="min-h-screen bg-white">
+
       {/* Hero */}
       <section className="bg-gray-50 py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-light tracking-wide text-gray-900 mb-4">
-            ZAK
-          </h1>
+          <h1 className="text-5xl font-light tracking-wide text-gray-900 mb-4">ZAK</h1>
           <p className="text-xl text-gray-500 font-light">
             {language === 'de' ? 'Künstler · Maler · Illustrator' : 'Artist · Painter · Illustrator'}
           </p>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* About Me */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 gap-16 items-start">
-          {/* Photo placeholder */}
           <div className="aspect-[3/4] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
             {language === 'de' ? 'Foto folgt' : 'Photo coming soon'}
           </div>
-
-          {/* Text */}
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
             <h2 className="text-3xl font-light text-gray-900">
               {language === 'de' ? 'Über mich' : 'About Me'}
             </h2>
-
             {paragraphs.map((text, i) => (
               <p key={i}>{text}</p>
             ))}
-
             <a
               href="/contact"
               className="inline-block mt-4 border border-gray-900 text-gray-900 px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-900 hover:text-white transition"
@@ -65,6 +81,51 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Divider */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <hr className="border-gray-200" />
+      </div>
+
+      {/* How I Work */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        {/* Heading */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-light text-gray-900 mb-2">
+            {howIWork.title[language]}
+          </h2>
+          <p className="text-gray-400 font-light italic">
+            {howIWork.subtitle[language]}
+          </p>
+        </div>
+
+        {/* Photo 1 left · paragraphs 1–2 right */}
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+          <div className="aspect-[4/3] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
+            {language === 'de' ? 'Foto 1 folgt' : 'Photo 1 coming soon'}
+          </div>
+          <div className="space-y-6 text-gray-700 font-light leading-relaxed">
+            {workParagraphs.slice(0, 2).map((text, i) => (
+              <p key={i}>{text}</p>
+            ))}
+          </div>
+        </div>
+
+        {/* Paragraphs 3–5 left · Photo 2 right */}
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6 text-gray-700 font-light leading-relaxed">
+            {workParagraphs.slice(2).map((text, i) => (
+              <p key={i}>{text}</p>
+            ))}
+          </div>
+          <div className="aspect-[4/3] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
+            {language === 'de' ? 'Foto 2 folgt' : 'Photo 2 coming soon'}
+          </div>
+        </div>
+
+      </section>
+
     </div>
   );
 }
