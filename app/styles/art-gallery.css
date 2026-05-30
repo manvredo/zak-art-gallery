@@ -1,7 +1,7 @@
 /* ==========================================
    ZAK FINE ART - MONOCHROME STYLES
    Elegantes Design nur in Grau/Weiß/Schwarz
-   Fonts: Inter (body), Vollkorn (headings)
+   Fonts: Inter (body), Vollkorn (headings) - self-hosted for GDPR
    ========================================== */
 
 /* Root Variables - Monochrome Farbpalette */
@@ -19,10 +19,6 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.08);
-  
-  /* Schriften */
-  --font-heading: 'Vollkorn', serif;
-  --font-body: 'Inter', sans-serif;
 }
 
 /* ==========================================
@@ -35,6 +31,7 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   font-weight: 400;
+  font-display: swap;
 }
 
 /* Überschriften - Vollkorn */
