@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Vollkorn } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
 import { LanguageProvider } from './context/LanguageContext';
 import { CartProvider } from './context/CartContext';
@@ -17,6 +17,16 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const vollkorn = Vollkorn({
+  variable: "--font-vollkorn",
   subsets: ["latin"],
 });
 
@@ -168,7 +178,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${vollkorn.variable} antialiased`}
       >
         <AuthProvider>
           <LanguageProvider>

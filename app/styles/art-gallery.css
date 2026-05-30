@@ -20,8 +20,8 @@
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.08);
   
   /* Schriften */
-  --font-heading: var(--font-playfair);
-  --font-body: var(--font-open-sans);
+  --font-heading: var(--font-vollkorn);
+  --font-body: var(--font-inter);
 }
 
 /* ==========================================
