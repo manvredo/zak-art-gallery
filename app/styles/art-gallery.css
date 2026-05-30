@@ -20,8 +20,8 @@
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.08);
   
   /* Schriften */
-  --font-heading: var(--font-vollkorn);
-  --font-body: var(--font-inter);
+  --font-heading: var(--font-vollkorn), serif;
+  --font-body: var(--font-inter), sans-serif;
 }
 
 /* ==========================================
@@ -31,14 +31,14 @@
 body {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   font-weight: 400;
 }
 
-/* Überschriften - Playfair Display */
+/* Überschriften - Vollkorn */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-vollkorn), serif;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.01em;
