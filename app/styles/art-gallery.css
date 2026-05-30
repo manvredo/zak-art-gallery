@@ -20,8 +20,8 @@
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.08);
   
   /* Schriften */
-  --font-heading: var(--font-vollkorn), serif;
-  --font-body: var(--font-inter), sans-serif;
+  --font-heading: 'Vollkorn', serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 /* ==========================================
@@ -62,7 +62,7 @@ h3 {
 
 /* Fließtext - Open Sans */
 p, span, a, button, input, textarea {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Container */
@@ -118,7 +118,7 @@ nav a:hover {
 }
 
 .elegant-search-title {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-secondary);
@@ -137,7 +137,7 @@ nav a:hover {
   color: var(--color-text-primary);
   background: var(--color-bg-primary);
   transition: all 0.2s ease;
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .elegant-search-input:focus {
@@ -159,7 +159,7 @@ nav a:hover {
 }
 
 .elegant-categories-title {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-secondary);
@@ -181,7 +181,7 @@ nav a:hover {
   font-weight: 500;
   transition: all 0.2s ease;
   margin-bottom: 0.5rem;
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .elegant-category-link:hover {
@@ -231,7 +231,7 @@ nav a:hover {
 }
 
 .elegant-card-title {
-  font-family: var(--font-heading), serif;
+  font-family: 'Vollkorn', serif;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -246,7 +246,7 @@ nav a:hover {
   font-size: 0.8rem;
   color: var(--color-text-muted);
   margin-bottom: 0.75rem;
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .elegant-card-excerpt {
@@ -254,7 +254,7 @@ nav a:hover {
   font-size: 0.9rem;
   line-height: 1.6;
   margin-bottom: 1rem;
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .elegant-card-link {
@@ -265,7 +265,7 @@ nav a:hover {
   font-size: 0.875rem;
   font-weight: 500;
   transition: gap 0.2s ease;
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .elegant-card-link:hover {
@@ -292,7 +292,7 @@ nav a:hover {
 }
 
 .elegant-hero-title {
-  font-family: var(--font-heading), serif;
+  font-family: 'Vollkorn', serif;
   font-size: 2.5rem;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -301,7 +301,7 @@ nav a:hover {
 }
 
 .elegant-hero-description {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.05rem;
   color: var(--color-text-secondary);
   max-width: 600px;
@@ -327,7 +327,7 @@ nav a:hover {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .elegant-button:hover {
@@ -379,7 +379,7 @@ nav a:hover {
 }
 
 .elegant-product-title {
-  font-family: var(--font-heading), serif;
+  font-family: 'Vollkorn', serif;
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -387,7 +387,7 @@ nav a:hover {
 }
 
 .elegant-product-artist {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.5rem;
@@ -395,14 +395,14 @@ nav a:hover {
 }
 
 .elegant-product-size {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
   color: var(--color-text-muted);
   margin-bottom: 0.75rem;
 }
 
 .elegant-product-price {
-  font-family: var(--font-heading), serif;
+  font-family: 'Vollkorn', serif;
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--color-accent);
@@ -420,7 +420,7 @@ footer {
 }
 
 footer h3 {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-primary);
@@ -430,7 +430,7 @@ footer h3 {
 }
 
 footer a {
-  font-family: var(--font-body), sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--color-text-secondary);
   font-size: 0.875rem;
   transition: color 0.2s ease;
