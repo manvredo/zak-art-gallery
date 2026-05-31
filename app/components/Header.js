@@ -47,8 +47,8 @@ export default function Header() {
   return (
     <header
       style={{
-        background: isHomePage ? 'transparent !important' : '#ffffff !important',
-        borderBottom: isHomePage ? 'none !important' : '1px solid #e5e7eb'
+        background: isHomePage ? 'transparent !important' : '#f8f8f8 !important',
+        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.3)' : '1px solid #e5e7eb'
       }}
       className="sticky top-0 z-50"
     >
@@ -74,7 +74,7 @@ export default function Header() {
               />
             </Link>
 
-            <nav className={`hidden lg:flex space-x-8 ml-24 ${isHomePage ? 'border-b border-white/30' : ''}`}>
+            <nav className="hidden lg:flex space-x-8 ml-24">
               <Link
                 href="/"
                 className="nav-link transition cursor-pointer uppercase hover:opacity-80"
