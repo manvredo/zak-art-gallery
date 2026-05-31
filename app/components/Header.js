@@ -67,7 +67,7 @@ export default function Header() {
               <Link
                 href="/"
                 className={`transition cursor-pointer uppercase ${
-                  isActive('/') && pathname === '/' ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                  isActive('/') && pathname === '/' ? 'text-white font-medium' : 'text-white/80 hover:text-white'
                 }`}
               >
                 {t.nav.welcome}
@@ -75,7 +75,7 @@ export default function Header() {
               <Link
                 href="/about"
                 className={`transition cursor-pointer uppercase ${
-                  isActive('/about') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                  isActive('/about') ? 'text-white font-medium' : 'text-white/80 hover:text-white'
                 }`}
               >
                 {t.nav.about}
@@ -83,7 +83,7 @@ export default function Header() {
               <Link
                 href="/shop"
                 className={`transition cursor-pointer uppercase ${
-                  isActive('/shop') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                  isActive('/shop') ? 'text-white font-medium' : 'text-white/80 hover:text-white'
                 }`}
               >
                 {t.nav.shop}
@@ -92,7 +92,7 @@ export default function Header() {
               <Link
                 href="/contact"
                 className={`transition cursor-pointer uppercase ${
-                  isActive('/contact') ? 'text-gray-900 font-medium' : 'text-gray-700 hover:text-gray-900'
+                  isActive('/contact') ? 'text-white font-medium' : 'text-white/80 hover:text-white'
                 }`}
               >
                 {t.nav.contact}
@@ -103,76 +103,57 @@ export default function Header() {
           {/* Right Icons */}
           <div className="flex items-center space-x-4">
             {/* ✅ OPTION B: Beide Flaggen (eine ausgegraut) */}
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50">
-              {/* Deutsche Flagge */}
-              <button
-                onClick={() => language !== 'de' && toggleLanguage()}
-                className={`transition cursor-pointer ${
-                  language === 'de' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
-                }`}
-                title="Deutsch"
-              >
-                <svg className="w-8 h-6" viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="5" height="3" fill="#000"/>
-                  <rect width="5" height="2" y="1" fill="#D00"/>
-                  <rect width="5" height="1" y="2" fill="#FFCE00"/>
-                </svg>
-              </button>
-              
-              {/* Trennlinie */}
-              <div className="h-6 w-px bg-gray-300"></div>
-              
-              {/* Englische Flagge */}
+            {/* Language Switch */}
+            <div className="flex items-center gap-1">
               <button
                 onClick={() => language !== 'en' && toggleLanguage()}
-                className={`transition cursor-pointer ${
-                  language === 'en' ? 'opacity-100' : 'opacity-40 hover:opacity-60'
+                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
+                  language === 'en' ? 'text-white font-bold' : 'text-white/50 hover:text-white'
                 }`}
-                title="English"
               >
-                <svg className="w-8 h-6" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-                  <clipPath id="t">
-                    <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
-                  </clipPath>
-                  <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-                  <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
-                  <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/>
-                  <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
-                  <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
-                </svg>
+                EN
+              </button>
+              <span className="text-white/50">/</span>
+              <button
+                onClick={() => language !== 'de' && toggleLanguage()}
+                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
+                  language === 'de' ? 'text-white font-bold' : 'text-white/50 hover:text-white'
+                }`}
+              >
+                DE
               </button>
             </div>
             
             {/* Login & Register ODER Account */}
             {user ? (
-              <Link 
+              <Link
                 href="/profile"
-                className="flex items-center gap-2 text-gray-700 hover:text-gray-900 cursor-pointer"
+                className="flex items-center gap-2 text-white hover:text-white/80 cursor-pointer"
               >
                 <User size={20} />
                 <span className="hidden sm:inline text-sm">{t.nav.account}</span>
               </Link>
             ) : (
               <div className="flex items-center gap-3">
-                <Link 
+                <Link
                   href="/login"
-                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+                  className="text-sm text-white hover:text-white/80 cursor-pointer font-medium"
                 >
                   {t.nav.login}
                 </Link>
-                <span className="text-gray-300">|</span>
-                <Link 
+                <span className="text-white/50">|</span>
+                <Link
                   href="/register"
-                  className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer font-medium"
+                  className="text-sm text-white hover:text-white/80 cursor-pointer font-medium"
                 >
                   {t.nav.register}
                 </Link>
               </div>
             )}
             
-            <Link 
+            <Link
               href="/cart"
-              className="relative text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="relative text-white hover:text-white/80 cursor-pointer"
             >
               <ShoppingCart size={20} />
               {cartItemCount > 0 && (

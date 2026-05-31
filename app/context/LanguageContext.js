@@ -623,7 +623,7 @@ const translations = {
 };
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('de'); // Deutsch als Standard (Primärmarkt)
+  const [language, setLanguage] = useState('en'); // English as default
 
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'en' ? 'de' : 'en');
