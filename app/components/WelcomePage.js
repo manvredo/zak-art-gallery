@@ -7,6 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true }) {
   const { t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,14 +21,19 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
     <div className="w-full">
 
       {/* Hero Section - Full Cover with Parallax */}
-      <div className="relative w-full h-screen -mt-16 overflow-hidden">
+      <div className="relative w-full h-screen -mt-16 overflow-hidden bg-gray-900">
         <img
           src="/images/hero-1920_01.jpg"
           srcSet="/images/hero-1920_01.jpg 1920w, /images/hero-3840_01.jpg 3840w"
           sizes="100vw"
           alt="Hero"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+          style={{
+            transform: `translateY(${scrollY * 0.5}px)`,
+            opacity: imageLoaded ? 1 : 0,
+            transition: 'opacity 1.5s ease-in-out'
+          }}
+          onLoad={() => setImageLoaded(true)}
         />
         {/* Overlay mit Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-40 pl-64 md:pl-80 lg:pl-96 bg-black/30 p-8">
