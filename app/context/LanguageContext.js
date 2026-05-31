@@ -20,10 +20,10 @@ const translations = {
     
     // Welcome Page
     welcome: {
-      title: 'Welcome to ZAK Art',
-      subtitle: 'Original Oil Paintings & Charcoal Drawings',
-      intro1: 'Welcome to my world of contemporary art. For over a decade, I have been creating original paintings in oil and charcoal drawings, inspired by the beauty of nature and human emotion.',
-      intro2: 'Each piece is a handcrafted original - created with passion, signed, and certified. Discover my current collection and find the perfect artwork for your home.',
+      title: 'ZAK Fine Art',
+      subtitle: 'Contemporary Painting & Graphics',
+      intro1: 'Welcome to ZAK Fine Art. For over a decade, the studio has stood for sophisticated contemporary landscape painting and graphic works. The focus is on the visual exploration of natural spaces, light conditions, and structural reduction.',
+      intro2: 'Discover representative artworks in the current collection that lend private and business spaces a timeless visual depth – available as handcrafted originals as well as high-quality editions.',
       viewGallery: 'View Gallery',
       visitShop: 'Visit Shop',
       featured: 'Featured Artworks'
@@ -328,10 +328,10 @@ const translations = {
     
     // Welcome Page
     welcome: {
-      title: 'Willkommen in der ZAK Fine Art',
-      subtitle: 'Original Ölgemälde & Kohlekreide-Zeichnungen',
-      intro1: 'Willkommen in meiner Welt der zeitgenössischen Kunst. Seit über einem Jahrzehnt erschaffe ich Originalgemälde in Öl und Kohlekreide-Zeichnungen, inspiriert von der Schönheit der Natur und menschlicher Emotionen.',
-      intro2: 'Jedes Werk ist ein handgefertigtes Original - mit Leidenschaft erschaffen, signiert und zertifiziert. Entdecken Sie meine aktuelle Kollektion und finden Sie das perfekte Kunstwerk für Ihr Zuhause.',
+      title: 'ZAK Fine Art',
+      subtitle: 'Zeitgenössische Malerei & Grafik',
+      intro1: 'Willkommen bei ZAK Fine Art. Das Atelier steht seit über einem Jahrzehnt für anspruchsvolle zeitgenössische Landschaftsmalerei und grafische Arbeiten. Im Zentrum des Schaffens steht die visuelle Auseinandersetzung mit Naturräumen, Lichtverhältnissen und struktureller Reduktion.',
+      intro2: 'Entdecken Sie in der aktuellen Kollektion repräsentative Kunstwerke, die privaten sowie geschäftlichen Räumen eine zeitlose, visuelle Tiefe verleihen – verfügbar als handgefertigte Originale sowie als hochwertige Editionen.',
       viewGallery: 'Zur Galerie',
       visitShop: 'Zum Shop',
       featured: 'Ausgewählte Kunstwerke'
