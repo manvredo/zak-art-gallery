@@ -20,7 +20,7 @@ const translations = {
     
     // Welcome Page
     welcome: {
-      title: 'Welcome to ZAK Fine Art',
+      title: 'Welcome to ZAK Art',
       subtitle: 'Original Oil Paintings & Charcoal Drawings',
       intro1: 'Welcome to my world of contemporary art. For over a decade, I have been creating original paintings in oil and charcoal drawings, inspired by the beauty of nature and human emotion.',
       intro2: 'Each piece is a handcrafted original - created with passion, signed, and certified. Discover my current collection and find the perfect artwork for your home.',
