@@ -34,7 +34,7 @@ export default function Home() {
     setLoading(false);
   };
 
-  const featuredProducts = products.slice(0, 3);
+  const featuredProducts = products.slice(0, 4);
 
   if (loading) {
     return (
