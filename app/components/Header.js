@@ -141,7 +141,7 @@ export default function Header() {
             {user ? (
               <Link
                 href="/profile"
-                className="flex items-center gap-2 text-white hover:text-white/80 cursor-pointer"
+                className="nav-link flex items-center gap-2 cursor-pointer"
               >
                 <User size={20} />
                 <span className="hidden sm:inline text-sm">{t.nav.account}</span>
@@ -150,14 +150,14 @@ export default function Header() {
               <div className="flex items-center gap-3">
                 <Link
                   href="/login"
-                  className="text-sm text-white hover:text-white/80 cursor-pointer font-medium"
+                  className="nav-link text-sm cursor-pointer font-medium"
                 >
                   {t.nav.login}
                 </Link>
                 <span className="text-white/50">|</span>
                 <Link
                   href="/register"
-                  className="text-sm text-white hover:text-white/80 cursor-pointer font-medium"
+                  className="nav-link text-sm cursor-pointer font-medium"
                 >
                   {t.nav.register}
                 </Link>
@@ -166,7 +166,7 @@ export default function Header() {
             
             <Link
               href="/cart"
-              className="relative text-white hover:text-white/80 cursor-pointer"
+              className="nav-link relative cursor-pointer"
             >
               <ShoppingCart size={20} />
               {cartItemCount > 0 && (
