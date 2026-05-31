@@ -47,7 +47,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
             </span>
             <button
               onClick={handleAddToCart}
-              className="px-5 py-2 bg-transparent text-gray-900 border-2 border-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm"
+              className="px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm"
             >
               {t.shop.addToCart}
             </button>
