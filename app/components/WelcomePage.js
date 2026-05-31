@@ -21,10 +21,10 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         </div>
         
         <div>
-          <h2 className="text-3xl font-light mb-6" style={{ color: '#010101', fontFamily: 'var(--font-vollkorn), serif' }}>
+          <h2 className="text-5xl font-bold mb-6" style={{ color: '#010101', fontFamily: "'Vollkorn', serif" }}>
             {t.welcome.title}
           </h2>
-          <p className="text-xl mb-4" style={{ color: '#010101', fontFamily: 'var(--font-vollkorn), serif', fontWeight: '400' }}>
+          <p className="text-2xl mb-4" style={{ color: '#010101', fontFamily: "'EB Garamond', serif", fontWeight: '400' }}>
             {t.welcome.subtitle}
           </p>
           <p className="leading-relaxed mb-6" style={{ color: '#010101' }}>
