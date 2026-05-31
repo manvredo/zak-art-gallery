@@ -56,44 +56,41 @@ export default function Header() {
           {/* Logo & Navigation - Centered */}
           <div className="flex items-center justify-center flex-1">
             <Link href="/">
-              <img 
-                src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png" 
-                alt="ZAK Fine Art Logo" 
+              <img
+                src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png"
+                alt="ZAK Fine Art Logo"
                 className="h-10 cursor-pointer"
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </Link>
             
             <nav className="hidden lg:flex space-x-8 ml-24">
               <Link
                 href="/"
-                className={`transition cursor-pointer uppercase ${
-                  isActive('/') && pathname === '/' ? 'text-white font-medium' : 'text-white/80 hover:text-white'
-                }`}
+                style={{ color: '#ffffff' }}
+                className="transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.welcome}
               </Link>
               <Link
                 href="/about"
-                className={`transition cursor-pointer uppercase ${
-                  isActive('/about') ? 'text-white font-medium' : 'text-white/80 hover:text-white'
-                }`}
+                style={{ color: '#ffffff' }}
+                className="transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.about}
               </Link>
               <Link
                 href="/shop"
-                className={`transition cursor-pointer uppercase ${
-                  isActive('/shop') ? 'text-white font-medium' : 'text-white/80 hover:text-white'
-                }`}
+                style={{ color: '#ffffff' }}
+                className="transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.shop}
               </Link>
 
               <Link
                 href="/contact"
-                className={`transition cursor-pointer uppercase ${
-                  isActive('/contact') ? 'text-white font-medium' : 'text-white/80 hover:text-white'
-                }`}
+                style={{ color: '#ffffff' }}
+                className="transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.contact}
               </Link>
