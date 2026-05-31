@@ -16,24 +16,10 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
 
   return (
     <div
-      className="cursor-pointer group"
-      style={{
-        animation: `slideUp 0.6s ease-out ${index * 0.1}s both`
-      }}
+      className="cursor-pointer group animate-slide-up"
+      style={{ animationDelay: `${index * 0.1}s` }}
       onClick={onClick}
     >
-      <style>{`
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
       {/* Image Container with Rounded Corners */}
       <div className="relative aspect-square overflow-hidden rounded-lg mb-3">
         <img
