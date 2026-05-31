@@ -48,7 +48,7 @@ export default function Header() {
     <header
       style={{
         background: isHomePage ? 'transparent !important' : '#f8f8f8 !important',
-        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.3)' : '1px solid #e5e7eb'
+        borderBottom: isHomePage ? '2px solid rgba(255,255,255,0.5)' : 'none'
       }}
       className="sticky top-0 z-50"
     >
