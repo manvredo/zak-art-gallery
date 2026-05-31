@@ -176,7 +176,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <LanguageProvider>
             <CartProvider>
-              <div className="min-h-screen flex flex-col">
+              <div className="min-h-screen flex flex-col animate-fade-in">
                 <Header />
                 <main className="flex-1">
                   {children}
