@@ -30,7 +30,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           style={{ transform: `translateY(${scrollY * 0.5}px)` }}
         />
         {/* Overlay mit Text */}
-        <div className="absolute inset-0 flex flex-col items-start justify-end pb-32 pl-16 md:pl-24 bg-black/30 p-8">
+        <div className="absolute inset-0 flex flex-col items-start justify-end pb-32 pl-24 md:pl-32 lg:pl-40 bg-black/30 p-8">
           <h2 className="mb-6" style={{ color: '#ffffff', fontFamily: "'Vollkorn', serif", fontWeight: '400', fontSize: '50px', textShadow: '2px 2px 8px rgba(0,0,0,0.5)' }}>
             {t.welcome.title}
           </h2>
