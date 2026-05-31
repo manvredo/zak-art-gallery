@@ -24,7 +24,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           <h2 className="text-3xl font-light mb-6" style={{ color: '#010101', fontFamily: 'var(--font-vollkorn), serif' }}>
             {t.welcome.title}
           </h2>
-          <p className="text-xl mb-4" style={{ color: '#010101' }}>
+          <p className="text-xl mb-4" style={{ color: '#010101', fontFamily: 'var(--font-vollkorn), serif', fontWeight: '400' }}>
             {t.welcome.subtitle}
           </p>
           <p className="leading-relaxed mb-6" style={{ color: '#010101' }}>
