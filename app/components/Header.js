@@ -74,7 +74,7 @@ export default function Header() {
               />
             </Link>
 
-            <nav className="hidden lg:flex space-x-8 ml-24">
+            <nav className={`hidden lg:flex space-x-8 ml-24 ${isHomePage ? 'border-b border-white/30' : ''}`}>
               <Link
                 href="/"
                 className="nav-link transition cursor-pointer uppercase hover:opacity-80"
