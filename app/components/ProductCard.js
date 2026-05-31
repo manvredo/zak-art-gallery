@@ -24,7 +24,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false })
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
         />
 
         {/* Favorite Button - Top Right */}
