@@ -30,11 +30,11 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           style={{ transform: `translateY(${scrollY * 0.5}px)` }}
         />
         {/* Overlay mit Text */}
-        <div className="absolute inset-0 flex flex-col items-start justify-end pb-32 pl-64 md:pl-80 lg:pl-96 bg-black/30 p-8">
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-40 pl-64 md:pl-80 lg:pl-96 bg-black/30 p-8">
           <h2 className="mb-6" style={{ color: '#ffffff', fontFamily: "'Vollkorn', serif", fontWeight: '400', fontSize: '42px', textShadow: '2px 2px 8px rgba(0,0,0,0.5)' }}>
             {t.welcome.title}
           </h2>
-          <p className="text-xl mb-4" style={{ color: '#ffffff', fontFamily: "'EB Garamond', serif", fontWeight: '400', textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
+          <p className="text-2xl mb-4" style={{ color: '#ffffff', fontFamily: "'EB Garamond', serif", fontWeight: '400', textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
             {t.welcome.subtitle}
           </p>
           <div className="flex gap-4 mt-4">
@@ -69,7 +69,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         <h3 className="text-xl font-light text-gray-900 mb-6 text-center">
           {t.welcome.featured}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center">
           {featuredProducts.map(product => (
             <ProductCard
               key={product.id}
