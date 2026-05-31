@@ -175,8 +175,7 @@ export default function Header() {
             {user ? (
               <Link
                 href="/profile"
-                className="px-4 py-2 bg-transparent border-2 border-current text-sm hover:bg-gray-100 transition rounded-full cursor-pointer"
-                style={{ color: textColor, borderColor: textColor }}
+                className="px-4 py-2 bg-white text-gray-900 border border-gray-300 text-sm hover:bg-gray-200 transition rounded-full cursor-pointer"
               >
                 {t.nav.account}
               </Link>
@@ -184,15 +183,14 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="px-4 py-2 bg-transparent border-2 border-current text-sm hover:bg-gray-100 transition rounded-full cursor-pointer"
+                  className="px-4 py-2 bg-transparent border text-sm hover:bg-gray-100 transition rounded-full cursor-pointer"
                   style={{ color: textColor, borderColor: textColor }}
                 >
                   Log In
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 bg-transparent border-2 border-current text-sm hover:bg-gray-100 transition rounded-full cursor-pointer"
-                  style={{ color: textColor, borderColor: textColor }}
+                  className="px-4 py-2 bg-gray-900 text-white border border-gray-900 text-sm hover:bg-black transition rounded-full cursor-pointer"
                 >
                   Sign Up
                 </Link>
