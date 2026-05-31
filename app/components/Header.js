@@ -120,8 +120,8 @@ export default function Header() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => language !== 'en' && toggleLanguage()}
-                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
-                  language === 'en' ? 'text-white font-bold' : 'text-white/50 hover:text-white'
+                className={`nav-link text-sm px-2 py-1 rounded transition cursor-pointer ${
+                  language === 'en' ? 'font-bold' : ''
                 }`}
               >
                 EN
@@ -129,8 +129,8 @@ export default function Header() {
               <span className="text-white/50">/</span>
               <button
                 onClick={() => language !== 'de' && toggleLanguage()}
-                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
-                  language === 'de' ? 'text-white font-bold' : 'text-white/50 hover:text-white'
+                className={`nav-link text-sm px-2 py-1 rounded transition cursor-pointer ${
+                  language === 'de' ? 'font-bold' : ''
                 }`}
               >
                 DE
