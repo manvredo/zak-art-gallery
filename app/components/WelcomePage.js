@@ -21,7 +21,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
     <div className="w-full">
 
       {/* Hero Section - Full Cover with Parallax */}
-      <div className="relative w-full h-screen -mt-16 overflow-hidden bg-gray-900">
+      <div className="relative w-full h-screen -mt-16 overflow-hidden bg-[#0f0f0f]">
         <img
           src="/images/hero-1920_01.jpg"
           srcSet="/images/hero-1920_01.jpg 1920w, /images/hero-3840_01.jpg 3840w"
@@ -52,7 +52,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             </Link>
             <Link
               href="/shop"
-              className="px-6 py-2 bg-gray-900 text-white hover:bg-black transition rounded-full cursor-pointer inline-block text-center text-sm"
+              className="px-6 py-2 bg-[#0f0f0f] text-white hover:bg-[#0f0f0f] transition rounded-full cursor-pointer inline-block text-center text-sm"
             >
               {t.welcome.visitShop}
             </Link>

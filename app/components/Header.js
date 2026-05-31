@@ -190,7 +190,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 bg-gray-900 text-white border border-gray-900 text-sm hover:bg-black transition rounded-full cursor-pointer"
+                  className="px-4 py-2 bg-[#0f0f0f] text-white border border-gray-900 text-sm hover:bg-[#0f0f0f] transition rounded-full cursor-pointer"
                 >
                   Sign Up
                 </Link>
@@ -203,7 +203,7 @@ export default function Header() {
             >
               <ShoppingCart size={20} />
               {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-gray-900 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-[#0f0f0f] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>
               )}
