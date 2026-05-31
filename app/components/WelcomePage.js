@@ -52,7 +52,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             </Link>
             <Link
               href="/shop"
-              className="px-6 py-2 bg-white text-gray-900 hover:bg-gray-200 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-gray-300"
+              className="px-6 py-2 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
             >
               {t.welcome.visitShop}
             </Link>
