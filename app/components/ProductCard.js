@@ -21,7 +21,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
       onClick={onClick}
     >
       {/* Image Container with Rounded Corners */}
-      <div className="relative aspect-square overflow-hidden rounded-xl mb-3 group-hover:shadow-md transition-shadow duration-200">
+      <div className="relative aspect-square overflow-hidden rounded-xl mb-3 group-hover:shadow-xl transition-shadow duration-200">
         <img
           src={product.image}
           alt={product.name}
