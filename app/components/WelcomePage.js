@@ -35,8 +35,8 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           </p>
           
           <div className="flex gap-4">
-            <Link 
-              href="/gallery"
+            <Link
+              href="/about"
               className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded cursor-pointer inline-block text-center"
             >
               {t.welcome.viewGallery}

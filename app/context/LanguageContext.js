@@ -24,7 +24,7 @@ const translations = {
       subtitle: 'Contemporary Painting & Graphics',
       intro1: 'Welcome to ZAK Fine Art. For over a decade, the studio has dedicated itself to contemporary landscape painting and the realization of graphic works. The focus is on the visual exploration of natural spaces, specific light conditions, and structural reduction.',
       intro2: 'The portfolio includes both unique handcrafted oil originals and selected, high-quality editions.',
-      viewGallery: 'View Gallery',
+      viewGallery: 'About me',
       visitShop: 'Visit Shop',
       featured: 'Featured Artworks'
     },	
@@ -332,7 +332,7 @@ const translations = {
       subtitle: 'Zeitgenössische Malerei & Grafik',
       intro1: 'Willkommen bei ZAK Fine Art. Das Atelier widmet sich seit über einem Jahrzehnt der zeitgenössischen Landschaftsmalerei und der Realisation grafischer Arbeiten. Im Zentrum des Schaffens steht die visuelle Auseinandersetzung mit Naturräumen, spezifischen Lichtverhältnissen und struktureller Reduktion.',
       intro2: 'Das Portfolio umfasst sowohl unikal handgefertigte Originale in Öl als auch ausgewählte, hochwertige Editionen.',
-      viewGallery: 'Zur Galerie',
+      viewGallery: 'Über mich',
       visitShop: 'Zum Shop',
       featured: 'Ausgewählte Kunstwerke'
     },
