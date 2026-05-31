@@ -21,16 +21,16 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         </div>
         
         <div>
-          <h2 className="text-5xl font-light text-gray-900 mb-6">
+          <h2 className="text-2xl font-medium mb-6" style={{ color: '#010101' }}>
             {t.welcome.title}
           </h2>
-          <p className="text-xl text-gray-600 mb-4">
+          <p className="text-base mb-4" style={{ color: '#010101' }}>
             {t.welcome.subtitle}
           </p>
-          <p className="text-gray-700 leading-relaxed mb-6">
+          <p className="leading-relaxed mb-6" style={{ color: '#010101' }}>
             {t.welcome.intro1}
           </p>
-          <p className="text-gray-700 leading-relaxed mb-8">
+          <p className="leading-relaxed mb-8" style={{ color: '#010101' }}>
             {t.welcome.intro2}
           </p>
           
