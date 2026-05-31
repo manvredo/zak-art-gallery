@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingCart, Menu, X, User } from 'lucide-react';
+import { ShoppingCart, Menu, X } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { useCart } from '@/app/context/CartContext';
 import { useLanguage } from '@/app/context/LanguageContext';
@@ -175,25 +175,26 @@ export default function Header() {
             {user ? (
               <Link
                 href="/profile"
-                className="nav-link flex items-center gap-2 cursor-pointer"
+                className="px-4 py-2 bg-transparent border-2 border-current text-sm hover:bg-gray-100 transition rounded-full cursor-pointer"
+                style={{ color: textColor, borderColor: textColor }}
               >
-                <User size={20} />
-                <span className="hidden sm:inline text-sm">{t.nav.account}</span>
+                {t.nav.account}
               </Link>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="nav-link text-sm cursor-pointer font-medium"
+                  className="px-4 py-2 bg-transparent border-2 border-current text-sm hover:bg-gray-100 transition rounded-full cursor-pointer"
+                  style={{ color: textColor, borderColor: textColor }}
                 >
-                  {t.nav.login}
+                  Log In
                 </Link>
-                <span className="text-white/50">|</span>
                 <Link
                   href="/register"
-                  className="nav-link text-sm cursor-pointer font-medium"
+                  className="px-4 py-2 bg-transparent border-2 border-current text-sm hover:bg-gray-100 transition rounded-full cursor-pointer"
+                  style={{ color: textColor, borderColor: textColor }}
                 >
-                  {t.nav.register}
+                  Sign Up
                 </Link>
               </div>
             )}

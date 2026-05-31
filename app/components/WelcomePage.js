@@ -46,13 +46,13 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           <div className="flex gap-4 mt-4">
             <Link
               href="/about"
-              className="px-6 py-2 bg-white text-gray-900 hover:bg-gray-100 transition rounded cursor-pointer inline-block text-center text-sm"
+              className="px-6 py-2 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition rounded-full cursor-pointer inline-block text-center text-sm"
             >
               {t.welcome.viewGallery}
             </Link>
             <Link
               href="/shop"
-              className="px-6 py-2 border border-white text-white hover:bg-white/10 transition rounded cursor-pointer inline-block text-center text-sm"
+              className="px-6 py-2 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition rounded-full cursor-pointer inline-block text-center text-sm"
             >
               {t.welcome.visitShop}
             </Link>
