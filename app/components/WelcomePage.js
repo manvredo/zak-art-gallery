@@ -1,23 +1,33 @@
 "use client";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true }) {
   const { t } = useLanguage();
-  
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="w-full">
-      
-      {/* Hero Section - Full Cover */}
-      <div className="relative w-full h-screen -mt-16 overflow-hidden">
+
+      {/* Hero Section - Full Cover with Parallax */}
+      <div className="relative w-full h-screen overflow-hidden">
         <img
           src="/images/hero-1920_01.jpg"
           srcSet="/images/hero-1920_01.jpg 1920w, /images/hero-3840_01.jpg 3840w"
           sizes="100vw"
           alt="Hero"
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
         />
         {/* Overlay mit Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
