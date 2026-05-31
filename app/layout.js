@@ -82,6 +82,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="/footer-extension.css" />
         <link rel="stylesheet" href="/fonts/inter.css" />
         <link rel="stylesheet" href="/fonts/vollkorn.css" />
+        <link rel="stylesheet" href="/fonts/eb-garamond.css" />
 
         {/* Organization Schema */}
         <script

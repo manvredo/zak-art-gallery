@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fontsource/eb-garamond": "^5.2.7",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/vollkorn": "^5.2.10",
     "@stripe/stripe-js": "^8.0.0",
