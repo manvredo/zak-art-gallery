@@ -40,8 +40,18 @@ export default function Header() {
     return pathname.startsWith(path);
   };
 
+  const isHomePage = pathname === '/';
+  const textColor = isHomePage ? '#ffffff' : '#010101';
+  const logoFilter = isHomePage ? 'brightness(0) invert(1)' : 'none';
+
   return (
-    <header style={{ background: 'transparent !important', borderBottom: 'none !important' }} className="sticky top-0 z-50">
+    <header
+      style={{
+        background: isHomePage ? 'transparent !important' : '#ffffff !important',
+        borderBottom: isHomePage ? 'none !important' : '1px solid #e5e7eb'
+      }}
+      className="sticky top-0 z-50"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
@@ -60,10 +70,10 @@ export default function Header() {
                 src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png"
                 alt="ZAK Fine Art Logo"
                 className="h-10 cursor-pointer"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                style={{ filter: logoFilter }}
               />
             </Link>
-            
+
             <nav className="hidden lg:flex space-x-8 ml-24">
               <Link
                 href="/"
@@ -94,7 +104,7 @@ export default function Header() {
             <style>{`
               .nav-link {
                 position: relative;
-                color: #ffffff !important;
+                color: ${textColor} !important;
                 transition: opacity 0.3s ease;
               }
               .nav-link::after {
@@ -104,7 +114,7 @@ export default function Header() {
                 left: 0;
                 width: 0;
                 height: 2px;
-                background-color: #ffffff;
+                background-color: ${textColor};
                 transition: width 0.3s ease;
               }
               .nav-link:hover::after {
@@ -126,7 +136,7 @@ export default function Header() {
               >
                 EN
               </button>
-              <span className="text-white/50">/</span>
+              <span style={{ color: textColor }} className="opacity-50">/</span>
               <button
                 onClick={() => language !== 'de' && toggleLanguage()}
                 className={`nav-link text-sm px-2 py-1 rounded transition cursor-pointer ${
