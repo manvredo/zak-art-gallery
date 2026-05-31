@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import ProductCard from '@/app/components/ProductCard';
 import ProductModal from '@/app/components/ProductModal';
@@ -19,32 +19,10 @@ export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState('Alle');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [lightboxImage, setLightboxImage] = useState(null);
-  const [visibleCards, setVisibleCards] = useState(new Set());
-  const cardRefs = useRef({});
 
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = entry.target.dataset.index;
-            setVisibleCards((prev) => new Set([...prev, index]));
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    Object.values(cardRefs.current).forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [products]);
 
   const fetchProducts = async () => {
     const { data, error } = await supabase
@@ -112,23 +90,13 @@ export default function ShopPage() {
       {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-[130px] gap-x-12">
         {filteredProducts.map((product, index) => (
-          <div
+          <ProductCard
             key={product.id}
-            ref={(el) => (cardRefs.current[index] = el)}
-            data-index={index}
-            className={`transition-all duration-700 ease-out ${
-              visibleCards.has(index)
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-12'
-            }`}
-            style={{ transitionDelay: `${(index % 3) * 100}ms` }}
-          >
-            <ProductCard
-              product={product}
-              onClick={() => setSelectedProduct(product)}
-              showAddToCart={true}
-            />
-          </div>
+            product={product}
+            onClick={() => setSelectedProduct(product)}
+            showAddToCart={true}
+            index={index}
+          />
         ))}
       </div>
 
