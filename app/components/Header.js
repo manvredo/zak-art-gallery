@@ -63,8 +63,7 @@ export default function Header() {
 
   const isHomePage = pathname === '/';
   const textColor = isHomePage ? '#ffffff' : '#010101';
-  const logoFilter = isHomePage ? 'brightness(0) invert(1)' : 'none';
-
+  
   return (
     <header
       style={{
@@ -94,7 +93,6 @@ export default function Header() {
                 src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png"
                 alt="ZAK Fine Art Logo"
                 className="h-10 cursor-pointer"
-                style={{ filter: logoFilter }}
               />
             </Link>
 
