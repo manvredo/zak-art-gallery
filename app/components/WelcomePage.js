@@ -11,13 +11,14 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
     <div className="w-full">
       
       {/* Hero Section - Full Cover */}
-      <div className="relative w-full h-[calc(100vh-4rem)] overflow-hidden">
+      <div className="relative w-full h-screen overflow-hidden">
         <img
           src="/images/hero-1920_01.jpg"
           srcSet="/images/hero-1920_01.jpg 1920w, /images/hero-3840_01.jpg 3840w"
           sizes="100vw"
           alt="Hero"
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ marginTop: '0' }}
         />
         {/* Overlay mit Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
