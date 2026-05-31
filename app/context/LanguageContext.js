@@ -22,8 +22,8 @@ const translations = {
     welcome: {
       title: 'ZAK Fine Art',
       subtitle: 'Contemporary Painting & Graphics',
-      intro1: 'Welcome to ZAK Fine Art. For over a decade, the studio has stood for sophisticated contemporary landscape painting and graphic works. The focus is on the visual exploration of natural spaces, light conditions, and structural reduction.',
-      intro2: 'Discover representative artworks in the current collection that lend private and business spaces a timeless visual depth – available as handcrafted originals as well as high-quality editions.',
+      intro1: 'Welcome to ZAK Fine Art. For over a decade, the studio has dedicated itself to contemporary landscape painting and the realization of graphic works. The focus is on the visual exploration of natural spaces, specific light conditions, and structural reduction.',
+      intro2: 'The portfolio includes both unique handcrafted oil originals and selected, high-quality editions.',
       viewGallery: 'View Gallery',
       visitShop: 'Visit Shop',
       featured: 'Featured Artworks'
@@ -330,8 +330,8 @@ const translations = {
     welcome: {
       title: 'ZAK Fine Art',
       subtitle: 'Zeitgenössische Malerei & Grafik',
-      intro1: 'Willkommen bei ZAK Fine Art. Das Atelier steht seit über einem Jahrzehnt für anspruchsvolle zeitgenössische Landschaftsmalerei und grafische Arbeiten. Im Zentrum des Schaffens steht die visuelle Auseinandersetzung mit Naturräumen, Lichtverhältnissen und struktureller Reduktion.',
-      intro2: 'Entdecken Sie in der aktuellen Kollektion repräsentative Kunstwerke, die privaten sowie geschäftlichen Räumen eine zeitlose, visuelle Tiefe verleihen – verfügbar als handgefertigte Originale sowie als hochwertige Editionen.',
+      intro1: 'Willkommen bei ZAK Fine Art. Das Atelier widmet sich seit über einem Jahrzehnt der zeitgenössischen Landschaftsmalerei und der Realisation grafischer Arbeiten. Im Zentrum des Schaffens steht die visuelle Auseinandersetzung mit Naturräumen, spezifischen Lichtverhältnissen und struktureller Reduktion.',
+      intro2: 'Das Portfolio umfasst sowohl unikal handgefertigte Originale in Öl als auch ausgewählte, hochwertige Editionen.',
       viewGallery: 'Zur Galerie',
       visitShop: 'Zum Shop',
       featured: 'Ausgewählte Kunstwerke'
