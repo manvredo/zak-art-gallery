@@ -16,7 +16,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false })
 
   return (
     <div
-      className="cursor-pointer group"
+      className="cursor-pointer group transition duration-300 hover:-translate-y-2"
       onClick={onClick}
     >
       {/* Image Container with Rounded Corners */}
