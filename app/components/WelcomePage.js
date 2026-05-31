@@ -11,7 +11,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
     <div className="w-full">
       
       {/* Hero Section - Full Cover */}
-      <div className="relative w-full h-[100vh] overflow-hidden">
+      <div className="relative w-full mt-16 h-[calc(100vh-4rem)] overflow-hidden">
         <img
           src="/images/hero-1920_01.jpg"
           srcSet="/images/hero-1920_01.jpg 1920w, /images/hero-3840_01.jpg 3840w"
