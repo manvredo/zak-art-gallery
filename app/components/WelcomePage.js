@@ -65,7 +65,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
       </div>
 
       {/* Featured Artworks */}
-      <div className="mb-12 px-8 scale-90 origin-center">
+      <div className="mb-12 px-8 scale-70 origin-center">
         <h3 className="text-xl font-light text-gray-900 mb-6 text-center">
           {t.welcome.featured}
         </h3>
