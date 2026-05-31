@@ -68,10 +68,11 @@ export default function Header() {
   return (
     <header
       style={{
-        background: isHomePage ? 'transparent !important' : '#f8f8f8 !important',
-        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.5)' : 'none',
+        background: isHomePage ? 'transparent !important' : '#ffffff !important',
+        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.5)' : '1px solid #e5e7eb',
+        boxShadow: isHomePage ? 'none' : '0 2px 10px rgba(0,0,0,0.1)',
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.3s ease-in-out'
+        transition: 'transform 0.15s ease-in-out, box-shadow 0.2s ease'
       }}
       className="sticky top-0 z-50"
     >
