@@ -40,7 +40,7 @@ export default function ShopPage({
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-[180px] gap-x-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-[130px] gap-x-12">
         {products.map((product, i) => (
           <ProductCard
             key={product.id}
