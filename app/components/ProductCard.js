@@ -15,7 +15,13 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
   };
 
   return (
-    <>
+    <div
+      className="cursor-pointer group"
+      style={{
+        animation: `slideUp 0.6s ease-out ${index * 0.1}s both`
+      }}
+      onClick={onClick}
+    >
       <style>{`
         @keyframes slideUp {
           from {
@@ -28,13 +34,6 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
           }
         }
       `}</style>
-    <div
-      className="cursor-pointer group"
-      style={{
-        animation: `slideUp 0.6s ease-out ${index * 0.1}s both`
-      }}
-      onClick={onClick}
-    >
       {/* Image Container with Rounded Corners */}
       <div className="relative aspect-square overflow-hidden rounded-lg mb-3">
         <img
