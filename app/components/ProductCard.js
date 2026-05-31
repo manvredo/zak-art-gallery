@@ -3,6 +3,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import FavoriteButton from './FavoriteButton';
 
 export default function ProductCard({ product, onClick, showAddToCart = false }) {
   const { addToCart } = useCart();
@@ -15,33 +16,45 @@ export default function ProductCard({ product, onClick, showAddToCart = false })
 
   return (
     <div
-      className="cursor-pointer"
+      className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer group"
       onClick={onClick}
     >
-      {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden rounded-lg">
+      {/* Image Container with Favorite Button */}
+      <div className="relative aspect-square overflow-hidden bg-gray-100">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
         />
+
+        {/* Favorite Button - Top Right */}
+        <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <FavoriteButton productId={product.id} />
+        </div>
       </div>
 
-      {/* Plain Text Below */}
-      <div className="pt-2">
-        <p className="text-sm text-gray-600">{product.name}</p>
+      {/* Product Info */}
+      <div className="p-4">
+        <p className="text-sm text-gray-500 mb-1">{product.artist}</p>
+        <h3 className="text-base font-light text-gray-900 mb-1">{product.name}</h3>
+        <p className="text-xs text-gray-600 mb-3">{product.size}</p>
+
         {showAddToCart ? (
-          <div className="flex items-center gap-2 mt-1">
-            <span className="text-base text-gray-900">€{product.price.toLocaleString('en-US')}</span>
+          <div className="flex justify-between items-center">
+            <span className="text-lg font-light text-gray-900">
+              €{product.price.toLocaleString('en-US')}
+            </span>
             <button
               onClick={handleAddToCart}
-              className="px-3 py-1 bg-gray-900 text-white text-xs hover:bg-gray-800 transition rounded cursor-pointer"
+              className="px-4 py-2 bg-gray-900 text-white text-sm hover:bg-gray-800 transition rounded cursor-pointer"
             >
               {t.shop.addToCart}
             </button>
           </div>
         ) : (
-          <p className="text-base text-gray-900">€{product.price.toLocaleString('en-US')}</p>
+          <p className="text-lg font-light text-gray-900">
+            €{product.price.toLocaleString('en-US')}
+          </p>
         )}
       </div>
     </div>
