@@ -103,7 +103,7 @@ export default function Header() {
                 bottom: -4px;
                 left: 0;
                 width: 0;
-                height: 1px;
+                height: 2px;
                 background-color: #ffffff;
                 transition: width 0.3s ease;
               }
