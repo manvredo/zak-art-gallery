@@ -36,7 +36,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           onLoad={() => setImageLoaded(true)}
         />
         {/* Overlay mit Text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-40 pl-64 md:pl-80 lg:pl-96 bg-black/30 p-8">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
           <h2 className="mb-6" style={{ color: '#ffffff', fontFamily: "'Vollkorn', serif", fontWeight: '400', fontSize: '42px', textShadow: '2px 2px 8px rgba(0,0,0,0.5)' }}>
             {t.welcome.title}
           </h2>
