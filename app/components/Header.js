@@ -41,11 +41,11 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      if (currentScrollY > lastScrollY && currentScrollY > 200) {
         // Scrolling down & past threshold - hide header
         setHeaderVisible(false);
-      } else {
-        // Scrolling up - show header
+      } else if (currentScrollY < 300) {
+        // Scrolling up & not near top - show header
         setHeaderVisible(true);
       }
 
