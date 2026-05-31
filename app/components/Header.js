@@ -16,6 +16,8 @@ const supabase = createClient(
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
@@ -25,7 +27,7 @@ export default function Header() {
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
     };
-    
+
     checkUser();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -34,6 +36,25 @@ export default function Header() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down & past threshold - hide header
+        setHeaderVisible(false);
+      } else {
+        // Scrolling up - show header
+        setHeaderVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const isActive = (path) => {
     if (path === '/') return pathname === '/';
@@ -48,7 +69,9 @@ export default function Header() {
     <header
       style={{
         background: isHomePage ? 'transparent !important' : '#f8f8f8 !important',
-        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.5)' : 'none'
+        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.5)' : 'none',
+        transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s ease-in-out'
       }}
       className="sticky top-0 z-50"
     >
