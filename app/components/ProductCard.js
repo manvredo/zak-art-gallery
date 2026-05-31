@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import FavoriteButton from './FavoriteButton';
 
-export default function ProductCard({ product, onClick, showAddToCart = false }) {
+export default function ProductCard({ product, onClick, showAddToCart = false, index = 0 }) {
   const { addToCart } = useCart();
   const { t } = useLanguage();
 
@@ -15,8 +15,24 @@ export default function ProductCard({ product, onClick, showAddToCart = false })
   };
 
   return (
+    <>
+      <style>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     <div
-      className="cursor-pointer group transition duration-300 hover:-translate-y-2"
+      className="cursor-pointer group"
+      style={{
+        animation: `slideUp 0.6s ease-out ${index * 0.1}s both`
+      }}
       onClick={onClick}
     >
       {/* Image Container with Rounded Corners */}
