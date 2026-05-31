@@ -20,7 +20,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
     <div className="w-full">
 
       {/* Hero Section - Full Cover with Parallax */}
-      <div className="relative w-full h-screen overflow-hidden">
+      <div className="relative w-full h-screen -mt-16 overflow-hidden">
         <img
           src="/images/hero-1920_01.jpg"
           srcSet="/images/hero-1920_01.jpg 1920w, /images/hero-3840_01.jpg 3840w"
