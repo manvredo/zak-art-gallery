@@ -64,26 +64,6 @@ export default function Header() {
               />
             </Link>
             
-            <style jsx>{`
-              .nav-link {
-                position: relative;
-                color: #ffffff;
-                transition: opacity 0.3s ease;
-              }
-              .nav-link::after {
-                content: '';
-                position: absolute;
-                bottom: -4px;
-                left: 0;
-                width: 0;
-                height: 1px;
-                background-color: #ffffff;
-                transition: width 0.3s ease;
-              }
-              .nav-link:hover::after {
-                width: 100%;
-              }
-            `}</style>
             <nav className="hidden lg:flex space-x-8 ml-24">
               <Link
                 href="/"
@@ -111,6 +91,26 @@ export default function Header() {
                 {t.nav.contact}
               </Link>
             </nav>
+            <style>{`
+              .nav-link {
+                position: relative;
+                color: #ffffff !important;
+                transition: opacity 0.3s ease;
+              }
+              .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 0;
+                height: 1px;
+                background-color: #ffffff;
+                transition: width 0.3s ease;
+              }
+              .nav-link:hover::after {
+                width: 100%;
+              }
+            `}</style>
           </div>
 
           {/* Right Icons */}
