@@ -64,33 +64,49 @@ export default function Header() {
               />
             </Link>
             
+            <style jsx>{`
+              .nav-link {
+                position: relative;
+                color: #ffffff;
+                transition: opacity 0.3s ease;
+              }
+              .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 0;
+                height: 1px;
+                background-color: #ffffff;
+                transition: width 0.3s ease;
+              }
+              .nav-link:hover::after {
+                width: 100%;
+              }
+            `}</style>
             <nav className="hidden lg:flex space-x-8 ml-24">
               <Link
                 href="/"
-                style={{ color: '#ffffff' }}
-                className="transition cursor-pointer uppercase hover:opacity-80"
+                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.welcome}
               </Link>
               <Link
                 href="/about"
-                style={{ color: '#ffffff' }}
-                className="transition cursor-pointer uppercase hover:opacity-80"
+                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.about}
               </Link>
               <Link
                 href="/shop"
-                style={{ color: '#ffffff' }}
-                className="transition cursor-pointer uppercase hover:opacity-80"
+                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.shop}
               </Link>
 
               <Link
                 href="/contact"
-                style={{ color: '#ffffff' }}
-                className="transition cursor-pointer uppercase hover:opacity-80"
+                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
               >
                 {t.nav.contact}
               </Link>
