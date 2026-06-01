@@ -65,9 +65,7 @@ export default function ShopPage() {
         <h2 className="text-4xl font-light text-gray-900 mb-4">
           {t.shop?.title || 'Shop'}
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          {t.shop?.subtitle || 'Welcome to the studio. Discover original landscape art created in classic oils, expressive oil sticks, or atmospheric charcoal. Each piece is a hand-signed original and is accompanied by a certificate of authenticity.'}
-        </p>
+        <p className="text-gray-600 max-w-2xl mx-auto" />
       </div>
 
       {/* Category Filter */}
