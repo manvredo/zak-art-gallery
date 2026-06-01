@@ -21,7 +21,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
       onClick={onClick}
     >
       {/* Image Container with Rounded Corners */}
-      <div className="relative aspect-square overflow-hidden rounded-xl mb-6 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_20px_rgba(86,86,86,0.4)] group-hover:translate-y-[7px] group-hover:scale-[1.016] group-hover:outline group-hover:outline-3 group-hover:outline-[#565656] transition-transform duration-200 ease-in transition-shadow duration-200 ease-in will-change-transform">
+      <div className="relative aspect-square overflow-hidden rounded-xl mb-6 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.4),0_6px_20px_rgba(86,86,86,0.4)] group-hover:translate-y-[7px] group-hover:scale-[1.016] group-hover:outline group-hover:outline-3 group-hover:outline-[#565656] transition-transform duration-200 ease-in transition-shadow duration-200 ease-in will-change-transform">
         <img
           src={product.image}
           alt={product.name}
