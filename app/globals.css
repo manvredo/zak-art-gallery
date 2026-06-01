@@ -27,6 +27,11 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
+/* Headings use Vollkorn */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-vollkorn), Georgia, serif;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
