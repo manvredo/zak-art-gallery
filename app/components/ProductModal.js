@@ -30,8 +30,8 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   };
 
   return (
-    <div 
-      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+    <div
+      className="fixed inset-0 bg-white/30 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <div 
