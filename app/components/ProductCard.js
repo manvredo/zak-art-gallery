@@ -21,7 +21,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
       onClick={onClick}
     >
       {/* Image Container with Rounded Corners */}
-      <div className="relative aspect-square overflow-hidden rounded-xl mb-3 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.4)] group-hover:translate-y-[5px] group-hover:scale-[1.03] group-hover:outline group-hover:outline-3 group-hover:outline-gray-300 transition-transform duration-200 ease-in transition-shadow duration-200 ease-in will-change-transform">
+      <div className="relative aspect-square overflow-hidden rounded-xl mb-6 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.4)] group-hover:translate-y-[5px] group-hover:scale-[1.03] group-hover:outline group-hover:outline-3 group-hover:outline-gray-300 transition-transform duration-200 ease-in transition-shadow duration-200 ease-in will-change-transform">
         <img
           src={product.image}
           alt={product.name}
@@ -38,7 +38,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
       <div className="pl-1">
         <p className="text-sm text-gray-500 mb-1">{product.artist}</p>
         <h3 className="text-base font-light text-gray-900 mb-1">{product.name}</h3>
-        <p className="text-xs text-gray-600 mb-3">{product.size}</p>
+        <p className="text-xs text-gray-600 mb-6">{product.size}</p>
 
         {showAddToCart ? (
           <div className="flex items-center justify-between mt-2">
