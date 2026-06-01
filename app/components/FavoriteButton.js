@@ -111,9 +111,9 @@ export default function FavoriteButton({ productId, className = '' }) {
         size={20}
         className={`
           transition-all duration-200
-          ${isFavorite 
-            ? 'fill-red-500 text-red-500' 
-            : 'text-gray-600 group-hover:text-red-500'
+          ${isFavorite
+            ? 'fill-black text-black'
+            : 'text-gray-600 group-hover:text-black'
           }
           ${loading ? 'animate-pulse' : ''}
         `}
