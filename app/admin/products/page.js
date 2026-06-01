@@ -43,12 +43,8 @@ const SIZE_FORMATS = [
 
 // Categories with German translation
 const CATEGORIES = [
-  'Landscape (Landschaft)',
-  'Seascape (Seelandschaft)',
-  'Portrait (Porträt)',
-  'Still Life (Stillleben)',
-  'Figurative (Figurativ)',
-  'Abstract (Abstrakt)',
+  'Originals',
+  'Prints',
 ];
 
 // Techniques with German translation
@@ -81,7 +77,7 @@ export default function AdminProductsPage() {
     name: '',
     artist: ARTIST_NAME,
     price: '',
-    category: 'Landscape',
+    category: 'Originals',
     size: '',
     technique: TECHNIQUES[0],
     year: CURRENT_YEAR,
@@ -289,7 +285,7 @@ export default function AdminProductsPage() {
       name: '',
       artist: ARTIST_NAME,
       price: '',
-      category: 'Landscape',
+      category: 'Originals',
       size: '',
       technique: TECHNIQUES[0],
       year: CURRENT_YEAR,
