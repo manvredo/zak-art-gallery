@@ -66,7 +66,7 @@ export default function ShopPage() {
           {t.shop?.title || 'Shop'}
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          {t.shop?.subtitle || 'Kaufen Sie originale Kunstwerke'}
+          {t.shop?.subtitle || 'Welcome to the studio. Discover original landscape art created in classic oils, expressive oil sticks, or atmospheric charcoal. Each piece is a hand-signed original and is accompanied by a certificate of authenticity.'}
         </p>
       </div>
 
