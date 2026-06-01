@@ -61,11 +61,11 @@ export default function ShopPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       
       {/* Header */}
-      <div className="mb-12 text-center">
-        <h2 className="text-4xl font-light text-gray-900 mb-4">
+      <div className="mb-12 flex items-center gap-4">
+        <h2 className="text-4xl font-light text-gray-900 whitespace-nowrap">
           {t.shop?.title || 'Shop'}
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto" />
+        <div className="flex-1 h-px bg-gray-300"></div>
       </div>
 
       {/* Category Filter */}
