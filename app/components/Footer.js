@@ -13,7 +13,7 @@ const Footer = () => {
           
           {/* About Section */}
           <div>
-            <h3 className="font-light text-xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>ZAK Fine Art</h3>
+            <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>ZAK Fine Art</h3>
             <p className="text-sm text-gray-600">
               {t.footer.about}
             </p>
@@ -21,7 +21,7 @@ const Footer = () => {
 
           {/* Customer Service Section */}
           <div>
-            <h3 className="font-light text-xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.customerService}</h3>
+            <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.customerService}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>
                 <Link href="/shipping" className="hover:text-gray-900">
@@ -48,7 +48,7 @@ const Footer = () => {
 
           {/* Legal Section */}
           <div>
-            <h3 className="font-light text-xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.legal}</h3>
+            <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.legal}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>
                 <Link href="/imprint" className="hover:text-gray-900">
@@ -80,7 +80,7 @@ const Footer = () => {
 
           {/* Contact Section */}
           <div>
-            <h3 className="font-light text-xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.contactTitle}</h3>
+            <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.contactTitle}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>info@manfredzak.com</li>
               <li>+49 (0) 39742 870978</li>
