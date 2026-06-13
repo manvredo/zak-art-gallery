@@ -75,7 +75,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         <h3 className="text-xl font-light text-gray-900 mb-6 text-center">
           {t.welcome.featured}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-[113px] gap-x-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-[113px] gap-x-8 max-w-7xl mx-auto">
           {featuredProducts.map((product, index) => (
             <ProductCard
               key={product.id}
