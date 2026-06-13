@@ -71,11 +71,11 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
       </div>
 
       {/* Featured Artworks */}
-      <div className="mb-12 px-8 scale-70 origin-center">
+      <div className="mb-12 px-8">
         <h3 className="text-xl font-light text-gray-900 mb-6 text-center">
           {t.welcome.featured}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-[113px] gap-x-8">
           {featuredProducts.map(product => (
             <ProductCard
               key={product.id}
