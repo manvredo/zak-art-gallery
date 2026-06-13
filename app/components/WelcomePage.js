@@ -76,12 +76,13 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           {t.welcome.featured}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-[113px] gap-x-8">
-          {featuredProducts.map(product => (
+          {featuredProducts.map((product, index) => (
             <ProductCard
               key={product.id}
               product={product}
               onClick={() => onProductClick(product)}
-              showAddToCart={false}
+              showAddToCart={true}
+              index={index}
             />
           ))}
         </div>
