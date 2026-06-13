@@ -99,50 +99,34 @@ export default function Header() {
             <nav className="hidden lg:flex space-x-8 ml-24">
               <Link
                 href="/"
-                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
+                className="transition cursor-pointer uppercase hover:opacity-80"
+                style={{ color: textColor, position: 'relative' }}
               >
                 {t.nav.welcome}
               </Link>
               <Link
                 href="/about"
-                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
+                className="transition cursor-pointer uppercase hover:opacity-80"
+                style={{ color: textColor, position: 'relative' }}
               >
                 {t.nav.about}
               </Link>
               <Link
                 href="/shop"
-                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
+                className="transition cursor-pointer uppercase hover:opacity-80"
+                style={{ color: textColor, position: 'relative' }}
               >
                 {t.nav.shop}
               </Link>
 
               <Link
                 href="/contact"
-                className="nav-link transition cursor-pointer uppercase hover:opacity-80"
+                className="transition cursor-pointer uppercase hover:opacity-80"
+                style={{ color: textColor, position: 'relative' }}
               >
                 {t.nav.contact}
               </Link>
             </nav>
-            <style>{`
-              .nav-link {
-                position: relative;
-                color: ${textColor} !important;
-                transition: opacity 0.3s ease;
-              }
-              .nav-link::after {
-                content: '';
-                position: absolute;
-                bottom: -4px;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background-color: ${textColor};
-                transition: width 0.3s ease;
-              }
-              .nav-link:hover::after {
-                width: 100%;
-              }
-            `}</style>
           </div>
 
           {/* Right Icons */}
@@ -152,18 +136,20 @@ export default function Header() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => language !== 'en' && toggleLanguage()}
-                className={`nav-link text-sm px-2 py-1 rounded transition cursor-pointer ${
+                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
                   language === 'en' ? 'font-bold' : ''
                 }`}
+                style={{ color: textColor }}
               >
                 EN
               </button>
               <span style={{ color: textColor }} className="opacity-50">/</span>
               <button
                 onClick={() => language !== 'de' && toggleLanguage()}
-                className={`nav-link text-sm px-2 py-1 rounded transition cursor-pointer ${
+                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
                   language === 'de' ? 'font-bold' : ''
                 }`}
+                style={{ color: textColor }}
               >
                 DE
               </button>
@@ -197,7 +183,8 @@ export default function Header() {
             
             <Link
               href="/cart"
-              className="nav-link relative cursor-pointer"
+              className="relative cursor-pointer"
+              style={{ color: textColor }}
             >
               <ShoppingCart size={20} />
               {cartItemCount > 0 && (
@@ -217,21 +204,24 @@ export default function Header() {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
+              className="block w-full text-left cursor-pointer uppercase"
+              style={{ color: textColor }}
             >
               {t.nav.welcome}
             </Link>
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
+              className="block w-full text-left cursor-pointer uppercase"
+              style={{ color: textColor }}
             >
               {t.nav.about}
             </Link>
             <Link
               href="/shop"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
+              className="block w-full text-left cursor-pointer uppercase"
+              style={{ color: textColor }}
             >
               {t.nav.shop}
             </Link>
@@ -239,16 +229,18 @@ export default function Header() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 cursor-pointer uppercase"
+              className="block w-full text-left cursor-pointer uppercase"
+              style={{ color: textColor }}
             >
               {t.nav.contact}
             </Link>
-            
+
             <div className="border-t border-gray-200 pt-3 mt-3">
               {user ? (
                 <Link
                   href="/profile"
-                  className="block py-2 text-gray-700 hover:text-gray-900"
+                  className="block py-2 cursor-pointer"
+                  style={{ color: textColor }}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   👤 {t.nav.account}
@@ -257,14 +249,16 @@ export default function Header() {
                 <>
                   <Link
                     href="/login"
-                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    className="block py-2 cursor-pointer"
+                    style={{ color: textColor }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {t.nav.login}
                   </Link>
                   <Link
                     href="/register"
-                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    className="block py-2 cursor-pointer"
+                    style={{ color: textColor }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {t.nav.register}

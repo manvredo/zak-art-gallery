@@ -1,83 +1,225 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Package, ShoppingCart, FileText, TrendingUp, Plus, Edit } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+import Link from 'next/link';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export default function AdminPage() {
-  const [orders, setOrders] = useState([]);
+export default function AdminDashboard() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({
+    products: 0,
+    orders: 0,
+    content: 0,
+    revenue: 0
+  });
+  const [recentProducts, setRecentProducts] = useState([]);
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    const auth = sessionStorage.getItem('admin_authenticated');
 
-  const fetchOrders = async () => {
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error:', error);
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+      fetchDashboardData();
     } else {
-      setOrders(data);
+      router.push('/admin/login');
     }
-    setLoading(false);
+  }, [router]);
+
+  const fetchDashboardData = async () => {
+    try {
+      const { data: products, error: productsError } = await supabase
+        .from('products')
+        .select('id, name, price, image, created_at')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (!productsError) {
+        setStats(prev => ({ ...prev, products: products?.length || 0 }));
+        setRecentProducts(products || []);
+      }
+
+      const { count: ordersCount } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true });
+
+      setStats(prev => ({ ...prev, orders: ordersCount || 0 }));
+
+      const { count: contentCount } = await supabase
+        .from('content')
+        .select('*', { count: 'exact', head: true });
+
+      setStats(prev => ({ ...prev, content: contentCount || 0 }));
+
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-light text-gray-900 mb-8">Order Management</h1>
-        
-        {loading ? (
-          <p>Loading...</p>
-        ) : orders.length === 0 ? (
-          <p className="text-gray-600">No orders yet</p>
-        ) : (
-          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {orders.map((order) => (
-                  <tr key={order.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {new Date(order.created_at).toLocaleDateString('de-DE')}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {order.customer_name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                      {order.customer_email}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      €{(order.amount_total / 100).toFixed(2)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {order.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Lade Dashboard...</p>
+        </div>
       </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      {/* Welcome Message */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h2>
+        <p className="text-gray-600">Willkommen zurück im Admin-Bereich! 👋</p>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-3 bg-blue-100 rounded-lg">
+              <Package size={24} className="text-blue-600" />
+            </div>
+          </div>
+          <h3 className="text-3xl font-bold text-gray-900 mb-1">{stats.products}</h3>
+          <p className="text-sm text-gray-600">Kunstwerke</p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-3 bg-green-100 rounded-lg">
+              <ShoppingCart size={24} className="text-green-600" />
+            </div>
+          </div>
+          <h3 className="text-3xl font-bold text-gray-900 mb-1">{stats.orders}</h3>
+          <p className="text-sm text-gray-600">Bestellungen</p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-3 bg-purple-100 rounded-lg">
+              <FileText size={24} className="text-purple-600" />
+            </div>
+          </div>
+          <h3 className="text-3xl font-bold text-gray-900 mb-1">{stats.content}</h3>
+          <p className="text-sm text-gray-600">Content-Artikel</p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-3 bg-amber-100 rounded-lg">
+              <TrendingUp size={24} className="text-amber-600" />
+            </div>
+          </div>
+          <h3 className="text-3xl font-bold text-gray-900 mb-1">€{stats.revenue}</h3>
+          <p className="text-sm text-gray-600">Umsatz</p>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 mb-8">
+        <h3 className="text-xl font-semibold text-gray-900 mb-6">Schnellzugriff</h3>
+
+        {/* Shop Section */}
+        <div className="mb-6">
+          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">🛒 Shop</h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link
+              href="/admin/shop"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition text-center group"
+            >
+              <Package size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-green-600" />
+              <p className="font-semibold text-gray-900">Produkte verwalten</p>
+            </Link>
+
+            <Link
+              href="/admin/orders"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition text-center group"
+            >
+              <ShoppingCart size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-green-600" />
+              <p className="font-semibold text-gray-900">Bestellungen</p>
+            </Link>
+          </div>
+        </div>
+
+        {/* Content Section */}
+        <div>
+          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">📝 Content</h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link
+              href="/admin/vita"
+              className="p-6 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition text-center group"
+            >
+              <FileText size={32} className="mx-auto mb-3 text-gray-700 group-hover:text-purple-600" />
+              <p className="font-semibold text-gray-900">Vita bearbeiten</p>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Products */}
+      {recentProducts.length > 0 && (
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-semibold text-gray-900">Neueste Produkte</h3>
+            <Link href="/admin/shop" className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+              Alle anzeigen →
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-5 gap-4">
+            {recentProducts.map(product => (
+              <div
+                key={product.id}
+                className="group"
+              >
+                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-2">
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <Package size={32} className="text-gray-400" />
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm font-medium text-gray-900 truncate group-hover:text-blue-600">
+                  {product.name}
+                </p>
+                <p className="text-sm text-gray-600">€{product.price}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Info Box */}
+      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white">
+        <h3 className="text-xl font-semibold mb-2">🔒 Sicherheitshinweis</h3>
+        <p className="text-blue-50">
+          Ändern Sie das Admin-Passwort regelmäßig und teilen Sie die Zugangsdaten nicht mit anderen.
+        </p>
+      </div>
+
     </div>
   );
 }

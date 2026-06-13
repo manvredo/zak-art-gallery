@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
 
       // 3. Redirect zum Admin-Dashboard
       setTimeout(() => {
-        router.push('/admin/gallery');
+        router.push('/admin');
       }, 500);
 
     } catch (error) {
