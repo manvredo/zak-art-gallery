@@ -57,6 +57,17 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
               {t.welcome.visitShop}
             </Link>
           </div>
+          <div className="mt-6">
+            <a
+              href="https://artwingman.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/80 hover:text-white text-sm transition"
+              style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}
+            >
+              Art Wingman →
+            </a>
+          </div>
         </div>
       </div>
 
