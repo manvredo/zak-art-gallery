@@ -62,10 +62,9 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
               href="https://artwingman.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/80 hover:text-white text-sm transition"
-              style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}
+              className="px-6 py-2 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
             >
-              Art Wingman →
+              Art Wingman
             </a>
           </div>
         </div>
