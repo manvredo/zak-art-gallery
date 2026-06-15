@@ -135,7 +135,7 @@ export default function Header() {
                 <img
                   src="/images/artwingman-logo.svg"
                   alt="Artwingman"
-                  className="h-10 cursor-pointer"
+                  className="h-8 cursor-pointer"
                 />
                 <span className="uppercase">Artwingman</span>
               </Link>
