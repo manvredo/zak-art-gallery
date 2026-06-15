@@ -127,22 +127,21 @@ export default function Header() {
                 {t.nav.contact}
               </Link>
 
-              <Link
-                href="/artwingman"
-                className="transition cursor-pointer flex items-center gap-2 hover:opacity-80 ml-6"
-              >
+              <div className="flex items-center gap-2 ml-6">
                 <img
                   src="/images/artwingman-logo.svg"
                   alt="Artwingman"
                   className="h-8 cursor-pointer"
+                  onClick={() => window.location.href = '/artwingman'}
                 />
-                <span
-                  className="uppercase relative pb-1"
-                  style={{ color: textColor }}
+                <Link
+                  href="/artwingman"
+                  className="transition cursor-pointer uppercase hover:opacity-80"
+                  style={{ color: textColor, position: 'relative' }}
                 >
                   Artwingman
-                </span>
-              </Link>
+                </Link>
+              </div>
             </nav>
           </div>
 
