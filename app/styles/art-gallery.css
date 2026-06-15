@@ -86,10 +86,14 @@ nav a {
   font-size: 0.95rem;
   transition: color 0.2s ease;
   letter-spacing: 0.01em;
-  position: relative;
 }
 
-nav a::after {
+nav a:hover {
+  color: var(--color-accent);
+}
+
+/* Artwingman text underline */
+nav a span.uppercase::after {
   content: '';
   position: absolute;
   bottom: -3px;
@@ -100,11 +104,47 @@ nav a::after {
   transition: width 0.3s ease;
 }
 
-nav a:hover {
-  color: var(--color-accent);
+nav a span.uppercase:hover::after {
+  width: 100%;
 }
 
-nav a:hover::after {
+/* EN/DE language buttons */
+header button:not(.rounded-full) {
+  position: relative;
+}
+
+header button:not(.rounded-full)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+header button:not(.rounded-full):hover::after {
+  width: 100%;
+}
+
+/* Cart link */
+header a[href="/cart"] {
+  position: relative;
+}
+
+header a[href="/cart"]::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+header a[href="/cart"]:hover::after {
   width: 100%;
 }
 
