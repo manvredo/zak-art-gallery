@@ -96,7 +96,7 @@ export default function Header() {
               />
             </Link>
 
-            <nav className="hidden lg:flex space-x-8 ml-24">
+            <nav className="hidden lg:flex items-center space-x-8 ml-24">
               <Link
                 href="/"
                 className="transition cursor-pointer uppercase hover:opacity-80"
