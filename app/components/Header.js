@@ -126,6 +126,14 @@ export default function Header() {
               >
                 {t.nav.contact}
               </Link>
+
+              <Link
+                href="/artwingman"
+                className="transition cursor-pointer uppercase hover:opacity-80"
+                style={{ color: textColor, position: 'relative' }}
+              >
+                Artwingman
+              </Link>
             </nav>
           </div>
 
@@ -233,6 +241,15 @@ export default function Header() {
               style={{ color: textColor }}
             >
               {t.nav.contact}
+            </Link>
+
+            <Link
+              href="/artwingman"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left cursor-pointer uppercase"
+              style={{ color: textColor }}
+            >
+              Artwingman
             </Link>
 
             <div className="border-t border-gray-200 pt-3 mt-3">
