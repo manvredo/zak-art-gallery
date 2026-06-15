@@ -117,15 +117,16 @@ header button:not(.rounded-full)::after {
   content: '';
   position: absolute;
   bottom: -2px;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
   height: 2px;
   background: currentColor;
   transition: width 0.3s ease;
 }
 
 header button:not(.rounded-full):hover::after {
-  width: 100%;
+  width: max-content;
 }
 
 /* ==========================================
