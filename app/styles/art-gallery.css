@@ -80,14 +80,16 @@ header {
   box-shadow: var(--shadow-sm);
 }
 
-/* Header Links - Global for all header interactive elements */
-header a,
-header button {
+nav a {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+  letter-spacing: 0.01em;
   position: relative;
 }
 
-header a::after,
-header button::after {
+nav a::after {
   content: '';
   position: absolute;
   bottom: -3px;
@@ -98,21 +100,12 @@ header button::after {
   transition: width 0.3s ease;
 }
 
-header a:hover::after,
-header button:hover::after {
-  width: 100%;
-}
-
-nav a {
-  color: var(--color-text-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color 0.2s ease;
-  letter-spacing: 0.01em;
-}
-
 nav a:hover {
   color: var(--color-accent);
+}
+
+nav a:hover::after {
+  width: 100%;
 }
 
 /* ==========================================
