@@ -129,13 +129,13 @@ export default function Header() {
 
               <Link
                 href="/artwingman"
-                className="transition cursor-pointer flex items-center gap-2 hover:opacity-80"
+                className="transition cursor-pointer flex items-center gap-2 hover:opacity-80 ml-6"
                 style={{ color: textColor, position: 'relative' }}
               >
                 <img
                   src="/images/artwingman-logo.svg"
                   alt="Artwingman"
-                  className="h-6"
+                  className="h-10 cursor-pointer"
                 />
                 <span className="uppercase">Artwingman</span>
               </Link>
