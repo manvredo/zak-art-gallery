@@ -88,13 +88,27 @@ export default function Header() {
 
           {/* Logo & Navigation - Centered */}
           <div className="flex items-center justify-center flex-1">
-            <Link href="/">
-              <img
-                src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png"
-                alt="ZAK Fine Art Logo"
-                className="h-10 cursor-pointer"
-              />
-            </Link>
+            {/* Brand Section */}
+            <div className="flex items-center gap-3">
+              <Link href="/">
+                <img
+                  src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png"
+                  alt="ZAK Fine Art Logo"
+                  className="h-10 cursor-pointer"
+                />
+              </Link>
+              <Link
+                href="/artwingman"
+                className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
+              >
+                <img
+                  src="/images/artwingman-logo.svg"
+                  alt="Artwingman"
+                  className="h-8 cursor-pointer"
+                />
+                <span className="uppercase" style={{ color: textColor }}>Artwingman</span>
+              </Link>
+            </div>
 
             <nav className="hidden lg:flex items-center space-x-8 ml-24">
               <Link
@@ -126,22 +140,6 @@ export default function Header() {
               >
                 {t.nav.contact}
               </Link>
-
-              <div className="flex items-center gap-2 ml-6">
-                <img
-                  src="/images/artwingman-logo.svg"
-                  alt="Artwingman"
-                  className="h-8 cursor-pointer"
-                  onClick={() => window.location.href = '/artwingman'}
-                />
-                <Link
-                  href="/artwingman"
-                  className="transition cursor-pointer uppercase hover:opacity-80"
-                  style={{ color: textColor, position: 'relative' }}
-                >
-                  Artwingman
-                </Link>
-              </div>
             </nav>
           </div>
 
