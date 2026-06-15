@@ -4,10 +4,16 @@ import Link from 'next/link';
 import ProductCard from './ProductCard';
 import { useLanguage } from '../context/LanguageContext';
 
+const heroImages = [
+  { desktop: '/images/hero-1920_01.jpg', full: '/images/hero-3840_01.jpg' },
+  { desktop: '/images/hero-1920_02.jpg', full: '/images/hero-3840_02.jpg' },
+];
+
 export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true }) {
   const { t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [currentHero, setCurrentHero] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,24 +23,34 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHero((prev) => (prev + 1) % heroImages.length);
+      setImageLoaded(false);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="w-full">
 
-      {/* Hero Section - Full Cover with Parallax */}
+      {/* Hero Section - Full Cover with Parallax & Image Rotation */}
       <div className="relative w-full h-screen -mt-16 overflow-hidden bg-[#0f0f0f]">
-        <img
-          src="/images/hero-1920_01.jpg"
-          srcSet="/images/hero-1920_01.jpg 1920w, /images/hero-3840_01.jpg 3840w"
-          sizes="100vw"
-          alt="Hero"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transform: `translateY(${scrollY * 0.5}px)`,
-            opacity: imageLoaded ? 1 : 0,
-            transition: 'opacity 1.5s ease-in-out'
-          }}
-          onLoad={() => setImageLoaded(true)}
-        />
+        {heroImages.map((img, index) => (
+          <img
+            key={index}
+            src={img.desktop}
+            srcSet={`${img.desktop} 1920w, ${img.full} 3840w`}
+            sizes="100vw"
+            alt={`Hero ${index + 1}`}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+            style={{
+              transform: `translateY(${scrollY * 0.5}px)`,
+              opacity: index === currentHero ? 1 : 0,
+            }}
+            onLoad={() => setImageLoaded(true)}
+          />
+        ))}
         {/* Overlay mit Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
           <h2 className="mb-6" style={{ color: '#ffffff', fontFamily: "'Vollkorn', serif", fontWeight: '400', fontSize: '42px', textShadow: '2px 2px 8px rgba(0,0,0,0.5)' }}>
