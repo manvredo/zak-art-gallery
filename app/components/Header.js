@@ -137,7 +137,7 @@ export default function Header() {
                 <Link
                   href="/artwingman"
                   className="transition cursor-pointer uppercase hover:opacity-80"
-                  style={{ color: textColor, position: 'relative' }}
+                  style={{ color: textColor, position: 'relative', marginLeft: '8px' }}
                 >
                   Artwingman
                 </Link>
