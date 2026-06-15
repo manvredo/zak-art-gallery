@@ -62,9 +62,11 @@ export default function AboutPage() {
       {/* About Me */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 gap-16 items-start">
-          <div className="aspect-[3/4] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
-            {language === 'de' ? 'Foto folgt' : 'Photo coming soon'}
-          </div>
+          <img
+            src="/about/Camera_01.png"
+            alt={language === 'de' ? 'Manfred Zak' : 'Manfred Zak'}
+            className="aspect-[3/4] object-cover rounded-sm"
+          />
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
             <h2 className="text-3xl font-light text-gray-900">
               {language === 'de' ? 'Über mich' : 'About Me'}
