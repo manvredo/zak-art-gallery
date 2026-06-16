@@ -104,9 +104,11 @@ export default function AboutPage() {
 
         {/* Photo 1 left · paragraphs 1–2 right */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <div className="aspect-[4/3] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
-            {language === 'de' ? 'Foto 1 folgt' : 'Photo 1 coming soon'}
-          </div>
+          <img
+            src="/about/Work_01.jpg"
+            alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
+            className="aspect-[4/3] object-cover rounded-sm"
+          />
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
             {workParagraphs.slice(0, 2).map((text, i) => (
               <p key={i}>{text}</p>
