@@ -49,18 +49,18 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Hero */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-light tracking-wide text-gray-900 mb-4">ZAK</h1>
-          <p className="text-xl text-gray-500 font-light">
-            {language === 'de' ? 'Künstler · Maler · Illustrator' : 'Artist · Painter · Illustrator'}
-          </p>
+      {/* About Header */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+        <div className="mb-12 flex items-center gap-4">
+          <h1 className="text-4xl font-light text-gray-900 whitespace-nowrap font-sans tracking-wide">
+            ABOUT
+          </h1>
+          <div className="flex-1 h-px bg-gray-300"></div>
         </div>
-      </section>
+      </div>
 
       {/* About Me */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="grid md:grid-cols-2 gap-16 items-start">
           <img
             src="/about/Camera_01.png"
