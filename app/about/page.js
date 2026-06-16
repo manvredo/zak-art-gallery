@@ -50,7 +50,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white">
 
       {/* About Header */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12 flex items-center gap-4">
           <h1 className="text-4xl font-light text-gray-900 whitespace-nowrap font-sans tracking-wide">
             ABOUT
