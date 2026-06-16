@@ -139,18 +139,18 @@ export default function HeroSlider() {
 
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full transition-all"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/30 hover:bg-black/50 backdrop-blur-sm rounded-full transition-all cursor-pointer"
         aria-label="Vorheriges Bild"
       >
-        <ChevronLeft className="w-8 h-8 text-white" />
+        <ChevronLeft className="w-10 h-10 text-white" />
       </button>
-      
+
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full transition-all"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/30 hover:bg-black/50 backdrop-blur-sm rounded-full transition-all cursor-pointer"
         aria-label="Nächstes Bild"
       >
-        <ChevronRight className="w-8 h-8 text-white" />
+        <ChevronRight className="w-10 h-10 text-white" />
       </button>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-3">
@@ -158,10 +158,10 @@ export default function HeroSlider() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide 
-                ? 'bg-white w-8' 
-                : 'bg-white/50 hover:bg-white/70'
+            className={`w-4 h-4 rounded-full transition-all duration-300 cursor-pointer ${
+              index === currentSlide
+                ? 'bg-white w-10'
+                : 'bg-white/50 hover:bg-white/80'
             }`}
             aria-label={`Slide ${index + 1}`}
           />
