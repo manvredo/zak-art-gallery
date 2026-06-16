@@ -54,6 +54,22 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             onLoad={() => setImageLoaded(true)}
           />
         ))}
+        {/* Navigation Dots */}
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentHero(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                index === currentHero
+                  ? 'bg-white w-8'
+                  : 'bg-white/50 hover:bg-white/80'
+              }`}
+              aria-label={`Bild ${index + 1}`}
+            />
+          ))}
+        </div>
+
         {/* Overlay mit Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
           <h2 className="mb-6" style={{ color: '#ffffff', fontFamily: "'Vollkorn', serif", fontWeight: '400', fontSize: '42px', textShadow: '2px 2px 8px rgba(0,0,0,0.5)' }}>
