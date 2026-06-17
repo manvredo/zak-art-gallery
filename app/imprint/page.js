@@ -46,7 +46,7 @@ export default function ImprintPage() {
               <div>
                 <p className="font-medium text-gray-900">Contact</p>
                 <p>Email: info@manfredzak.com</p>
-                <p>Phone: +49 (0) 39742 870978</p>
+                <p>Phone: +49 (0) 176 4824300</p>
 				<p>Phone: +49 (0) 152 25179626</p>
               </div>
 

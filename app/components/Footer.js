@@ -83,7 +83,7 @@ const Footer = () => {
             <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.contactTitle}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>info@manfredzak.com</li>
-              <li>+49 (0) 39742 870978</li>
+              <li>+49 (0) 176 4824300</li>
 			  <li>+49 (0) 152 25179626</li>
               <li>{t.footer.monFri}</li>
             </ul>
