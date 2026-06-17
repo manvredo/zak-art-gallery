@@ -46,10 +46,12 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             srcSet={`${img.desktop} 1920w, ${img.full} 3840w`}
             sizes="100vw"
             alt={`Hero ${index + 1}`}
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+              index === currentHero ? 'opacity-100' : 'opacity-0'
+            }`}
             style={{
               transform: `translateY(${scrollY * 0.5}px)`,
-              opacity: index === currentHero ? 1 : 0,
+              willChange: 'opacity',
             }}
             onLoad={() => setImageLoaded(true)}
           />
