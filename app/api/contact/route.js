@@ -51,7 +51,7 @@ export async function POST(request) {
 
     // Email an dich senden
     await resend.emails.send({
-      from: 'ZAK Fine Art <info@zakartgallery.com>',
+      from: 'ZAK Fine Art <info@manfredzak.com>',
       to: ['info@manfredzak.com'],
       replyTo: email,
       subject: `🎨 ZAK Fine Art Contact: ${name}`,
@@ -72,7 +72,7 @@ export async function POST(request) {
 
     // Bestätigungs-Email an Kunde
     await resend.emails.send({
-      from: 'ZAK Fine Art <info@zakartgallery.com>',
+      from: 'ZAK Fine Art <info@manfredzak.com>',
       to: [email],
       subject: 'Thank you for contacting ZAK Fine Art',
       html: `
@@ -90,7 +90,7 @@ export async function POST(request) {
             ZAK Fine Art<br>
             Großbeerenstr. 15<br>
             10963 Berlin<br>
-            info@zakartgallery.com
+            info@manfredzak.com
           </p>
         </div>
       `
