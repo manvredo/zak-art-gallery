@@ -51,14 +51,13 @@ export async function POST(request) {
     // Transporter erstellen
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
-      port: parseInt(process.env.EMAIL_PORT || '465'),
-      secure: true,
+      port: parseInt(process.env.EMAIL_PORT || '587'),
+      secure: false, // 587 = STARTTLS
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
       },
       tls: {
-        ciphers: 'SSLv3',
         rejectUnauthorized: false
       }
     });
@@ -119,8 +118,9 @@ export async function POST(request) {
 
   } catch (error) {
     console.error('Contact form error:', error);
+    console.error('Email error details:', error.response || error.code || error.message);
     return NextResponse.json(
-      { error: 'Failed to send message. Please try again later.' },
+      { error: 'Failed to send message. Please try again later.', details: error.message },
       { status: 500 }
     );
   }
