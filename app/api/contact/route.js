@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
@@ -7,7 +9,6 @@ export async function POST(request) {
 
     // Honeypot Check (Bot-Schutz)
     if (website) {
-      // Wenn das versteckte "website" Feld ausgefüllt ist = Bot
       return NextResponse.json(
         { success: true, message: 'Message sent successfully' },
         { status: 200 }
@@ -31,7 +32,7 @@ export async function POST(request) {
       );
     }
 
-    // Längen-Validierung (Schutz vor extrem langen Inputs)
+    // Längen-Validisierung
     if (name.length > 100 || email.length > 100 || message.length > 5000) {
       return NextResponse.json(
         { error: 'Input too long' },
@@ -39,7 +40,7 @@ export async function POST(request) {
       );
     }
 
-    // Name Validierung (nur Buchstaben, Leerzeichen, Bindestriche)
+    // Name Validierung
     const nameRegex = /^[a-zA-ZäöüÄÖÜß\s\-']+$/;
     if (!nameRegex.test(name)) {
       return NextResponse.json(
@@ -48,27 +49,12 @@ export async function POST(request) {
       );
     }
 
-    // Transporter erstellen
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: parseInt(process.env.EMAIL_PORT || '587'),
-      secure: false, // 587 = STARTTLS
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      },
-      tls: {
-        rejectUnauthorized: false
-      }
-    });
-
-    // Email an dich
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_TO,
+    // Email an dich senden
+    await resend.emails.send({
+      from: 'ZAK Fine Art <info@zakartgallery.com>',
+      to: ['info@manfredzak.com'],
       replyTo: email,
       subject: `🎨 ZAK Fine Art Contact: ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333;">New Contact Form Submission</h2>
@@ -85,11 +71,10 @@ export async function POST(request) {
     });
 
     // Bestätigungs-Email an Kunde
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
+    await resend.emails.send({
+      from: 'ZAK Fine Art <info@zakartgallery.com>',
+      to: [email],
       subject: 'Thank you for contacting ZAK Fine Art',
-      text: `Dear ${name},\n\nThank you for your message. We will get back to you soon.\n\nBest regards,\nZAK Fine Art`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333;">Thank you for contacting us</h2>
@@ -118,7 +103,6 @@ export async function POST(request) {
 
   } catch (error) {
     console.error('Contact form error:', error);
-    console.error('Email error details:', error.response || error.code || error.message);
     return NextResponse.json(
       { error: 'Failed to send message. Please try again later.', details: error.message },
       { status: 500 }
