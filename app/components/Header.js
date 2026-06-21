@@ -104,67 +104,69 @@ export default function Header() {
             <nav className="hidden lg:flex items-center space-x-8 ml-24">
               <Link
                 href="/"
-                className="transition cursor-pointer uppercase hover:opacity-80"
-                style={{ color: textColor, position: 'relative' }}
+                className="relative group transition cursor-pointer uppercase"
+                style={{ color: textColor }}
               >
                 {t.nav.welcome}
+                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </Link>
               <Link
                 href="/about"
-                className="transition cursor-pointer uppercase hover:opacity-80"
-                style={{ color: textColor, position: 'relative' }}
+                className="relative group transition cursor-pointer uppercase"
+                style={{ color: textColor }}
               >
                 {t.nav.about}
+                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </Link>
               <Link
                 href="/shop"
-                className="transition cursor-pointer uppercase hover:opacity-80"
-                style={{ color: textColor, position: 'relative' }}
+                className="relative group transition cursor-pointer uppercase"
+                style={{ color: textColor }}
               >
                 {t.nav.shop}
+                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </Link>
 
               <Link
                 href="/contact"
-                className="transition cursor-pointer uppercase hover:opacity-80"
-                style={{ color: textColor, position: 'relative' }}
+                className="relative group transition cursor-pointer uppercase"
+                style={{ color: textColor }}
               >
                 {t.nav.contact}
+                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </Link>
 
               <Link
                 href="/artwingman"
-                className="transition cursor-pointer uppercase hover:opacity-80 ml-6"
-                style={{ color: textColor, position: 'relative' }}
+                className="relative group transition cursor-pointer uppercase ml-6"
+                style={{ color: textColor }}
               >
                 Artwingman
+                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </Link>
             </nav>
           </div>
 
           {/* Right Icons */}
           <div className="flex items-center space-x-4">
-            {/* ✅ OPTION B: Beide Flaggen (eine ausgegraut) */}
-            {/* Language Switch */}
+            {/* Language Switch mit animiertem Strich */}
             <div className="flex items-center gap-1">
               <button
                 onClick={() => language !== 'en' && toggleLanguage()}
-                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
-                  language === 'en' ? 'font-bold' : ''
-                }`}
+                className="relative group text-sm px-2 py-1 rounded cursor-pointer"
                 style={{ color: textColor }}
               >
-                EN
+                <span className={language === 'en' ? 'font-bold' : ''}>EN</span>
+                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </button>
               <span style={{ color: textColor }} className="opacity-50">/</span>
               <button
                 onClick={() => language !== 'de' && toggleLanguage()}
-                className={`text-sm px-2 py-1 rounded transition cursor-pointer ${
-                  language === 'de' ? 'font-bold' : ''
-                }`}
+                className="relative group text-sm px-2 py-1 rounded cursor-pointer"
                 style={{ color: textColor }}
               >
-                DE
+                <span className={language === 'de' ? 'font-bold' : ''}>DE</span>
+                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </button>
             </div>
             
@@ -196,7 +198,7 @@ export default function Header() {
             
             <Link
               href="/cart"
-              className="relative cursor-pointer"
+              className="relative cursor-pointer transition-transform duration-300 hover:scale-110"
               style={{ color: textColor }}
             >
               <ShoppingCart size={20} />
