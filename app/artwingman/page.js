@@ -57,7 +57,7 @@ export default function ArtwingmanPage() {
               <p key={i} style={{ fontFamily: "'Inter', Arial, sans-serif" }}>{text}</p>
             ))}
             <a
-              href="https://artwingman.com/about"
+              href="https://artwingman.com/app"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-4 border border-gray-900 text-gray-900 px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-900 hover:text-white transition"
