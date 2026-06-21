@@ -55,8 +55,12 @@ export default function ArtwingmanPage() {
       {/* About Artwingman */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="grid md:grid-cols-2 gap-16 items-start">
-          <div className="aspect-[3/4] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
-            {language === 'de' ? 'Bild: App-Oberfläche folgt' : 'Image: App interface coming soon'}
+          <div className="aspect-[3/4] rounded-sm overflow-hidden bg-gray-100">
+            <img
+              src="/artwingman/Artwingman_01.png"
+              alt="Artwingman App-Oberfläche"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
             <h2
@@ -105,8 +109,12 @@ export default function ArtwingmanPage() {
 
         {/* Feature Image 1 left · paragraphs 1–2 right */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <div className="aspect-[4/3] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
-            {language === 'de' ? 'Bild: KI-Analyse folgt' : 'Image: AI analysis coming soon'}
+          <div className="aspect-[4/3] rounded-sm overflow-hidden bg-gray-100">
+            <img
+              src="/artwingman/Artwingman_02.png"
+              alt="Artwingman KI-Analyse"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
             {featureParagraphs.slice(0, 2).map((text, i) => (
