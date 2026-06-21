@@ -1,5 +1,17 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/app/context/LanguageContext';
+
+const heroSlides = [
+  {
+    desktop: '/artwingman/Artwingman-1920_01.jpg',
+    full: '/artwingman/Artwingman-3840_01.jpg',
+  },
+  {
+    desktop: '/artwingman/Artwingman-1920_02.jpg',
+    full: '/artwingman/Artwingman-3840_02.jpg',
+  },
+];
 
 const artwingmanIntro = {
   de: [
@@ -33,53 +45,114 @@ const features = {
 
 export default function ArtwingmanPage() {
   const { language } = useLanguage();
+  const [scrollY, setScrollY] = useState(0);
+  const [currentHero, setCurrentHero] = useState(0);
+  const [initialFadeIn, setInitialFadeIn] = useState(false);
+
+  useEffect(() => {
+    setInitialFadeIn(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHero((prev) => (prev + 1) % heroSlides.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   const paragraphs = language === 'de' ? artwingmanIntro.de : artwingmanIntro.en;
   const featureParagraphs = language === 'de' ? features.paragraphs.de : features.paragraphs.en;
 
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Artwingman Header */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12 flex items-center gap-4">
+      {/* Hero Section - Full Screen Slider wie auf der Hauptseite */}
+      <div className="relative w-full h-screen -mt-16 overflow-hidden bg-[#0f0f0f]">
+        {heroSlides.map((img, index) => (
+          <img
+            key={index}
+            src={img.desktop}
+            srcSet={`${img.desktop} 1920w, ${img.full} 3840w`}
+            sizes="100vw"
+            alt={`Artwingman ${index + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+              index === currentHero && initialFadeIn ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{
+              transform: `translateY(${scrollY * 0.5}px)`,
+              willChange: 'opacity',
+            }}
+          />
+        ))}
+
+        {/* Overlay mit Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
           <h1
-            className="text-4xl font-light text-gray-900 whitespace-nowrap font-sans tracking-wide"
-            style={{ fontFamily: "'Vollkorn', Georgia, serif" }}
+            className="mb-4"
+            style={{
+              color: '#ffffff',
+              fontFamily: "'Vollkorn', serif",
+              fontWeight: '400',
+              fontSize: '56px',
+              textShadow: '2px 2px 8px rgba(0,0,0,0.5)',
+              letterSpacing: '0.1em',
+            }}
           >
             ARTWINGMAN
           </h1>
-          <div className="flex-1 h-px bg-gray-300"></div>
+          <p
+            className="text-xl md:text-2xl"
+            style={{
+              color: '#ffffff',
+              fontFamily: 'var(--font-inter), sans-serif',
+              fontWeight: '300',
+              textShadow: '1px 1px 4px rgba(0,0,0,0.5)',
+            }}
+          >
+            {language === 'de' ? 'Kunst trifft Technologie' : 'Where Art Meets Technology'}
+          </p>
+        </div>
+
+        {/* Navigation Dots */}
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentHero(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                index === currentHero
+                  ? 'bg-white w-8'
+                  : 'bg-white/50 hover:bg-white/80'
+              }`}
+              aria-label={`Slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
 
-      {/* About Artwingman */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid md:grid-cols-2 gap-16 items-start">
-          <div className="aspect-[3/4] rounded-sm overflow-hidden bg-gray-100">
-            <img
-              src="/artwingman/Artwingman_01.png"
-              alt="Artwingman App-Oberfläche"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="space-y-6 text-gray-700 font-light leading-relaxed">
-            <h2
-              className="text-3xl font-light text-gray-900"
-              style={{ fontFamily: "'Vollkorn', Georgia, serif" }}
-            >
-              {language === 'de' ? 'Was ist Artwingman?' : 'What is Artwingman?'}
-            </h2>
-            {paragraphs.map((text, i) => (
-              <p key={i} style={{ fontFamily: "'Inter', Arial, sans-serif" }}>{text}</p>
-            ))}
-            <a
-              href="/contact"
-              className="inline-block mt-4 border border-gray-900 text-gray-900 px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-900 hover:text-white transition"
-              style={{ fontFamily: "'Inter', Arial, sans-serif" }}
-            >
-              {language === 'de' ? 'Mehr erfahren' : 'Learn more'}
-            </a>
-          </div>
+      {/* Description unter dem Hero */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-3xl mx-auto space-y-6 text-gray-700 font-light leading-relaxed">
+          {paragraphs.map((text, i) => (
+            <p key={i} style={{ fontFamily: "'Inter', Arial, sans-serif", fontSize: '1.1rem' }}>
+              {text}
+            </p>
+          ))}
+          <a
+            href="/contact"
+            className="inline-block mt-6 border border-gray-900 text-gray-900 px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-900 hover:text-white transition"
+            style={{ fontFamily: "'Inter', Arial, sans-serif" }}
+          >
+            {language === 'de' ? 'Mehr erfahren' : 'Learn more'}
+          </a>
         </div>
       </section>
 
@@ -111,7 +184,9 @@ export default function ArtwingmanPage() {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className="aspect-[4/3] rounded-sm overflow-hidden bg-gray-100">
             <img
-              src="/artwingman/Artwingman_02.png"
+              src="/artwingman/Artwingman-1920_02.jpg"
+              srcSet="/artwingman/Artwingman-1920_02.jpg 1920w, /artwingman/Artwingman-3840_02.jpg 3840w"
+              sizes="(max-width: 768px) 100vw, 50vw"
               alt="Artwingman KI-Analyse"
               className="w-full h-full object-cover"
             />
