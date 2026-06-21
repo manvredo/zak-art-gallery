@@ -107,24 +107,30 @@ export default function Header() {
                 className="relative group transition cursor-pointer uppercase"
                 style={{ color: textColor }}
               >
-                {t.nav.welcome}
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="relative inline-block">
+                  {t.nav.welcome}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
               </Link>
               <Link
                 href="/about"
                 className="relative group transition cursor-pointer uppercase"
                 style={{ color: textColor }}
               >
-                {t.nav.about}
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="relative inline-block">
+                  {t.nav.about}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
               </Link>
               <Link
                 href="/shop"
                 className="relative group transition cursor-pointer uppercase"
                 style={{ color: textColor }}
               >
-                {t.nav.shop}
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="relative inline-block">
+                  {t.nav.shop}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
               </Link>
 
               <Link
@@ -132,8 +138,10 @@ export default function Header() {
                 className="relative group transition cursor-pointer uppercase"
                 style={{ color: textColor }}
               >
-                {t.nav.contact}
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="relative inline-block">
+                  {t.nav.contact}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
               </Link>
 
               <Link
@@ -141,8 +149,10 @@ export default function Header() {
                 className="relative group transition cursor-pointer uppercase ml-6"
                 style={{ color: textColor }}
               >
-                Artwingman
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="relative inline-block">
+                  Artwingman
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
               </Link>
             </nav>
           </div>
@@ -153,20 +163,24 @@ export default function Header() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => language !== 'en' && toggleLanguage()}
-                className="relative group text-sm px-2 py-1 rounded cursor-pointer"
+                className="relative group text-sm cursor-pointer"
                 style={{ color: textColor }}
               >
-                <span className={language === 'en' ? 'font-bold' : ''}>EN</span>
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="relative inline-block">
+                  <span className={language === 'en' ? 'font-bold' : ''}>EN</span>
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
               </button>
               <span style={{ color: textColor }} className="opacity-50">/</span>
               <button
                 onClick={() => language !== 'de' && toggleLanguage()}
-                className="relative group text-sm px-2 py-1 rounded cursor-pointer"
+                className="relative group text-sm cursor-pointer"
                 style={{ color: textColor }}
               >
-                <span className={language === 'de' ? 'font-bold' : ''}>DE</span>
-                <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="relative inline-block">
+                  <span className={language === 'de' ? 'font-bold' : ''}>DE</span>
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
               </button>
             </div>
             
@@ -198,10 +212,13 @@ export default function Header() {
             
             <Link
               href="/cart"
-              className="relative cursor-pointer transition-transform duration-300 hover:scale-110"
+              className="relative group cursor-pointer"
               style={{ color: textColor }}
             >
-              <ShoppingCart size={20} />
+              <span className="relative inline-block">
+                <ShoppingCart size={20} />
+                <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+              </span>
               {cartItemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[#0f0f0f] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {cartItemCount}
