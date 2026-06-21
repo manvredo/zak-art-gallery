@@ -67,14 +67,15 @@ export default function Header() {
   };
 
   const isHomePage = pathname === '/';
-  const textColor = isHomePage ? '#ffffff' : '#010101';
+  const isArtwingmanPage = pathname.startsWith('/artwingman');
+  const textColor = isHomePage || isArtwingmanPage ? '#ffffff' : '#010101';
   
   return (
     <header
       style={{
-        background: isHomePage ? 'transparent !important' : '#ffffff !important',
-        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.5)' : '1px solid #e5e7eb',
-        boxShadow: isHomePage ? 'none' : '0 2px 10px rgba(0,0,0,0.1)',
+        background: isHomePage || isArtwingmanPage ? 'transparent !important' : '#ffffff !important',
+        borderBottom: isHomePage || isArtwingmanPage ? '1px solid rgba(255,255,255,0.5)' : '1px solid #e5e7eb',
+        boxShadow: isHomePage || isArtwingmanPage ? 'none' : '0 2px 10px rgba(0,0,0,0.1)',
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.15s ease-in-out, box-shadow 0.2s ease'
       }}

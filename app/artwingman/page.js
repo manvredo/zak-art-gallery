@@ -79,10 +79,12 @@ export default function ArtwingmanPage() {
         {heroSlides.map((img, index) => (
           <img
             key={index}
-            src={img.desktop}
-            srcSet={`${img.desktop} 1920w, ${img.full} 3840w`}
+            src={index === currentHero ? img.desktop : undefined}
+            srcSet={index === currentHero ? `${img.desktop} 1920w, ${img.full} 3840w` : undefined}
             sizes="100vw"
             alt={`Artwingman ${index + 1}`}
+            fetchpriority={index === 0 ? 'high' : undefined}
+            loading="eager"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
               index === currentHero && initialFadeIn ? 'opacity-100' : 'opacity-0'
             }`}
