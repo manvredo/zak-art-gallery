@@ -22,8 +22,8 @@ export default function ArtwingmanPage() {
     <div className="min-h-screen bg-white">
 
       {/* Artwingman Header */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12 flex items-center gap-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-12">
+        <div className="mb-10 flex items-center gap-4">
           <h1
             className="text-4xl font-light text-gray-900 whitespace-nowrap font-sans tracking-wide"
             style={{ fontFamily: "'Vollkorn', Georgia, serif" }}
@@ -35,15 +35,15 @@ export default function ArtwingmanPage() {
       </div>
 
       {/* About Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid md:grid-cols-2 gap-16 items-start">
-          <div className="aspect-[3/4] rounded-sm overflow-hidden bg-gray-100">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+        <div className="grid md:grid-cols-[1.4fr_1fr] gap-6 items-start">
+          <div className="rounded-sm overflow-hidden bg-gray-100">
             <img
               src="/artwingman/Artwingman-1920_01.jpg"
               srcSet="/artwingman/Artwingman-1920_01.jpg 1920w, /artwingman/Artwingman-3840_01.jpg 3840w"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 55vw"
               alt="Artwingman"
-              className="w-full h-full object-cover"
+              className="w-full h-auto"
             />
           </div>
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
