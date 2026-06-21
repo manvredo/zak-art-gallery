@@ -17,6 +17,11 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
   const [scrollY, setScrollY] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentHero, setCurrentHero] = useState(0);
+  const [initialFadeIn, setInitialFadeIn] = useState(false);
+
+  useEffect(() => {
+    setInitialFadeIn(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +52,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             sizes="100vw"
             alt={`Hero ${index + 1}`}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-              index === currentHero ? 'opacity-100' : 'opacity-0'
+              index === currentHero && initialFadeIn ? 'opacity-100' : 'opacity-0'
             }`}
             style={{
               transform: `translateY(${scrollY * 0.5}px)`,
