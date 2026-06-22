@@ -71,16 +71,16 @@ export default function Header() {
   const isNearTop = scrollY < 50;
   const inHeroZone = scrollY < 1000;
   const shouldBeTransparent = isHomePage && (isNearTop || (inHeroZone && !headerVisible));
-  const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
+  const headerBg = shouldBeTransparent ? 'transparent' : '#ffffff';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
   const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
   
   return (
     <header
       style={{
-        background: headerBg,
+        backgroundColor: headerBg,
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
       }}
       className="sticky top-0 z-50"
     >
