@@ -90,7 +90,7 @@ export default function Header() {
           </button>
 
           {/* Desktop: inline-flex border wrapper (only as wide as content) */}
-          <div className="hidden lg:flex items-center self-stretch border-b-2" style={{ borderColor: isHomePage ? 'transparent' : '#e5e7eb' }}>
+          <div className="hidden lg:flex items-center self-stretch border-b-2 mr-8" style={{ borderColor: isHomePage ? 'transparent' : '#e5e7eb' }}>
           {/* Logo & Navigation - Centered */}
           <div className="flex items-center justify-center">
             <Link href="/">
