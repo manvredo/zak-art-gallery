@@ -19,11 +19,11 @@ export default function Header() {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [noTransition, setNoTransition] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-  const [windowHeight, setWindowHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 1000);
   const lastScrollY = useRef(0);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const checkUser = async () => {
@@ -65,13 +65,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setWindowHeight(window.innerHeight);
-    const handleResize = () => setWindowHeight(window.innerHeight);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -82,9 +75,8 @@ export default function Header() {
     return pathname.startsWith(path);
   };
 
-  const isHomePage = pathname === '/';
   const isNearTop = scrollY < 50;
-  const inHeroZone = scrollY < windowHeight;
+  const inHeroZone = scrollY < 1000;
   const shouldBeTransparent = isHomePage && (isNearTop || (!headerVisible && inHeroZone));
   const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
