@@ -90,7 +90,7 @@ export default function Header() {
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <div className="flex items-center justify-between flex-1 border-b-2" style={{ borderColor: isHomePage ? 'rgba(255,255,255,0.5)' : '#e5e7eb' }}>
+          <div className="flex items-center justify-between flex-1 self-stretch border-b-2" style={{ borderColor: isHomePage ? 'rgba(255,255,255,0.5)' : '#e5e7eb' }}>
           {/* Logo & Navigation - Centered */}
           <div className="flex items-center justify-center">
             <Link href="/">
