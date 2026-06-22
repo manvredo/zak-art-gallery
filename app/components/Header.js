@@ -74,7 +74,7 @@ export default function Header() {
       style={{
         background: isHomePage ? 'transparent !important' : '#ffffff !important',
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: headerVisible ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
       }}
       className="sticky top-0 z-50"
     >
