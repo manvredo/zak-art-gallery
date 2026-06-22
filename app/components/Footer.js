@@ -84,7 +84,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-gray-600">
               <li>info@manfredzak.com</li>
               <li>+49 (0) 176 4824300</li>
-			  <li>+49 (0) 152 25179626</li>
+			  <li>+49 179 4824 300</li>
               <li>{t.footer.monFri}</li>
             </ul>
           </div>

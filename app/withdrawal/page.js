@@ -51,7 +51,7 @@ export default function WithdrawalPage() {
               <p>Deutschland</p>
               <p className="mt-2">E-Mail: info@manfredzak.com</p>
               <p>Telefon: +49 (0) 176 4824300</p>
-			  <p>Telefon: +49 (0) 152 25179626</p>
+			  <p>Telefon: +49 179 4824 300</p>
             </div>
 
             <p className="text-gray-700 leading-relaxed mb-4">
@@ -163,7 +163,7 @@ export default function WithdrawalPage() {
               <p>Germany</p>
               <p className="mt-2">Email: info@manfredzak.com</p>
               <p>Phone: +49 (0) 39742 870978</p>
-			  <p>Phone: +49 (0) 152 25179626</p>
+			  <p>Phone: +49 179 4824 300</p>
             </div>
 
             <p className="text-gray-700 leading-relaxed mb-4">

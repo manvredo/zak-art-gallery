@@ -33,13 +33,13 @@ const FooterExtension = () => {
               onClick={() => toggleSection('service')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.service}</h3>
+              <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.service}</h3>
               <span className="md:hidden">
                 {openSection === 'service' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
             </button>
             <div className={`footer-extension-content ${openSection === 'service' ? 'open' : ''}`}>
-              <ul className="space-y-2 text-sm text-gray-600 mt-4">
+              <ul className="space-y-2 text-sm text-gray-600" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
                 <li>
                   <Link href="/returns" className="hover:text-gray-900 transition">
                     {t.footerExtension.returnLabel}
@@ -55,13 +55,13 @@ const FooterExtension = () => {
               onClick={() => toggleSection('payment')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.securePayment}</h3>
+              <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.securePayment}</h3>
               <span className="md:hidden">
                 {openSection === 'payment' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
             </button>
             <div className={`footer-extension-content ${openSection === 'payment' ? 'open' : ''}`}>
-              <div className="flex flex-wrap gap-3 mt-4 items-center">
+              <div className="flex flex-wrap gap-3 items-center" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
                 <FaCcVisa 
                   size={40} 
                   className="text-[#1A1F71] opacity-80 hover:opacity-100 transition" 
@@ -102,13 +102,13 @@ const FooterExtension = () => {
               onClick={() => toggleSection('shipping')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.reliableShipping}</h3>
+              <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.reliableShipping}</h3>
               <span className="md:hidden">
                 {openSection === 'shipping' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
             </button>
             <div className={`footer-extension-content ${openSection === 'shipping' ? 'open' : ''}`}>
-              <div className="flex flex-wrap gap-4 mt-4 items-center">
+              <div className="flex flex-wrap gap-4 items-center" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
                 <div className="px-4 py-2 bg-[#FFCC00] text-[#D40511] text-sm font-extrabold rounded tracking-wider opacity-80 hover:opacity-100 transition shadow-sm">
                   DHL
                 </div>
@@ -128,21 +128,21 @@ const FooterExtension = () => {
               onClick={() => toggleSection('customer')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.customerService}</h3>
+              <h3 className="font-light text-2xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.customerService}</h3>
               <span className="md:hidden">
                 {openSection === 'customer' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
             </button>
             <div className={`footer-extension-content ${openSection === 'customer' ? 'open' : ''}`}>
-              <div className="mt-4 space-y-3">
+              <div className="mt-2 space-y-3" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
                 {/* Kontakt */}
                 <div className="text-sm">
                   <p className="text-gray-600 mb-1">{t.footerExtension.contact}</p>
-                  <a 
-                    href="tel:+4915225179626" 
+                  <a
+                    href="tel:+491794824300"
                     className="text-gray-900 font-medium hover:text-gray-600 transition"
                   >
-                    +49 152 251 79 626
+                    +49 179 4824 300
                   </a>
                 </div>
                 
