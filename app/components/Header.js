@@ -109,7 +109,7 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   {t.nav.welcome}
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </Link>
               <Link
@@ -119,7 +119,7 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   {t.nav.about}
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </Link>
               <Link
@@ -129,7 +129,7 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   {t.nav.shop}
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </Link>
 
@@ -140,7 +140,7 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   {t.nav.contact}
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </Link>
 
@@ -151,7 +151,7 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   Artwingman
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </Link>
             </nav>
@@ -168,7 +168,7 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   <span className={language === 'en' ? 'font-bold' : ''}>EN</span>
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </button>
               <span style={{ color: textColor }} className="opacity-50">/</span>
@@ -179,7 +179,7 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   <span className={language === 'de' ? 'font-bold' : ''}>DE</span>
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </button>
             </div>
@@ -217,7 +217,7 @@ export default function Header() {
             >
               <span className="relative inline-block">
                 <ShoppingCart size={20} />
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
               </span>
               {cartItemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[#0f0f0f] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
