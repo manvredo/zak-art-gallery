@@ -123,7 +123,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '25px', lineHeight: 1.6, color: '#585858', letterSpacing: 0 }}>
               Manfred Zak
             </span>
-            <span className="block mt-1" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '14px', lineHeight: 1.6, color: '#9CA3AF' }}>
+            <span className="block mt-1" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '18px', lineHeight: '32.48px', color: '#585858' }}>
               25.03.1979
             </span>
             <p className="mt-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
