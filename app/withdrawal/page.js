@@ -206,7 +206,7 @@ export default function WithdrawalPage() {
           </section>
 
           <p className="text-sm text-gray-600 pt-4 border-t border-gray-200">
-            Last updated: October 2024
+            Last updated: June 2026
           </p>
         </div>
       </main>

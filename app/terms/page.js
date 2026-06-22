@@ -59,10 +59,12 @@ export default function TermsPage() {
             
             <h3 className="text-xl font-light text-gray-900 mb-3 mt-6">Accepted Payment Methods:</h3>
             <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4">
-              <li>Credit card (Visa, Mastercard, American Express)</li>
+              <li>Credit card (Visa, Mastercard)</li>
               <li>PayPal</li>
+              <li>Apple Pay</li>
+              <li>Klarna</li>
               <li>Bank transfer (prepayment)</li>
-              <li>SEPA Direct Debit</li>
+              <li>Stripe</li>
             </ul>
             
             <p className="text-gray-700 leading-relaxed mt-4">
@@ -202,7 +204,7 @@ export default function TermsPage() {
           </section>
 
           <p className="text-sm text-gray-600 mt-8 pt-4 border-t border-gray-200">
-            Last updated: October 2024
+            Last updated: June 2026
           </p>
         </div>
       </main>

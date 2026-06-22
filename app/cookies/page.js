@@ -198,7 +198,7 @@ export default function CookiesPage() {
               </p>
               
               <p>
-                Letzte Aktualisierung: Oktober 2024
+                Letzte Aktualisierung: Juni 2026
               </p>
             </div>
           </section>

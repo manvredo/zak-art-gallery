@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   return (
     <footer className="bg-white border-t border-gray-200 mt-16">
@@ -51,7 +51,7 @@ const Footer = () => {
             <h3 className="font-light text-3xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footer.legal}</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>
-                <Link href="/imprint" className="hover:text-gray-900">
+                <Link href={language === 'de' ? '/impressum' : '/imprint'} className="hover:text-gray-900">
                   {t.footer.imprint}
                 </Link>
               </li>
