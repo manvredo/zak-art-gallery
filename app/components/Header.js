@@ -83,8 +83,8 @@ export default function Header() {
   };
 
   const isHomePage = pathname === '/';
-  const aboveHero = scrollY < windowHeight;
-  const shouldBeTransparent = isHomePage && aboveHero && (!headerVisible || scrollY < 50);
+  const isNearTop = scrollY < 50;
+  const shouldBeTransparent = isHomePage && (isNearTop || !headerVisible);
   const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
   const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
