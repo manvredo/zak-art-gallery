@@ -18,8 +18,9 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [noTransition, setNoTransition] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
   const lastScrollY = useRef(0);
-  const wasHeaderHidden = useRef(false);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
@@ -43,15 +44,16 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      setScrollY(currentScrollY);
+
       if (currentScrollY > lastScrollY.current) {
         // Scrolling down: two-step for animated hide
-        wasHeaderHidden.current = true;
-        setNoTransition(false);  // Step 1: enable transition
+        setNoTransition(false);
         requestAnimationFrame(() => {
-          setHeaderVisible(false); // Step 2: change value → animated
+          setHeaderVisible(false);
         });
       } else if (currentScrollY < lastScrollY.current) {
-        // Scrolling up: instant show (both in one render)
+        // Scrolling up: instant show
         setNoTransition(true);
         setHeaderVisible(true);
       }
@@ -61,6 +63,13 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+    const handleResize = () => setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Close mobile menu on route change
@@ -74,7 +83,8 @@ export default function Header() {
   };
 
   const isHomePage = pathname === '/';
-  const shouldBeTransparent = isHomePage && (!wasHeaderHidden.current || !headerVisible);
+  const aboveHero = scrollY < windowHeight;
+  const shouldBeTransparent = isHomePage && aboveHero && (!headerVisible || scrollY < 50);
   const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
   const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
