@@ -25,7 +25,7 @@ const FooterExtension = () => {
   return (
     <div className="footer-extension bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
           
           {/* Column 1: Service */}
           <div className="footer-extension-column">
@@ -39,7 +39,7 @@ const FooterExtension = () => {
               </span>
             </button>
             <div className={`footer-extension-content ${openSection === 'service' ? 'open' : ''}`}>
-              <ul className="space-y-2 text-sm text-gray-600" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+              <ul className="space-y-3 text-sm text-gray-600" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
                 <li>
                   <Link href="/returns" className="hover:text-gray-900 transition">
                     {t.footerExtension.returnLabel}
