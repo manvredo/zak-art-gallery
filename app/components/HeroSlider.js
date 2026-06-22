@@ -7,41 +7,41 @@ const slides = [
   {
     id: 1,
     image: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299238/P2090288_flyxoj.png",
-    title: "Willkommen in der Galerie",
-    subtitle: "Entdecken Sie zeitgenössische Ölmalerei",
-    buttonText: "Zur Galerie",
-    buttonLink: "/gallery"
+    title: "Welcome",
+    subtitle: "Contemporary oil paintings by Manfred Zak",
+    buttonText: "About Me",
+    buttonLink: "/about"
   },
   {
     id: 2,
     image: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299238/P2090288_flyxoj.png",
-    title: "Landschaften der Uckermark",
-    subtitle: "Atmosphärische Impressionen aus Brandenburg",
-    buttonText: "Entdecken",
-    buttonLink: "/gallery"
+    title: "Landscapes",
+    subtitle: "Atmospheric impressions from Brandenburg",
+    buttonText: "Visit Shop",
+    buttonLink: "/shop"
   },
   {
     id: 3,
     image: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299238/P2090288_flyxoj.png",
-    title: "Seestücke",
-    subtitle: "Die Weite des Meeres eingefangen in Öl",
-    buttonText: "Mehr erfahren",
-    buttonLink: "/gallery"
+    title: "Seascapes",
+    subtitle: "The expanse of the sea captured in oil",
+    buttonText: "Learn More",
+    buttonLink: "/shop"
   },
   {
     id: 4,
     image: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299238/P2090288_flyxoj.png",
-    title: "Neue Werke",
-    subtitle: "Aktuelle Arbeiten aus dem Atelier",
-    buttonText: "Ansehen",
-    buttonLink: "/news"
+    title: "New Works",
+    subtitle: "Recent pieces from the studio",
+    buttonText: "Artwingman",
+    buttonLink: "/artwingman"
   },
   {
     id: 5,
     image: "https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760299238/P2090288_flyxoj.png",
-    title: "Originale kaufen",
-    subtitle: "Einzigartige Kunstwerke für Ihr Zuhause",
-    buttonText: "Zum Shop",
+    title: "Originals",
+    subtitle: "Unique artworks for your home",
+    buttonText: "Visit Shop",
     buttonLink: "/shop"
   }
 ];
