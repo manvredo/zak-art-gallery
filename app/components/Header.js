@@ -44,8 +44,8 @@ export default function Header() {
       if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
         // Scrolling down & past threshold - hide header
         setHeaderVisible(false);
-      } else if (currentScrollY < 300) {
-        // Scrolling up & near top - show header
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling up - show header immediately
         setHeaderVisible(true);
       }
 
@@ -74,8 +74,7 @@ export default function Header() {
       style={{
         background: isHomePage ? 'transparent !important' : '#ffffff !important',
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
-        opacity: headerVisible ? 1 : 0,
-        transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
       }}
       className="sticky top-0 z-50"
     >
