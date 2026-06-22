@@ -37,13 +37,13 @@ export default function ArtwingmanPage() {
       {/* About Section */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-6">
-          <div className="rounded-sm overflow-hidden bg-gray-100 flex flex-col">
+          <div className="rounded-sm overflow-hidden bg-gray-100 md:relative md:min-h-0">
             <img
               src="/artwingman/Artwingman-1920_01.jpg"
               srcSet="/artwingman/Artwingman-1920_01.jpg 1920w, /artwingman/Artwingman-3840_01.jpg 3840w"
               sizes="(max-width: 768px) 100vw, 55vw"
               alt="Artwingman"
-              className="w-full flex-1 object-cover"
+              className="w-full md:absolute md:inset-0 md:h-full md:object-cover md:w-full"
             />
           </div>
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
