@@ -62,7 +62,7 @@ export default function ShopPage() {
       
       {/* Header */}
       <div className="mb-12 flex items-center gap-4">
-        <h2 className="text-4xl font-light text-gray-900 whitespace-nowrap font-sans tracking-wide">
+        <h2 className="text-4xl font-light text-gray-900 whitespace-nowrap tracking-wide">
           {t.shop?.title || 'SHOP'}
         </h2>
         <div className="flex-1 h-px bg-gray-300"></div>
