@@ -9,7 +9,6 @@ import {
   FaCcApplePay,
   FaCcPaypal,
   FaStripe,
-  FaDhl,
   FaShieldAlt,
   FaLock
 } from 'react-icons/fa';
@@ -110,13 +109,14 @@ const FooterExtension = () => {
             </button>
             <div className={`footer-extension-content ${openSection === 'shipping' ? 'open' : ''}`}>
               <div className="flex flex-wrap gap-4 mt-4 items-center">
-                <FaDhl 
-                  size={50} 
-                  className="text-[#FFCC00] opacity-80 hover:opacity-100 transition" 
-                  title="DHL"
-                />
-                <div className="px-3 py-2 bg-[#003E80] text-white text-sm font-bold rounded opacity-80 hover:opacity-100 transition">
+                <div className="px-4 py-2 bg-[#FFCC00] text-[#D40511] text-sm font-extrabold rounded tracking-wider opacity-80 hover:opacity-100 transition shadow-sm">
+                  DHL
+                </div>
+                <div className="px-4 py-2 bg-[#003E80] text-white text-sm font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
                   GLS
+                </div>
+                <div className="px-4 py-2 bg-[#FDEE00] text-[#2A5C38] text-sm font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
+                  HERMES
                 </div>
               </div>
             </div>
