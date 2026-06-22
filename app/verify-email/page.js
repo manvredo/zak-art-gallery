@@ -154,8 +154,8 @@ export default function VerifyEmailPage() {
             </p>
             <p className="text-xs text-gray-400">
               {t.auth.verifyEmail?.supportText || 'Bei Problemen kontaktieren Sie uns unter'}{' '}
-              <a href="mailto:support@zakartgallery.com" className="text-gray-900 hover:underline">
-                support@zakartgallery.com
+              <a href="mailto:info@manfredzak.com" className="text-gray-900 hover:underline">
+                info@manfredzak.com
               </a>
             </p>
           </div>

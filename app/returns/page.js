@@ -23,7 +23,7 @@ export default function ReturnsPage() {
           {
             number: '1',
             title: 'Kontaktaufnahme',
-            text: 'Senden Sie uns eine E-Mail an returns@zakartgallery.com mit Ihrer Bestellnummer.'
+            text: 'Senden Sie uns eine E-Mail an info@manfredzak.com mit Ihrer Bestellnummer.'
           },
           {
             number: '2',
@@ -89,7 +89,7 @@ export default function ReturnsPage() {
           {
             number: '1',
             title: 'Contact Us',
-            text: 'Send us an email at returns@zakartgallery.com with your order number.'
+            text: 'Send us an email at info@manfredzak.com with your order number.'
           },
           {
             number: '2',

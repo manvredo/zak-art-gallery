@@ -227,7 +227,7 @@ export default function PaymentPage() {
               </p>
               <div className="bg-gray-50 p-4 rounded">
                 <p className="font-medium text-gray-900 mb-2">Contact our Sales Team:</p>
-                <p>Email: sales@zakartgallery.com</p>
+                <p>Email: info@manfredzak.com</p>
                 <p>Phone: +49 179 4824 300</p>
               </div>
             </div>

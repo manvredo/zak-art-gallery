@@ -48,7 +48,7 @@ export default function WiderrufPage() {
                 <p>Großbeerenstr. 15</p>
                 <p>10963 Berlin</p>
                 <p>E-Mail: info@manfredzak.com</p>
-                <p>Telefon: +49 (0) 123 456789</p>
+                <p>Telefon: +49 179 4824 300</p>
               </div>
               
               <p>
