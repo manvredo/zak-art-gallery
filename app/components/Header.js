@@ -17,6 +17,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [noTransition, setNoTransition] = useState(false);
   const lastScrollY = useRef(0);
   const wasHeaderHidden = useRef(false);
   const { cartItemCount } = useCart();
@@ -43,11 +44,15 @@ export default function Header() {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY.current) {
-        // Scrolling down - hide header immediately
-        setHeaderVisible(false);
+        // Scrolling down: two-step for animated hide
         wasHeaderHidden.current = true;
+        setNoTransition(false);  // Step 1: enable transition
+        requestAnimationFrame(() => {
+          setHeaderVisible(false); // Step 2: change value → animated
+        });
       } else if (currentScrollY < lastScrollY.current) {
-        // Scrolling up - show header immediately
+        // Scrolling up: instant show (both in one render)
+        setNoTransition(true);
         setHeaderVisible(true);
       }
 
@@ -79,7 +84,7 @@ export default function Header() {
       style={{
         background: headerBg,
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: headerVisible ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: noTransition ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
       }}
       className="sticky top-0 z-50"
     >
