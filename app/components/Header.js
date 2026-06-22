@@ -18,6 +18,7 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const wasHeaderHidden = useRef(false);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
@@ -44,6 +45,7 @@ export default function Header() {
       if (currentScrollY > lastScrollY.current) {
         // Scrolling down - hide header immediately
         setHeaderVisible(false);
+        wasHeaderHidden.current = true;
       } else if (currentScrollY < lastScrollY.current) {
         // Scrolling up - show header immediately
         setHeaderVisible(true);
@@ -67,9 +69,10 @@ export default function Header() {
   };
 
   const isHomePage = pathname === '/';
-  const headerBg = isHomePage && !headerVisible ? 'transparent !important' : '#ffffff !important';
-  const textColor = isHomePage && !headerVisible ? '#ffffff' : '#010101';
-  const headerBorder = isHomePage && !headerVisible ? 'transparent' : '#e5e7eb';
+  const isHomepageTransparent = isHomePage && !wasHeaderHidden.current;
+  const headerBg = isHomepageTransparent ? 'transparent !important' : '#ffffff !important';
+  const textColor = isHomepageTransparent ? '#ffffff' : '#010101';
+  const headerBorder = isHomepageTransparent ? 'transparent' : '#e5e7eb';
   
   return (
     <header
