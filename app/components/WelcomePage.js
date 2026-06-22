@@ -123,7 +123,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '25px', lineHeight: 1.6, color: '#585858', letterSpacing: 0 }}>
               Manfred Zak
             </span>
-            <hr className="border-gray-200 mt-2 mb-2" style={{ maxWidth: 60 }} />
+            <hr className="border-gray-200 mt-2 mb-2" />
             <span className="block" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '18px', lineHeight: '32.48px', color: '#585858' }}>
               25.03.1979
             </span>
