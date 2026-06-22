@@ -126,14 +126,14 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             <span className="block mt-1" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '18px', lineHeight: '32.48px', color: '#585858' }}>
               25.03.1979
             </span>
-            <p className="mt-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
+            <p className="mt-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#585858' }}>
               {t.welcome.intro1}
             </p>
-            <p className="mt-4" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
+            <p className="mt-4" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#585858' }}>
               {t.welcome.intro2}
             </p>
             <div className="mt-8">
-              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563', cursor: 'pointer' }} className="hover:underline">
+              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#585858', cursor: 'pointer' }} className="hover:underline">
                 Read more
               </span>
             </div>
