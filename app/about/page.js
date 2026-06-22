@@ -116,7 +116,7 @@ export default function AboutPage() {
         </div>
 
         {/* Paragraphs 3–5 left · Photo 2 right */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
             {workParagraphs.slice(2).map((text, i) => (
               <p key={i}>{text}</p>
@@ -126,7 +126,7 @@ export default function AboutPage() {
             <img
               src="/about/Work_02.jpg"
               alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
-              className="aspect-[4/3] object-cover w-full"
+              className="w-full h-auto"
             />
           </div>
         </div>
