@@ -29,12 +29,6 @@ const translations = {
       featured: 'Featured Artworks'
     },	
     
-    // Gallery
-    gallery: { 
-      title: 'Gallery', 
-      subtitle: 'Browse our complete collection of original artworks' 
-    },
-    
     // Shop
     shop: { 
       title: 'Shop', 
@@ -350,12 +344,6 @@ const translations = {
       viewGallery: 'Über mich',
       visitShop: 'Zum Shop',
       featured: 'Ausgewählte Kunstwerke'
-    },
-    
-    // Gallery
-    gallery: { 
-      title: 'Galerie', 
-      subtitle: 'Durchstöbern Sie unsere komplette Sammlung von Originalkunstwerken' 
     },
     
     // Shop
