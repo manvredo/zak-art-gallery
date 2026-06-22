@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { 
-  FaCcVisa, 
-  FaCcMastercard, 
-  FaCcApplePay, 
-  FaCcPaypal, 
+import {
+  FaCcVisa,
+  FaCcMastercard,
+  FaCcApplePay,
+  FaCcPaypal,
   FaStripe,
   FaDhl,
   FaShieldAlt,
@@ -15,6 +16,7 @@ import {
 import { SiKlarna } from 'react-icons/si';
 
 const FooterExtension = () => {
+  const { t } = useLanguage();
   const [openSection, setOpenSection] = useState(null);
 
   const toggleSection = (section) => {
@@ -32,7 +34,7 @@ const FooterExtension = () => {
               onClick={() => toggleSection('service')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>Service</h3>
+              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.service}</h3>
               <span className="md:hidden">
                 {openSection === 'service' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
@@ -41,7 +43,7 @@ const FooterExtension = () => {
               <ul className="space-y-2 text-sm text-gray-600 mt-4">
                 <li>
                   <Link href="/returns" className="hover:text-gray-900 transition">
-                    Retourenlabel
+                    {t.footerExtension.returnLabel}
                   </Link>
                 </li>
               </ul>
@@ -54,7 +56,7 @@ const FooterExtension = () => {
               onClick={() => toggleSection('payment')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>Sichere Zahlung</h3>
+              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.securePayment}</h3>
               <span className="md:hidden">
                 {openSection === 'payment' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
@@ -101,7 +103,7 @@ const FooterExtension = () => {
               onClick={() => toggleSection('shipping')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>Zuverlässiger Versand</h3>
+              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.reliableShipping}</h3>
               <span className="md:hidden">
                 {openSection === 'shipping' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
@@ -126,7 +128,7 @@ const FooterExtension = () => {
               onClick={() => toggleSection('customer')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>Kundenservice</h3>
+              <h3 className="font-light text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.customerService}</h3>
               <span className="md:hidden">
                 {openSection === 'customer' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
@@ -135,7 +137,7 @@ const FooterExtension = () => {
               <div className="mt-4 space-y-3">
                 {/* Kontakt */}
                 <div className="text-sm">
-                  <p className="text-gray-600 mb-1">Kontakt</p>
+                  <p className="text-gray-600 mb-1">{t.footerExtension.contact}</p>
                   <a 
                     href="tel:+4915225179626" 
                     className="text-gray-900 font-medium hover:text-gray-600 transition"
@@ -153,18 +155,18 @@ const FooterExtension = () => {
                   </li>
                   <li>
                     <Link href="/faq" className="hover:text-gray-900 transition">
-                      Häufige Fragen
+                      {t.footerExtension.faq}
                     </Link>
                   </li>
                 </ul>
 
                 {/* Trust Badges */}
                 <div className="flex gap-4 mt-4 pt-4 border-t border-gray-200 items-center">
-                  <div className="flex items-center gap-1 text-green-600" title="Sicher einkaufen">
+                  <div className="flex items-center gap-1 text-green-600" title={t.footerExtension.safeShopping}>
                     <FaShieldAlt size={24} />
-                    <span className="text-xs font-medium">Sicher</span>
+                    <span className="text-xs font-medium">{t.footerExtension.safe}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-blue-600" title="SSL verschlüsselt">
+                  <div className="flex items-center gap-1 text-blue-600" title={t.footerExtension.sslEncrypted}>
                     <FaLock size={20} />
                     <span className="text-xs font-medium">SSL</span>
                   </div>

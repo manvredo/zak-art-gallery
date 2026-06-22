@@ -309,7 +309,22 @@ const translations = {
       cookies: 'Cookie Policy', 
       contactTitle: 'Contact', 
       monFri: 'Mon-Fri: 10am-6pm', 
-      rights: '© 2026 ZAK Fine Art. All rights reserved.' 
+      rights: '© 2026 ZAK Fine Art. All rights reserved.'
+    },
+
+    // Footer Extension
+    footerExtension: {
+      service: 'Service',
+      securePayment: 'Secure Payment',
+      reliableShipping: 'Reliable Shipping',
+      customerService: 'Customer Service',
+      contact: 'Contact',
+      faq: 'Frequently Asked Questions',
+      returnLabel: 'Return Label',
+      safe: 'Safe',
+      ssl: 'SSL',
+      safeShopping: 'Safe shopping',
+      sslEncrypted: 'SSL encrypted'
     }
   },
   
@@ -617,7 +632,22 @@ const translations = {
       cookies: 'Cookie-Richtlinie', 
       contactTitle: 'Kontakt', 
       monFri: 'Mo-Fr: 10-18 Uhr', 
-      rights: '© 2026 ZAK Fine Art. Alle Rechte vorbehalten.' 
+      rights: '© 2026 ZAK Fine Art. Alle Rechte vorbehalten.'
+    },
+
+    // Footer Extension
+    footerExtension: {
+      service: 'Service',
+      securePayment: 'Sichere Zahlung',
+      reliableShipping: 'Zuverlässiger Versand',
+      customerService: 'Kundenservice',
+      contact: 'Kontakt',
+      faq: 'Häufige Fragen',
+      returnLabel: 'Retourenlabel',
+      safe: 'Sicher',
+      ssl: 'SSL',
+      safeShopping: 'Sicher einkaufen',
+      sslEncrypted: 'SSL verschlüsselt'
     }
   }
 };
