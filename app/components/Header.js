@@ -19,7 +19,7 @@ export default function Header() {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [noTransition, setNoTransition] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-  const [windowHeight, setWindowHeight] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 1000);
   const lastScrollY = useRef(0);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
