@@ -80,7 +80,7 @@ export default function Header() {
       style={{
         backgroundColor: headerBg,
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'transform 0.4s ease-in-out, background-color 0.4s ease-in-out'
       }}
       className="sticky top-0 z-50"
     >
