@@ -73,7 +73,6 @@ export default function Header() {
     <header
       style={{
         background: isHomePage ? 'transparent !important' : '#ffffff !important',
-        borderBottom: isHomePage ? '1px solid rgba(255,255,255,0.5)' : '1px solid #e5e7eb',
         boxShadow: isHomePage ? 'none' : '0 2px 10px rgba(0,0,0,0.1)',
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.15s ease-in-out, box-shadow 0.2s ease'
@@ -91,8 +90,9 @@ export default function Header() {
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
+          <div className="flex items-center justify-between flex-1 border-b-2" style={{ borderColor: isHomePage ? 'rgba(255,255,255,0.5)' : '#e5e7eb' }}>
           {/* Logo & Navigation - Centered */}
-          <div className="flex items-center justify-center flex-1">
+          <div className="flex items-center justify-center">
             <Link href="/">
               <img
                 src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1760947393/zvhelvtagpo05uzpkesx.png"
@@ -225,6 +225,7 @@ export default function Header() {
                 </span>
               )}
             </Link>
+          </div>
           </div>
         </div>
       </div>
