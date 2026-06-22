@@ -105,77 +105,138 @@ export default function ShippingPage() {
     }
   };
 
-  const lang = language === 'de' ? content.de : content.en;
-
   return (
     <div className="min-h-screen bg-gray-50 py-32">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{lang.title}</h1>
-          <p className="text-xl text-gray-600">{lang.subtitle}</p>
-        </div>
 
-        {/* Main Sections */}
-        <div className="space-y-8 mb-12">
-          {lang.sections.map((section, index) => (
-            <div key={index}>
-              <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-gray-100 rounded-lg">
-                    <section.icon size={24} className="text-gray-700" />
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-3">{section.title}</h2>
-                    {section.text && (
-                      <p className="text-gray-600 leading-relaxed">{section.text}</p>
-                    )}
-                    {section.items && (
-                      <ul className="space-y-2 mt-3">
-                        {section.items.map((item, i) => (
-                          <li key={i} className="flex items-start gap-2 text-gray-600">
-                            <span className="text-gray-400 mt-1">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+        {/* ——— English ——— */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{content.en.title}</h1>
+            <p className="text-xl text-gray-600">{content.en.subtitle}</p>
+          </div>
+
+          <div className="space-y-8 mb-12">
+            {content.en.sections.map((section, index) => (
+              <div key={index}>
+                <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-gray-100 rounded-lg">
+                      <section.icon size={24} className="text-gray-700" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-semibold text-gray-900 mb-3">{section.title}</h2>
+                      {section.text && (
+                        <p className="text-gray-600 leading-relaxed whitespace-pre-line">{section.text}</p>
+                      )}
+                      {section.items && (
+                        <ul className="space-y-2 mt-3">
+                          {section.items.map((item, i) => (
+                            <li key={i} className="flex items-start gap-2 text-gray-600">
+                              <span className="text-gray-400 mt-1">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   </div>
                 </div>
+                {index === 0 && (
+                  <div className="mt-8 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                    <img
+                      src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1764411602/ph4js0yzkflpljq9wc6y.png"
+                      alt="Professional art packaging"
+                      className="w-full aspect-video object-cover"
+                    />
+                  </div>
+                )}
               </div>
-
-              {/* Image after Packaging section (index 0) */}
-              {index === 0 && (
-                <div className="mt-8 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                  <img 
-                    src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1764411602/ph4js0yzkflpljq9wc6y.png" 
-                    alt="Professionelle Kunstverpackung"
-                    className="w-full aspect-video object-cover"
-                  />
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Tracking */}
-        <div className="bg-blue-50 rounded-xl p-8 border border-blue-100 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-3">{lang.tracking.title}</h2>
-          <p className="text-gray-700">{lang.tracking.text}</p>
-        </div>
-
-        {/* Delivery Info */}
-        <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">{lang.delivery.title}</h2>
-          <ul className="space-y-3">
-            {lang.delivery.items.map((item, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <span className="text-green-500 mt-1">✓</span>
-                <span className="text-gray-600">{item}</span>
-              </li>
             ))}
-          </ul>
+          </div>
+
+          <div className="bg-blue-50 rounded-xl p-8 border border-blue-100 mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.tracking.title}</h2>
+            <p className="text-gray-700">{content.en.tracking.text}</p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{content.en.delivery.title}</h2>
+            <ul className="space-y-3">
+              {content.en.delivery.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* ——— Deutsch ——— */}
+        <div className="relative pt-16">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-gray-200 h-px w-1/2"></div>
+
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{content.de.title}</h1>
+            <p className="text-xl text-gray-600">{content.de.subtitle}</p>
+          </div>
+
+          <div className="space-y-8 mb-12">
+            {content.de.sections.map((section, index) => (
+              <div key={index}>
+                <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-gray-100 rounded-lg">
+                      <section.icon size={24} className="text-gray-700" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-semibold text-gray-900 mb-3">{section.title}</h2>
+                      {section.text && (
+                        <p className="text-gray-600 leading-relaxed whitespace-pre-line">{section.text}</p>
+                      )}
+                      {section.items && (
+                        <ul className="space-y-2 mt-3">
+                          {section.items.map((item, i) => (
+                            <li key={i} className="flex items-start gap-2 text-gray-600">
+                              <span className="text-gray-400 mt-1">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                {index === 0 && (
+                  <div className="mt-8 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                    <img
+                      src="https://res.cloudinary.com/dhjcx2xdd/image/upload/v1764411602/ph4js0yzkflpljq9wc6y.png"
+                      alt="Professionelle Kunstverpackung"
+                      className="w-full aspect-video object-cover"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-blue-50 rounded-xl p-8 border border-blue-100 mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.tracking.title}</h2>
+            <p className="text-gray-700">{content.de.tracking.text}</p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{content.de.delivery.title}</h2>
+            <ul className="space-y-3">
+              {content.de.delivery.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
       </div>

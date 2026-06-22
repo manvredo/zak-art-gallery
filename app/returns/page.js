@@ -141,97 +141,180 @@ export default function ReturnsPage() {
     }
   };
 
-  const lang = language === 'de' ? content.de : content.en;
-
   return (
     <div className="min-h-screen bg-gray-50 py-32">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{lang.title}</h1>
-          <p className="text-xl text-gray-600">{lang.subtitle}</p>
-        </div>
 
-        {/* Policy */}
-        <div className="bg-green-50 rounded-xl p-8 border border-green-100 mb-8">
-          <div className="flex items-start gap-4">
-            <CheckCircle size={32} className="text-green-600 flex-shrink-0" />
-            <div>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-3">{lang.policy.title}</h2>
-              <p className="text-gray-700 mb-3">{lang.policy.text}</p>
-              <div className="bg-white rounded-lg p-4 border border-green-200">
-                <p className="text-sm text-gray-600 flex items-start gap-2">
-                  <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
-                  <span>{lang.policy.note}</span>
-                </p>
+        {/* ——— English ——— */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{content.en.title}</h1>
+            <p className="text-xl text-gray-600">{content.en.subtitle}</p>
+          </div>
+
+          <div className="bg-green-50 rounded-xl p-8 border border-green-100 mb-8">
+            <div className="flex items-start gap-4">
+              <CheckCircle size={32} className="text-green-600 flex-shrink-0" />
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.policy.title}</h2>
+                <p className="text-gray-700 mb-3">{content.en.policy.text}</p>
+                <div className="bg-white rounded-lg p-4 border border-green-200">
+                  <p className="text-sm text-gray-600 flex items-start gap-2">
+                    <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
+                    <span>{content.en.policy.note}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">{content.en.process.title}</h2>
+            <div className="space-y-6">
+              {content.en.process.steps.map((step, index) => (
+                <div key={index} className="flex gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold">
+                    {step.number}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{step.title}</h3>
+                    <p className="text-gray-600">{step.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
+            <div className="flex items-start gap-4 mb-4">
+              <RotateCcw size={24} className="text-gray-700" />
+              <h2 className="text-2xl font-semibold text-gray-900">{content.en.refund.title}</h2>
+            </div>
+            <ul className="space-y-3">
+              {content.en.refund.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{content.en.conditions.title}</h2>
+            <ul className="space-y-3">
+              {content.en.conditions.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-amber-50 rounded-xl p-8 border border-amber-100">
+            <div className="flex items-start gap-4">
+              <AlertCircle size={24} className="text-amber-600 flex-shrink-0" />
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.exceptions.title}</h2>
+                <p className="text-gray-700 mb-3">{content.en.exceptions.text}</p>
+                <ul className="space-y-2">
+                  {content.en.exceptions.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-gray-600">
+                      <span className="text-amber-600">⚠</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Process */}
-        <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6">{lang.process.title}</h2>
-          <div className="space-y-6">
-            {lang.process.steps.map((step, index) => (
-              <div key={index} className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold">
-                  {step.number}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{step.title}</h3>
-                  <p className="text-gray-600">{step.text}</p>
+        {/* ——— Deutsch ——— */}
+        <div className="relative pt-16">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-gray-200 h-px w-1/2"></div>
+
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{content.de.title}</h1>
+            <p className="text-xl text-gray-600">{content.de.subtitle}</p>
+          </div>
+
+          <div className="bg-green-50 rounded-xl p-8 border border-green-100 mb-8">
+            <div className="flex items-start gap-4">
+              <CheckCircle size={32} className="text-green-600 flex-shrink-0" />
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.policy.title}</h2>
+                <p className="text-gray-700 mb-3">{content.de.policy.text}</p>
+                <div className="bg-white rounded-lg p-4 border border-green-200">
+                  <p className="text-sm text-gray-600 flex items-start gap-2">
+                    <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
+                    <span>{content.de.policy.note}</span>
+                  </p>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
 
-        {/* Refund */}
-        <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
-          <div className="flex items-start gap-4 mb-4">
-            <RotateCcw size={24} className="text-gray-700" />
-            <h2 className="text-2xl font-semibold text-gray-900">{lang.refund.title}</h2>
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">{content.de.process.title}</h2>
+            <div className="space-y-6">
+              {content.de.process.steps.map((step, index) => (
+                <div key={index} className="flex gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold">
+                    {step.number}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{step.title}</h3>
+                    <p className="text-gray-600">{step.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <ul className="space-y-3">
-            {lang.refund.items.map((item, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <span className="text-green-500 mt-1">✓</span>
-                <span className="text-gray-600">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        {/* Conditions */}
-        <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">{lang.conditions.title}</h2>
-          <ul className="space-y-3">
-            {lang.conditions.items.map((item, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <span className="text-blue-500 mt-1">•</span>
-                <span className="text-gray-600">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
+            <div className="flex items-start gap-4 mb-4">
+              <RotateCcw size={24} className="text-gray-700" />
+              <h2 className="text-2xl font-semibold text-gray-900">{content.de.refund.title}</h2>
+            </div>
+            <ul className="space-y-3">
+              {content.de.refund.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Exceptions */}
-        <div className="bg-amber-50 rounded-xl p-8 border border-amber-100">
-          <div className="flex items-start gap-4">
-            <AlertCircle size={24} className="text-amber-600 flex-shrink-0" />
-            <div>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-3">{lang.exceptions.title}</h2>
-              <p className="text-gray-700 mb-3">{lang.exceptions.text}</p>
-              <ul className="space-y-2">
-                {lang.exceptions.items.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-gray-600">
-                    <span className="text-amber-600">⚠</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{content.de.conditions.title}</h2>
+            <ul className="space-y-3">
+              {content.de.conditions.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-amber-50 rounded-xl p-8 border border-amber-100">
+            <div className="flex items-start gap-4">
+              <AlertCircle size={24} className="text-amber-600 flex-shrink-0" />
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.exceptions.title}</h2>
+                <p className="text-gray-700 mb-3">{content.de.exceptions.text}</p>
+                <ul className="space-y-2">
+                  {content.de.exceptions.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-gray-600">
+                      <span className="text-amber-600">⚠</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
