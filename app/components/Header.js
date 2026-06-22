@@ -17,7 +17,6 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
-  const [noTransition, setNoTransition] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const lastScrollY = useRef(0);
   const { cartItemCount } = useCart();
@@ -44,17 +43,11 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      setScrollY(currentScrollY);
+
       if (currentScrollY > lastScrollY.current) {
-        // Scrolling down: two-step for reliable CSS transition
-        setScrollY(currentScrollY);
-        setNoTransition(false);  // Step 1: enable transition → isAboutToHide → transparent
-        requestAnimationFrame(() => {
-          setHeaderVisible(false); // Step 2: animate out
-        });
+        setHeaderVisible(false);
       } else if (currentScrollY < lastScrollY.current) {
-        // Scrolling up: instant show
-        setScrollY(currentScrollY);
-        setNoTransition(true);
         setHeaderVisible(true);
       }
 
@@ -77,8 +70,7 @@ export default function Header() {
 
   const isNearTop = scrollY < 50;
   const inHeroZone = scrollY < 1000;
-  const isAboutToHide = isHomePage && !noTransition && headerVisible && inHeroZone;
-  const shouldBeTransparent = isHomePage && (isNearTop || (inHeroZone && !headerVisible) || isAboutToHide);
+  const shouldBeTransparent = isHomePage && (isNearTop || (inHeroZone && !headerVisible));
   const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
   const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
@@ -88,7 +80,7 @@ export default function Header() {
       style={{
         background: headerBg,
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: noTransition ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
       }}
       className="sticky top-0 z-50"
     >
