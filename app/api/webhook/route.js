@@ -146,7 +146,7 @@ export async function POST(request) {
                     </ul>
                   </div>
                   
-                  <p>If you have any questions, please contact us at <a href="mailto:info@zakartgallery.com">info@zakartgallery.com</a></p>
+                  <p>If you have any questions, please contact us at <a href="mailto:info@manfredzak.com">info@manfredzak.com</a></p>
                   
                   <p>Best regards,<br>
                   <strong>ZAK Fine Art Team</strong></p>

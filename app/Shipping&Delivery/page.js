@@ -129,7 +129,7 @@ export default function ShippingPage() {
             <h2 className="text-2xl font-light text-gray-900 mb-4">Damaged or Lost Shipments</h2>
             <div className="text-gray-700 space-y-4">
               <p>
-                If your artwork arrives damaged, please contact us immediately at info@zakartgallery.com 
+                If your artwork arrives damaged, please contact us immediately at info@manfredzak.com 
                 with photos of the damage and the packaging. Do not dispose of the packaging materials.
               </p>
               <p>
@@ -150,8 +150,8 @@ export default function ShippingPage() {
                 If you have any questions about shipping or delivery, please don't hesitate to contact us:
               </p>
               <div className="bg-gray-50 p-4 rounded">
-                <p>Email: info@zakartgallery.com</p>
-                <p>Phone: +49 (0) 123 456789</p>
+                <p>Email: info@manfredzak.com</p>
+                <p>Phone: +49 179 4824 300</p>
                 <p>Monday - Friday: 10:00 - 18:00</p>
               </div>
             </div>

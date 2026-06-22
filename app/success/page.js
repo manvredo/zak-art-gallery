@@ -155,7 +155,7 @@ export default function SuccessPage() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
           <h3 className="font-medium text-gray-900 mb-2">{t.needHelp}</h3>
           <p className="text-gray-700 text-sm">
-            {t.contactUs} <a href="mailto:info@zakartgallery.com" className="text-blue-600 hover:text-blue-700 underline">info@zakartgallery.com</a>
+            {t.contactUs} <a href="mailto:info@manfredzak.com" className="text-blue-600 hover:text-blue-700 underline">info@manfredzak.com</a>
           </p>
         </div>
 

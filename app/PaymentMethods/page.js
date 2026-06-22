@@ -213,7 +213,7 @@ export default function PaymentPage() {
               </ul>
               <p className="mt-4">
                 If you continue to experience issues, please try an alternative payment method or 
-                contact us at info@zakartgallery.com for assistance.
+                contact us at info@manfredzak.com for assistance.
               </p>
             </div>
           </section>
@@ -228,7 +228,7 @@ export default function PaymentPage() {
               <div className="bg-gray-50 p-4 rounded">
                 <p className="font-medium text-gray-900 mb-2">Contact our Sales Team:</p>
                 <p>Email: sales@zakartgallery.com</p>
-                <p>Phone: +49 (0) 123 456789</p>
+                <p>Phone: +49 179 4824 300</p>
               </div>
             </div>
           </section>
@@ -240,8 +240,8 @@ export default function PaymentPage() {
                 If you have any questions about payment methods or encounter any issues during checkout:
               </p>
               <div className="bg-gray-50 p-4 rounded">
-                <p>Email: info@zakartgallery.com</p>
-                <p>Phone: +49 (0) 123 456789</p>
+                <p>Email: info@manfredzak.com</p>
+                <p>Phone: +49 179 4824 300</p>
                 <p>Monday - Friday: 10:00 - 18:00</p>
               </div>
             </div>

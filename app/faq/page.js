@@ -99,7 +99,7 @@ export default function FAQPage() {
           faqs: [
             {
               question: 'Wie kann ich Sie kontaktieren?',
-              answer: 'Sie erreichen uns per E-Mail unter info@zakartgallery.com oder telefonisch unter +49 (0) 123 456789. Unsere Öffnungszeiten sind Mo-Fr von 10-18 Uhr.'
+              answer: 'Sie erreichen uns per E-Mail unter info@manfredzak.com oder telefonisch unter +49 179 4824 300. Unsere Öffnungszeiten sind Mo-Fr von 10-18 Uhr.'
             },
             {
               question: 'Haben Sie eine physische Galerie?',
@@ -203,7 +203,7 @@ export default function FAQPage() {
           faqs: [
             {
               question: 'How can I contact you?',
-              answer: 'You can reach us via email at info@zakartgallery.com or by phone at +49 (0) 123 456789. Our opening hours are Mon-Fri from 10am-6pm.'
+              answer: 'You can reach us via email at info@manfredzak.com or by phone at +49 179 4824 300. Our opening hours are Mon-Fri from 10am-6pm.'
             },
             {
               question: 'Do you have a physical gallery?',

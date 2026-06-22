@@ -47,7 +47,7 @@ export default function CookiesPage() {
         },
         {
           heading: 'Kontakt',
-          text: 'Wenn du Fragen zur Verwendung von Cookies hast, kontaktiere uns bitte unter info@zakartgallery.com'
+          text: 'Wenn du Fragen zur Verwendung von Cookies hast, kontaktiere uns bitte unter info@manfredzak.com'
         }
       ]
     },
@@ -91,7 +91,7 @@ export default function CookiesPage() {
         },
         {
           heading: 'Contact',
-          text: 'If you have questions about cookie usage, please contact us at info@zakartgallery.com'
+          text: 'If you have questions about cookie usage, please contact us at info@manfredzak.com'
         }
       ]
     }
