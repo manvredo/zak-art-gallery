@@ -79,17 +79,18 @@ export default function Header() {
       className="sticky top-0 z-50"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          
+        <div className="flex items-center justify-between lg:justify-center h-16 relative">
+
           {/* Mobile Menu Button */}
-          <button 
-            className="lg:hidden cursor-pointer" 
+          <button
+            className="lg:hidden cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <div className="flex items-center justify-between flex-1 self-stretch border-b-2" style={{ borderColor: isHomePage ? 'transparent' : '#e5e7eb' }}>
+          {/* Desktop: inline-flex border wrapper (only as wide as content) */}
+          <div className="hidden lg:flex items-center self-stretch border-b-2" style={{ borderColor: isHomePage ? 'transparent' : '#e5e7eb' }}>
           {/* Logo & Navigation - Centered */}
           <div className="flex items-center justify-center">
             <Link href="/">
@@ -156,8 +157,9 @@ export default function Header() {
             </nav>
           </div>
 
-          {/* Right Icons */}
-          <div className="flex items-center space-x-4">
+          {/* Right Icons - Desktop in border, Mobile ohne Border */}
+          </div>
+          <div className="flex items-center space-x-4 lg:self-stretch lg:border-b-2" style={{ borderColor: isHomePage ? 'transparent' : '#e5e7eb' }}>
             {/* Language Switch mit animiertem Strich */}
             <div className="flex items-center gap-1">
               <button
@@ -224,7 +226,6 @@ export default function Header() {
                 </span>
               )}
             </Link>
-          </div>
           </div>
         </div>
       </div>
