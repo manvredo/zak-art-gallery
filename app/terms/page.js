@@ -110,7 +110,7 @@ export default function TermsPage() {
                 <p className="font-medium text-gray-900">ZAK Fine Art</p>
                 <p>Großbeerenstr. 15</p>
                 <p>10963 Berlin, Germany</p>
-                <p>Email: info@thefroggers.io</p>
+                <p>Email: info@manfredzak.com</p>
               </div>
               <p className="text-gray-700 leading-relaxed mt-4">
                 of your decision to withdraw from this contract by means of a clear declaration 

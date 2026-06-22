@@ -218,7 +218,6 @@ export default function CookiesPage() {
                 <p>17326 Brüssow</p>
                 <p className="mt-2">E-Mail: info@manfredzak.com</p>
                 <p>Telefon: +49 179 4824 300</p>
-				<p>Telefon: +49 179 4824 300</p>
               </div>
             </div>
           </section>

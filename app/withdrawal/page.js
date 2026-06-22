@@ -162,7 +162,6 @@ export default function WithdrawalPage() {
               <p>Germany</p>
               <p className="mt-2">Email: info@manfredzak.com</p>
               <p>Phone: +49 179 4824 300</p>
-			  <p>Phone: +49 179 4824 300</p>
             </div>
 
             <p className="text-gray-700 leading-relaxed mb-4">
