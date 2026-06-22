@@ -19,7 +19,7 @@ export default function ArtwingmanPage() {
   const paragraphs = language === 'de' ? artwingmanIntro.de : artwingmanIntro.en;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
 
       {/* Artwingman Header */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-12">
