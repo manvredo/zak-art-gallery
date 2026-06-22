@@ -69,10 +69,10 @@ export default function Header() {
   };
 
   const isHomePage = pathname === '/';
-  const isHomepageTransparent = isHomePage && !wasHeaderHidden.current;
-  const headerBg = isHomepageTransparent ? 'transparent !important' : '#ffffff !important';
-  const textColor = isHomepageTransparent ? '#ffffff' : '#010101';
-  const headerBorder = isHomepageTransparent ? 'transparent' : '#e5e7eb';
+  const shouldBeTransparent = isHomePage && (!wasHeaderHidden.current || !headerVisible);
+  const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
+  const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
+  const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
   
   return (
     <header
