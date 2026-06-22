@@ -113,23 +113,35 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
       </div>
 
       {/* Intro Section */}
-      <div className="max-w-4xl mx-auto px-12 md:px-24 py-16">
-        <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#171717', letterSpacing: 0 }}>
-          ZAK Fine Art
-        </h2>
-        <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#4B5563', letterSpacing: 0 }}>
-          Manfred Zak
-        </span>
-        <span className="block mt-1" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '14px', lineHeight: 1.6, color: '#9CA3AF' }}>
-          25.03.1979
-        </span>
-        <p className="mt-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
-          {t.welcome.intro1}
-        </p>
-        <div className="mt-8">
-          <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563', cursor: 'pointer' }} className="hover:underline">
-            Read more
-          </span>
+      <div className="max-w-6xl mx-auto px-12 md:px-24 py-16">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          {/* Left: Text */}
+          <div style={{ maxWidth: 400 }}>
+            <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#171717', letterSpacing: 0 }}>
+              ZAK Fine Art
+            </h2>
+            <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#4B5563', letterSpacing: 0 }}>
+              Manfred Zak
+            </span>
+            <span className="block mt-1" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '14px', lineHeight: 1.6, color: '#9CA3AF' }}>
+              25.03.1979
+            </span>
+            <p className="mt-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
+              {t.welcome.intro1}
+            </p>
+            <p className="mt-4" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
+              {t.welcome.intro2}
+            </p>
+            <div className="mt-8">
+              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563', cursor: 'pointer' }} className="hover:underline">
+                Read more
+              </span>
+            </div>
+          </div>
+          {/* Right: Placeholder Image */}
+          <div className="rounded-sm overflow-hidden bg-gray-100 aspect-[3/4] flex items-center justify-center text-gray-400 text-sm">
+            Image placeholder
+          </div>
         </div>
       </div>
 
