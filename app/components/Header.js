@@ -44,16 +44,16 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      setScrollY(currentScrollY);
-
       if (currentScrollY > lastScrollY.current) {
-        // Scrolling down: two-step for animated hide
-        setNoTransition(false);
+        // Scrolling down: two-step for reliable CSS transition
+        setScrollY(currentScrollY);
+        setNoTransition(false);  // Step 1: enable transition → isAboutToHide → transparent
         requestAnimationFrame(() => {
-          setHeaderVisible(false);
+          setHeaderVisible(false); // Step 2: animate out
         });
       } else if (currentScrollY < lastScrollY.current) {
         // Scrolling up: instant show
+        setScrollY(currentScrollY);
         setNoTransition(true);
         setHeaderVisible(true);
       }
@@ -77,7 +77,8 @@ export default function Header() {
 
   const isNearTop = scrollY < 50;
   const inHeroZone = scrollY < 1000;
-  const shouldBeTransparent = isHomePage && (isNearTop || (!headerVisible && inHeroZone));
+  const isAboutToHide = isHomePage && !noTransition && headerVisible && inHeroZone;
+  const shouldBeTransparent = isHomePage && (isNearTop || (inHeroZone && !headerVisible) || isAboutToHide);
   const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
   const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
