@@ -78,36 +78,31 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         </div>
 
         {/* Overlay mit Text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
-          <h2 className="mb-6" style={{ color: '#ffffff', fontFamily: "'Vollkorn', serif", fontWeight: '400', fontSize: '42px', textShadow: '2px 2px 8px rgba(0,0,0,0.5)' }}>
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 px-12 md:px-24 text-center max-w-4xl mx-auto">
+          <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#ffffff', letterSpacing: 0 }}>
             {t.welcome.title}
           </h2>
-          <p className="text-2xl mb-4" style={{ color: '#ffffff', fontFamily: 'var(--font-inter), sans-serif', fontWeight: '400', textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
+          <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#ffffff', letterSpacing: 0 }}>
             {t.welcome.subtitle}
-          </p>
-          <div className="flex gap-4 mt-4">
+          </span>
+          <span className="mt-4" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#ffffff' }}>
+            Welcome to ZAK Fine Art. For over a decade, the studio has dedicated itself to contemporary landscape painting and the realization of graphic works.
+          </span>
+          <div className="flex gap-4 mt-8 justify-center">
             <Link
               href="/about"
-              className="px-6 py-2 bg-white text-gray-900 hover:bg-gray-200 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium"
+              className="px-6 py-3 bg-white text-gray-900 hover:bg-gray-200 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium"
+              style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
             >
               {t.welcome.viewGallery}
             </Link>
             <Link
               href="/shop"
-              className="px-6 py-2 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
+              className="px-6 py-3 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
+              style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
             >
               {t.welcome.visitShop}
             </Link>
-          </div>
-          <div className="mt-6">
-            <a
-              href="https://artwingman.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
-            >
-              Art Wingman
-            </a>
           </div>
         </div>
       </div>
