@@ -68,8 +68,8 @@ export default function TermsPage() {
               <p className="text-gray-700 leading-relaxed mb-2">To exercise your right of withdrawal, you must inform us:</p>
               <div className="mt-2 pl-4 text-gray-700">
                 <p className="font-medium text-gray-900">ZAK Fine Art</p>
-                <p>Großbeerenstr. 15</p>
-                <p>10963 Berlin, Germany</p>
+                <p>Rudolf-Breitscheid-Str. 24</p>
+                <p>17326 Brüssow, Germany</p>
                 <p>Email: info@manfredzak.com</p>
               </div>
               <p className="text-gray-700 leading-relaxed mt-4">of your decision to withdraw from this contract by means of a clear declaration (e.g., letter sent by post or email).</p>
@@ -152,8 +152,8 @@ export default function TermsPage() {
               <p className="text-gray-700 leading-relaxed mb-2">Um Ihr Widerrufsrecht auszuüben, müssen Sie uns:</p>
               <div className="mt-2 pl-4 text-gray-700">
                 <p className="font-medium text-gray-900">ZAK Fine Art</p>
-                <p>Großbeerenstr. 15</p>
-                <p>10963 Berlin, Deutschland</p>
+                <p>Rudolf-Breitscheid-Str. 24</p>
+                <p>17326 Brüssow, Deutschland</p>
                 <p>E-Mail: info@manfredzak.com</p>
               </div>
               <p className="text-gray-700 leading-relaxed mt-4">mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.</p>

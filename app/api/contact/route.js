@@ -88,8 +88,8 @@ export async function POST(request) {
           <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
           <p style="color: #666; font-size: 12px;">
             ZAK Fine Art<br>
-            Großbeerenstr. 15<br>
-            10963 Berlin<br>
+            Rudolf-Breitscheid-Str. 24<br>
+            17326 Brüssow<br>
             info@manfredzak.com
           </p>
         </div>

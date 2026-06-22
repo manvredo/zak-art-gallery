@@ -45,12 +45,11 @@ export default function WiderrufPage() {
               <div className="bg-gray-50 p-4 rounded">
                 <p className="font-medium">ZAK Fine Art</p>
                 <p>Manfred Zak</p>
-                <p>Großbeerenstr. 15</p>
-                <p>10963 Berlin</p>
+                <p>Rudolf-Breitscheid-Str. 24</p>
+                <p>17326 Brüssow</p>
                 <p>E-Mail: info@manfredzak.com</p>
                 <p>Telefon: +49 179 4824 300</p>
               </div>
-              
               <p>
                 mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder E-Mail) 
                 über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das 
@@ -121,8 +120,8 @@ export default function WiderrufPage() {
                 <p>An:</p>
                 <p className="font-medium mt-2">ZAK Fine Art</p>
                 <p>Manfred Zak</p>
-                <p>Großbeerenstr. 15</p>
-                <p>10963 Berlin</p>
+                <p>Rudolf-Breitscheid-Str. 24</p>
+                <p>17326 Brüssow</p>
                 <p>E-Mail: info@manfredzak.com</p>
               </div>
               

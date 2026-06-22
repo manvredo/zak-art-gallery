@@ -153,7 +153,7 @@ export async function POST(request) {
                 </div>
                 
                 <div class="footer">
-                  <p>ZAK Fine Art | Großbeerenstr. 15 | 10963 Berlin | Germany</p>
+                  <p>ZAK Fine Art | Rudolf-Breitscheid-Str. 24 | 17326 Brüssow | Germany</p>
                   <p>© 2026 ZAK Fine Art. All rights reserved.</p>
                 </div>
               </div>
