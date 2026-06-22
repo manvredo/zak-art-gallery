@@ -122,8 +122,12 @@ export default function AboutPage() {
               <p key={i}>{text}</p>
             ))}
           </div>
-          <div className="aspect-[4/3] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400 text-sm">
-            {language === 'de' ? 'Foto 2 folgt' : 'Photo 2 coming soon'}
+          <div className="rounded-sm overflow-hidden bg-gray-100">
+            <img
+              src="/about/Work_02.jpg"
+              alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
+              className="aspect-[4/3] object-cover w-full"
+            />
           </div>
         </div>
 
