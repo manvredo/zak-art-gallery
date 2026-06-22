@@ -120,7 +120,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#171717', letterSpacing: 0 }}>
               ZAK Fine Art
             </h2>
-            <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '24px', lineHeight: 1.6, color: '#171717', letterSpacing: 0 }}>
+            <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '24px', lineHeight: 1.6, color: '#6B7280', letterSpacing: 0 }}>
               Manfred Zak
             </span>
             <span className="block mt-1" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '14px', lineHeight: 1.6, color: '#9CA3AF' }}>
