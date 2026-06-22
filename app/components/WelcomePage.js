@@ -113,7 +113,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
       </div>
 
       {/* Intro Section */}
-      <div className="max-w-6xl mx-auto px-12 md:px-24 py-16">
+      <div className="max-w-6xl mx-auto px-12 md:px-24 py-32">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left: Text */}
           <div style={{ maxWidth: 400 }}>
