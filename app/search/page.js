@@ -180,7 +180,7 @@ function SearchContent() {
       <span>
         {parts.map((part, index) => 
           part.toLowerCase() === searchTerm.toLowerCase() ? (
-            <mark key={index} className="bg-yellow-300 px-1 rounded">
+            <mark key={index} className="bg-gray-300 px-1 rounded">
               {part}
             </mark>
           ) : (

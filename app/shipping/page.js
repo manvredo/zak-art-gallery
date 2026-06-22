@@ -155,7 +155,7 @@ export default function ShippingPage() {
             ))}
           </div>
 
-          <div className="bg-blue-50 rounded-xl p-8 border border-blue-100 mb-8">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.tracking.title}</h2>
             <p className="text-gray-700">{content.en.tracking.text}</p>
           </div>
@@ -165,7 +165,7 @@ export default function ShippingPage() {
             <ul className="space-y-3">
               {content.en.delivery.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-500 mt-1">✓</span>
                   <span className="text-gray-600">{item}</span>
                 </li>
               ))}
@@ -221,7 +221,7 @@ export default function ShippingPage() {
             ))}
           </div>
 
-          <div className="bg-blue-50 rounded-xl p-8 border border-blue-100 mb-8">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.tracking.title}</h2>
             <p className="text-gray-700">{content.de.tracking.text}</p>
           </div>
@@ -231,7 +231,7 @@ export default function ShippingPage() {
             <ul className="space-y-3">
               {content.de.delivery.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-500 mt-1">✓</span>
                   <span className="text-gray-600">{item}</span>
                 </li>
               ))}

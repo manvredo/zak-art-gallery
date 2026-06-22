@@ -127,7 +127,7 @@ export default function ArticleDetailPage() {
           <p className="text-gray-600 mb-8">Artikel nicht gefunden</p>
           <Link 
             href={`/${category}`}
-            className="text-blue-600 hover:text-blue-700 font-medium"
+            className="text-gray-900 hover:text-gray-700 font-medium"
           >
             ← Zurück zur Übersicht
           </Link>
@@ -234,7 +234,7 @@ export default function ArticleDetailPage() {
                     </div>
                   )}
                   <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition">
+                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-gray-900 transition">
                       {related.title}
                     </h3>
                     <p className="text-sm text-gray-600 line-clamp-2">

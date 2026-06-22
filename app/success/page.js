@@ -78,7 +78,7 @@ export default function SuccessPage() {
         {/* Success Icon and Message */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
-            <CheckCircle className="text-green-500" size={80} strokeWidth={1.5} />
+            <CheckCircle className="text-gray-500" size={80} strokeWidth={1.5} />
           </div>
           <h1 className="text-4xl font-light text-gray-900 mb-4">{t.title}</h1>
           <p className="text-xl text-gray-600 mb-6">{t.subtitle}</p>
@@ -152,10 +152,10 @@ export default function SuccessPage() {
         </div>
 
         {/* Contact Information */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
           <h3 className="font-medium text-gray-900 mb-2">{t.needHelp}</h3>
           <p className="text-gray-700 text-sm">
-            {t.contactUs} <a href="mailto:info@manfredzak.com" className="text-blue-600 hover:text-blue-700 underline">info@manfredzak.com</a>
+            {t.contactUs} <a href="mailto:info@manfredzak.com" className="text-gray-900 hover:text-gray-700 underline">info@manfredzak.com</a>
           </p>
         </div>
 

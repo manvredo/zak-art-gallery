@@ -53,8 +53,8 @@ export default function VerifyEmailPage() {
           
           {/* Animated Email Icon */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-blue-100 rounded-full mb-6 animate-pulse">
-              <Mail className="text-blue-600" size={48} />
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-gray-100 rounded-full mb-6 animate-pulse">
+              <Mail className="text-gray-900" size={48} />
             </div>
             
             <h1 className="text-3xl font-light text-gray-900 mb-4">
@@ -105,7 +105,7 @@ export default function VerifyEmailPage() {
               </li>
               
               <li className="flex items-start gap-3">
-                <CheckCircle className="flex-shrink-0 text-green-600 mt-0.5" size={20} />
+                <CheckCircle className="flex-shrink-0 text-gray-900 mt-0.5" size={20} />
                 <span className="text-gray-700">
                   {t.auth.verifyEmail?.step4 || 'Sie werden automatisch weitergeleitet'}
                 </span>
@@ -120,7 +120,7 @@ export default function VerifyEmailPage() {
             </p>
             
             {resent ? (
-              <div className="flex items-center justify-center gap-2 text-green-600">
+              <div className="flex items-center justify-center gap-2 text-gray-900">
                 <CheckCircle size={20} />
                 <span className="text-sm font-medium">
                   {t.auth.verifyEmail?.emailResent || 'E-Mail wurde erneut gesendet!'}

@@ -44,8 +44,8 @@ export default function ForgotPasswordPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-lg shadow-sm p-8">
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-              <CheckCircle className="text-green-600" size={32} />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+              <CheckCircle className="text-gray-900" size={32} />
             </div>
             <h1 className="text-2xl font-light text-gray-900 mb-4">
               Email versendet! / Email Sent!
@@ -106,10 +106,10 @@ export default function ForgotPasswordPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Error Message */}
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                  <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-start gap-3">
+                  <AlertCircle className="text-gray-900 flex-shrink-0 mt-0.5" size={20} />
                   <div className="flex-1">
-                    <p className="text-sm text-red-800">{error}</p>
+                    <p className="text-sm text-gray-800">{error}</p>
                   </div>
                 </div>
               )}

@@ -104,7 +104,7 @@ export default function CookiesPage() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <Link href="/" className="text-blue-600 hover:text-blue-700 mb-4 inline-block">
+          <Link href="/" className="text-gray-900 hover:text-gray-700 mb-4 inline-block">
             ← Zurück
           </Link>
           <h1 className="text-4xl font-light text-gray-900 mb-4">{t.title}</h1>
@@ -130,7 +130,7 @@ export default function CookiesPage() {
               {section.items && (
                 <div className="space-y-4 mb-4">
                   {section.items.map((item, i) => (
-                    <div key={i} className="border-l-4 border-blue-500 pl-4">
+                    <div key={i} className="border-l-4 border-gray-500 pl-4">
                       <h3 className="font-semibold text-gray-900 mb-1">
                         {item.title}
                       </h3>
@@ -146,7 +146,7 @@ export default function CookiesPage() {
                 <ul className="space-y-2 mb-4">
                   {section.list.map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-gray-700">
-                      <span className="text-blue-500 mt-1">•</span>
+                      <span className="text-gray-500 mt-1">•</span>
                       <span>{item}</span>
                     </li>
                   ))}

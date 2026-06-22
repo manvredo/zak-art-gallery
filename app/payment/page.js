@@ -169,7 +169,7 @@ export default function PaymentPage() {
                 <ul className="space-y-2">
                   {method.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
-                      <span className="text-green-500">✓</span>
+                      <span className="text-gray-500">✓</span>
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -178,16 +178,16 @@ export default function PaymentPage() {
             ))}
           </div>
 
-          <div className="bg-blue-50 rounded-xl p-8 border border-blue-100 mb-8">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 mb-8">
             <div className="flex items-start gap-4">
-              <Shield size={32} className="text-blue-600 flex-shrink-0" />
+              <Shield size={32} className="text-gray-900 flex-shrink-0" />
               <div className="flex-1">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.security.title}</h2>
                 <p className="text-gray-700 mb-4">{content.en.security.text}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {content.en.security.features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-2 text-sm">
-                      <Lock size={16} className="text-blue-600" />
+                      <Lock size={16} className="text-gray-900" />
                       <span className="text-gray-700">{feature}</span>
                     </div>
                   ))}
@@ -220,7 +220,7 @@ export default function PaymentPage() {
             </ul>
           </div>
 
-          <div className="bg-green-50 rounded-xl p-6 border border-green-100">
+          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
             <h2 className="text-xl font-semibold text-gray-900 mb-2">{content.en.currencies.title}</h2>
             <p className="text-gray-700">{content.en.currencies.text}</p>
           </div>
@@ -250,7 +250,7 @@ export default function PaymentPage() {
                 <ul className="space-y-2">
                   {method.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
-                      <span className="text-green-500">✓</span>
+                      <span className="text-gray-500">✓</span>
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -259,16 +259,16 @@ export default function PaymentPage() {
             ))}
           </div>
 
-          <div className="bg-blue-50 rounded-xl p-8 border border-blue-100 mb-8">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 mb-8">
             <div className="flex items-start gap-4">
-              <Shield size={32} className="text-blue-600 flex-shrink-0" />
+              <Shield size={32} className="text-gray-900 flex-shrink-0" />
               <div className="flex-1">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.security.title}</h2>
                 <p className="text-gray-700 mb-4">{content.de.security.text}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {content.de.security.features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-2 text-sm">
-                      <Lock size={16} className="text-blue-600" />
+                      <Lock size={16} className="text-gray-900" />
                       <span className="text-gray-700">{feature}</span>
                     </div>
                   ))}
@@ -301,7 +301,7 @@ export default function PaymentPage() {
             </ul>
           </div>
 
-          <div className="bg-green-50 rounded-xl p-6 border border-green-100">
+          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
             <h2 className="text-xl font-semibold text-gray-900 mb-2">{content.de.currencies.title}</h2>
             <p className="text-gray-700">{content.de.currencies.text}</p>
           </div>

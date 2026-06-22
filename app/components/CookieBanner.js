@@ -64,7 +64,7 @@ export default function CookieBanner() {
               Wir verwenden Cookies, um dein Browsererlebnis zu verbessern. Einige sind notwendig für die Funktionalität, andere helfen uns zu verstehen, wie du unsere Website nutzt.{' '}
               <Link 
                 href="/cookies"
-                className="underline text-blue-400 hover:text-blue-300"
+                className="underline text-gray-400 hover:text-blue-300"
               >
                 Mehr Infos
               </Link>

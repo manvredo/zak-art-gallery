@@ -122,7 +122,7 @@ export default function VitaPage() {
           {/* Statement */}
           {vitaData.statement && (
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-8">
-              <Quote className="text-blue-600 mb-4" size={40} />
+              <Quote className="text-gray-900 mb-4" size={40} />
               <blockquote 
                 className="text-xl font-light text-gray-800 leading-relaxed italic"
                 dangerouslySetInnerHTML={{ __html: vitaData.statement }}

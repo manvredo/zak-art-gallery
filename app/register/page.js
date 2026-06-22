@@ -111,10 +111,10 @@ export default function RegisterPage() {
             <form onSubmit={handleRegister} className="space-y-6">
               {/* Error Message */}
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                  <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-start gap-3">
+                  <AlertCircle className="text-gray-900 flex-shrink-0 mt-0.5" size={20} />
                   <div className="flex-1">
-                    <p className="text-sm text-red-800">{error}</p>
+                    <p className="text-sm text-gray-800">{error}</p>
                   </div>
                 </div>
               )}
@@ -270,19 +270,19 @@ export default function RegisterPage() {
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <CheckCircle className="text-gray-900 flex-shrink-0 mt-0.5" size={20} />
                 <span className="text-gray-700">{t.auth.register.benefits.trackOrders}</span>
               </li>
               <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <CheckCircle className="text-gray-900 flex-shrink-0 mt-0.5" size={20} />
                 <span className="text-gray-700">{t.auth.register.benefits.saveFavorites}</span>
               </li>
               <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <CheckCircle className="text-gray-900 flex-shrink-0 mt-0.5" size={20} />
                 <span className="text-gray-700">{t.auth.register.benefits.earlyAccess}</span>
               </li>
               <li className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                <CheckCircle className="text-gray-900 flex-shrink-0 mt-0.5" size={20} />
                 <span className="text-gray-700">{t.auth.register.benefits.newsletter}</span>
               </li>
             </ul>

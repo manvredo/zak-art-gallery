@@ -152,13 +152,13 @@ export default function ReturnsPage() {
             <p className="text-xl text-gray-600">{content.en.subtitle}</p>
           </div>
 
-          <div className="bg-green-50 rounded-xl p-8 border border-green-100 mb-8">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 mb-8">
             <div className="flex items-start gap-4">
-              <CheckCircle size={32} className="text-green-600 flex-shrink-0" />
+              <CheckCircle size={32} className="text-gray-900 flex-shrink-0" />
               <div>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.policy.title}</h2>
                 <p className="text-gray-700 mb-3">{content.en.policy.text}</p>
-                <div className="bg-white rounded-lg p-4 border border-green-200">
+                <div className="bg-white rounded-lg p-4 border border-gray-200">
                   <p className="text-sm text-gray-600 flex items-start gap-2">
                     <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
                     <span>{content.en.policy.note}</span>
@@ -193,7 +193,7 @@ export default function ReturnsPage() {
             <ul className="space-y-3">
               {content.en.refund.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-500 mt-1">✓</span>
                   <span className="text-gray-600">{item}</span>
                 </li>
               ))}
@@ -205,23 +205,23 @@ export default function ReturnsPage() {
             <ul className="space-y-3">
               {content.en.conditions.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-gray-500 mt-1">•</span>
                   <span className="text-gray-600">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-amber-50 rounded-xl p-8 border border-amber-100">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200">
             <div className="flex items-start gap-4">
-              <AlertCircle size={24} className="text-amber-600 flex-shrink-0" />
+              <AlertCircle size={24} className="text-gray-900 flex-shrink-0" />
               <div>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.exceptions.title}</h2>
                 <p className="text-gray-700 mb-3">{content.en.exceptions.text}</p>
                 <ul className="space-y-2">
                   {content.en.exceptions.items.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-gray-600">
-                      <span className="text-amber-600">⚠</span>
+                      <span className="text-gray-900">⚠</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -240,13 +240,13 @@ export default function ReturnsPage() {
             <p className="text-xl text-gray-600">{content.de.subtitle}</p>
           </div>
 
-          <div className="bg-green-50 rounded-xl p-8 border border-green-100 mb-8">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 mb-8">
             <div className="flex items-start gap-4">
-              <CheckCircle size={32} className="text-green-600 flex-shrink-0" />
+              <CheckCircle size={32} className="text-gray-900 flex-shrink-0" />
               <div>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.policy.title}</h2>
                 <p className="text-gray-700 mb-3">{content.de.policy.text}</p>
-                <div className="bg-white rounded-lg p-4 border border-green-200">
+                <div className="bg-white rounded-lg p-4 border border-gray-200">
                   <p className="text-sm text-gray-600 flex items-start gap-2">
                     <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
                     <span>{content.de.policy.note}</span>
@@ -281,7 +281,7 @@ export default function ReturnsPage() {
             <ul className="space-y-3">
               {content.de.refund.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-gray-500 mt-1">✓</span>
                   <span className="text-gray-600">{item}</span>
                 </li>
               ))}
@@ -293,23 +293,23 @@ export default function ReturnsPage() {
             <ul className="space-y-3">
               {content.de.conditions.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-gray-500 mt-1">•</span>
                   <span className="text-gray-600">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-amber-50 rounded-xl p-8 border border-amber-100">
+          <div className="bg-gray-50 rounded-xl p-8 border border-gray-200">
             <div className="flex items-start gap-4">
-              <AlertCircle size={24} className="text-amber-600 flex-shrink-0" />
+              <AlertCircle size={24} className="text-gray-900 flex-shrink-0" />
               <div>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.exceptions.title}</h2>
                 <p className="text-gray-700 mb-3">{content.de.exceptions.text}</p>
                 <ul className="space-y-2">
                   {content.de.exceptions.items.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-gray-600">
-                      <span className="text-amber-600">⚠</span>
+                      <span className="text-gray-900">⚠</span>
                       <span>{item}</span>
                     </li>
                   ))}

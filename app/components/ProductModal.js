@@ -70,11 +70,11 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
             {/* Status Badges */}
             <div className="flex gap-2">
-              <div className="flex items-center gap-1 px-3 py-2 bg-green-50 text-green-700 rounded-lg text-sm">
+              <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
                 <Check size={16} />
                 {pm.available}
               </div>
-              <div className="flex items-center gap-1 px-3 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm">
+              <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
                 <Award size={16} />
                 {pm.original}
               </div>
@@ -181,12 +181,12 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                     </p>
                     
                     {/* Authenticity Certificate Box */}
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
                       <div className="flex items-start gap-3">
-                        <Award className="text-blue-600 flex-shrink-0 mt-1" size={20} />
+                        <Award className="text-gray-900 flex-shrink-0 mt-1" size={20} />
                         <div>
-                          <h4 className="font-medium text-blue-900 mb-1">{pm.certTitle}</h4>
-                          <p className="text-sm text-blue-800">
+                          <h4 className="font-medium text-gray-900 mb-1">{pm.certTitle}</h4>
+                          <p className="text-sm text-gray-700">
                             {pm.certText}
                           </p>
                         </div>

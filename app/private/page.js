@@ -102,7 +102,7 @@ export default function PrivatePage() {
         <div className="max-w-md w-full px-4">
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Lock className="w-10 h-10 text-amber-600" />
+              <Lock className="w-10 h-10 text-gray-900" />
             </div>
             
             <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">
@@ -137,7 +137,7 @@ export default function PrivatePage() {
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-center gap-2">
+                <div className="bg-gray-50 border border-gray-200 text-gray-700 px-4 py-3 rounded-lg text-sm flex items-center gap-2">
                   <span>❌</span>
                   <span>{error}</span>
                 </div>
@@ -183,8 +183,8 @@ export default function PrivatePage() {
         
         {/* VIP Badge oben */}
         <div className="mb-8 text-center">
-          <div className="inline-block bg-amber-100 px-6 py-3 rounded-full border border-amber-200">
-            <p className="text-sm font-medium text-amber-900">
+          <div className="inline-block bg-amber-100 px-6 py-3 rounded-full border border-gray-200">
+            <p className="text-sm font-medium text-gray-900">
               ✨ {language === 'de' ? 'VIP-Zugang aktiv' : 'VIP Access Active'}
             </p>
           </div>

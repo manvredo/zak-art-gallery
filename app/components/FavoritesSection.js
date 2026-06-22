@@ -159,10 +159,10 @@ export default function FavoritesSection() {
                 </Link>
                 <button
                   onClick={() => removeFavorite(favorite.id, favorite.product_id)}
-                  className="p-2 border border-gray-300 rounded-lg hover:bg-red-50 hover:border-red-300 transition group"
+                  className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-red-300 transition group"
                   aria-label="Remove from favorites"
                 >
-                  <Trash2 size={18} className="text-gray-600 group-hover:text-red-600" />
+                  <Trash2 size={18} className="text-gray-600 group-hover:text-gray-900" />
                 </button>
               </div>
             </div>

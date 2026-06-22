@@ -47,7 +47,7 @@ export default function CartPage({
                   <div className="mt-3">
                     <button 
                       onClick={() => removeFromCart(item.id)}
-                      className="text-sm text-red-600 hover:text-red-700 cursor-pointer"
+                      className="text-sm text-gray-900 hover:text-gray-700 cursor-pointer"
                     >
                       {t.cart.remove}
                     </button>
@@ -74,7 +74,7 @@ export default function CartPage({
             </p>
             
             {checkoutError && (
-              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+              <div className="mb-4 p-4 bg-gray-50 border border-gray-200 rounded text-gray-700 text-sm">
                 <strong>Error:</strong> {checkoutError}
               </div>
             )}

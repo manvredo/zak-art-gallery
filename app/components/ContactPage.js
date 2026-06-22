@@ -56,13 +56,13 @@ export default function ContactPage({
         <div>
           <form onSubmit={onSubmit} className="space-y-4">
             {success && (
-              <div className="p-4 bg-green-50 border border-green-200 rounded text-green-700 text-sm">
+              <div className="p-4 bg-gray-50 border border-gray-200 rounded text-gray-700 text-sm">
                 {t.contact.success}
               </div>
             )}
             
             {error && (
-              <div className="p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+              <div className="p-4 bg-gray-50 border border-gray-200 rounded text-gray-700 text-sm">
                 {error}
               </div>
             )}

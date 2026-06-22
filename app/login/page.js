@@ -81,10 +81,10 @@ export default function CustomerLoginPage() {
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Error Message */}
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                  <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-start gap-3">
+                  <AlertCircle className="text-gray-900 flex-shrink-0 mt-0.5" size={20} />
                   <div className="flex-1">
-                    <p className="text-sm text-red-800">{error}</p>
+                    <p className="text-sm text-gray-800">{error}</p>
                   </div>
                 </div>
               )}

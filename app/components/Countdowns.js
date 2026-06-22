@@ -40,8 +40,8 @@ export default function Countdown({ endDate, onExpire }) {
 
   return (
     <div className="flex items-center gap-2 text-sm">
-      <Clock size={16} className="text-red-600" />
-      <span className="font-medium text-red-600">
+      <Clock size={16} className="text-gray-900" />
+      <span className="font-medium text-gray-900">
         {timeLeft.days > 0 && `${timeLeft.days}d `}
         {String(timeLeft.hours).padStart(2, '0')}:
         {String(timeLeft.minutes).padStart(2, '0')}:

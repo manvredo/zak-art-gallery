@@ -191,7 +191,7 @@ export default function AccountPage() {
                 </h2>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-red-600 transition"
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition"
                 >
                   <LogOut size={18} />
                   <span>{t.auth.account.signOut}</span>
@@ -312,10 +312,10 @@ export default function AccountPage() {
                           </Link>
                           <button
                             onClick={() => removeFavorite(favorite.id)}
-                            className="p-2 border border-gray-300 rounded-lg hover:bg-red-50 hover:border-red-300 transition group"
+                            className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-red-300 transition group"
                             aria-label="Remove from favorites"
                           >
-                            <Trash2 size={18} className="text-gray-600 group-hover:text-red-600" />
+                            <Trash2 size={18} className="text-gray-600 group-hover:text-gray-900" />
                           </button>
                         </div>
                       </div>
@@ -362,8 +362,8 @@ export default function AccountPage() {
               <div className="space-y-6">
                 {/* Early Access */}
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Sparkles className="text-green-600" size={24} />
+                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Sparkles className="text-gray-900" size={24} />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1">
@@ -377,8 +377,8 @@ export default function AccountPage() {
 
                 {/* Order Tracking */}
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Package className="text-blue-600" size={24} />
+                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Package className="text-gray-900" size={24} />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1">
@@ -408,7 +408,7 @@ export default function AccountPage() {
                 {/* Save Favorites */}
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                    <Heart className="text-red-600" size={24} />
+                    <Heart className="text-gray-900" size={24} />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1">
