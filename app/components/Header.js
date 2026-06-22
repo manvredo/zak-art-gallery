@@ -73,7 +73,6 @@ export default function Header() {
     <header
       style={{
         background: isHomePage ? 'transparent !important' : '#ffffff !important',
-        boxShadow: isHomePage ? 'none' : '0 2px 10px rgba(0,0,0,0.1)',
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.15s ease-in-out, box-shadow 0.2s ease'
       }}
