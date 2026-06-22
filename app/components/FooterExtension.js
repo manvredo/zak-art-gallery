@@ -109,13 +109,13 @@ const FooterExtension = () => {
             </button>
             <div className={`footer-extension-content ${openSection === 'shipping' ? 'open' : ''}`}>
               <div className="flex flex-wrap gap-4 items-center" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-                <div className="px-4 py-2 bg-[#FFCC00] text-[#D40511] text-sm font-extrabold rounded tracking-wider opacity-80 hover:opacity-100 transition shadow-sm">
+                <div className="px-3 py-1.5 bg-[#FFCC00] text-[#D40511] text-xs font-extrabold rounded tracking-wider opacity-80 hover:opacity-100 transition shadow-sm">
                   DHL
                 </div>
-                <div className="px-4 py-2 bg-[#003E80] text-white text-sm font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
+                <div className="px-3 py-1.5 bg-[#003E80] text-white text-xs font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
                   GLS
                 </div>
-                <div className="px-4 py-2 bg-[#FDEE00] text-[#2A5C38] text-sm font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
+                <div className="px-3 py-1.5 bg-[#FDEE00] text-[#2A5C38] text-xs font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
                   HERMES
                 </div>
               </div>
