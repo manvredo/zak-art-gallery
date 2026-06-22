@@ -138,7 +138,7 @@ export default function AdminOrdersPage() {
                       €{(order.amount_total / 100).toFixed(2)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
                         {order.status}
                       </span>
                     </td>

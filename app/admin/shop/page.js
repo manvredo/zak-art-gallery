@@ -463,7 +463,7 @@ export default function AdminProductsPage() {
                     <span className="text-gray-500">cm</span>
                   </div>
                   {formData.size && (
-                    <p className="text-sm text-green-600 mt-1">→ {formData.size}</p>
+                    <p className="text-sm text-gray-900 mt-1">→ {formData.size}</p>
                   )}
                 </div>
               )}
@@ -639,7 +639,7 @@ export default function AdminProductsPage() {
                       </button>
                       <button
                         onClick={() => handleDelete(product.id)}
-                        className="flex-1 px-3 py-2 bg-red-50 border border-red-200 text-red-700 hover:bg-red-100 transition rounded text-sm flex items-center justify-center gap-2"
+                        className="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 text-gray-700 hover:bg-red-100 transition rounded text-sm flex items-center justify-center gap-2"
                       >
                         <Trash2 size={16} />
                         Löschen
