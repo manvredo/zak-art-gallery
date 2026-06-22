@@ -84,7 +84,8 @@ export default function Header() {
 
   const isHomePage = pathname === '/';
   const isNearTop = scrollY < 50;
-  const shouldBeTransparent = isHomePage && (isNearTop || !headerVisible);
+  const inHeroZone = scrollY < windowHeight;
+  const shouldBeTransparent = isHomePage && (isNearTop || (!headerVisible && inHeroZone));
   const headerBg = shouldBeTransparent ? 'transparent !important' : '#ffffff !important';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
   const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
