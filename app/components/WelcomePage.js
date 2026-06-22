@@ -78,42 +78,50 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         </div>
 
         {/* Overlay mit Text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 px-12 md:px-24 text-center max-w-4xl mx-auto">
-          <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#ffffff', letterSpacing: 0 }}>
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 p-8">
+          <h2 className="mb-6" style={{ color: '#ffffff', fontFamily: "'Vollkorn', serif", fontWeight: '400', fontSize: '42px', textShadow: '2px 2px 8px rgba(0,0,0,0.5)' }}>
             {t.welcome.title}
           </h2>
-          <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#ffffff', letterSpacing: 0 }}>
+          <p className="text-2xl mb-4" style={{ color: '#ffffff', fontFamily: 'var(--font-inter), sans-serif', fontWeight: '400', textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
             {t.welcome.subtitle}
-          </span>
-          <span className="mt-4" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#ffffff' }}>
-            Welcome to ZAK Fine Art. For over a decade, the studio has dedicated itself to contemporary landscape painting and the realization of graphic works.
-          </span>
-          <div className="flex gap-4 mt-8 justify-center">
+          </p>
+          <div className="flex gap-4 mt-4">
             <Link
               href="/about"
-              className="px-6 py-3 bg-white text-gray-900 hover:bg-gray-200 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium"
-              style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+              className="px-6 py-2 bg-white text-gray-900 hover:bg-gray-200 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium"
             >
               {t.welcome.viewGallery}
             </Link>
             <Link
               href="/shop"
-              className="px-6 py-3 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
-              style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+              className="px-6 py-2 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
             >
               {t.welcome.visitShop}
             </Link>
+          </div>
+          <div className="mt-6">
+            <a
+              href="https://artwingman.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 bg-transparent text-white hover:bg-white/10 transition rounded-full cursor-pointer inline-block text-center text-sm font-medium border border-white"
+            >
+              Art Wingman
+            </a>
           </div>
         </div>
       </div>
 
       {/* Intro Section */}
-      <div className="max-w-3xl mx-auto px-8 py-12">
-        <p className="text-base leading-relaxed mb-4 text-center" style={{ color: '#010101' }}>
+      <div className="max-w-4xl mx-auto px-12 md:px-24 py-16">
+        <span className="block text-center mb-4" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#171717', letterSpacing: 0 }}>
+          {t.welcome.title}
+        </span>
+        <span className="block text-center mb-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#4B5563', letterSpacing: 0 }}>
+          {t.welcome.subtitle}
+        </span>
+        <p className="text-center" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
           {t.welcome.intro1}
-        </p>
-        <p className="text-base leading-relaxed mb-8 text-center" style={{ color: '#010101' }}>
-          {t.welcome.intro2}
         </p>
       </div>
 
