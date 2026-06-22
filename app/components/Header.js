@@ -73,7 +73,6 @@ export default function Header() {
   const shouldBeTransparent = isHomePage && (isNearTop || (inHeroZone && !headerVisible));
   const headerBg = shouldBeTransparent ? 'transparent' : '#ffffff';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
-  const headerBorder = shouldBeTransparent ? 'transparent' : '#e5e7eb';
   
   return (
     <header
@@ -96,7 +95,7 @@ export default function Header() {
           </button>
 
           {/* Desktop: inline-flex border wrapper (only as wide as content) */}
-          <div className="hidden lg:flex items-center self-stretch border-b-2" style={{ borderColor: headerBorder }}>
+          <div className="hidden lg:flex items-center self-stretch">
           {/* Logo & Navigation - Centered */}
           <div className="flex items-center justify-center">
             <Link href="/">
@@ -165,7 +164,7 @@ export default function Header() {
 
           {/* Right Icons - Desktop in border, Mobile ohne Border */}
           </div>
-          <div className="flex items-center space-x-4 lg:self-stretch lg:border-b-2 lg:pl-8" style={{ borderColor: headerBorder }}>
+          <div className="flex items-center space-x-4 lg:self-stretch lg:pl-8">
             {/* Language Switch mit animiertem Strich */}
             <div className="flex items-center gap-1">
               <button
