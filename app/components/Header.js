@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X } from 'lucide-react';
@@ -17,7 +17,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
@@ -41,20 +41,20 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > lastScrollY && currentScrollY > 200) {
+      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
         // Scrolling down & past threshold - hide header
         setHeaderVisible(false);
       } else if (currentScrollY < 300) {
-        // Scrolling up & not near top - show header
+        // Scrolling up & near top - show header
         setHeaderVisible(true);
       }
 
-      setLastScrollY(currentScrollY);
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
