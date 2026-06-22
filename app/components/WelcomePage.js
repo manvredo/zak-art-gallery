@@ -43,7 +43,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
     <div className="w-full">
 
       {/* Hero Section - Full Cover with Parallax & Image Rotation */}
-      <div className="relative w-full h-screen -mt-16 overflow-hidden bg-[#0f0f0f]">
+      <div className="relative w-full h-screen -mt-24 overflow-hidden bg-[#0f0f0f]">
         {heroImages.map((img, index) => (
           <img
             key={index}
