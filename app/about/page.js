@@ -49,7 +49,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white">
 
       {/* About Header */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="mb-12 flex items-center gap-4">
           <h1 className="font-light text-gray-900 whitespace-nowrap tracking-wide" style={{ fontSize: 32 }}>
             ABOUT
@@ -59,7 +59,7 @@ export default function AboutPage() {
       </div>
 
       {/* About Me */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
         <div className="grid md:grid-cols-2 gap-16 items-start">
           <img
             src="/about/Camera_01.png"
@@ -89,7 +89,7 @@ export default function AboutPage() {
       </div>
 
       {/* How I Work */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
 
         {/* Heading */}
         <div className="mb-12">

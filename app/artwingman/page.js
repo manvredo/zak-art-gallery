@@ -22,7 +22,7 @@ export default function ArtwingmanPage() {
     <div className="bg-white">
 
       {/* Artwingman Header */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-24">
         <div className="mb-10 flex items-center gap-4">
           <h1
             className="font-light text-gray-900 whitespace-nowrap tracking-wide"
@@ -35,7 +35,7 @@ export default function ArtwingmanPage() {
       </div>
 
       {/* About Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-32">
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-6">
           <div className="rounded-sm overflow-hidden bg-gray-100 md:relative md:min-h-0">
             <img
