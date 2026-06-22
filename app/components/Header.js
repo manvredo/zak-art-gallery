@@ -78,6 +78,7 @@ export default function Header() {
     <header
       style={{
         backgroundColor: headerBg,
+        borderBottom: '1px solid #e5e7eb',
         transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
         transition: 'transform 0.8s ease-in-out, background-color 0.8s ease-in-out'
       }}
