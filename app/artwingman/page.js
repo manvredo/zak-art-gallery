@@ -35,7 +35,7 @@ export default function ArtwingmanPage() {
       </div>
 
       {/* About Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-32">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 pb-32">
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-6">
           <div className="rounded-sm overflow-hidden bg-gray-100 md:relative md:min-h-0">
             <img
