@@ -114,15 +114,25 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
 
       {/* Intro Section */}
       <div className="max-w-4xl mx-auto px-12 md:px-24 py-16">
-        <span className="block text-center mb-4" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#171717', letterSpacing: 0 }}>
-          {t.welcome.title}
+        <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#171717', letterSpacing: 0, textAlign: 'center' }}>
+          ZAK Fine Art
+        </h2>
+        <span className="block text-center" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#4B5563', letterSpacing: 0 }}>
+          Manfred Zak
         </span>
-        <span className="block text-center mb-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#4B5563', letterSpacing: 0 }}>
-          {t.welcome.subtitle}
+        <span className="block text-center mb-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '14px', lineHeight: 1.6, color: '#9CA3AF' }}>
+          25.03.1979
         </span>
         <p className="text-center" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '16px', lineHeight: 1.6, fontWeight: 500, color: '#4B5563' }}>
           {t.welcome.intro1}
         </p>
+        <div className="text-center mt-8">
+          <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '16px', lineHeight: 1.6, color: '#4B5563', letterSpacing: 0 }}>
+            <span style={{ fontWeight: 500, cursor: 'pointer' }} className="hover:underline">
+              Read more
+            </span>
+          </span>
+        </div>
       </div>
 
       {/* Featured Artworks */}
