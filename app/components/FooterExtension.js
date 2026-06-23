@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import NewsletterForm from './NewsletterForm';
 import {
   FaCcVisa,
   FaCcMastercard,
@@ -175,6 +176,19 @@ const FooterExtension = () => {
             </div>
           </div>
 
+        </div>
+
+        {/* Newsletter Section */}
+        <div className="mt-12 pt-12 border-t border-gray-200">
+          <div className="max-w-lg mx-auto text-center">
+            <h3 className="text-2xl text-gray-900 mb-2" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
+              Stay Inspired
+            </h3>
+            <p className="text-sm text-gray-600 mb-6">
+              New collections, behind-the-scenes stories, and exclusive offers – straight to your inbox.
+            </p>
+            <NewsletterForm />
+          </div>
         </div>
       </div>
     </div>
