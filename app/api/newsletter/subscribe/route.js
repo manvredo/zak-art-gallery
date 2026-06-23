@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const AUDIENCE_NAME = 'ZAK Fine Art Newsletter';
 
 export async function POST(request) {
   try {
@@ -17,9 +18,25 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
     }
 
-    // Prüfen ob Audience-ID gesetzt ist
-    if (!process.env.RESEND_AUDIENCE_ID) {
-      console.error('RESEND_AUDIENCE_ID not configured');
+    // Audience-ID automatisch finden (falls nicht in .env)
+    let audienceId = process.env.RESEND_AUDIENCE_ID;
+
+    if (!audienceId) {
+      const { data: audiences } = await resend.audiences.list();
+      const audience = audiences?.find(a => a.name === AUDIENCE_NAME);
+      if (audience) {
+        audienceId = audience.id;
+      } else {
+        // Audience existiert nicht → neu erstellen
+        const { data: newAudience } = await resend.audiences.create({
+          name: AUDIENCE_NAME,
+        });
+        audienceId = newAudience?.id;
+      }
+    }
+
+    if (!audienceId) {
+      console.error('Could not find or create audience');
       return NextResponse.json({ error: 'Newsletter not configured' }, { status: 500 });
     }
 
@@ -27,12 +44,11 @@ export async function POST(request) {
     const { data, error } = await resend.contacts.create({
       email: email.trim().toLowerCase(),
       firstName: name?.trim() || '',
-      audienceId: process.env.RESEND_AUDIENCE_ID,
+      audienceId: audienceId,
       unsubscribed: false,
     });
 
     if (error) {
-      // "already exists" ist kein Fehler für uns
       if (error.message?.includes('already exists')) {
         return NextResponse.json({
           success: true,
