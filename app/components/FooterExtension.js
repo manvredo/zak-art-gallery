@@ -27,26 +27,23 @@ const FooterExtension = () => {
     <div className="footer-extension bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
-          
-          {/* Column 1: Service */}
+
+          {/* Column 1: Newsletter (compact) */}
           <div className="footer-extension-column">
             <button
-              onClick={() => toggleSection('service')}
+              onClick={() => toggleSection('newsletter')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="font-light text-3xl mb-4 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.footerExtension.service}</h3>
+              <h3 className="text-gray-900 mb-3" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.5rem', fontWeight: 400 }}>{t.newsletter?.title || 'Stay Inspired'}</h3>
               <span className="md:hidden">
-                {openSection === 'service' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                {openSection === 'newsletter' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>
             </button>
-            <div className={`footer-extension-content ${openSection === 'service' ? 'open' : ''}`}>
-              <ul className="space-y-3 text-sm text-gray-600" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-                <li>
-                  <Link href="/returns" className="hover:text-gray-900 transition">
-                    {t.footerExtension.returnLabel}
-                  </Link>
-                </li>
-              </ul>
+            <div className={`footer-extension-content ${openSection === 'newsletter' ? 'open' : ''}`}>
+              <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                {t.newsletter?.subtitle}
+              </p>
+              <NewsletterForm />
             </div>
           </div>
 
@@ -120,6 +117,11 @@ const FooterExtension = () => {
                   HERMES
                 </div>
               </div>
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <Link href="/returns" className="text-sm text-gray-600 hover:text-gray-900 transition" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+                  {t.footerExtension.returnLabel}
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -178,18 +180,6 @@ const FooterExtension = () => {
 
         </div>
 
-        {/* Newsletter Section */}
-        <div className="mt-12 pt-12 border-t border-gray-200">
-          <div className="max-w-lg mx-auto text-center">
-            <h3 className="text-gray-900 mb-3" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '2rem', fontWeight: 400 }}>
-              {t.newsletter?.title || 'Stay Inspired'}
-            </h3>
-            <p className="text-sm text-gray-600 mb-6">
-              {t.newsletter?.subtitle || 'New collections, behind-the-scenes stories, and exclusive offers – straight to your inbox.'}
-            </p>
-            <NewsletterForm />
-          </div>
-        </div>
       </div>
     </div>
   );
