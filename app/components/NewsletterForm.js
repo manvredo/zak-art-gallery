@@ -132,13 +132,13 @@ export default function NewsletterForm() {
 
         {/* Status Messages */}
         {status === 'success' && (
-          <div className="flex items-center gap-2 text-sm text-green-600 bg-green-50 p-3 rounded-lg">
+          <div className="flex items-center gap-2 text-sm text-gray-700 bg-gray-100 p-3 rounded-lg">
             <Check size={16} />
             {message}
           </div>
         )}
         {status === 'error' && (
-          <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 p-3 rounded-lg">
+          <div className="flex items-center gap-2 text-sm text-gray-700 bg-gray-100 p-3 rounded-lg">
             <AlertCircle size={16} />
             {message}
           </div>
