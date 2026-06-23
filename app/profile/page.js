@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { User, Mail, Calendar, LogOut, Package, Heart, Bell, Sparkles, Trash2 } from 'lucide-react';
+import { User, Mail, Calendar, LogOut, Package, Heart, Bell, Sparkles, Trash2, AlertTriangle, X } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 const supabase = createClient(
@@ -18,6 +18,8 @@ export default function AccountPage() {
   const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const [favoritesLoading, setFavoritesLoading] = useState(true);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const router = useRouter();
   const { t } = useLanguage();
 
@@ -158,6 +160,38 @@ export default function AccountPage() {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      const response = await fetch('/api/delete-account', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: session.user.id }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to delete account');
+      }
+
+      // Logout and redirect
+      await supabase.auth.signOut();
+      router.push('/');
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      alert(error.message || 'Failed to delete account. Please try again.');
+    } finally {
+      setDeleting(false);
+      setShowDeleteConfirm(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -174,7 +208,7 @@ export default function AccountPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Welcome Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-light text-gray-900 mb-2">
+          <h1 className="text-3xl text-gray-900 mb-2" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
             {t.auth.account.title}, {user?.user_metadata?.full_name || 'Art Lover'}!
           </h1>
           <p className="text-gray-600">{t.auth.account.subtitle}</p>
@@ -186,7 +220,7 @@ export default function AccountPage() {
             {/* Account Information Card */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-medium text-gray-900">
+                <h2 className="text-xl text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                   {t.auth.account.accountInfo}
                 </h2>
                 <button
@@ -244,9 +278,25 @@ export default function AccountPage() {
               </div>
             </div>
 
+            {/* Delete Account */}
+            <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900">Delete Account</h3>
+                  <p className="text-sm text-gray-500 mt-1">Permanently remove your account and all data</p>
+                </div>
+                <button
+                  onClick={() => setShowDeleteConfirm(true)}
+                  className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-red-50 hover:text-red-600 hover:border-red-300 transition"
+                >
+                  Delete Account
+                </button>
+              </div>
+            </div>
+
             {/* Favoriten Section */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-2xl font-light text-gray-900 mb-6">
+              <h2 className="text-2xl text-gray-900 mb-6" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                 Meine Favoriten ({favorites.length})
               </h2>
 
@@ -257,7 +307,7 @@ export default function AccountPage() {
               ) : favorites.length === 0 ? (
                 <div className="text-center py-12">
                   <Heart className="mx-auto mb-4 text-gray-300" size={48} />
-                  <h3 className="text-xl font-medium text-gray-900 mb-2">
+                  <h3 className="text-xl text-gray-900 mb-2" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                     Keine Favoriten
                   </h3>
                   <p className="text-gray-600 mb-6">
@@ -329,7 +379,7 @@ export default function AccountPage() {
             <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-8 border border-gray-200">
               <div className="flex items-center gap-3 mb-4">
                 <Sparkles className="text-gray-900" size={24} />
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                   Demnächst verfügbar
                 </h3>
               </div>
@@ -366,7 +416,7 @@ export default function AccountPage() {
                     <Sparkles className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
+                    <h4 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                       {t.auth.account.benefits.earlyAccess}
                     </h4>
                     <p className="text-sm text-gray-600">
@@ -381,7 +431,7 @@ export default function AccountPage() {
                     <Package className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
+                    <h4 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                       {t.auth.account.benefits.orderTracking}
                     </h4>
                     <p className="text-sm text-gray-600">
@@ -392,11 +442,11 @@ export default function AccountPage() {
 
                 {/* Newsletter */}
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Bell className="text-purple-600" size={24} />
+                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Bell className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
+                    <h4 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                       {t.auth.account.benefits.newsletter}
                     </h4>
                     <p className="text-sm text-gray-600">
@@ -407,11 +457,11 @@ export default function AccountPage() {
 
                 {/* Save Favorites */}
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
                     <Heart className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-1">
+                    <h4 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
                       {t.auth.account.benefits.saveFavorites}
                     </h4>
                     <p className="text-sm text-gray-600">
@@ -432,6 +482,61 @@ export default function AccountPage() {
           </div>
         </div>
       </main>
+
+      {/* Delete Account Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/40" onClick={() => setShowDeleteConfirm(false)}></div>
+
+          {/* Modal */}
+          <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <button
+              onClick={() => setShowDeleteConfirm(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-red-50 rounded-full mb-4">
+                <AlertTriangle className="text-red-500" size={24} />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900">Delete Account</h3>
+              <p className="text-sm text-gray-500 mt-2">
+                Are you sure you want to delete your account? This action cannot be undone. All your data, including favorites, will be permanently removed.
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                Your orders will remain on record for tax purposes.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {deleting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Deleting...
+                  </>
+                ) : (
+                  'Delete Account'
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

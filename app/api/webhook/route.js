@@ -1,25 +1,15 @@
 ﻿import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
-
-// Email Transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
 
 export async function POST(request) {
   const body = await request.text();
@@ -88,8 +78,8 @@ export async function POST(request) {
 
       // Email an Kunden
       const customerEmailContent = {
-        from: process.env.EMAIL_USER,
-        to: customerEmail,
+        from: 'ZAK Fine Art <info@manfredzak.com>',
+        to: [customerEmail],
         subject: 'Order Confirmation - ZAK Fine Art',
         html: `
           <!DOCTYPE html>
@@ -164,8 +154,8 @@ export async function POST(request) {
 
       // Email an dich (Admin)
       const adminEmailContent = {
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+        from: 'ZAK Fine Art <info@manfredzak.com>',
+        to: [process.env.EMAIL_TO || 'info@manfredzak.com'],
         subject: `🎨 New Order - ${customerName}`,
         html: `
           <!DOCTYPE html>
@@ -202,13 +192,13 @@ export async function POST(request) {
         `
       };
 
-      // Sende Emails
+      // Sende Emails via Resend
       try {
-        await transporter.sendMail(customerEmailContent);
-        await transporter.sendMail(adminEmailContent);
-        console.log('Order confirmation emails sent successfully');
+        await resend.emails.send(customerEmailContent);
+        await resend.emails.send(adminEmailContent);
+        console.log('Order confirmation emails sent successfully via Resend');
       } catch (emailError) {
-        console.error('Error sending emails:', emailError);
+        console.error('Error sending emails via Resend:', emailError);
         // Continue - payment was successful even if email fails
       }
 

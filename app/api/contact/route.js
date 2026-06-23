@@ -55,6 +55,19 @@ export async function POST(request) {
       to: ['info@manfredzak.com'],
       replyTo: email,
       subject: `🎨 ZAK Fine Art Contact: ${name}`,
+      text: `New Contact Form Submission
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+---
+ZAK Fine Art
+Rudolf-Breitscheid-Str. 24
+17326 Brüssow
+info@manfredzak.com`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333;">New Contact Form Submission</h2>
@@ -75,6 +88,23 @@ export async function POST(request) {
       from: 'ZAK Fine Art <info@manfredzak.com>',
       to: [email],
       subject: 'Thank you for contacting ZAK Fine Art',
+      text: `Thank you for contacting us
+
+Dear ${name},
+
+Thank you for your message. We have received your inquiry and will get back to you as soon as possible.
+
+Your message:
+${message}
+
+Best regards,
+ZAK Fine Art Team
+
+---
+ZAK Fine Art
+Rudolf-Breitscheid-Str. 24
+17326 Brüssow
+info@manfredzak.com`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333;">Thank you for contacting us</h2>
