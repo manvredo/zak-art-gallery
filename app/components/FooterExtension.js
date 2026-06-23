@@ -181,7 +181,7 @@ const FooterExtension = () => {
         {/* Newsletter Section */}
         <div className="mt-12 pt-12 border-t border-gray-200">
           <div className="max-w-lg mx-auto text-center">
-            <h3 className="text-2xl text-gray-900 mb-2" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
+            <h3 className="text-gray-900 mb-3" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '2rem', fontWeight: 400 }}>
               {t.newsletter?.title || 'Stay Inspired'}
             </h3>
             <p className="text-sm text-gray-600 mb-6">

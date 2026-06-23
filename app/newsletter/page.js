@@ -43,28 +43,28 @@ export default function NewsletterPage() {
 
         {/* What you'll get */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-xl text-gray-900 mb-6 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
+          <h2 className="text-gray-900 mb-6 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.75rem', fontWeight: 400 }}>
             {t.newsletter.whatToExpect}
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">🎨</div>
+              <div className="flex-shrink-0 w-1 h-10 bg-gray-900 rounded-full mt-1"></div>
               <div>
-                <h3 className="font-medium text-gray-900">{t.newsletter.catPaintings}</h3>
+                <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catPaintings}</h3>
                 <p className="text-sm text-gray-600">{t.newsletter.catPaintingsDesc}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">🤖</div>
+              <div className="flex-shrink-0 w-1 h-10 bg-gray-900 rounded-full mt-1"></div>
               <div>
-                <h3 className="font-medium text-gray-900">{t.newsletter.catArtWingman}</h3>
+                <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catArtWingman}</h3>
                 <p className="text-sm text-gray-600">{t.newsletter.catArtWingmanDesc}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">🛠️</div>
+              <div className="flex-shrink-0 w-1 h-10 bg-gray-900 rounded-full mt-1"></div>
               <div>
-                <h3 className="font-medium text-gray-900">{t.newsletter.catTools}</h3>
+                <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catTools}</h3>
                 <p className="text-sm text-gray-600">{t.newsletter.catToolsDesc}</p>
               </div>
             </div>
@@ -73,7 +73,7 @@ export default function NewsletterPage() {
 
         {/* Form */}
         <div className="bg-white rounded-lg shadow-sm p-8">
-          <h2 className="text-xl text-gray-900 mb-2 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
+          <h2 className="text-gray-900 mb-2 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.75rem', fontWeight: 400 }}>
             {t.newsletter.joinList}
           </h2>
           <p className="text-sm text-gray-500 text-center mb-6">

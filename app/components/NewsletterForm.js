@@ -5,9 +5,9 @@ import { Check, Mail, AlertCircle, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 const CATEGORIES = [
-  { id: 'paintings', labelKey: 'catPaintings', emoji: '🎨' },
-  { id: 'artwingman', labelKey: 'catArtWingman', emoji: '🤖' },
-  { id: 'tools', labelKey: 'catTools', emoji: '🛠️' },
+  { id: 'paintings', labelKey: 'catPaintings' },
+  { id: 'artwingman', labelKey: 'catArtWingman' },
+  { id: 'tools', labelKey: 'catTools' },
 ];
 
 export default function NewsletterForm() {
@@ -62,7 +62,7 @@ export default function NewsletterForm() {
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         {/* Email */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -86,14 +86,14 @@ export default function NewsletterForm() {
 
         {/* Categories */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-gray-900 mb-3" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>
             {t.newsletter.interestedIn}
           </label>
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             {CATEGORIES.map(cat => (
               <label
                 key={cat.id}
-                className={`flex items-center gap-2.5 p-2 rounded-lg cursor-pointer transition text-sm ${
+                className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition ${
                   selectedCategories.includes(cat.id)
                     ? 'bg-gray-100 text-gray-900'
                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
@@ -105,7 +105,7 @@ export default function NewsletterForm() {
                   onChange={() => toggleCategory(cat.id)}
                   className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
                 />
-                <span>{cat.emoji} {t.newsletter[cat.labelKey]}</span>
+                <span className="text-sm">{t.newsletter[cat.labelKey]}</span>
               </label>
             ))}
           </div>
@@ -115,7 +115,7 @@ export default function NewsletterForm() {
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="w-full bg-gray-900 text-white py-2.5 rounded-lg hover:bg-gray-800 transition text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {status === 'loading' ? (
             <>
