@@ -114,7 +114,7 @@ export default function NewsletterForm() {
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-lg font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full py-2.5 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {status === 'loading' ? (
             <>
