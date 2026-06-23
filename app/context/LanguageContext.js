@@ -304,14 +304,12 @@ const translations = {
     // Newsletter Page
     newsletter: {
       title: 'Stay Inspired',
-      subtitle: 'Be the first to know about new collections, exclusive behind-the-scenes content, and special offers – delivered straight to your inbox.',
+      subtitle: 'New collections, exclusive insights, and special offers.',
       whatToExpect: 'What to expect',
       catPaintings: 'New Collections & Paintings',
       catPaintingsDesc: 'First access to new artworks, limited editions, and exclusive previews.',
       catArtWingman: 'ArtWingman & AI Insights',
       catArtWingmanDesc: 'Behind the scenes of AI-powered art tools and creative tech.',
-      catTools: 'Tools & Resources',
-      catToolsDesc: 'Munshell updates, artist resources, and exclusive tutorials.',
       joinList: 'Join the list',
       noSpam: 'No spam. Unsubscribe anytime.',
       emailPlaceholder: 'your@email.com',
@@ -660,14 +658,12 @@ const translations = {
     // Newsletter Page
     newsletter: {
       title: 'Immer inspiriert bleiben',
-      subtitle: 'Seien Sie der Erste, der von neuen Kollektionen, exklusiven Einblicken hinter die Kulissen und Sonderangeboten erfährt – direkt in Ihr Postfach.',
+      subtitle: 'Neue Kollektionen, exklusive Einblicke und Sonderangebote.',
       whatToExpect: 'Was Sie erwartet',
       catPaintings: 'Neue Kollektionen & Gemälde',
       catPaintingsDesc: 'Erster Zugang zu neuen Kunstwerken, Limited Editions und exklusiven Vorschauen.',
       catArtWingman: 'ArtWingman & KI-Einblicke',
       catArtWingmanDesc: 'Hinter den Kulissen von KI-gestützten Kunstwerkzeugen und kreativer Technologie.',
-      catTools: 'Tools & Ressourcen',
-      catToolsDesc: 'Munshell-Updates, Künstler-Ressourcen und exklusive Tutorials.',
       joinList: 'Jetzt anmelden',
       noSpam: 'Kein Spam. Jederzeit kündbar.',
       emailPlaceholder: 'ihre@email.de',

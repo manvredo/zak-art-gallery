@@ -61,13 +61,6 @@ export default function NewsletterPage() {
                 <p className="text-sm text-gray-600">{t.newsletter.catArtWingmanDesc}</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-1 h-10 bg-gray-900 rounded-full mt-1"></div>
-              <div>
-                <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catTools}</h3>
-                <p className="text-sm text-gray-600">{t.newsletter.catToolsDesc}</p>
-              </div>
-            </div>
           </div>
         </div>
 

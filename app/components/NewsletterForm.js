@@ -7,7 +7,6 @@ import { useLanguage } from '@/app/context/LanguageContext';
 const CATEGORIES = [
   { id: 'paintings', labelKey: 'catPaintings' },
   { id: 'artwingman', labelKey: 'catArtWingman' },
-  { id: 'tools', labelKey: 'catTools' },
 ];
 
 export default function NewsletterForm() {
@@ -111,20 +110,20 @@ export default function NewsletterForm() {
           </div>
         </div>
 
-        {/* Submit */}
+        {/* Submit Button (like Add to Cart) */}
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-lg font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {status === 'loading' ? (
             <>
-              <Loader2 className="animate-spin" size={16} />
+              <Loader2 className="animate-spin" size={20} />
               {t.newsletter.subscribing}
             </>
           ) : (
             <>
-              <Mail size={16} />
+              <Mail size={20} />
               {t.newsletter.subscribe}
             </>
           )}
