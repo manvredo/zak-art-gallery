@@ -46,16 +46,16 @@ export default function NewsletterPage() {
           <h2 className="text-gray-900 mb-6 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.75rem', fontWeight: 400 }}>
             {t.newsletter.whatToExpect}
           </h2>
-          <div className="space-y-6">
+          <div className="space-y-3">
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-1 h-10 bg-gray-900 rounded-full mt-1"></div>
+              <div className="flex-shrink-0 w-1 h-8 bg-gray-900 rounded-full mt-1"></div>
               <div>
                 <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catPaintings}</h3>
                 <p className="text-sm text-gray-600">{t.newsletter.catPaintingsDesc}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-1 h-10 bg-gray-900 rounded-full mt-1"></div>
+              <div className="flex-shrink-0 w-1 h-8 bg-gray-900 rounded-full mt-1"></div>
               <div>
                 <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catArtWingman}</h3>
                 <p className="text-sm text-gray-600">{t.newsletter.catArtWingmanDesc}</p>

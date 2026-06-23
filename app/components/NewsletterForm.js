@@ -88,11 +88,11 @@ export default function NewsletterForm() {
           <label className="block text-gray-900 mb-3" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>
             {t.newsletter.interestedIn}
           </label>
-          <div className="space-y-2">
+          <div className="space-y-1">
             {CATEGORIES.map(cat => (
               <label
                 key={cat.id}
-                className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition ${
+                className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition ${
                   selectedCategories.includes(cat.id)
                     ? 'bg-gray-100 text-gray-900'
                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
