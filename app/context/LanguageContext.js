@@ -196,7 +196,22 @@ const translations = {
         },
         comingSoon: 'Coming Soon',
         comingSoonMessage: 'Order history, favorites management, and personalized recommendations are on the way!',
-        soon: 'Soon'
+        soon: 'Soon',
+        myFavorites: 'My Favorites',
+        noFavorites: 'No Favorites',
+        noFavoritesDesc: "You haven't added any artworks to your favorites yet.",
+        discoverArtworks: 'Discover Artworks',
+        noImage: 'No Image',
+        viewArtwork: 'View',
+        orderHistory: 'Order History',
+        subscribeNow: 'Subscribe now →',
+        deleteAccount: 'Delete Account',
+        deleteAccountDesc: 'Permanently remove your account and all data',
+        deleteConfirmTitle: 'Delete Account',
+        deleteConfirmText: 'Are you sure you want to delete your account? This action cannot be undone. All your data, including favorites, will be permanently removed.',
+        deleteConfirmOrders: 'Your orders will remain on record for tax purposes.',
+        cancel: 'Cancel',
+        deleting: 'Deleting...'
       },
       
       // ✅ NEU: E-Mail-Bestätigung
@@ -513,7 +528,22 @@ const translations = {
         },
         comingSoon: 'Demnächst verfügbar',
         comingSoonMessage: 'Bestellhistorie, Favoritenverwaltung und personalisierte Empfehlungen folgen in Kürze!',
-        soon: 'Bald'
+        soon: 'Bald',
+        myFavorites: 'Meine Favoriten',
+        noFavorites: 'Keine Favoriten',
+        noFavoritesDesc: 'Sie haben noch keine Kunstwerke zu Ihren Favoriten hinzugefügt.',
+        discoverArtworks: 'Kunstwerke entdecken',
+        noImage: 'Kein Bild',
+        viewArtwork: 'Ansehen',
+        orderHistory: 'Bestellungen',
+        subscribeNow: 'Jetzt abonnieren →',
+        deleteAccount: 'Account löschen',
+        deleteAccountDesc: 'Account und alle Daten dauerhaft löschen',
+        deleteConfirmTitle: 'Account löschen',
+        deleteConfirmText: 'Sind Sie sicher? Ihr Account und alle Daten werden dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.',
+        deleteConfirmOrders: 'Ihre Bestellungen bleiben aus steuerlichen Gründen erhalten.',
+        cancel: 'Abbrechen',
+        deleting: 'Wird gelöscht...'
       },
       
       // ✅ NEU: E-Mail-Bestätigung

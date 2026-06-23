@@ -282,14 +282,14 @@ export default function AccountPage() {
             <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">Delete Account</h3>
-                  <p className="text-sm text-gray-500 mt-1">Permanently remove your account and all data</p>
+                  <h3 className="text-sm font-medium text-gray-900">{t.auth.account.deleteAccount}</h3>
+                  <p className="text-sm text-gray-500 mt-1">{t.auth.account.deleteAccountDesc}</p>
                 </div>
                 <button
                   onClick={() => setShowDeleteConfirm(true)}
                   className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-red-50 hover:text-red-600 hover:border-red-300 transition"
                 >
-                  Delete Account
+                  {t.auth.account.deleteAccount}
                 </button>
               </div>
             </div>
@@ -297,7 +297,7 @@ export default function AccountPage() {
             {/* Favoriten Section */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-2xl text-gray-900 mb-6" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-                My Favorites ({favorites.length})
+                {t.auth.account.myFavorites} ({favorites.length})
               </h2>
 
               {favoritesLoading ? (
@@ -308,16 +308,16 @@ export default function AccountPage() {
                 <div className="text-center py-12">
                   <Heart className="mx-auto mb-4 text-gray-300" size={48} />
                   <h3 className="text-xl text-gray-900 mb-2" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-                    No Favorites
+                    {t.auth.account.noFavorites}
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    You haven't added any artworks to your favorites yet.
+                    {t.auth.account.noFavoritesDesc}
                   </p>
                   <Link
                     href="/shop"
                     className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
                   >
-                    Discover Artworks
+                    {t.auth.account.discoverArtworks}
                   </Link>
                 </div>
               ) : (
@@ -338,7 +338,7 @@ export default function AccountPage() {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-400">
-                            No Image
+                            {t.auth.account.noImage}
                           </div>
                         )}
                       </div>
@@ -358,7 +358,7 @@ export default function AccountPage() {
                             href={`/shop/${favorite.product_id}`}
                             className="flex-1 bg-gray-900 text-white text-center py-2 rounded-lg hover:bg-gray-800 transition text-sm font-medium"
                           >
-                            View
+                            {t.auth.account.viewArtwork}
                           </Link>
                           <button
                             onClick={() => removeFavorite(favorite.id)}
@@ -380,13 +380,13 @@ export default function AccountPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white rounded-lg p-6 text-center border border-gray-200">
                   <Package className="mx-auto mb-3 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">Order History</p>
-                  <p className="text-xs text-gray-500 mt-1">Coming soon</p>
+                  <p className="text-sm font-medium text-gray-900">{t.auth.account.orderHistory}</p>
+                  <p className="text-xs text-gray-500 mt-1">{t.auth.account.soon}</p>
                 </div>
                 <Link href="/newsletter" className="bg-white rounded-lg p-6 text-center border border-gray-200 hover:border-gray-900 transition group block">
                   <Bell className="mx-auto mb-3 text-gray-400 group-hover:text-gray-900 transition" size={32} />
-                  <p className="text-sm font-medium text-gray-900">Newsletter</p>
-                  <p className="text-xs text-gray-500 mt-1 group-hover:text-gray-900 transition">Subscribe now →</p>
+                  <p className="text-sm font-medium text-gray-900">{t.auth.account.newsletter}</p>
+                  <p className="text-xs text-gray-500 mt-1 group-hover:text-gray-900 transition">{t.auth.account.subscribeNow}</p>
                 </Link>
               </div>
             </div>
@@ -492,12 +492,12 @@ export default function AccountPage() {
               <div className="inline-flex items-center justify-center w-12 h-12 bg-red-50 rounded-full mb-4">
                 <AlertTriangle className="text-red-500" size={24} />
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Delete Account</h3>
+              <h3 className="text-lg font-medium text-gray-900">{t.auth.account.deleteConfirmTitle}</h3>
               <p className="text-sm text-gray-500 mt-2">
-                Are you sure you want to delete your account? This action cannot be undone. All your data, including favorites, will be permanently removed.
+                {t.auth.account.deleteConfirmText}
               </p>
               <p className="text-sm text-gray-500 mt-2">
-                Your orders will remain on record for tax purposes.
+                {t.auth.account.deleteConfirmOrders}
               </p>
             </div>
 
@@ -507,7 +507,7 @@ export default function AccountPage() {
                 disabled={deleting}
                 className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition disabled:opacity-50"
               >
-                Cancel
+                {t.auth.account.cancel}
               </button>
               <button
                 onClick={handleDeleteAccount}
@@ -517,10 +517,10 @@ export default function AccountPage() {
                 {deleting ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Deleting...
+                    {t.auth.account.deleting}
                   </>
                 ) : (
-                  'Delete Account'
+                  t.auth.account.deleteAccount
                 )}
               </button>
             </div>
