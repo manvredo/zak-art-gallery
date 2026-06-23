@@ -34,7 +34,7 @@ const FooterExtension = () => {
               onClick={() => toggleSection('newsletter')}
               className="footer-extension-header md:cursor-default w-full flex items-center justify-between md:block text-left"
             >
-              <h3 className="text-gray-900 mb-3" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.5rem', fontWeight: 400 }}>{t.newsletter?.title || 'Stay Inspired'}</h3>
+              <h3 className="font-light text-3xl mb-3 text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>{t.newsletter?.title || 'Stay Inspired'}</h3>
               <span className="md:hidden">
                 {openSection === 'newsletter' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </span>

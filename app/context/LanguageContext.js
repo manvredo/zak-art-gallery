@@ -304,7 +304,7 @@ const translations = {
     // Newsletter Page
     newsletter: {
       title: 'Stay Inspired',
-      subtitle: 'New collections, exclusive insights, and special offers.',
+      subtitle: 'Exclusive benefits, trends, and news direct to your inbox.',
       whatToExpect: 'What to expect',
       catPaintings: 'New Collections & Paintings',
       catPaintingsDesc: 'First access to new artworks, limited editions, and exclusive previews.',
@@ -658,7 +658,7 @@ const translations = {
     // Newsletter Page
     newsletter: {
       title: 'Immer inspiriert bleiben',
-      subtitle: 'Neue Kollektionen, exklusive Einblicke und Sonderangebote.',
+      subtitle: 'Exklusive Vorteile, Trends und Neuigkeiten direkt in Ihr Postfach.',
       whatToExpect: 'Was Sie erwartet',
       catPaintings: 'Neue Kollektionen & Gemälde',
       catPaintingsDesc: 'Erster Zugang zu neuen Kunstwerken, Limited Editions und exklusiven Vorschauen.',
