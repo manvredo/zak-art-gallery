@@ -3,9 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
+import { useLanguage } from '@/app/context/LanguageContext';
 import NewsletterForm from '@/app/components/NewsletterForm';
 
 export default function NewsletterPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -18,7 +21,7 @@ export default function NewsletterPage() {
               </h1>
             </Link>
             <Link href="/" className="text-gray-700 hover:text-gray-900">
-              ← Back to Shop
+              ← {t.newsletter.backToShop}
             </Link>
           </div>
         </div>
@@ -31,39 +34,38 @@ export default function NewsletterPage() {
             <Mail className="text-white" size={32} />
           </div>
           <h1 className="text-4xl text-gray-900 mb-4" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-            Stay Inspired
+            {t.newsletter.title}
           </h1>
           <p className="text-lg text-gray-600 max-w-lg mx-auto">
-            Be the first to know about new collections, exclusive behind-the-scenes content,
-            and special offers – delivered straight to your inbox.
+            {t.newsletter.subtitle}
           </p>
         </div>
 
         {/* What you'll get */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-xl text-gray-900 mb-6 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-            What to expect
+            {t.newsletter.whatToExpect}
           </h2>
           <div className="space-y-4">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">🎨</div>
               <div>
-                <h3 className="font-medium text-gray-900">New Collections & Paintings</h3>
-                <p className="text-sm text-gray-600">First access to new artworks, limited editions, and exclusive previews.</p>
+                <h3 className="font-medium text-gray-900">{t.newsletter.catPaintings}</h3>
+                <p className="text-sm text-gray-600">{t.newsletter.catPaintingsDesc}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">🤖</div>
               <div>
-                <h3 className="font-medium text-gray-900">ArtWingman & AI Insights</h3>
-                <p className="text-sm text-gray-600">Behind the scenes of AI-powered art tools and creative tech.</p>
+                <h3 className="font-medium text-gray-900">{t.newsletter.catArtWingman}</h3>
+                <p className="text-sm text-gray-600">{t.newsletter.catArtWingmanDesc}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">🛠️</div>
               <div>
-                <h3 className="font-medium text-gray-900">Tools & Resources</h3>
-                <p className="text-sm text-gray-600">Munshell updates, artist resources, and exclusive tutorials.</p>
+                <h3 className="font-medium text-gray-900">{t.newsletter.catTools}</h3>
+                <p className="text-sm text-gray-600">{t.newsletter.catToolsDesc}</p>
               </div>
             </div>
           </div>
@@ -72,10 +74,10 @@ export default function NewsletterPage() {
         {/* Form */}
         <div className="bg-white rounded-lg shadow-sm p-8">
           <h2 className="text-xl text-gray-900 mb-2 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-            Join the list
+            {t.newsletter.joinList}
           </h2>
           <p className="text-sm text-gray-500 text-center mb-6">
-            No spam. Unsubscribe anytime.
+            {t.newsletter.noSpam}
           </p>
           <NewsletterForm />
         </div>

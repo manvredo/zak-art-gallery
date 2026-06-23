@@ -2,19 +2,20 @@
 
 import React, { useState } from 'react';
 import { Check, Mail, AlertCircle, Loader2 } from 'lucide-react';
+import { useLanguage } from '@/app/context/LanguageContext';
 
 const CATEGORIES = [
-  { id: 'paintings', label: 'Paintings & Collections', emoji: '🎨' },
-  { id: 'artwingman', label: 'ArtWingman & AI', emoji: '🤖' },
-  { id: 'tools', label: 'Tools & Resources', emoji: '🛠️' },
+  { id: 'paintings', labelKey: 'catPaintings', emoji: '🎨' },
+  { id: 'artwingman', labelKey: 'catArtWingman', emoji: '🤖' },
+  { id: 'tools', labelKey: 'catTools', emoji: '🛠️' },
 ];
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
   const [selectedCategories, setSelectedCategories] = useState(['paintings']);
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
+  const { t } = useLanguage();
 
   const toggleCategory = (id) => {
     setSelectedCategories(prev =>
@@ -37,7 +38,6 @@ export default function NewsletterForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
-          name: name || undefined,
           categories: selectedCategories,
         }),
       });
@@ -47,17 +47,16 @@ export default function NewsletterForm() {
       if (res.ok) {
         setStatus('success');
         setMessage(data.message === 'Already subscribed'
-          ? "You're already subscribed!"
-          : 'Welcome aboard! Check your inbox.');
+          ? t.newsletter.alreadySubscribed
+          : t.newsletter.success);
         setEmail('');
-        setName('');
       } else {
         setStatus('error');
-        setMessage(data.error || 'Something went wrong. Try again.');
+        setMessage(t.newsletter.error);
       }
     } catch (err) {
       setStatus('error');
-      setMessage('Network error. Please try again.');
+      setMessage(t.newsletter.networkError);
     }
   };
 
@@ -67,7 +66,7 @@ export default function NewsletterForm() {
         {/* Email */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Email Address *
+            {t.auth.register.emailLabel} *
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -78,7 +77,7 @@ export default function NewsletterForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder={t.newsletter.emailPlaceholder}
               className="w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
               disabled={status === 'loading'}
             />
@@ -88,7 +87,7 @@ export default function NewsletterForm() {
         {/* Categories */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            I'm interested in
+            {t.newsletter.interestedIn}
           </label>
           <div className="space-y-1.5">
             {CATEGORIES.map(cat => (
@@ -106,7 +105,7 @@ export default function NewsletterForm() {
                   onChange={() => toggleCategory(cat.id)}
                   className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
                 />
-                <span>{cat.emoji} {cat.label}</span>
+                <span>{cat.emoji} {t.newsletter[cat.labelKey]}</span>
               </label>
             ))}
           </div>
@@ -121,12 +120,12 @@ export default function NewsletterForm() {
           {status === 'loading' ? (
             <>
               <Loader2 className="animate-spin" size={16} />
-              Subscribing...
+              {t.newsletter.subscribing}
             </>
           ) : (
             <>
               <Mail size={16} />
-              Subscribe
+              {t.newsletter.subscribe}
             </>
           )}
         </button>
@@ -147,7 +146,7 @@ export default function NewsletterForm() {
 
         {/* Disclaimer */}
         <p className="text-xs text-gray-400">
-          No spam. Unsubscribe anytime. Your email is safe with us.
+          {t.newsletter.noSpam}
         </p>
       </form>
     </div>
