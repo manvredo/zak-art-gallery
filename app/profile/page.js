@@ -297,7 +297,7 @@ export default function AccountPage() {
             {/* Favoriten Section */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-2xl text-gray-900 mb-6" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-                Meine Favoriten ({favorites.length})
+                My Favorites ({favorites.length})
               </h2>
 
               {favoritesLoading ? (
@@ -308,16 +308,16 @@ export default function AccountPage() {
                 <div className="text-center py-12">
                   <Heart className="mx-auto mb-4 text-gray-300" size={48} />
                   <h3 className="text-xl text-gray-900 mb-2" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-                    Keine Favoriten
+                    No Favorites
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Sie haben noch keine Kunstwerke zu Ihren Favoriten hinzugefügt.
+                    You haven't added any artworks to your favorites yet.
                   </p>
                   <Link
                     href="/shop"
                     className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
                   >
-                    Kunstwerke entdecken
+                    Discover Artworks
                   </Link>
                 </div>
               ) : (
@@ -338,7 +338,7 @@ export default function AccountPage() {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-400">
-                            Kein Bild
+                            No Image
                           </div>
                         )}
                       </div>
@@ -358,7 +358,7 @@ export default function AccountPage() {
                             href={`/shop/${favorite.product_id}`}
                             className="flex-1 bg-gray-900 text-white text-center py-2 rounded-lg hover:bg-gray-800 transition text-sm font-medium"
                           >
-                            Ansehen
+                            View
                           </Link>
                           <button
                             onClick={() => removeFavorite(favorite.id)}
@@ -375,29 +375,19 @@ export default function AccountPage() {
               )}
             </div>
 
-            {/* Coming Soon Features - Orders & Newsletter */}
+            {/* Orders & Newsletter */}
             <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-8 border border-gray-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Sparkles className="text-gray-900" size={24} />
-                <h3 className="text-lg text-gray-900" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
-                  Demnächst verfügbar
-                </h3>
-              </div>
-              <p className="text-gray-600 mb-6">
-                Bestellhistorie und Newsletter folgen in Kürze!
-              </p>
-              
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
-                  <Package className="mx-auto mb-2 text-gray-400" size={32} />
-                  <p className="text-sm font-medium text-gray-900">Bestellungen</p>
-                  <p className="text-xs text-gray-500 mt-1">Bald</p>
+                <div className="bg-white rounded-lg p-6 text-center border border-gray-200">
+                  <Package className="mx-auto mb-3 text-gray-400" size={32} />
+                  <p className="text-sm font-medium text-gray-900">Order History</p>
+                  <p className="text-xs text-gray-500 mt-1">Coming soon</p>
                 </div>
-                <div className="bg-white rounded-lg p-4 text-center border border-gray-200">
-                  <Bell className="mx-auto mb-2 text-gray-400" size={32} />
+                <Link href="/newsletter" className="bg-white rounded-lg p-6 text-center border border-gray-200 hover:border-gray-900 transition group block">
+                  <Bell className="mx-auto mb-3 text-gray-400 group-hover:text-gray-900 transition" size={32} />
                   <p className="text-sm font-medium text-gray-900">Newsletter</p>
-                  <p className="text-xs text-gray-500 mt-1">Bald</p>
-                </div>
+                  <p className="text-xs text-gray-500 mt-1 group-hover:text-gray-900 transition">Subscribe now →</p>
+                </Link>
               </div>
             </div>
           </div>
