@@ -60,18 +60,18 @@ export default function AboutPage() {
 
       {/* About Me */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+        <div className="overflow-hidden">
           <img
             src="/about/Camera_01.png"
             alt={language === 'de' ? 'Manfred Zak' : 'Manfred Zak'}
-            className="aspect-[3/4] object-cover rounded-sm"
+            className="float-left w-1/3 mr-8 mb-6 aspect-[3/4] object-cover rounded-sm"
           />
-          <div className="space-y-6 text-gray-700 font-light leading-relaxed">
-            <h2 className="text-3xl font-light text-gray-900">
+          <div className="text-gray-700 font-light leading-relaxed">
+            <h2 className="text-3xl font-light text-gray-900 mb-6">
               {language === 'de' ? 'Über mich' : 'About Me'}
             </h2>
             {paragraphs.map((text, i) => (
-              <p key={i}>{text}</p>
+              <p key={i} className="mb-4">{text}</p>
             ))}
             <a
               href="/contact"
@@ -101,33 +101,31 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Photo 1 left · paragraphs 1–2 right */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        {/* Photo 1 left · paragraphs 1–2 right (float) */}
+        <div className="overflow-hidden mb-16">
           <img
             src="/about/Work_01.jpg"
             alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
-            className="aspect-[4/3] object-cover rounded-sm"
+            className="float-left w-1/3 mr-8 mb-6 aspect-[4/3] object-cover rounded-sm"
           />
-          <div className="space-y-6 text-gray-700 font-light leading-relaxed">
+          <div className="text-gray-700 font-light leading-relaxed">
             {workParagraphs.slice(0, 2).map((text, i) => (
-              <p key={i}>{text}</p>
+              <p key={i} className="mb-4">{text}</p>
             ))}
           </div>
         </div>
 
-        {/* Paragraphs 3–5 left · Photo 2 right */}
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6 text-gray-700 font-light leading-relaxed">
+        {/* Paragraphs 3–5 left · Photo 2 right (float) */}
+        <div className="overflow-hidden">
+          <img
+            src="/about/Work_02.jpg"
+            alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
+            className="float-right w-1/3 ml-8 mb-6 rounded-sm"
+          />
+          <div className="text-gray-700 font-light leading-relaxed">
             {workParagraphs.slice(2).map((text, i) => (
-              <p key={i}>{text}</p>
+              <p key={i} className="mb-4">{text}</p>
             ))}
-          </div>
-          <div className="rounded-sm overflow-hidden bg-gray-100">
-            <img
-              src="/about/Work_02.jpg"
-              alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
-              className="w-full h-auto"
-            />
           </div>
         </div>
 
