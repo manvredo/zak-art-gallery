@@ -74,7 +74,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-7 gap-10 lg:gap-16 items-start">
           <div className="lg:col-span-4 lg:order-1 text-gray-700 leading-relaxed">
             <div className="mb-4 flex items-baseline gap-4">
-              <h2 className="text-gray-900" style={{ fontSize: 70 }}>Manfred Zak</h2>
+              <h2 className="text-gray-900" style={{ fontSize: 65 }}>Manfred Zak</h2>
               <span className="font-serif text-xl text-gray-500 whitespace-nowrap" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>
                 {language === 'de' ? 'Deutscher, geb. 1970' : 'German, b. 1970'}
               </span>
