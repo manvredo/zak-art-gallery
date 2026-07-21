@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About – Design Test</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Vollkorn:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Vollkorn', Georgia, serif; }
+  .font-vollkorn { font-family: 'Vollkorn', Georgia, serif; }
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Diese Datei ist eine freistehende Design-Spielwiese fuer die About-Seite.        -->
+  <!-- Aendere Layout, Abstaende, Bilder, Farben etc. direkt hier und im Browser         -->
+  <!-- (design/about-test.html einfach per Doppelklick oeffnen). Wenn es passt, wird     -->
+  <!-- das Ergebnis in app/about/page.js uebertragen.                                     -->
+
+  <!-- About Me -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
+    <div class="grid grid-cols-1 lg:grid-cols-7 gap-10 lg:gap-16 items-start">
+      <div class="lg:col-span-4 lg:order-1">
+        <div class="flex items-baseline gap-4 mb-4">
+          <h1 class="text-5xl md:text-6xl text-gray-900">Manfred Zak</h1>
+          <span class="font-vollkorn text-xl text-gray-500 whitespace-nowrap">German, b. 1970</span>
+        </div>
+        <p class="font-vollkorn text-2xl text-gray-600 mb-10">Künstler, Illustrator und Maler — Berlin</p>
+        <div class="text-gray-700 leading-relaxed space-y-6">
+          <p>Meine Beziehung zur Malerei begann früh. Ich wuchs umgeben von Bildern auf, die meine Wahrnehmung prägten und mir zeigten, dass Kunst Erinnerung, Atmosphäre und Emotionen transportieren kann, lange bevor man sie bewusst versteht. Als Kind lernte ich durch Beobachtung, durch Materialien und durch die stille Disziplin des genauen Hinsehens. Das Malen wurde für mich weniger zu einem Handwerk als vielmehr zu einer Art zu denken.</p>
+          <p>Seit 1997 arbeite ich hauptberuflich als Künstler; in dieser Zeit machte ich meine ersten experimentellen Schritte in der digitalen Kunst, während ich kontinuierlich analoge Arbeiten schuf. Auch in den letzten zwei Jahrzehnten, die überwiegend durch die Arbeit am Computer geprägt waren, kehrte ich regelmäßig zu intensiven analogen Phasen zurück.</p>
+          <p>Während dieser gesamten Laufbahn bewegte sich mein beruflicher Schwerpunkt tief im Schnittbereich von klassischer Kunst und digitalen Medien — insbesondere in den Bereichen 3D-Visualisierung, Illustration und Animation. Doch trotz aller technischen Möglichkeiten blieb die Malerei immer das wahre Zentrum meiner Arbeit.</p>
+          <p>In den letzten Jahren bin ich fast vollständig zur Leinwand zurückgekehrt. Das Leben und Arbeiten zwischen Berlin und der brandenburgischen Landschaft hat etwas bestätigt, das ich schon immer intuitiv wusste: Malen ist für mich nicht einfach ein Beruf, sondern eine notwendige Form der Wahrnehmung und der Auseinandersetzung mit der Welt.</p>
+        </div>
+        <!-- EN-Version spaeter: Label "Contact" statt "Kontakt" -->
+        <a href="#" class="inline-block mt-8 rounded-full bg-gray-900 text-white px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-800 transition">Kontakt</a>
+      </div>
+      <div class="lg:col-span-3 lg:order-2">
+        <!-- Slider: Slide 0 = Portrait, Slides 1-5 = die 5 weiteren Bilder (Platzhalter, ersetzen sobald vorhanden) -->
+        <div class="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gray-100 ml-[1cm]">
+          <div id="slider-track" class="flex h-full transition-transform duration-500 ease-out">
+            <div class="w-full h-full flex-shrink-0">
+              <img src="../public/about/Camera_01.png" alt="Manfred Zak" class="w-full h-full object-cover" />
+            </div>
+            <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-gray-200 text-gray-400 text-sm">Foto 2 (folgt)</div>
+            <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-gray-200 text-gray-400 text-sm">Foto 3 (folgt)</div>
+            <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-gray-200 text-gray-400 text-sm">Foto 4 (folgt)</div>
+            <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-gray-200 text-gray-400 text-sm">Foto 5 (folgt)</div>
+            <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-gray-200 text-gray-400 text-sm">Foto 6 (folgt)</div>
+          </div>
+        </div>
+
+        <!-- Swatches: 5 Stueck, je einer pro weiterem Bild (Slide-Index 1-5) -->
+        <div class="flex gap-3 mt-4">
+          <button class="swatch-btn w-14 h-14 rounded-lg overflow-hidden ring-2 ring-transparent hover:ring-gray-400 transition" data-index="1" onclick="goToSlide(1)">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[10px] text-gray-400">2</div>
+          </button>
+          <button class="swatch-btn w-14 h-14 rounded-lg overflow-hidden ring-2 ring-transparent hover:ring-gray-400 transition" data-index="2" onclick="goToSlide(2)">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[10px] text-gray-400">3</div>
+          </button>
+          <button class="swatch-btn w-14 h-14 rounded-lg overflow-hidden ring-2 ring-transparent hover:ring-gray-400 transition" data-index="3" onclick="goToSlide(3)">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[10px] text-gray-400">4</div>
+          </button>
+          <button class="swatch-btn w-14 h-14 rounded-lg overflow-hidden ring-2 ring-transparent hover:ring-gray-400 transition" data-index="4" onclick="goToSlide(4)">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[10px] text-gray-400">5</div>
+          </button>
+          <button class="swatch-btn w-14 h-14 rounded-lg overflow-hidden ring-2 ring-transparent hover:ring-gray-400 transition" data-index="5" onclick="goToSlide(5)">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[10px] text-gray-400">6</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function goToSlide(index) {
+      const track = document.getElementById('slider-track');
+      track.style.transform = `translateX(-${index * 100}%)`;
+      document.querySelectorAll('.swatch-btn').forEach((btn) => {
+        const active = Number(btn.dataset.index) === index;
+        btn.classList.toggle('ring-gray-900', active);
+        btn.classList.toggle('ring-2', true);
+      });
+    }
+  </script>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <hr class="border-gray-200" />
+  </div>
+
+  <!-- How I Work -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+    <div class="mb-16">
+      <h2 class="text-4xl text-gray-900 mb-2">Wie ich arbeite</h2>
+      <p class="text-gray-500 italic">… und warum ich so arbeite</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-7 gap-10 lg:gap-16 items-start mb-20">
+      <div class="lg:col-span-2">
+        <img src="../public/about/Work_01.jpg" alt="Wie ich arbeite"
+             class="w-full aspect-[4/3] object-cover" />
+      </div>
+      <div class="lg:col-span-5 text-gray-700 leading-relaxed space-y-6">
+        <p>Ich habe früh gelernt, dass Freiheit in der Malerei davon abhängt, Gewissheit so lange wie möglich hinauszuzögern. Ich versuche, mich nicht zu früh auf Details oder feste Entscheidungen festzulegen.</p>
+        <p>Deshalb beginne ich selten mit kleinen Details. Ich konzentriere mich zunächst auf Struktur, Rhythmus, Atmosphäre und Balance und halte jeden Teil der Leinwand lebendig und offen für Veränderungen.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-7 gap-10 lg:gap-16 items-start">
+      <div class="lg:col-span-5 text-gray-700 leading-relaxed space-y-6 lg:order-1">
+        <p>Ölmalerei gibt mir genau diese Freiheit. Sie bleibt fluid, anpassungsfähig und verzeihend. Mit breiten Pinseln, Palettenmessern, Tüchern und geschichteten Oberflächen kann ich Schwerpunkte ständig verschieben, löschen, neu aufbauen.</p>
+        <p>Für mich wird ein Bild nicht mechanisch konstruiert. Es wächst. Manchmal langsam, manchmal heftig, manchmal über Monate.</p>
+        <p>Was mich am meisten interessiert, ist nicht Perfektion, sondern Vitalität: der Moment, in dem ein Bild beginnt, von selbst zu atmen.</p>
+      </div>
+      <div class="lg:col-span-2 lg:order-2">
+        <img src="../public/about/Work_02.jpg" alt="Wie ich arbeite"
+             class="w-full aspect-[3/4] object-cover" />
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

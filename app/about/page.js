@@ -59,14 +59,16 @@ export default function AboutPage() {
       </div>
 
       {/* About Me */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
-        <div className="overflow-hidden">
-          <img
-            src="/about/Camera_01.png"
-            alt={language === 'de' ? 'Manfred Zak' : 'Manfred Zak'}
-            className="float-left w-1/3 mr-8 mb-6 aspect-[3/4] object-cover rounded-sm"
-          />
-          <div className="text-gray-700 font-light leading-relaxed">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
+          <div className="lg:col-span-2 lg:sticky lg:top-32">
+            <img
+              src="/about/Camera_01.png"
+              alt={language === 'de' ? 'Manfred Zak' : 'Manfred Zak'}
+              className="w-full aspect-[3/4] object-cover rounded-sm"
+            />
+          </div>
+          <div className="lg:col-span-3 text-gray-700 font-light leading-relaxed">
             <h2 className="text-3xl font-light text-gray-900 mb-6">
               {language === 'de' ? 'Über mich' : 'About Me'}
             </h2>
@@ -75,24 +77,24 @@ export default function AboutPage() {
             ))}
             <a
               href="/contact"
-              className="inline-block mt-4 border border-gray-900 text-gray-900 px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-900 hover:text-white transition"
+              className="inline-block mt-4 rounded-full bg-gray-900 text-white px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-800 transition"
             >
-              {language === 'de' ? 'Kontakt aufnehmen' : 'Get in touch'}
+              {language === 'de' ? 'Kontakt' : 'Contact'}
             </a>
           </div>
         </div>
       </section>
 
       {/* Divider */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <hr className="border-gray-200" />
       </div>
 
       {/* How I Work */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
 
         {/* Heading */}
-        <div className="mb-12">
+        <div className="mb-16">
           <h2 className="text-3xl font-light text-gray-900 mb-2">
             {howIWork.title[language]}
           </h2>
@@ -101,31 +103,35 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Photo 1 left · paragraphs 1–2 right (float) */}
-        <div className="overflow-hidden mb-16">
-          <img
-            src="/about/Work_01.jpg"
-            alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
-            className="float-left w-1/3 mr-8 mb-6 aspect-[4/3] object-cover rounded-sm"
-          />
-          <div className="text-gray-700 font-light leading-relaxed">
+        {/* Photo 1 left · paragraphs 1–2 right */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start mb-20">
+          <div className="lg:col-span-2">
+            <img
+              src="/about/Work_01.jpg"
+              alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
+              className="w-full aspect-[4/3] object-cover rounded-sm"
+            />
+          </div>
+          <div className="lg:col-span-3 text-gray-700 font-light leading-relaxed">
             {workParagraphs.slice(0, 2).map((text, i) => (
               <p key={i} className="mb-4">{text}</p>
             ))}
           </div>
         </div>
 
-        {/* Paragraphs 3–5 left · Photo 2 right (float) */}
-        <div className="overflow-hidden">
-          <img
-            src="/about/Work_02.jpg"
-            alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
-            className="float-right w-1/3 ml-8 mb-6 rounded-sm"
-          />
-          <div className="text-gray-700 font-light leading-relaxed">
+        {/* Paragraphs 3–5 left · Photo 2 right */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
+          <div className="lg:col-span-3 text-gray-700 font-light leading-relaxed lg:order-1">
             {workParagraphs.slice(2).map((text, i) => (
               <p key={i} className="mb-4">{text}</p>
             ))}
+          </div>
+          <div className="lg:col-span-2 lg:order-2">
+            <img
+              src="/about/Work_02.jpg"
+              alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
+              className="w-full aspect-[3/4] object-cover rounded-sm"
+            />
           </div>
         </div>
 
