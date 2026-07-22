@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import FooterExtension from './components/FooterExtension';
 import CookieBanner from './components/CookieBanner';
+import NewsletterModal from './components/NewsletterModal';
 import "./globals.css";
 import "./styles/art-gallery.css";
 
@@ -185,6 +186,7 @@ export default function RootLayout({ children }) {
                 <Footer />
               </div>
               <CookieBanner />
+              <NewsletterModal />
             </CartProvider>
           </LanguageProvider>
         </AuthProvider>

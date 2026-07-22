@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Check, Mail, AlertCircle, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
-export default function NewsletterForm() {
+export default function NewsletterForm({ onSubscribed }) {
   const [email, setEmail] = useState('');
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState('idle');
@@ -32,6 +32,7 @@ export default function NewsletterForm() {
         setMessage(t.newsletter.confirmPendingMessage);
         setEmail('');
         setConsent(false);
+        onSubscribed?.();
       } else {
         setStatus('error');
         setMessage(t.newsletter.error);
