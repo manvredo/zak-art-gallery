@@ -1,8 +1,6 @@
 "use client";
 
 import React from 'react';
-import Link from 'next/link';
-import { Mail } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 import NewsletterForm from '@/app/components/NewsletterForm';
 
@@ -10,68 +8,51 @@ export default function NewsletterPage() {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/">
-              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK FINE ART
-              </h1>
-            </Link>
-            <Link href="/" className="text-gray-700 hover:text-gray-900">
-              ← {t.newsletter.backToShop}
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div className="mb-12 flex items-center gap-4">
+        <h1 className="font-light text-gray-900 whitespace-nowrap tracking-wide" style={{ fontSize: 32 }}>
+          NEWSLETTER
+        </h1>
+        <div className="flex-1 h-px bg-gray-300"></div>
+      </div>
 
-      {/* Newsletter Hero */}
-      <div className="max-w-2xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-900 rounded-full mb-6">
-            <Mail className="text-white" size={32} />
-          </div>
-          <h1 className="text-4xl text-gray-900 mb-4" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontWeight: 400 }}>
+      <div className="grid md:grid-cols-2 gap-12">
+        <div>
+          <h2
+            className="text-gray-900 mb-3"
+            style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '2rem', fontWeight: 400 }}
+          >
             {t.newsletter.title}
-          </h1>
-          <p className="text-lg text-gray-600 max-w-lg mx-auto">
+          </h2>
+          <p className="text-gray-600 mb-8">
             {t.newsletter.subtitle}
           </p>
-        </div>
 
-        {/* What you'll get */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-gray-900 mb-6 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.75rem', fontWeight: 400 }}>
+          <h3 className="text-sm font-medium text-gray-700 mb-4 uppercase tracking-wider">
             {t.newsletter.whatToExpect}
-          </h2>
-          <div className="space-y-3">
-            <div className="flex items-start gap-4">
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-1 h-8 bg-gray-900 rounded-full mt-1"></div>
               <div>
-                <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catPaintings}</h3>
+                <p className="font-medium text-gray-900">{t.newsletter.catPaintings}</p>
                 <p className="text-sm text-gray-600">{t.newsletter.catPaintingsDesc}</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-1 h-8 bg-gray-900 rounded-full mt-1"></div>
               <div>
-                <h3 className="text-gray-900 mb-1" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.125rem', fontWeight: 400 }}>{t.newsletter.catArtWingman}</h3>
+                <p className="font-medium text-gray-900">{t.newsletter.catArtWingman}</p>
                 <p className="text-sm text-gray-600">{t.newsletter.catArtWingmanDesc}</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Form */}
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <h2 className="text-gray-900 mb-2 text-center" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif', fontSize: '1.75rem', fontWeight: 400 }}>
+        <div>
+          <h3 className="text-sm font-medium text-gray-700 mb-4 uppercase tracking-wider">
             {t.newsletter.joinList}
-          </h2>
-          <p className="text-sm text-gray-500 text-center mb-6">
-            {t.newsletter.noSpam}
-          </p>
+          </h3>
           <NewsletterForm />
         </div>
       </div>
