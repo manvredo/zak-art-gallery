@@ -22,8 +22,8 @@ export async function POST(request) {
     let audienceId = process.env.RESEND_AUDIENCE_ID;
 
     if (!audienceId) {
-      const { data: audiences } = await resend.audiences.list();
-      const audience = audiences?.find(a => a.name === AUDIENCE_NAME);
+      const { data: audienceList } = await resend.audiences.list();
+      const audience = audienceList?.data?.find(a => a.name === AUDIENCE_NAME);
       if (audience) {
         audienceId = audience.id;
       } else {
