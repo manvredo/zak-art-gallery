@@ -321,7 +321,18 @@ const translations = {
       error: 'Something went wrong. Try again.',
       networkError: 'Network error. Please try again.',
       notConfigured: 'Newsletter not available',
-      backToShop: 'Back to Shop'
+      backToShop: 'Back to Shop',
+      backToHome: 'Back to homepage',
+      consentPre: 'I would like to receive the newsletter and agree to the ',
+      consentLink: 'privacy policy',
+      consentPost: '. I can withdraw my consent at any time.',
+      confirmPendingMessage: 'Almost there! Please check your inbox and confirm your subscription.',
+      confirmedTitle: 'Subscription confirmed',
+      confirmedMessage: "You're all set — welcome to the ZAK Fine Art newsletter. Please check your inbox for a welcome email.",
+      confirmedInvalidTitle: 'Link expired',
+      confirmedInvalidMessage: 'This confirmation link is invalid or has expired. Please sign up again.',
+      confirmedErrorTitle: 'Something went wrong',
+      confirmedErrorMessage: 'We could not confirm your subscription. Please try again later.'
     },
     
     // Footer
@@ -675,7 +686,18 @@ const translations = {
       error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       networkError: 'Netzwerkfehler. Bitte versuchen Sie es erneut.',
       notConfigured: 'Newsletter nicht verfügbar',
-      backToShop: 'Zurück zum Shop'
+      backToShop: 'Zurück zum Shop',
+      backToHome: 'Zurück zur Startseite',
+      consentPre: 'Ich möchte den Newsletter erhalten und stimme der ',
+      consentLink: 'Datenschutzerklärung',
+      consentPost: ' zu. Ich kann meine Einwilligung jederzeit widerrufen.',
+      confirmPendingMessage: 'Fast geschafft! Bitte prüfen Sie Ihr Postfach und bestätigen Sie Ihre Anmeldung.',
+      confirmedTitle: 'Anmeldung bestätigt',
+      confirmedMessage: 'Alles erledigt — willkommen beim ZAK Fine Art Newsletter. Bitte prüfen Sie Ihr Postfach auf die Willkommens-E-Mail.',
+      confirmedInvalidTitle: 'Link abgelaufen',
+      confirmedInvalidMessage: 'Dieser Bestätigungslink ist ungültig oder abgelaufen. Bitte melden Sie sich erneut an.',
+      confirmedErrorTitle: 'Etwas ist schiefgelaufen',
+      confirmedErrorMessage: 'Ihre Anmeldung konnte nicht bestätigt werden. Bitte versuchen Sie es später erneut.'
     },
     
     // Footer

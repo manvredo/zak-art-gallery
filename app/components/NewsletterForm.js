@@ -6,13 +6,14 @@ import { useLanguage } from '@/app/context/LanguageContext';
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !consent) return;
 
     setStatus('loading');
     setMessage('');
@@ -21,17 +22,16 @@ export default function NewsletterForm() {
       const res = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, consent, language }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
         setStatus('success');
-        setMessage(data.message === 'Already subscribed'
-          ? t.newsletter.alreadySubscribed
-          : t.newsletter.success);
+        setMessage(t.newsletter.confirmPendingMessage);
         setEmail('');
+        setConsent(false);
       } else {
         setStatus('error');
         setMessage(t.newsletter.error);
@@ -71,10 +71,29 @@ export default function NewsletterForm() {
           {t.newsletter.catPaintings} &amp; {t.newsletter.catArtWingman}
         </p>
 
+        {/* Consent Checkbox */}
+        <label className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed cursor-pointer">
+          <input
+            type="checkbox"
+            required
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            disabled={status === 'loading'}
+            className="mt-0.5 flex-shrink-0"
+          />
+          <span>
+            {t.newsletter.consentPre}
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-900">
+              {t.newsletter.consentLink}
+            </a>
+            {t.newsletter.consentPost}
+          </span>
+        </label>
+
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={status === 'loading'}
+          disabled={status === 'loading' || !consent}
           className="w-full py-2.5 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {status === 'loading' ? (
