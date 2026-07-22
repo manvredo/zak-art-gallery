@@ -150,13 +150,13 @@ export default function AboutPage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
 
         {/* Heading */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-light text-gray-900 mb-2">
+        <div className="mb-16 flex items-baseline gap-4">
+          <h2 className="text-gray-900" style={{ fontSize: 60 }}>
             {howIWork.title[language]}
           </h2>
-          <p className="text-gray-400 font-light italic">
+          <span className="font-serif text-xl text-gray-500 whitespace-nowrap" style={{ fontFamily: 'var(--font-vollkorn), Georgia, serif' }}>
             {howIWork.subtitle[language]}
-          </p>
+          </span>
         </div>
 
         {/* Photo 1 left · paragraphs 1–2 right */}
@@ -165,7 +165,7 @@ export default function AboutPage() {
             <img
               src="/about/Work_01.jpg"
               alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
-              className="w-full aspect-[4/3] object-cover rounded-sm"
+              className="w-full aspect-[4/3] object-cover rounded-2xl"
             />
           </div>
           <div className="lg:col-span-3 text-gray-700 font-light leading-relaxed">
@@ -186,7 +186,7 @@ export default function AboutPage() {
             <img
               src="/about/Work_02.jpg"
               alt={language === 'de' ? 'Wie ich arbeite' : 'How I Work'}
-              className="w-full aspect-[3/4] object-cover rounded-sm"
+              className="w-full aspect-[3/4] object-cover rounded-2xl"
             />
           </div>
         </div>
