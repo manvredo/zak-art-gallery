@@ -61,6 +61,55 @@ export async function POST(request) {
 
     console.log('Newsletter subscriber added:', email, categories);
 
+    // Willkommens-Email an neuen Abonnenten
+    try {
+      await resend.emails.send({
+        from: 'ZAK Fine Art <info@manfredzak.com>',
+        to: [email],
+        subject: 'Welcome to the ZAK Fine Art Newsletter',
+        text: `Welcome to the ZAK Fine Art Newsletter
+
+Thank you for subscribing! You'll now be among the first to hear about:
+
+- New Collections & Paintings — first access to new artworks, limited editions, and exclusive previews.
+- ArtWingman & AI Insights — behind the scenes of AI-powered art tools and creative tech.
+
+No spam, unsubscribe anytime.
+
+Best regards,
+Manfred Zak
+
+---
+ZAK Fine Art
+Rudolf-Breitscheid-Str. 24
+17326 Brüssow
+info@manfredzak.com`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333;">Welcome to the ZAK Fine Art Newsletter</h2>
+            <p>Thank you for subscribing! You'll now be among the first to hear about:</p>
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+              <p style="margin: 0 0 12px 0;"><strong>New Collections &amp; Paintings</strong><br>
+              <span style="color: #555;">First access to new artworks, limited editions, and exclusive previews.</span></p>
+              <p style="margin: 0;"><strong>ArtWingman &amp; AI Insights</strong><br>
+              <span style="color: #555;">Behind the scenes of AI-powered art tools and creative tech.</span></p>
+            </div>
+            <p style="color: #666; font-size: 13px;">No spam. Unsubscribe anytime.</p>
+            <p>Best regards,<br>Manfred Zak</p>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+            <p style="color: #666; font-size: 12px;">
+              ZAK Fine Art<br>
+              Rudolf-Breitscheid-Str. 24<br>
+              17326 Brüssow<br>
+              info@manfredzak.com
+            </p>
+          </div>
+        `
+      });
+    } catch (emailError) {
+      console.error('Newsletter welcome email error:', emailError);
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Successfully subscribed'
