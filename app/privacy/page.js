@@ -75,6 +75,10 @@ export default function PrivacyPage() {
               <li>Ordered products and quantities</li>
             </ul>
             <p className="text-gray-700 leading-relaxed mt-4">This data is necessary for contract fulfillment and is processed based on Art. 6 Para. 1 lit. b GDPR.</p>
+            <h3 className="text-xl font-light text-gray-900 mb-3 mt-6">Newsletter</h3>
+            <p className="text-gray-700 leading-relaxed mb-4">If you subscribe to our newsletter, we use the double opt-in procedure: after signing up with your email address, you will receive a confirmation email with a link. Only after you click this link is your subscription activated and your email address added to our newsletter list. This procedure protects you from someone subscribing your email address without your knowledge.</p>
+            <p className="text-gray-700 leading-relaxed mb-4">We send the newsletter approximately 1–2 times a month. Your email address is stored for the purpose of sending the newsletter until you unsubscribe, which you can do at any time via the unsubscribe link in every newsletter or by contacting us. Processing is based on your consent (Art. 6 Para. 1 lit. a GDPR), which you may revoke at any time with effect for the future.</p>
+            <p className="text-gray-700 leading-relaxed">We use the email service provider Resend (Resend Inc.) to manage the newsletter list and send emails. Your data may therefore also be processed on servers operated by Resend.</p>
             <h3 className="text-xl font-light text-gray-900 mb-3 mt-6">Payment Service Providers</h3>
             <p className="text-gray-700 leading-relaxed">We use external payment service providers (e.g., Stripe, PayPal) through whose platforms users and we can make payment transactions. We do not store credit card data ourselves. The payment data is processed directly by the payment service provider.</p>
           </section>
@@ -161,6 +165,10 @@ export default function PrivacyPage() {
               <li>Bestellte Produkte und Mengen</li>
             </ul>
             <p className="text-gray-700 leading-relaxed mt-4">Diese Daten sind für die Vertragserfüllung erforderlich und werden auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO verarbeitet.</p>
+            <h3 className="text-xl font-light text-gray-900 mb-3 mt-6">Newsletter</h3>
+            <p className="text-gray-700 leading-relaxed mb-4">Wenn Sie unseren Newsletter abonnieren, verwenden wir das Double-Opt-in-Verfahren: Nach der Anmeldung mit Ihrer E-Mail-Adresse erhalten Sie eine Bestätigungs-E-Mail mit einem Link. Erst nachdem Sie diesen Link angeklickt haben, wird Ihre Anmeldung aktiviert und Ihre E-Mail-Adresse in unsere Newsletter-Liste aufgenommen. Dieses Verfahren schützt Sie davor, dass jemand Ihre E-Mail-Adresse ohne Ihr Wissen anmeldet.</p>
+            <p className="text-gray-700 leading-relaxed mb-4">Der Newsletter wird ca. 1–2 mal im Monat versendet. Ihre E-Mail-Adresse wird zum Zweck des Newsletter-Versands gespeichert, bis Sie sich abmelden; dies ist jederzeit über den Abmeldelink in jedem Newsletter oder durch Kontaktaufnahme mit uns möglich. Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die Sie jederzeit mit Wirkung für die Zukunft widerrufen können.</p>
+            <p className="text-gray-700 leading-relaxed">Zur Verwaltung der Newsletter-Liste und zum Versand der E-Mails nutzen wir den E-Mail-Dienstleister Resend (Resend Inc.). Ihre Daten können daher auch auf Servern von Resend verarbeitet werden.</p>
             <h3 className="text-xl font-light text-gray-900 mb-3 mt-6">Zahlungsdienstleister</h3>
             <p className="text-gray-700 leading-relaxed">Wir nutzen externe Zahlungsdienstleister (z. B. Stripe, PayPal), über deren Plattformen die Nutzer und wir Zahlungstransaktionen vornehmen können. Wir speichern keine Kreditkartendaten. Die Zahlungsdaten werden direkt durch den Zahlungsdienstleister verarbeitet.</p>
           </section>

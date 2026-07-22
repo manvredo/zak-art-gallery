@@ -125,7 +125,7 @@ export default function NewsletterForm() {
 
         {/* Disclaimer */}
         <p className="text-xs text-gray-400">
-          {t.newsletter.noSpam}
+          {t.newsletter.noSpam} {t.newsletter.frequencyAndRetention}
         </p>
       </form>
     </div>

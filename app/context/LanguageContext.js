@@ -332,7 +332,8 @@ const translations = {
       confirmedInvalidTitle: 'Link expired',
       confirmedInvalidMessage: 'This confirmation link is invalid or has expired. Please sign up again.',
       confirmedErrorTitle: 'Something went wrong',
-      confirmedErrorMessage: 'We could not confirm your subscription. Please try again later.'
+      confirmedErrorMessage: 'We could not confirm your subscription. Please try again later.',
+      frequencyAndRetention: 'Sent approx. 1–2 times a month. Your data is stored until you unsubscribe.'
     },
     
     // Footer
@@ -697,7 +698,8 @@ const translations = {
       confirmedInvalidTitle: 'Link abgelaufen',
       confirmedInvalidMessage: 'Dieser Bestätigungslink ist ungültig oder abgelaufen. Bitte melden Sie sich erneut an.',
       confirmedErrorTitle: 'Etwas ist schiefgelaufen',
-      confirmedErrorMessage: 'Ihre Anmeldung konnte nicht bestätigt werden. Bitte versuchen Sie es später erneut.'
+      confirmedErrorMessage: 'Ihre Anmeldung konnte nicht bestätigt werden. Bitte versuchen Sie es später erneut.',
+      frequencyAndRetention: 'Versand ca. 1–2x im Monat. Ihre Daten werden gespeichert, bis Sie sich abmelden.'
     },
     
     // Footer
