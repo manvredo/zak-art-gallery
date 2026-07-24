@@ -30,10 +30,11 @@ const translations = {
     },	
     
     // Shop
-    shop: { 
-      title: 'Shop', 
-      subtitle: 'Purchase original artworks. Each painting is hand-signed and comes with a certificate of authenticity.', 
-      addToCart: 'Add to Cart' 
+    shop: {
+      title: 'Shop',
+      subtitle: 'Purchase original artworks. Each painting is hand-signed and comes with a certificate of authenticity.',
+      addToCart: 'Add to Cart',
+      notAvailable: 'Not Available'
     },
     
     // Cart
@@ -81,6 +82,7 @@ const translations = {
     productModal: {
       enlarge: 'Enlarge',
       available: 'In Stock',
+      notAvailable: 'Not Available',
       original: 'Original Artwork',
       inclVAT: 'incl. VAT plus shipping',
       insured: 'Insured',
@@ -396,10 +398,11 @@ const translations = {
     },
     
     // Shop
-    shop: { 
-      title: 'Shop', 
-      subtitle: 'Kaufen Sie Originalkunstwerke. Jedes Gemälde ist handsigniert und kommt mit einem Echtheitszertifikat.', 
-      addToCart: 'In den Warenkorb' 
+    shop: {
+      title: 'Shop',
+      subtitle: 'Kaufen Sie Originalkunstwerke. Jedes Gemälde ist handsigniert und kommt mit einem Echtheitszertifikat.',
+      addToCart: 'In den Warenkorb',
+      notAvailable: 'Nicht verfügbar'
     },
     
     // Cart
@@ -447,6 +450,7 @@ const translations = {
     productModal: {
       enlarge: 'Vergrößern',
       available: 'Sofort lieferbar',
+      notAvailable: 'Nicht verfügbar',
       original: 'Original Unikat',
       inclVAT: 'inkl. MwSt. zzgl. Versand',
       insured: 'Versichert',

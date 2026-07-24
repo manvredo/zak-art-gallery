@@ -8,9 +8,11 @@ import FavoriteButton from './FavoriteButton';
 export default function ProductCard({ product, onClick, showAddToCart = false, index = 0 }) {
   const { addToCart } = useCart();
   const { t } = useLanguage();
+  const isAvailable = product.available !== false;
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    if (!isAvailable) return;
     addToCart(product);
   };
 
@@ -25,8 +27,15 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover transition duration-200 ease-in"
+          className={`w-full h-full object-cover transition duration-200 ease-in ${!isAvailable ? 'grayscale opacity-70' : ''}`}
         />
+
+        {/* Not Available Badge - Top Left */}
+        {!isAvailable && (
+          <div className="absolute top-2 left-2 z-10 px-3 py-1 rounded-full bg-red-600 text-white text-xs font-medium tracking-wide">
+            {t.shop.notAvailable}
+          </div>
+        )}
 
         {/* Favorite Button - Top Right */}
         <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -45,12 +54,21 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
             <span className="text-lg font-light text-gray-900">
               €{product.price.toLocaleString('en-US')}
             </span>
-            <button
-              onClick={handleAddToCart}
-              className="px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm"
-            >
-              {t.shop.addToCart}
-            </button>
+            {isAvailable ? (
+              <button
+                onClick={handleAddToCart}
+                className="px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm"
+              >
+                {t.shop.addToCart}
+              </button>
+            ) : (
+              <button
+                disabled
+                className="px-5 py-2 bg-gray-100 border border-gray-200 text-gray-400 rounded-full text-sm cursor-not-allowed"
+              >
+                {t.shop.notAvailable}
+              </button>
+            )}
           </div>
         ) : (
           <p className="text-lg font-light text-gray-900">

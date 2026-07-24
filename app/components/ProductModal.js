@@ -18,10 +18,11 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   const alreadyInCart = isInCart(product.id);
   const locale = language === 'de' ? 'de-DE' : 'en-US';
   const pm = t.productModal;
+  const isAvailable = product.available !== false;
 
   const handleAddToCart = () => {
-    if (alreadyInCart) return; // Don't add if already in cart
-    
+    if (alreadyInCart || !isAvailable) return; // Don't add if already in cart or not for sale
+
     onAddToCart(product);
     setJustAdded(true);
     setTimeout(() => {
@@ -70,10 +71,17 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
             {/* Status Badges */}
             <div className="flex gap-2">
-              <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
-                <Check size={16} />
-                {pm.available}
-              </div>
+              {isAvailable ? (
+                <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
+                  <Check size={16} />
+                  {pm.available}
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 px-3 py-2 bg-red-50 text-red-700 rounded-lg text-sm">
+                  <X size={16} />
+                  {pm.notAvailable}
+                </div>
+              )}
               <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
                 <Award size={16} />
                 {pm.original}
@@ -106,9 +114,16 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 </div>
               </div>
 
-              {/* Add to Cart Button - Changes based on cart status */}
-              {alreadyInCart || justAdded ? (
-                <Link 
+              {/* Add to Cart Button - Changes based on cart/availability status */}
+              {!isAvailable ? (
+                <button
+                  disabled
+                  className="w-full py-4 bg-gray-200 text-gray-500 rounded-lg font-medium text-lg cursor-not-allowed"
+                >
+                  {pm.notAvailable}
+                </button>
+              ) : alreadyInCart || justAdded ? (
+                <Link
                   href="/cart"
                   className="w-full py-4 bg-green-600 text-white rounded-lg font-medium text-lg flex items-center justify-center gap-2 hover:bg-green-700 transition"
                 >
@@ -116,7 +131,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                   {pm.added || 'Im Warenkorb'} – {pm.viewCart || 'Ansehen'}
                 </Link>
               ) : (
-                <button 
+                <button
                   onClick={handleAddToCart}
                   className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-lg font-medium text-lg"
                 >

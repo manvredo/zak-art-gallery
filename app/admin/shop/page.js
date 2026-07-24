@@ -59,7 +59,7 @@ const ARTIST_NAME = 'Manfred Zak';
 
 // Current year for validation
 const CURRENT_YEAR = new Date().getFullYear();
-const MIN_YEAR = 2025;
+const MIN_YEAR = 2004;
 const MAX_PRICE = 10000;
 const MAX_SIZE_CM = 500;
 
@@ -83,6 +83,7 @@ export default function AdminProductsPage() {
     year: CURRENT_YEAR,
     image: '',
     description: '',
+    available: true,
   });
 
   // Check authentication
@@ -189,6 +190,7 @@ export default function AdminProductsPage() {
       year: parseInt(formData.year),
       image: formData.image,
       description: formData.description,
+      available: formData.available,
     };
 
     if (editingId) {
@@ -253,6 +255,7 @@ export default function AdminProductsPage() {
       year: product.year,
       image: product.image,
       description: product.description,
+      available: product.available !== false,
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -291,6 +294,7 @@ export default function AdminProductsPage() {
       year: CURRENT_YEAR,
       image: '',
       description: '',
+      available: true,
     });
     setSelectedSize('');
     setCustomWidth('');
@@ -502,6 +506,24 @@ export default function AdminProductsPage() {
               </div>
             </div>
 
+            {/* Availability */}
+            <div className="border-t border-gray-300 pt-4">
+              <label className="flex items-center gap-2 cursor-pointer w-fit">
+                <input
+                  type="checkbox"
+                  checked={!formData.available}
+                  onChange={(e) => setFormData({ ...formData, available: !e.target.checked })}
+                  className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                />
+                <span className="text-sm font-medium text-gray-700">
+                  Nicht verfügbar / Not available
+                </span>
+              </label>
+              <p className="text-xs text-gray-500 mt-1 ml-6">
+                Werk bleibt sichtbar, kann aber nicht gekauft werden. / Artwork stays visible but can&apos;t be purchased.
+              </p>
+            </div>
+
             {/* Image Upload Section */}
             <div className="border-t border-gray-300 pt-6 mt-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -617,12 +639,17 @@ export default function AdminProductsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map(product => (
                 <div key={product.id} className="border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="aspect-square overflow-hidden bg-gray-100">
+                  <div className="relative aspect-square overflow-hidden bg-gray-100">
                     <img
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
+                    {product.available === false && (
+                      <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-red-600 text-white text-xs font-medium">
+                        Nicht verfügbar / Not available
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="font-medium text-gray-900 mb-1">{product.name}</h3>
