@@ -18,7 +18,8 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   const alreadyInCart = isInCart(product.id);
   const locale = language === 'de' ? 'de-DE' : 'en-US';
   const pm = t.productModal;
-  const isAvailable = product.available !== false;
+  const isSold = product.sold === true;
+  const isAvailable = product.available !== false && !isSold;
 
   const handleAddToCart = () => {
     if (alreadyInCart || !isAvailable) return; // Don't add if already in cart or not for sale
@@ -79,7 +80,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               ) : (
                 <div className="flex items-center gap-1 px-3 py-2 bg-red-50 text-red-700 rounded-lg text-sm">
                   <X size={16} />
-                  {pm.notAvailable}
+                  {isSold ? pm.sold : pm.notAvailable}
                 </div>
               )}
               <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
@@ -120,7 +121,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                   disabled
                   className="w-full py-4 bg-gray-200 text-gray-500 rounded-lg font-medium text-lg cursor-not-allowed"
                 >
-                  {pm.notAvailable}
+                  {isSold ? pm.sold : pm.notAvailable}
                 </button>
               ) : alreadyInCart || justAdded ? (
                 <Link

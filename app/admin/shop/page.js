@@ -84,6 +84,7 @@ export default function AdminProductsPage() {
     image: '',
     description: '',
     available: true,
+    sold: false,
   });
 
   // Check authentication
@@ -191,6 +192,7 @@ export default function AdminProductsPage() {
       image: formData.image,
       description: formData.description,
       available: formData.available,
+      sold: formData.sold,
     };
 
     if (editingId) {
@@ -256,6 +258,7 @@ export default function AdminProductsPage() {
       image: product.image,
       description: product.description,
       available: product.available !== false,
+      sold: product.sold === true,
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -295,6 +298,7 @@ export default function AdminProductsPage() {
       image: '',
       description: '',
       available: true,
+      sold: false,
     });
     setSelectedSize('');
     setCustomWidth('');
@@ -507,21 +511,40 @@ export default function AdminProductsPage() {
             </div>
 
             {/* Availability */}
-            <div className="border-t border-gray-300 pt-4">
-              <label className="flex items-center gap-2 cursor-pointer w-fit">
-                <input
-                  type="checkbox"
-                  checked={!formData.available}
-                  onChange={(e) => setFormData({ ...formData, available: !e.target.checked })}
-                  className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
-                />
-                <span className="text-sm font-medium text-gray-700">
-                  Nicht verfügbar / Not available
-                </span>
-              </label>
-              <p className="text-xs text-gray-500 mt-1 ml-6">
-                Werk bleibt sichtbar, kann aber nicht gekauft werden. / Artwork stays visible but can&apos;t be purchased.
-              </p>
+            <div className="border-t border-gray-300 pt-4 space-y-3">
+              <div>
+                <label className="flex items-center gap-2 cursor-pointer w-fit">
+                  <input
+                    type="checkbox"
+                    checked={!formData.available}
+                    onChange={(e) => setFormData({ ...formData, available: !e.target.checked })}
+                    className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    Nicht verfügbar / Not available
+                  </span>
+                </label>
+                <p className="text-xs text-gray-500 mt-1 ml-6">
+                  Werk bleibt sichtbar, kann aber nicht gekauft werden. / Artwork stays visible but can&apos;t be purchased.
+                </p>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 cursor-pointer w-fit">
+                  <input
+                    type="checkbox"
+                    checked={formData.sold}
+                    onChange={(e) => setFormData({ ...formData, sold: e.target.checked })}
+                    className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    Verkauft / Sold
+                  </span>
+                </label>
+                <p className="text-xs text-gray-500 mt-1 ml-6">
+                  Werk bleibt sichtbar, zeigt aber "Verkauft" statt "Nicht verfügbar". / Artwork stays visible but shows "Sold" instead of "Not available".
+                </p>
+              </div>
             </div>
 
             {/* Image Upload Section */}
@@ -645,7 +668,11 @@ export default function AdminProductsPage() {
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
-                    {product.available === false && (
+                    {product.sold === true ? (
+                      <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-red-600 text-white text-xs font-medium">
+                        Verkauft / Sold
+                      </div>
+                    ) : product.available === false && (
                       <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-red-600 text-white text-xs font-medium">
                         Nicht verfügbar / Not available
                       </div>

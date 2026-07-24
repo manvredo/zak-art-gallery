@@ -16,7 +16,7 @@ export default function ShopPage() {
   const { t } = useLanguage();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState('Alle');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [lightboxImage, setLightboxImage] = useState(null);
 
@@ -38,13 +38,16 @@ export default function ShopPage() {
     setLoading(false);
   };
 
-  // Kategorien extrahieren
-  const categories = ['Alle', ...new Set(products.map(p => p.category).filter(Boolean))];
-
   // Produkte filtern
-  const filteredProducts = selectedCategory === 'Alle' 
-    ? products 
+  const filteredProducts = selectedCategory === 'All'
+    ? products
     : products.filter(p => p.category === selectedCategory);
+
+  const categoryOptions = [
+    { key: 'All', label: t.shop?.all || 'All' },
+    { key: 'Originals', label: t.shop?.originals || 'Originals' },
+    { key: 'Prints', label: t.shop?.prints || 'Prints' },
+  ];
 
   if (loading) {
     return (
@@ -70,17 +73,17 @@ export default function ShopPage() {
 
       {/* Category Filter */}
       <div className="flex flex-wrap gap-3 mb-8 justify-center">
-        {['Alle', 'Originals', 'Prints'].map(category => (
+        {categoryOptions.map(({ key, label }) => (
           <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
+            key={key}
+            onClick={() => setSelectedCategory(key)}
             className={`px-6 py-2 rounded-full transition cursor-pointer font-sans tracking-wide text-sm ${
-              selectedCategory === category
+              selectedCategory === key
                 ? 'bg-gray-900 text-white'
                 : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
-            {category}
+            {label}
           </button>
         ))}
       </div>
