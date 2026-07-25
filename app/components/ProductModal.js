@@ -92,7 +92,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           {/* Right: Product Details */}
           <div className="space-y-6">
             {/* Premium Price Box */}
-            <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+            <div>
               <div className="text-4xl font-light text-gray-900 mb-2">
                 €{product.price.toLocaleString(locale)}
               </div>
