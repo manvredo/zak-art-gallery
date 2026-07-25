@@ -54,6 +54,8 @@ const TECHNIQUES = [
   'Oil Pastel on Handmade Paper with Deckle Edge, A4, 150gsm (Ölpastell auf handgeschöpftem Papier mit Büttenrand, A4, 150g/m²)',
   'Mixed Media on Paper (Mixed Media auf Papier)',
   'Charcoal on Paper, 180gsm (Kohle auf Papier, 180g/m²)',
+  'Oil Pastel on 100% Cotton Rag Paper – Handmade, A2, 250gsm, Deckle Edge (Ölpastell auf 100% Baumwoll-Rag-Papier – Handarbeit, A2, 250g/m², Büttenrand)',
+  'Oil Pastel on 100% Cotton Rag Paper – Handmade, 45 × 30 cm, 250gsm, Cut Edge (Ölpastell auf 100% Baumwoll-Rag-Papier – Handarbeit, 45 × 30 cm, 250g/m², Glatter Rand)',
 ];
 
 // Fixed artist name
