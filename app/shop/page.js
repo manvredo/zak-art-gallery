@@ -24,6 +24,28 @@ export default function ShopPage() {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      setSelectedProduct(null);
+      setLightboxImage(null);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const openProduct = (product) => {
+    window.history.pushState({ modal: 'product' }, '');
+    setSelectedProduct(product);
+  };
+
+  const closeProduct = () => {
+    if (window.history.state?.modal === 'product') {
+      window.history.back();
+    } else {
+      setSelectedProduct(null);
+    }
+  };
+
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from('products')
@@ -94,7 +116,7 @@ export default function ShopPage() {
           <ProductCard
             key={product.id}
             product={product}
-            onClick={() => setSelectedProduct(product)}
+            onClick={() => openProduct(product)}
             showAddToCart={true}
             index={index}
           />
@@ -103,9 +125,9 @@ export default function ShopPage() {
 
       {/* Product Modal */}
       {selectedProduct && (
-        <ProductModal 
+        <ProductModal
           product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
+          onClose={closeProduct}
           showAddToCart={true}
           onImageClick={setLightboxImage}
         />

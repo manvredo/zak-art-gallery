@@ -118,9 +118,10 @@ const translations = {
       originalWith: 'Original with',
       originalDetail: 'Certificate',
       daysReturn: '30 Days',
-      returnDetail: 'Returns'
+      returnDetail: 'Returns',
+      closeUp: 'Close-up Detail'
     },
-    
+
     // Categories
     categories: { 
       all: 'All', 
@@ -491,9 +492,10 @@ const translations = {
       originalWith: 'Original mit',
       originalDetail: 'Zertifikat',
       daysReturn: '30 Tage',
-      returnDetail: 'Rückgabe'
+      returnDetail: 'Rückgabe',
+      closeUp: 'Nahaufnahme'
     },
-    
+
     // Categories
     categories: { 
       all: 'Alle', 

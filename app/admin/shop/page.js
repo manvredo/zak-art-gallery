@@ -82,6 +82,7 @@ export default function AdminProductsPage() {
     technique: TECHNIQUES[0],
     year: CURRENT_YEAR,
     image: '',
+    detail_image: '',
     description: '',
     available: true,
     sold: false,
@@ -190,6 +191,7 @@ export default function AdminProductsPage() {
       technique: formData.technique,
       year: parseInt(formData.year),
       image: formData.image,
+      detail_image: formData.detail_image || null,
       description: formData.description,
       available: formData.available,
       sold: formData.sold,
@@ -256,6 +258,7 @@ export default function AdminProductsPage() {
       technique: product.technique || TECHNIQUES[0],
       year: product.year,
       image: product.image,
+      detail_image: product.detail_image || '',
       description: product.description,
       available: product.available !== false,
       sold: product.sold === true,
@@ -296,6 +299,7 @@ export default function AdminProductsPage() {
       technique: TECHNIQUES[0],
       year: CURRENT_YEAR,
       image: '',
+      detail_image: '',
       description: '',
       available: true,
       sold: false,
@@ -309,8 +313,16 @@ export default function AdminProductsPage() {
   const handleUploadSuccess = (result) => {
     console.log('Upload successful:', result);
     setFormData(prevFormData => ({
-      ...prevFormData, 
+      ...prevFormData,
       image: result.info.secure_url
+    }));
+  };
+
+  const handleDetailUploadSuccess = (result) => {
+    console.log('Detail upload successful:', result);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      detail_image: result.info.secure_url
     }));
   };
 
@@ -609,6 +621,70 @@ export default function AdminProductsPage() {
 
               <p className="text-sm text-gray-600 mt-2">
                 💡 Klicke auf "Bild hochladen" oder füge eine URL manuell ein
+              </p>
+            </div>
+
+            {/* Detail/Close-up Image Upload Section */}
+            <div className="border-t border-gray-300 pt-6 mt-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                Nahaufnahme / Detailbild (optional)
+              </h3>
+
+              <div className="flex gap-4 items-start">
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Bild URL
+                  </label>
+                  <input
+                    type="url"
+                    value={formData.detail_image}
+                    onChange={(e) => setFormData({...formData, detail_image: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder="https://res.cloudinary.com/..."
+                  />
+                </div>
+
+                <div className="pt-7">
+                  <CldUploadWidget
+                    uploadPreset="zak_gallery"
+                    cloudName="dhjcx2xdd"
+                    options={{
+                      folder: "shop/detail",
+                      tags: ["product", "shop", "detail"],
+                      multiple: false,
+                      maxFiles: 1
+                    }}
+                    onSuccess={handleDetailUploadSuccess}
+                  >
+                    {({ open }) => (
+                      <button
+                        type="button"
+                        onClick={() => open()}
+                        className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700 transition rounded flex items-center gap-2"
+                      >
+                        <Upload size={18} />
+                        Bild hochladen
+                      </button>
+                    )}
+                  </CldUploadWidget>
+                </div>
+              </div>
+
+              {formData.detail_image && (
+                <div className="mt-4">
+                  <p className="text-sm text-gray-600 mb-2">Vorschau:</p>
+                  <div className="w-48 h-48 border border-gray-300 rounded overflow-hidden bg-gray-100">
+                    <img
+                      src={formData.detail_image}
+                      alt="Detail Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <p className="text-sm text-gray-600 mt-2">
+                💡 Wird im Shop unterhalb des Hauptbilds angezeigt, z.B. eine Nahaufnahme der Maloberfläche/Textur.
               </p>
             </div>
 

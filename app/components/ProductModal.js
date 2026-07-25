@@ -88,6 +88,20 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 {pm.original}
               </div>
             </div>
+
+            {/* Close-up Detail Image */}
+            {product.detail_image && (
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-gray-900">{pm.closeUp}</p>
+                <div className="overflow-hidden rounded-lg shadow-lg">
+                  <img
+                    src={product.detail_image}
+                    alt={`${product.name} – ${pm.closeUp}`}
+                    className="w-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right: Product Details */}
