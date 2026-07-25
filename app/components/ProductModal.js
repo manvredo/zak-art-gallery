@@ -70,7 +70,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             </div>
 
             {/* Description */}
-            <p className="text-gray-700 leading-relaxed text-lg" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>
+            <p className="text-gray-700 leading-relaxed" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '25px' }}>
               {product.description}
             </p>
 
@@ -127,22 +127,22 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             {/* Technical Details Table */}
             <div className="border-t border-b border-gray-200 py-6">
               <h3 className="text-sm font-medium text-gray-900 mb-4">{pm.technicalDetails}</h3>
-              <div className="space-y-3 text-lg">
+              <div className="space-y-2">
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.size}:</span>
-                  <span className="text-gray-900 font-medium">{product.size}</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.size}:</span>
+                  <span className="text-gray-900 font-medium text-base">{product.size}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.technique}:</span>
-                  <span className="text-gray-900 font-medium">{product.technique}</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.technique}:</span>
+                  <span className="text-gray-900 font-medium text-base">{product.technique}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.year}:</span>
-                  <span className="text-gray-900 font-medium">{product.year}</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.year}:</span>
+                  <span className="text-gray-900 font-medium text-base">{product.year}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.category}:</span>
-                  <span className="text-gray-900 font-medium">{product.category}</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.category}:</span>
+                  <span className="text-gray-900 font-medium text-base">{product.category}</span>
                 </div>
               </div>
             </div>
