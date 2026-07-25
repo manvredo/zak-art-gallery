@@ -17,19 +17,27 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
     if (size !== 'large') return;
     const el = cardRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setRevealed(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    let observer;
+    // Wait a frame so the initial hidden state paints before we start observing —
+    // otherwise cards already in view on load jump straight to visible with no transition.
+    const raf = requestAnimationFrame(() => {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setRevealed(true);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(el);
+    });
+    return () => {
+      cancelAnimationFrame(raf);
+      if (observer) observer.disconnect();
+    };
   }, [size]);
 
   const handleAddToCart = (e) => {
