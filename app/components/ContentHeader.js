@@ -22,7 +22,7 @@ export default function ContentHeader({ currentCategory }) {
   // Prüfe welche Kategorien Published-Artikel haben
   useEffect(() => {
     const fetchAvailableCategories = async () => {
-      const categories = ['news', 'story', 'press', 'private'];
+      const categories = ['story', 'press', 'private'];
       const available = [];
 
       for (const category of categories) {
@@ -61,7 +61,6 @@ export default function ContentHeader({ currentCategory }) {
   }, []);
 
   const categoryLabels = {
-    news: t.content.news.title,
     story: t.content.stories.title,
     press: t.content.press.title,
     private: t.content.private.title

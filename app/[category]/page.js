@@ -15,11 +15,7 @@ const supabase = createClient(
 
 // Valid categories with translations keys
 const CATEGORIES = {
-  news: { 
-    titleKey: 'news',
-    emoji: '📰'
-  },
-  story: { 
+  story: {
     titleKey: 'stories',
     emoji: '📖'
   },
@@ -86,7 +82,7 @@ export default function CategoryPage() {
   };
 
   const fetchAvailableCategories = async () => {
-    const categories = ['news', 'story', 'press', 'private'];
+    const categories = ['story', 'press', 'private'];
     const available = [];
 
     for (const cat of categories) {
@@ -124,7 +120,6 @@ export default function CategoryPage() {
   }
 
   const categoryLabels = {
-    news: t.content.news.title,
     story: t.content.stories.title,
     press: t.content.press.title,
     private: t.content.private.title

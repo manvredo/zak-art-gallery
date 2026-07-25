@@ -13,7 +13,6 @@ const supabase = createClient(
 );
 
 const CATEGORY_CONFIG = {
-  news: { icon: '📰', color: 'blue', titleDE: 'Neuigkeiten', titleEN: 'News' },
   story: { icon: '🎬', color: 'purple', titleDE: 'Making-of', titleEN: 'Making-of' },
   press: { icon: '📢', color: 'green', titleDE: 'Presse', titleEN: 'Press' },
   private: { icon: '🔒', color: 'amber', titleDE: 'Privat', titleEN: 'Private' },

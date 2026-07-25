@@ -68,38 +68,6 @@ function SearchContent() {
         });
       }
 
-      // Suche in News
-      const { data: news, error: newsError } = await supabase
-        .from('content')
-        .select('*')
-        .eq('category', 'news');
-
-      if (news && !newsError) {
-        news.forEach(item => {
-          const matches = [];
-          const lowerQuery = searchTerm.toLowerCase();
-          
-          if (item.title && item.title.toLowerCase().includes(lowerQuery)) {
-            matches.push('Titel');
-          }
-          if (item.content && item.content.toLowerCase().includes(lowerQuery)) {
-            matches.push('Inhalt');
-          }
-
-          if (matches.length > 0) {
-            foundResults.push({
-              type: 'news',
-              id: item.id,
-              title: item.title,
-              subtitle: 'News',
-              description: item.content?.substring(0, 150) + '...',
-              link: `/news`,
-              matches: matches
-            });
-          }
-        });
-      }
-
       // Suche in Stories
       const { data: stories, error: storiesError } = await supabase
         .from('content')

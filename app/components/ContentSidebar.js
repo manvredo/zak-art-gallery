@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Newspaper, Film, Megaphone, Lock, User } from 'lucide-react';
+import { Search, Film, Megaphone, Lock, User } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { createClient } from '@supabase/supabase-js';
 
@@ -12,7 +12,6 @@ const supabase = createClient(
 );
 
 const CATEGORIES = {
-  news: { titleKey: 'news', Icon: Newspaper },
   story: { titleKey: 'stories', Icon: Film },
   press: { titleKey: 'press', Icon: Megaphone },
   private: { titleKey: 'private', Icon: Lock }
