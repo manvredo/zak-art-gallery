@@ -50,7 +50,8 @@ const CATEGORIES = [
 // Techniques with German translation
 const TECHNIQUES = [
   'Oil on Canvas (Öl auf Leinwand)',
-  'Oil Pastel on Paper (Ölpastell auf Papier)',
+  'Oil Pastel on Handmade Paper with Deckle Edge, A3, 640gsm (Ölpastell auf handgeschöpftem Papier mit Büttenrand, A3, 640g/m²)',
+  'Oil Pastel on Handmade Paper with Deckle Edge, A4, 150gsm (Ölpastell auf handgeschöpftem Papier mit Büttenrand, A4, 150g/m²)',
   'Mixed Media on Paper (Mixed Media auf Papier)',
 ];
 
