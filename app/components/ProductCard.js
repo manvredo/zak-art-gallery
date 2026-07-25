@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import FavoriteButton from './FavoriteButton';
 
-export default function ProductCard({ product, onClick, showAddToCart = false, index = 0 }) {
+export default function ProductCard({ product, onClick, showAddToCart = false, index = 0, size = 'default' }) {
   const { addToCart } = useCart();
   const { t } = useLanguage();
   const isSold = product.sold === true;
@@ -50,33 +50,33 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
 
       {/* Plain Text Below - With proper spacing */}
       <div className="pl-1">
-        <p className="text-sm text-gray-500 mb-1">{product.artist}</p>
-        <h3 className="text-base font-light text-gray-900 mb-1">{product.name}</h3>
-        <p className="text-xs text-gray-600 mb-6">{product.size}</p>
+        <p className={`${size === 'large' ? 'text-lg' : 'text-sm'} text-gray-500 mb-1`}>{product.artist}</p>
+        <h3 className={`${size === 'large' ? 'text-[21px]' : 'text-base'} font-light text-gray-900 mb-1`}>{product.name}</h3>
+        <p className={`${size === 'large' ? 'text-[15px]' : 'text-xs'} text-gray-600 mb-6`}>{product.size}</p>
 
         {showAddToCart ? (
           <div className="flex items-center justify-between mt-2">
-            <span className="text-lg font-light text-gray-900">
+            <span className={`${size === 'large' ? 'text-[23px]' : 'text-lg'} font-light text-gray-900`}>
               €{product.price.toLocaleString('en-US')}
             </span>
             {isAvailable ? (
               <button
                 onClick={handleAddToCart}
-                className="px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm"
+                className={`px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer ${size === 'large' ? 'text-base' : 'text-sm'}`}
               >
                 {t.shop.addToCart}
               </button>
             ) : (
               <button
                 disabled
-                className="px-5 py-2 bg-gray-100 border border-gray-200 text-gray-400 rounded-full text-sm cursor-not-allowed"
+                className={`px-5 py-2 bg-gray-100 border border-gray-200 text-gray-400 rounded-full cursor-not-allowed ${size === 'large' ? 'text-base' : 'text-sm'}`}
               >
                 {isSold ? t.shop.sold : t.shop.notAvailable}
               </button>
             )}
           </div>
         ) : (
-          <p className="text-lg font-light text-gray-900">
+          <p className={`${size === 'large' ? 'text-[23px]' : 'text-lg'} font-light text-gray-900`}>
             €{product.price.toLocaleString('en-US')}
           </p>
         )}
