@@ -5,7 +5,6 @@ import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 import { useLanguage } from '@/app/context/LanguageContext';
-import ContentHeader from '@/app/components/ContentHeader';
 import { Search, Calendar, User as UserIcon } from 'lucide-react';
 
 const supabase = createClient(
@@ -127,9 +126,7 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <ContentHeader currentCategory={category} />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
           {/* SIDEBAR */}
