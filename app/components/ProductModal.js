@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 export default function ProductModal({ product, onClose, onAddToCart }) {
   const [justAdded, setJustAdded] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   
   const { language, t } = useLanguage();
   const { isInCart } = useCart();
@@ -31,6 +32,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   };
 
   return (
+    <>
     <div
       className="fixed inset-0 bg-white z-50 flex items-start justify-center px-4 pb-4 pt-[3.4cm] overflow-y-auto"
       onClick={onClose}
@@ -58,9 +60,12 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         <div className="grid md:grid-cols-2 gap-8 p-8">
           {/* Left: Large Image with Zoom */}
           <div className="space-y-4">
-            <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg">
-              <img 
-                src={product.image} 
+            <div
+              className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
+              onClick={() => setLightboxOpen(true)}
+            >
+              <img
+                src={product.image}
                 alt={product.name}
                 className="w-full transition-transform duration-300 group-hover:scale-105"
               />
@@ -165,5 +170,19 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         </div>
       </div>
     </div>
+
+    {lightboxOpen && (
+      <div
+        className="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4 cursor-pointer"
+        onClick={() => setLightboxOpen(false)}
+      >
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full max-w-[800px] h-auto"
+        />
+      </div>
+    )}
+    </>
   );
 }
