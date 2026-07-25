@@ -36,8 +36,8 @@ export default function ArtwingmanPage() {
 
       {/* About Section */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 pb-32">
-        <div className="grid md:grid-cols-[1.4fr_1fr] gap-6">
-          <div className="rounded-sm overflow-hidden bg-gray-100 md:relative md:min-h-0">
+        <div className="grid md:grid-cols-[1.4fr_1fr] gap-6 md:gap-[calc(1.5rem+1cm)]">
+          <div className="rounded-[15px] overflow-hidden bg-gray-100 md:relative md:min-h-0">
             <img
               src="/artwingman/Artwingman-1920_01.jpg"
               srcSet="/artwingman/Artwingman-1920_01.jpg 1920w, /artwingman/Artwingman-3840_01.jpg 3840w"
@@ -57,10 +57,10 @@ export default function ArtwingmanPage() {
               <p key={i} style={{ fontFamily: "'Inter', Arial, sans-serif" }}>{text}</p>
             ))}
             <a
-              href="https://artwingman.com/app"
+              href="https://artwingman.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-4 border border-gray-900 text-gray-900 px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-900 hover:text-white transition"
+              className="inline-block mt-4 rounded-full border border-gray-900 text-gray-900 px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-900 hover:text-white transition"
               style={{ fontFamily: "'Inter', Arial, sans-serif" }}
             >
               {language === 'de' ? 'Zur App →' : 'Open App →'}
