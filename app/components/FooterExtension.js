@@ -60,37 +60,40 @@ const FooterExtension = () => {
             </button>
             <div className={`footer-extension-content ${openSection === 'payment' ? 'open' : ''}`}>
               <div className="flex flex-wrap gap-3 items-center" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-                <FaCcVisa 
-                  size={40} 
-                  className="text-[#1A1F71] opacity-80 hover:opacity-100 transition" 
+                <FaCcVisa
+                  size={40}
+                  className="text-gray-700 opacity-80 hover:opacity-100 transition"
                   title="Visa"
                 />
-                <FaCcMastercard 
-                  size={40} 
-                  className="text-[#EB001B] opacity-80 hover:opacity-100 transition" 
+                <FaCcMastercard
+                  size={40}
+                  className="text-gray-700 opacity-80 hover:opacity-100 transition"
                   title="Mastercard"
                 />
-                <FaCcApplePay 
-                  size={40} 
-                  className="text-gray-800 opacity-80 hover:opacity-100 transition" 
+                <FaCcApplePay
+                  size={40}
+                  className="text-gray-700 opacity-80 hover:opacity-100 transition"
                   title="Apple Pay"
                 />
-                <FaCcPaypal 
-                  size={40} 
-                  className="text-[#003087] opacity-80 hover:opacity-100 transition" 
+                <FaCcPaypal
+                  size={40}
+                  className="text-gray-700 opacity-80 hover:opacity-100 transition"
                   title="PayPal"
                 />
-                <SiKlarna 
-                  size={32} 
-                  className="text-[#FFB3C7] opacity-80 hover:opacity-100 transition" 
+                <SiKlarna
+                  size={32}
+                  className="text-gray-700 opacity-80 hover:opacity-100 transition"
                   title="Klarna"
                 />
-                <FaStripe 
-                  size={40} 
-                  className="text-[#635BFF] opacity-80 hover:opacity-100 transition" 
+                <FaStripe
+                  size={40}
+                  className="text-gray-700 opacity-80 hover:opacity-100 transition"
                   title="Stripe"
                 />
               </div>
+              <p className="mt-3 text-sm text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+                {t.footerExtension.paymentDescription}
+              </p>
             </div>
           </div>
 
@@ -107,20 +110,26 @@ const FooterExtension = () => {
             </button>
             <div className={`footer-extension-content ${openSection === 'shipping' ? 'open' : ''}`}>
               <div className="flex flex-wrap gap-4 items-center" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-                <div className="px-3 py-1.5 bg-[#FFCC00] text-[#D40511] text-xs font-extrabold rounded tracking-wider opacity-80 hover:opacity-100 transition shadow-sm">
+                <div className="px-3 py-1.5 bg-gray-900 text-white text-xs font-extrabold rounded tracking-wider opacity-80 hover:opacity-100 transition shadow-sm">
                   DHL
                 </div>
-                <div className="px-3 py-1.5 bg-[#003E80] text-white text-xs font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
-                  GLS
-                </div>
-                <div className="px-3 py-1.5 bg-[#FDEE00] text-[#2A5C38] text-xs font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
+                <div className="px-3 py-1.5 bg-gray-900 text-white text-xs font-bold rounded opacity-80 hover:opacity-100 transition shadow-sm">
                   HERMES
                 </div>
+                <div className="px-3 py-1.5 bg-gray-900 text-white text-xs font-bold rounded tracking-wider opacity-80 hover:opacity-100 transition shadow-sm">
+                  UPS
+                </div>
               </div>
+              <p className="mt-3 text-sm text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+                {t.footerExtension.shippingDescription}
+              </p>
               <div className="mt-4 pt-4 border-t border-gray-200">
-                <Link href="/returns" className="text-sm text-gray-600 hover:text-gray-900 transition" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+                <Link href="/returns" className="text-sm text-gray-900 font-medium hover:text-gray-600 transition" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
                   {t.footerExtension.returnLabel}
                 </Link>
+                <p className="mt-1 text-sm text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+                  {t.footerExtension.returnLabelText}
+                </p>
               </div>
             </div>
           </div>
@@ -165,11 +174,11 @@ const FooterExtension = () => {
 
                 {/* Trust Badges */}
                 <div className="flex gap-4 mt-4 pt-4 border-t border-gray-200 items-center">
-                  <div className="flex items-center gap-1 text-green-600" title={t.footerExtension.safeShopping}>
+                  <div className="flex items-center gap-1 text-gray-700" title={t.footerExtension.safeShopping}>
                     <FaShieldAlt size={24} />
                     <span className="text-xs font-medium">{t.footerExtension.safe}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-blue-600" title={t.footerExtension.sslEncrypted}>
+                  <div className="flex items-center gap-1 text-gray-700" title={t.footerExtension.sslEncrypted}>
                     <FaLock size={20} />
                     <span className="text-xs font-medium">SSL</span>
                   </div>
