@@ -21,6 +21,11 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   const isSold = product.sold === true;
   const isAvailable = product.available !== false && !isSold;
 
+  const techniqueEn = (product.technique || '').replace(/\s*\([^)]*\)\s*$/, '').trim();
+  const techniqueCommaIndex = techniqueEn.indexOf(',');
+  const techniqueMedium = techniqueCommaIndex === -1 ? techniqueEn : techniqueEn.slice(0, techniqueCommaIndex);
+  const techniqueRest = techniqueCommaIndex === -1 ? '' : techniqueEn.slice(techniqueCommaIndex);
+
   const handleAddToCart = () => {
     if (alreadyInCart || !isAvailable) return; // Don't add if already in cart or not for sale
 
@@ -139,7 +144,12 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.technique}:</span>
-                  <span className="text-gray-900 font-medium" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '18px' }}>{product.technique}</span>
+                  <span>
+                    <span className="text-gray-900 font-medium" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '18px' }}>{techniqueMedium}</span>
+                    {techniqueRest && (
+                      <span className="text-gray-500 font-normal text-base" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>{techniqueRest}</span>
+                    )}
+                  </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.year}:</span>
