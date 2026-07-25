@@ -107,14 +107,14 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               {!isAvailable ? (
                 <button
                   disabled
-                  className="w-full py-4 bg-gray-200 text-gray-500 rounded-lg font-medium text-lg cursor-not-allowed"
+                  className="w-full py-4 bg-gray-200 text-gray-500 rounded-full font-medium text-lg cursor-not-allowed"
                 >
                   {isSold ? pm.sold : pm.notAvailable}
                 </button>
               ) : alreadyInCart || justAdded ? (
                 <Link
                   href="/cart"
-                  className="w-full py-4 bg-green-600 text-white rounded-lg font-medium text-lg flex items-center justify-center gap-2 hover:bg-green-700 transition"
+                  className="w-full py-4 bg-green-600 text-white rounded-full font-medium text-lg flex items-center justify-center gap-2 hover:bg-green-700 transition"
                 >
                   <Check size={20} />
                   {pm.added || 'Im Warenkorb'} – {pm.viewCart || 'Ansehen'}
@@ -122,7 +122,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               ) : (
                 <button
                   onClick={handleAddToCart}
-                  className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-lg font-medium text-lg"
+                  className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-full font-medium text-lg"
                 >
                   {pm.addToCart}
                 </button>
