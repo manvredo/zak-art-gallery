@@ -61,7 +61,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           {/* Left: Large Image with Zoom */}
           <div className="space-y-4">
             <div
-              className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
+              className="relative group cursor-pointer overflow-hidden rounded-[15px] hover:rounded-[20px] transition-[border-radius] duration-200 ease-in shadow-lg"
               onClick={() => setLightboxOpen(true)}
             >
               <img
@@ -114,7 +114,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               ) : alreadyInCart || justAdded ? (
                 <Link
                   href="/cart"
-                  className="w-full py-4 bg-green-600 text-white rounded-full font-medium text-lg flex items-center justify-center gap-2 hover:bg-green-700 transition"
+                  className="w-full py-4 bg-gray-700 text-white rounded-full font-medium text-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition"
                 >
                   <Check size={20} />
                   {pm.added || 'Im Warenkorb'} – {pm.viewCart || 'Ansehen'}
@@ -139,7 +139,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.technique}:</span>
-                  <span className="text-gray-900 font-medium text-base">{product.technique}</span>
+                  <span className="text-gray-900 font-medium" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '18px' }}>{product.technique}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '24px' }}>{pm.year}:</span>

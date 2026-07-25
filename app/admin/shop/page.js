@@ -53,6 +53,7 @@ const TECHNIQUES = [
   'Oil Pastel on Handmade Paper with Deckle Edge, A3, 640gsm (Ölpastell auf handgeschöpftem Papier mit Büttenrand, A3, 640g/m²)',
   'Oil Pastel on Handmade Paper with Deckle Edge, A4, 150gsm (Ölpastell auf handgeschöpftem Papier mit Büttenrand, A4, 150g/m²)',
   'Mixed Media on Paper (Mixed Media auf Papier)',
+  'Charcoal on Paper, 180gsm (Kohle auf Papier, 180g/m²)',
 ];
 
 // Fixed artist name
