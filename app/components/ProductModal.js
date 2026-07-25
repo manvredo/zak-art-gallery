@@ -1,13 +1,12 @@
 'use client';
 
-import { X, Award, Check } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { useCart } from '@/app/context/CartContext';
 import Link from 'next/link';
 
 export default function ProductModal({ product, onClose, onAddToCart }) {
-  const [activeTab, setActiveTab] = useState('description');
   const [justAdded, setJustAdded] = useState(false);
   
   const { language, t } = useLanguage();
@@ -70,34 +69,20 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               </div>
             </div>
 
-            {/* Status Badges */}
-            <div className="flex gap-2">
-              {isAvailable ? (
-                <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
-                  <Check size={16} />
-                  {pm.available}
-                </div>
-              ) : (
-                <div className="flex items-center gap-1 px-3 py-2 bg-red-50 text-red-700 rounded-lg text-sm">
-                  <X size={16} />
-                  {isSold ? pm.sold : pm.notAvailable}
-                </div>
-              )}
-              <div className="flex items-center gap-1 px-3 py-2 bg-gray-50 text-gray-700 rounded-lg text-sm">
-                <Award size={16} />
-                {pm.original}
-              </div>
-            </div>
+            {/* Description */}
+            <p className="text-gray-700 leading-relaxed">
+              {product.description}
+            </p>
 
             {/* Close-up Detail Image */}
             {product.detail_image && (
               <div className="space-y-2">
                 <p className="text-sm font-medium text-gray-900">{pm.closeUp}</p>
-                <div className="overflow-hidden rounded-lg shadow-lg">
+                <div className="overflow-hidden rounded-lg shadow-lg aspect-[2/1]">
                   <img
                     src={product.detail_image}
                     alt={`${product.name} – ${pm.closeUp}`}
-                    className="w-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
@@ -112,22 +97,6 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 €{product.price.toLocaleString(locale)}
               </div>
               <p className="text-sm text-gray-600 mb-4">{pm.inclVAT}</p>
-              
-              {/* Quick Info Icons */}
-              <div className="grid grid-cols-3 gap-3 mb-4 text-xs text-gray-600">
-                <div className="text-center">
-                  <div className="mb-1">📦</div>
-                  <div>{pm.insured}</div>
-                </div>
-                <div className="text-center">
-                  <div className="mb-1">🔄</div>
-                  <div>{pm.returns}</div>
-                </div>
-                <div className="text-center">
-                  <div className="mb-1">✓</div>
-                  <div>{pm.certificate}</div>
-                </div>
-              </div>
 
               {/* Add to Cart Button - Changes based on cart/availability status */}
               {!isAvailable ? (
@@ -158,110 +127,59 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             {/* Technical Details Table */}
             <div className="border-t border-b border-gray-200 py-6">
               <h3 className="text-sm font-medium text-gray-900 mb-4">{pm.technicalDetails}</h3>
-              <div className="space-y-3 text-sm">
+              <div className="space-y-3 text-lg">
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600">{pm.size}:</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.size}:</span>
                   <span className="text-gray-900 font-medium">{product.size}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600">{pm.technique}:</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.technique}:</span>
                   <span className="text-gray-900 font-medium">{product.technique}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600">{pm.year}:</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.year}:</span>
                   <span className="text-gray-900 font-medium">{product.year}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <span className="text-gray-600">{pm.category}:</span>
+                  <span className="text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.category}:</span>
                   <span className="text-gray-900 font-medium">{product.category}</span>
                 </div>
               </div>
             </div>
 
-            {/* Tab System */}
-            <div>
-              <div className="flex border-b border-gray-200">
-                <button
-                  onClick={() => setActiveTab('description')}
-                  className={`px-4 py-3 text-sm font-medium transition ${
-                    activeTab === 'description'
-                      ? 'border-b-2 border-gray-900 text-gray-900'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {pm.description}
-                </button>
-                <button
-                  onClick={() => setActiveTab('shipping')}
-                  className={`px-4 py-3 text-sm font-medium transition ${
-                    activeTab === 'shipping'
-                      ? 'border-b-2 border-gray-900 text-gray-900'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {pm.shippingReturns}
-                </button>
+            {/* Shipping & Returns */}
+            <div className="space-y-4 text-sm text-gray-700">
+              <h3 className="text-sm font-medium text-gray-900">{pm.shippingReturns}</h3>
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">{pm.shippingTitle}</h4>
+                <p className="mb-2">{pm.shippingText}</p>
+                <p className="text-gray-600">{pm.shippingDetails}</p>
               </div>
 
-              <div className="py-6">
-                {activeTab === 'description' ? (
-                  <div className="space-y-4">
-                    <p className="text-gray-700 leading-relaxed">
-                      {product.description}
-                    </p>
-                    
-                    {/* Authenticity Certificate Box */}
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
-                      <div className="flex items-start gap-3">
-                        <Award className="text-gray-900 flex-shrink-0 mt-1" size={20} />
-                        <div>
-                          <h4 className="font-medium text-gray-900 mb-1">{pm.certTitle}</h4>
-                          <p className="text-sm text-gray-700">
-                            {pm.certText}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-4 text-sm text-gray-700">
-                    <div>
-                      <h4 className="font-medium text-gray-900 mb-2">{pm.shippingTitle}</h4>
-                      <p className="mb-2">{pm.shippingText}</p>
-                      <p className="text-gray-600">{pm.shippingDetails}</p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium text-gray-900 mb-2">{pm.returnsTitle}</h4>
-                      <p>{pm.returnsText}</p>
-                    </div>
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">{pm.returnsTitle}</h4>
+                <p>{pm.returnsText}</p>
+              </div>
 
-                    <div>
-                      <h4 className="font-medium text-gray-900 mb-2">{pm.paymentTitle}</h4>
-                      <p className="text-gray-600">{pm.paymentMethods}</p>
-                    </div>
-                  </div>
-                )}
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">{pm.paymentTitle}</h4>
+                <p className="text-gray-600">{pm.paymentMethods}</p>
               </div>
             </div>
 
             {/* Trust Badges Footer */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-gray-200">
               <div className="text-center">
-                <div className="text-2xl mb-2">📦</div>
-                <p className="text-xs text-gray-600">{pm.freeShipping}<br/>{pm.freeShippingDetail}</p>
+                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.freeShipping}<br/>{pm.freeShippingDetail}</p>
               </div>
               <div className="text-center">
-                <div className="text-2xl mb-2">🛡️</div>
-                <p className="text-xs text-gray-600">{pm.insuredUp}<br/>{pm.insuredDetail}</p>
+                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.insuredUp}<br/>{pm.insuredDetail}</p>
               </div>
               <div className="text-center">
-                <div className="text-2xl mb-2">✓</div>
-                <p className="text-xs text-gray-600">{pm.originalWith}<br/>{pm.originalDetail}</p>
+                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.originalWith}<br/>{pm.originalDetail}</p>
               </div>
               <div className="text-center">
-                <div className="text-2xl mb-2">🔄</div>
-                <p className="text-xs text-gray-600">{pm.daysReturn}<br/>{pm.returnDetail}</p>
+                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.daysReturn}<br/>{pm.returnDetail}</p>
               </div>
             </div>
           </div>
