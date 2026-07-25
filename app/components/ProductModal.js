@@ -32,7 +32,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
   return (
     <div
-      className="fixed inset-0 bg-white z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-white z-50 flex items-start justify-center px-4 pb-4 pt-[3.4cm] overflow-y-auto"
       onClick={onClose}
     >
       <div 
