@@ -1,7 +1,7 @@
 'use client';
 
 import { useLanguage } from '@/app/context/LanguageContext';
-import { CreditCard, Wallet, Building, Shield, Lock } from 'lucide-react';
+import { CreditCard, Wallet, Shield, Lock } from 'lucide-react';
 
 export default function PaymentPage() {
   const { language } = useLanguage();
@@ -9,136 +9,116 @@ export default function PaymentPage() {
   const content = {
     de: {
       title: 'Zahlungsmethoden',
-      subtitle: 'Sichere und bequeme Zahlungsoptionen',
-      
+      subtitle: 'Sichere Zahlungsabwicklung über Stripe',
+
+      intro: 'Der gesamte Bezahlvorgang läuft über Stripe, einen der weltweit führenden Anbieter für verschlüsselte Zahlungsabwicklung. Du wählst beim Checkout einfach deine bevorzugte Methode aus:',
+
       methods: [
         {
           icon: CreditCard,
-          title: 'Kreditkarte',
-          text: 'Visa, Mastercard, American Express',
-          features: ['Sofortige Bestätigung', 'Käuferschutz', '3D Secure']
+          title: 'Kredit- / Debitkarte',
+          text: 'Visa, Mastercard, sowie Apple Pay auf unterstützten Geräten',
+          features: ['Sofortige Bestätigung', '3D Secure', 'Keine Kartendaten auf unseren Servern']
         },
         {
           icon: Wallet,
           title: 'PayPal',
           text: 'Schnell und sicher mit PayPal bezahlen',
-          features: ['Käuferschutz', 'Keine Gebühren', 'Express Checkout']
+          features: ['Käuferschutz', 'Express Checkout']
         },
         {
-          icon: Building,
-          title: 'Banküberweisung',
-          text: 'SEPA-Überweisung',
-          features: ['Keine zusätzlichen Kosten', 'Versand nach Zahlungseingang', 'Für große Bestellungen']
+          icon: Wallet,
+          title: 'Amazon Pay',
+          text: 'Bezahlen mit deinem Amazon-Konto',
+          features: ['Keine neue Registrierung nötig', 'Adress- & Zahlungsdaten aus Amazon']
         },
         {
           icon: CreditCard,
-          title: 'Sofortüberweisung',
-          text: 'Direkte Überweisung via Klarna',
-          features: ['Sofortige Bestätigung', 'TÜV-zertifiziert', 'Keine Registrierung']
+          title: 'Klarna',
+          text: 'Zahlung direkt über Klarna abwickeln',
+          features: ['TÜV-zertifiziert', 'Sofortige Bestätigung']
         }
       ],
 
       security: {
         title: 'Sicherheit',
-        text: 'Alle Zahlungen werden über verschlüsselte SSL-Verbindungen abgewickelt. Wir speichern keine Kreditkartendaten auf unseren Servern.',
+        text: 'Alle Zahlungen werden verschlüsselt über Stripe abgewickelt. Wir speichern zu keinem Zeitpunkt Kreditkarten- oder Zahlungsdaten auf unseren eigenen Servern.',
         features: [
           'SSL-Verschlüsselung',
           'PCI-DSS konform',
-          'Zertifizierte Payment-Provider',
-          'Fraud Detection System'
-        ]
-      },
-
-      installment: {
-        title: 'Ratenzahlung',
-        text: 'Für Kunstwerke ab 1.000€ bieten wir Ratenzahlung über Klarna an:',
-        options: [
-          '3 Raten - Zinsfrei',
-          '6 Raten - Zinsfrei',
-          '12 Raten - Ab 4,9% Jahreszins'
+          'Zahlungsabwicklung durch Stripe',
+          'Automatische Rechnungserstellung per E-Mail'
         ]
       },
 
       billing: {
         title: 'Rechnung',
         items: [
-          'Sie erhalten eine Rechnung per E-Mail',
-          'Alle Preise inkl. gesetzlicher MwSt.',
-          'Ausgewiesene MwSt. kann bei Auslandslieferungen variieren',
-          'Geschäftskunden können auf Rechnung kaufen (nach Prüfung)'
+          'Nach erfolgreicher Zahlung erhältst du automatisch eine Rechnung per E-Mail',
+          'Alle Preise verstehen sich inkl. gesetzlicher MwSt.'
         ]
       },
 
       currencies: {
-        title: 'Währungen',
-        text: 'Wir akzeptieren Zahlungen in EUR, USD, GBP und CHF. Die Umrechnung erfolgt zum aktuellen Wechselkurs.'
+        title: 'Währung',
+        text: 'Alle Preise im Shop sind in Euro (EUR) angegeben, die Zahlung erfolgt ebenfalls in Euro.'
       }
     },
     en: {
       title: 'Payment Methods',
-      subtitle: 'Secure and convenient payment options',
-      
+      subtitle: 'Secure payment processing via Stripe',
+
+      intro: 'The entire checkout runs through Stripe, one of the world\'s leading providers of encrypted payment processing. At checkout, simply choose your preferred method:',
+
       methods: [
         {
           icon: CreditCard,
-          title: 'Credit Card',
-          text: 'Visa, Mastercard, American Express',
-          features: ['Instant confirmation', 'Buyer protection', '3D Secure']
+          title: 'Credit / Debit Card',
+          text: 'Visa, Mastercard, as well as Apple Pay on supported devices',
+          features: ['Instant confirmation', '3D Secure', 'No card data stored on our servers']
         },
         {
           icon: Wallet,
           title: 'PayPal',
           text: 'Pay quickly and securely with PayPal',
-          features: ['Buyer protection', 'No fees', 'Express Checkout']
+          features: ['Buyer protection', 'Express Checkout']
         },
         {
-          icon: Building,
-          title: 'Bank Transfer',
-          text: 'SEPA transfer',
-          features: ['No additional costs', 'Shipping after payment', 'For large orders']
+          icon: Wallet,
+          title: 'Amazon Pay',
+          text: 'Pay using your Amazon account',
+          features: ['No new registration needed', 'Address & payment details from Amazon']
         },
         {
           icon: CreditCard,
-          title: 'Instant Transfer',
-          text: 'Direct transfer via Klarna',
-          features: ['Instant confirmation', 'TÜV certified', 'No registration']
+          title: 'Klarna',
+          text: 'Complete your payment directly via Klarna',
+          features: ['TÜV certified', 'Instant confirmation']
         }
       ],
 
       security: {
         title: 'Security',
-        text: 'All payments are processed via encrypted SSL connections. We do not store credit card data on our servers.',
+        text: 'All payments are processed securely through Stripe. We never store credit card or payment data on our own servers.',
         features: [
           'SSL encryption',
           'PCI-DSS compliant',
-          'Certified payment providers',
-          'Fraud detection system'
-        ]
-      },
-
-      installment: {
-        title: 'Installment Payment',
-        text: 'For artworks from €1,000, we offer installment payments via Klarna:',
-        options: [
-          '3 installments - Interest-free',
-          '6 installments - Interest-free',
-          '12 installments - From 4.9% APR'
+          'Payments processed by Stripe',
+          'Automatic invoice by email'
         ]
       },
 
       billing: {
         title: 'Invoice',
         items: [
-          'You will receive an invoice via email',
-          'All prices include statutory VAT',
-          'VAT shown may vary for international deliveries',
-          'Business customers can buy on invoice (after verification)'
+          'After successful payment you automatically receive an invoice by email',
+          'All prices include statutory VAT'
         ]
       },
 
       currencies: {
-        title: 'Currencies',
-        text: 'We accept payments in EUR, USD, GBP, and CHF. Conversion is done at the current exchange rate.'
+        title: 'Currency',
+        text: 'All prices in the shop are listed in Euro (EUR), and payment is also made in Euro.'
       }
     }
   };
@@ -151,7 +131,8 @@ export default function PaymentPage() {
         <div className="mb-16">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">{content.en.title}</h1>
-            <p className="text-xl text-gray-600">{content.en.subtitle}</p>
+            <p className="text-xl text-gray-600 mb-4">{content.en.subtitle}</p>
+            <p className="text-gray-600 max-w-2xl mx-auto">{content.en.intro}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-12">
@@ -197,18 +178,6 @@ export default function PaymentPage() {
           </div>
 
           <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.en.installment.title}</h2>
-            <p className="text-gray-600 mb-4">{content.en.installment.text}</p>
-            <div className="grid sm:grid-cols-3 gap-4">
-              {content.en.installment.options.map((option, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg p-4 border border-gray-200 text-center">
-                  <p className="font-semibold text-gray-900">{option}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">{content.en.billing.title}</h2>
             <ul className="space-y-3">
               {content.en.billing.items.map((item, i) => (
@@ -232,7 +201,8 @@ export default function PaymentPage() {
 
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">{content.de.title}</h1>
-            <p className="text-xl text-gray-600">{content.de.subtitle}</p>
+            <p className="text-xl text-gray-600 mb-4">{content.de.subtitle}</p>
+            <p className="text-gray-600 max-w-2xl mx-auto">{content.de.intro}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-12">
@@ -274,18 +244,6 @@ export default function PaymentPage() {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-200 mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-3">{content.de.installment.title}</h2>
-            <p className="text-gray-600 mb-4">{content.de.installment.text}</p>
-            <div className="grid sm:grid-cols-3 gap-4">
-              {content.de.installment.options.map((option, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg p-4 border border-gray-200 text-center">
-                  <p className="font-semibold text-gray-900">{option}</p>
-                </div>
-              ))}
             </div>
           </div>
 

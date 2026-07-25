@@ -47,7 +47,12 @@ export default function ArtwingmanPage() {
             />
           </div>
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
-            <div className="mb-4 flex items-baseline gap-4 flex-wrap">
+            <div className="mb-4 flex items-center gap-4 flex-wrap">
+              <img
+                src="/artwingman/logo.png"
+                alt="Artwingman Logo"
+                className="h-10 w-10 rounded-lg"
+              />
               <h2
                 className="text-gray-900"
                 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: 44 }}
@@ -55,14 +60,28 @@ export default function ArtwingmanPage() {
                 Artwingman
               </h2>
               <span
-                className="text-gray-500 whitespace-nowrap"
-                style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: 20 }}
+                className="text-gray-500 whitespace-nowrap uppercase tracking-wide"
+                style={{ fontFamily: "'Inter', Arial, sans-serif", fontSize: 18 }}
               >
                 Your painting companion
               </span>
             </div>
             {paragraphs.map((text, i) => (
-              <p key={i} style={{ fontFamily: "'Inter', Arial, sans-serif" }}>{text}</p>
+              <p key={i} style={{ fontFamily: "'Inter', Arial, sans-serif" }}>
+                {i === 0 ? (
+                  <>
+                    <span
+                      className="text-gray-900"
+                      style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '1.3em' }}
+                    >
+                      Artwingman
+                    </span>
+                    {text.replace(/^Artwingman/, '')}
+                  </>
+                ) : (
+                  text
+                )}
+              </p>
             ))}
             <a
               href="https://artwingman.com"
