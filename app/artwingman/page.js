@@ -47,12 +47,20 @@ export default function ArtwingmanPage() {
             />
           </div>
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
-            <h2
-              className="text-3xl font-light text-gray-900"
-              style={{ fontFamily: "'Vollkorn', Georgia, serif" }}
-            >
-              {language === 'de' ? 'Was ist Artwingman?' : 'What is Artwingman?'}
-            </h2>
+            <div className="mb-4 flex items-baseline gap-4 flex-wrap">
+              <h2
+                className="text-gray-900"
+                style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: 44 }}
+              >
+                Artwingman
+              </h2>
+              <span
+                className="text-gray-500 whitespace-nowrap"
+                style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: 20 }}
+              >
+                Your painting companion
+              </span>
+            </div>
             {paragraphs.map((text, i) => (
               <p key={i} style={{ fontFamily: "'Inter', Arial, sans-serif" }}>{text}</p>
             ))}
