@@ -70,7 +70,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             </div>
 
             {/* Description */}
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed text-lg" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>
               {product.description}
             </p>
 
@@ -159,27 +159,6 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               <div>
                 <h4 className="font-medium text-gray-900 mb-2">{pm.returnsTitle}</h4>
                 <p>{pm.returnsText}</p>
-              </div>
-
-              <div>
-                <h4 className="font-medium text-gray-900 mb-2">{pm.paymentTitle}</h4>
-                <p className="text-gray-600">{pm.paymentMethods}</p>
-              </div>
-            </div>
-
-            {/* Trust Badges Footer */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-gray-200">
-              <div className="text-center">
-                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.freeShipping}<br/>{pm.freeShippingDetail}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.insuredUp}<br/>{pm.insuredDetail}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.originalWith}<br/>{pm.originalDetail}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-xs text-gray-600" style={{ fontFamily: "'Vollkorn', Georgia, serif" }}>{pm.daysReturn}<br/>{pm.returnDetail}</p>
               </div>
             </div>
           </div>
