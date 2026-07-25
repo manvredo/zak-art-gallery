@@ -23,11 +23,11 @@ export default function FAQPage() {
             },
             {
               question: 'Welche Zahlungsmethoden werden akzeptiert?',
-              answer: 'Wir akzeptieren Kreditkarten (Visa, Mastercard, Amex), PayPal, Banküberweisung und Sofortüberweisung. Für Bestellungen ab 1.000€ bieten wir auch Ratenzahlung an.'
+              answer: 'Die Zahlung erfolgt sicher über Stripe. Wir akzeptieren Kreditkarten (Visa, Mastercard), Apple Pay, PayPal, Amazon Pay und Klarna.'
             },
             {
               question: 'Ist meine Zahlung sicher?',
-              answer: 'Ja, alle Zahlungen werden über verschlüsselte SSL-Verbindungen abgewickelt. Wir speichern keine Kreditkartendaten und arbeiten nur mit zertifizierten Payment-Providern.'
+              answer: 'Ja, alle Zahlungen werden verschlüsselt über Stripe abgewickelt. Wir speichern keine Kreditkarten- oder Zahlungsdaten auf unseren eigenen Servern.'
             },
             {
               question: 'Erhalte ich eine Rechnung?',
@@ -127,11 +127,11 @@ export default function FAQPage() {
             },
             {
               question: 'What payment methods are accepted?',
-              answer: 'We accept credit cards (Visa, Mastercard, Amex), PayPal, bank transfer, and instant transfer. For orders over €1,000, we also offer installment payments.'
+              answer: 'Payment is processed securely via Stripe. We accept credit cards (Visa, Mastercard), Apple Pay, PayPal, Amazon Pay, and Klarna.'
             },
             {
               question: 'Is my payment secure?',
-              answer: 'Yes, all payments are processed via encrypted SSL connections. We do not store credit card data and only work with certified payment providers.'
+              answer: 'Yes, all payments are processed securely through Stripe. We do not store any credit card or payment data on our own servers.'
             },
             {
               question: 'Will I receive an invoice?',

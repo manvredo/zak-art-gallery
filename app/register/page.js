@@ -76,22 +76,6 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/">
-              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK FINE ART
-              </h1>
-            </Link>
-            <Link href="/" className="text-gray-700 hover:text-gray-900">
-              ← {t.auth.login.backToShop}
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Registration Form */}
       <div className="flex items-center justify-center px-4 py-12">
         <div className="max-w-md w-full">

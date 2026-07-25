@@ -1,7 +1,6 @@
 ﻿'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
 import { BookOpen, Download, Image as ImageIcon, Quote } from 'lucide-react';
 
@@ -57,22 +56,6 @@ export default function VitaPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/">
-              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK FINE ART
-              </h1>
-            </Link>
-            <Link href="/" className="text-gray-700 hover:text-gray-900">
-              ← Zurück zum Shop
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -151,13 +134,6 @@ export default function VitaPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-sm text-gray-600">
-            <p>© 2026 ZAK Fine Art. Alle Rechte vorbehalten.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

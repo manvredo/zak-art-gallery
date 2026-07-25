@@ -1,27 +1,11 @@
 ﻿"use client";
 
 import React from 'react';
-import Link from 'next/link';
 
 export default function ShippingPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/">
-              <h1 className="text-2xl font-light tracking-wider text-gray-900 cursor-pointer">
-                ZAK FINE ART
-              </h1>
-            </Link>
-            <Link href="/" className="text-gray-700 hover:text-gray-900">
-              ← Back to Shop
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gray-50 py-32">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-light text-gray-900 mb-8">Shipping & Delivery</h1>
         
         <div className="bg-white rounded-lg shadow-sm p-8 space-y-8">
@@ -163,13 +147,6 @@ export default function ShippingPage() {
         </div>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-sm text-gray-600">
-            <p>© 2026 ZAK Fine Art. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
