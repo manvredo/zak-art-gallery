@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import ProductCard from '@/app/components/ProductCard';
 import ProductModal from '@/app/components/ProductModal';
 import { useLanguage } from '@/app/context/LanguageContext';
+import { useCart } from '@/app/context/CartContext';
 import { X } from 'lucide-react';
 
 const supabase = createClient(
@@ -14,6 +15,7 @@ const supabase = createClient(
 
 export default function ShopPage() {
   const { t } = useLanguage();
+  const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -129,8 +131,7 @@ export default function ShopPage() {
         <ProductModal
           product={selectedProduct}
           onClose={closeProduct}
-          showAddToCart={true}
-          onImageClick={setLightboxImage}
+          onAddToCart={addToCart}
         />
       )}
 
