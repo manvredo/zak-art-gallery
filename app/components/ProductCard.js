@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import FavoriteButton from './FavoriteButton';
@@ -10,6 +10,27 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
   const { t } = useLanguage();
   const isSold = product.sold === true;
   const isAvailable = product.available !== false && !isSold;
+  const cardRef = useRef(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (size !== 'large') return;
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setRevealed(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [size]);
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -19,8 +40,13 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
 
   return (
     <div
-      className="cursor-pointer group animate-slide-up"
-      style={{ animationDelay: `${index * 0.1}s` }}
+      ref={cardRef}
+      className={
+        size === 'large'
+          ? `cursor-pointer group scroll-reveal ${revealed ? 'visible' : ''}`
+          : 'cursor-pointer group animate-slide-up'
+      }
+      style={size === 'large' ? undefined : { animationDelay: `${index * 0.1}s` }}
       onClick={onClick}
     >
       {/* Image Container with Rounded Corners */}
@@ -28,7 +54,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
         <img
           src={product.image}
           alt={product.name}
-          className={`w-full h-full object-cover transition duration-200 ease-in ${!isAvailable ? 'grayscale opacity-70' : ''}`}
+          className={`w-full h-full object-cover transition duration-200 ease-in ${!isAvailable && !isSold ? 'grayscale opacity-70' : ''}`}
         />
 
         {/* Sold / Not Available Badge - Top Left */}
