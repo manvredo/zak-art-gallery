@@ -189,7 +189,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full max-w-[1400px] h-auto"
+          className="max-w-[min(1400px,100%)] h-auto"
         />
       </div>
     )}
