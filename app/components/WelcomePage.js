@@ -10,6 +10,7 @@ const heroImages = [
   { desktop: '/images/hero-1920_03.jpg', full: '/images/hero-3840_03.jpg' },
   { desktop: '/images/hero-1920_04.jpg', full: '/images/hero-3840_04.jpg' },
   { desktop: '/images/hero-1920_05.jpg', full: '/images/hero-3840_05.jpg' },
+  { desktop: '/images/hero-1920_06.jpg', full: '/images/hero-3840_06.jpg' },
 ];
 
 export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true }) {
