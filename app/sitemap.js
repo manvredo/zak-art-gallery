@@ -11,7 +11,7 @@ export const revalidate = 3600;
 async function getProductEntries(baseUrl) {
   const { data, error } = await supabase
     .from('products')
-    .select('id, name, image, detail_image, offline')
+    .select('id, name, image, offline')
     .order('id', { ascending: true });
 
   if (error || !data) return [];
@@ -21,7 +21,7 @@ async function getProductEntries(baseUrl) {
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.6,
-    images: [product.image, product.detail_image].filter(Boolean),
+    images: [product.image].filter(Boolean),
   }));
 }
 

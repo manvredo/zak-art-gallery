@@ -95,7 +95,7 @@ export default async function ProductPage({ params }) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    image: [product.image, product.detail_image].filter(Boolean),
+    image: [product.image],
     description: product.description,
     sku: String(product.id),
     brand: {
