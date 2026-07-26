@@ -87,6 +87,7 @@ export default function AdminProductsPage() {
     year: CURRENT_YEAR,
     image: '',
     detail_image: '',
+    thumbnail_image: '',
     description: '',
     available: true,
     sold: false,
@@ -198,6 +199,7 @@ export default function AdminProductsPage() {
       year: parseInt(formData.year),
       image: formData.image,
       detail_image: formData.detail_image || null,
+      thumbnail_image: formData.thumbnail_image || null,
       description: formData.description,
       available: formData.available,
       sold: formData.sold,
@@ -267,6 +269,7 @@ export default function AdminProductsPage() {
       year: product.year,
       image: product.image,
       detail_image: product.detail_image || '',
+      thumbnail_image: product.thumbnail_image || '',
       description: product.description,
       available: product.available !== false,
       sold: product.sold === true,
@@ -345,6 +348,7 @@ export default function AdminProductsPage() {
       year: CURRENT_YEAR,
       image: '',
       detail_image: '',
+      thumbnail_image: '',
       description: '',
       available: true,
       sold: false,
@@ -369,6 +373,14 @@ export default function AdminProductsPage() {
     setFormData(prevFormData => ({
       ...prevFormData,
       detail_image: result.info.secure_url
+    }));
+  };
+
+  const handleThumbnailUploadSuccess = (result) => {
+    console.log('Thumbnail upload successful:', result);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      thumbnail_image: result.info.secure_url
     }));
   };
 
@@ -748,6 +760,74 @@ export default function AdminProductsPage() {
 
               <p className="text-sm text-gray-600 mt-2">
                 💡 Wird im Shop unterhalb des Hauptbilds angezeigt, z.B. eine Nahaufnahme der Maloberfläche/Textur.
+              </p>
+            </div>
+
+            {/* Thumbnail Image Upload Section */}
+            <div className="border-t border-gray-300 pt-6 mt-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                Eigenes Thumbnail (optional)
+              </h3>
+
+              <div className="flex gap-4 items-start">
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Bild URL
+                  </label>
+                  <input
+                    type="url"
+                    value={formData.thumbnail_image}
+                    onChange={(e) => setFormData({...formData, thumbnail_image: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder="https://res.cloudinary.com/..."
+                  />
+                </div>
+
+                <div className="pt-7">
+                  <CldUploadWidget
+                    uploadPreset="zak_gallery"
+                    cloudName="dhjcx2xdd"
+                    options={{
+                      folder: "shop/thumbnail",
+                      tags: ["product", "shop", "thumbnail"],
+                      multiple: false,
+                      maxFiles: 1,
+                      cropping: true,
+                      croppingAspectRatio: 1,
+                      croppingShowDimensions: true,
+                      croppingDefaultSelectionRatio: 1,
+                    }}
+                    onSuccess={handleThumbnailUploadSuccess}
+                  >
+                    {({ open }) => (
+                      <button
+                        type="button"
+                        onClick={() => open()}
+                        className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700 transition rounded flex items-center gap-2"
+                      >
+                        <Upload size={18} />
+                        Bild hochladen &amp; zuschneiden
+                      </button>
+                    )}
+                  </CldUploadWidget>
+                </div>
+              </div>
+
+              {formData.thumbnail_image && (
+                <div className="mt-4">
+                  <p className="text-sm text-gray-600 mb-2">Vorschau:</p>
+                  <div className="w-48 h-48 border border-gray-300 rounded overflow-hidden bg-gray-100">
+                    <img
+                      src={formData.thumbnail_image}
+                      alt="Thumbnail Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <p className="text-sm text-gray-600 mt-2">
+                💡 Wird im Shop-Grid und auf der Startseite anstelle des Hauptbilds gezeigt (z.B. ohne Büttenrand). Ohne eigenes Thumbnail wird automatisch das Hauptbild verwendet. Beim Hochladen kannst du den Ausschnitt direkt wählen.
               </p>
             </div>
 

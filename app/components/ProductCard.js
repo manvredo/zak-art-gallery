@@ -70,7 +70,7 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
       {/* Image Container with Rounded Corners */}
       <div className="relative aspect-square overflow-hidden rounded-[15px] group-hover:rounded-[20px] mb-6 group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] group-hover:translate-y-[6px] group-hover:scale-[1.019] group-hover:outline group-hover:outline-2 group-hover:outline-[#565656] transition-transform duration-200 ease-in transition-shadow duration-200 ease-in transition-[border-radius] duration-200 ease-in will-change-transform">
         <img
-          src={product.image}
+          src={product.thumbnail_image || product.image}
           alt={`${product.name}${product.technique ? ` – ${product.technique}` : ''} von Manfred Zak`}
           loading={index < 8 ? 'eager' : 'lazy'}
           fetchPriority={index === 0 ? 'high' : 'auto'}
