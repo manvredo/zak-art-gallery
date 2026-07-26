@@ -11,12 +11,12 @@ export const revalidate = 3600;
 async function getProductEntries(baseUrl) {
   const { data, error } = await supabase
     .from('products')
-    .select('id, name, image, detail_image')
+    .select('id, name, image, detail_image, offline')
     .order('id', { ascending: true });
 
   if (error || !data) return [];
 
-  return data.map((product) => ({
+  return data.filter((product) => product.offline !== true).map((product) => ({
     url: `${baseUrl}/shop/${productSlug(product)}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',

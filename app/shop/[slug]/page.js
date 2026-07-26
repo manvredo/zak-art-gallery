@@ -22,7 +22,7 @@ async function getProduct(slug) {
     .eq('id', id)
     .single();
 
-  if (error || !data) return null;
+  if (error || !data || data.offline === true) return null;
   return data;
 }
 

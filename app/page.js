@@ -29,7 +29,7 @@ export default function Home() {
     if (error) {
       console.error('Error fetching products:', error);
     } else {
-      setProducts(data || []);
+      setProducts((data || []).filter((p) => p.offline !== true));
     }
     setLoading(false);
   };

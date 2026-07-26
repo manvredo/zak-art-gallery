@@ -90,6 +90,7 @@ export default function AdminProductsPage() {
     description: '',
     available: true,
     sold: false,
+    offline: false,
   });
 
   // Check authentication
@@ -199,6 +200,7 @@ export default function AdminProductsPage() {
       description: formData.description,
       available: formData.available,
       sold: formData.sold,
+      offline: formData.offline,
     };
 
     if (editingId) {
@@ -266,8 +268,23 @@ export default function AdminProductsPage() {
       description: product.description,
       available: product.available !== false,
       sold: product.sold === true,
+      offline: product.offline === true,
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleToggleOffline = async (product) => {
+    const { error } = await supabase
+      .from('products')
+      .update({ offline: !product.offline })
+      .eq('id', product.id);
+
+    if (error) {
+      console.error('Error toggling offline status:', error);
+      alert('Error: ' + error.message);
+    } else {
+      await fetchProducts();
+    }
   };
 
   const handleDelete = async (id) => {
@@ -307,6 +324,7 @@ export default function AdminProductsPage() {
       description: '',
       available: true,
       sold: false,
+      offline: false,
     });
     setSelectedSize('');
     setCustomWidth('');
@@ -561,6 +579,23 @@ export default function AdminProductsPage() {
                   Werk bleibt sichtbar, zeigt aber "Verkauft" statt "Nicht verfügbar". / Artwork stays visible but shows "Sold" instead of "Not available".
                 </p>
               </div>
+
+              <div>
+                <label className="flex items-center gap-2 cursor-pointer w-fit">
+                  <input
+                    type="checkbox"
+                    checked={formData.offline}
+                    onChange={(e) => setFormData({ ...formData, offline: e.target.checked })}
+                    className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    Offline / Im Shop ausblenden
+                  </span>
+                </label>
+                <p className="text-xs text-gray-500 mt-1 ml-6">
+                  Werk wird komplett aus Shop und Startseite entfernt (nicht gelöscht). Einfach wieder online nehmen, um es zurückzuholen. / Artwork is completely hidden from shop and homepage (not deleted). Toggle back online anytime.
+                </p>
+              </div>
             </div>
 
             {/* Image Upload Section */}
@@ -741,14 +776,18 @@ export default function AdminProductsPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map(product => (
-                <div key={product.id} className="border border-gray-200 rounded-lg overflow-hidden">
+                <div key={product.id} className={`border border-gray-200 rounded-lg overflow-hidden ${product.offline ? 'opacity-50' : ''}`}>
                   <div className="relative aspect-square overflow-hidden bg-gray-100">
                     <img
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
-                    {product.sold === true ? (
+                    {product.offline ? (
+                      <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-gray-800 text-white text-xs font-medium">
+                        Offline
+                      </div>
+                    ) : product.sold === true ? (
                       <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-red-600 text-white text-xs font-medium">
                         Verkauft / Sold
                       </div>
@@ -763,6 +802,18 @@ export default function AdminProductsPage() {
                     <p className="text-sm text-gray-600 mb-1">{product.artist}</p>
                     <p className="text-xs text-gray-500 mb-2">{product.size}</p>
                     <p className="text-lg font-light text-gray-900 mb-3">€{product.price.toLocaleString()}</p>
+                    <div className="flex gap-2 mb-2">
+                      <button
+                        onClick={() => handleToggleOffline(product)}
+                        className={`flex-1 px-3 py-2 border transition rounded text-sm flex items-center justify-center gap-2 ${
+                          product.offline
+                            ? 'border-gray-900 bg-gray-900 text-white hover:bg-gray-800'
+                            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {product.offline ? 'Online stellen' : 'Offline nehmen'}
+                      </button>
+                    </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleEdit(product)}
