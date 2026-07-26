@@ -91,11 +91,44 @@ export default async function ProductPage({ params }) {
     },
   };
 
+  const jsonLdProduct = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    image: [product.image, product.detail_image].filter(Boolean),
+    description: product.description,
+    sku: String(product.id),
+    brand: {
+      '@type': 'Brand',
+      name: 'ZAK Fine Art',
+    },
+    offers: {
+      '@type': 'Offer',
+      price: product.price,
+      priceCurrency: 'EUR',
+      availability: product.sold
+        ? 'https://schema.org/SoldOut'
+        : product.available === false
+        ? 'https://schema.org/OutOfStock'
+        : 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
+      url: canonicalUrl,
+      seller: {
+        '@type': 'Organization',
+        name: 'ZAK Fine Art',
+      },
+    },
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProduct) }}
       />
 
       <Link
