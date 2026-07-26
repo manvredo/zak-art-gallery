@@ -14,11 +14,11 @@ export default function WiderrufPage() {
             
             <div className="space-y-4 text-gray-700">
               <p>
-                Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
+                Sie haben das Recht, binnen dreißig Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
               </p>
-              
+
               <p>
-                Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter 
+                Die Widerrufsfrist beträgt dreißig Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter
                 Dritter, der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat.
               </p>
               

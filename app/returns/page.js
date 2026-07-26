@@ -13,7 +13,7 @@ export default function ReturnsPage() {
       
       policy: {
         title: 'Rückgaberecht',
-        text: 'Sie haben das Recht, Ihre Bestellung innerhalb von 14 Tagen ohne Angabe von Gründen zu widerrufen. Diese Frist beginnt am Tag, an dem Sie das Kunstwerk erhalten haben.',
+        text: 'Sie haben das Recht, Ihre Bestellung innerhalb von 30 Tagen ohne Angabe von Gründen zu widerrufen. Diese Frist beginnt am Tag, an dem Sie das Kunstwerk erhalten haben.',
         note: 'Bitte beachten Sie: Individuell angefertigte oder personalisierte Kunstwerke sind vom Widerrufsrecht ausgeschlossen.'
       },
 
@@ -46,7 +46,7 @@ export default function ReturnsPage() {
       refund: {
         title: 'Erstattung',
         items: [
-          'Erstattung innerhalb von 7 Werktagen nach Erhalt der Rücksendung',
+          'Erstattung innerhalb von 12 Werktagen nach Erhalt der Rücksendung',
           'Rückerstattung auf die ursprüngliche Zahlungsmethode',
           'Bei beschädigten oder fehlerhaften Artikeln übernehmen wir die Versandkosten',
           'Bei Widerruf trägt der Kunde die Rücksendekosten'
@@ -79,7 +79,7 @@ export default function ReturnsPage() {
       
       policy: {
         title: 'Return Policy',
-        text: 'You have the right to cancel your order within 14 days without giving any reason. This period begins on the day you receive the artwork.',
+        text: 'You have the right to cancel your order within 30 days without giving any reason. This period begins on the day you receive the artwork.',
         note: 'Please note: Custom-made or personalized artworks are excluded from the right of withdrawal.'
       },
 
@@ -112,7 +112,7 @@ export default function ReturnsPage() {
       refund: {
         title: 'Refund',
         items: [
-          'Refund within 7 business days after receiving the return',
+          'Refund within 12 business days after receiving the return',
           'Refund to the original payment method',
           'For damaged or defective items, we cover shipping costs',
           'For cancellations, customer bears return shipping costs'

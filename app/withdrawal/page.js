@@ -15,11 +15,11 @@ export default function WithdrawalPage() {
             <h2 className="text-2xl font-light text-gray-900 mb-4">Widerrufsrecht</h2>
             
             <p className="text-gray-700 leading-relaxed mb-4">
-              Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
+              Sie haben das Recht, binnen dreißig Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
             </p>
-            
+
             <p className="text-gray-700 leading-relaxed mb-4">
-              Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, 
+              Die Widerrufsfrist beträgt dreißig Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter,
               der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat.
             </p>
 
@@ -126,11 +126,11 @@ export default function WithdrawalPage() {
             <h2 className="text-2xl font-light text-gray-900 mb-4">Right of Withdrawal</h2>
             
             <p className="text-gray-700 leading-relaxed mb-4">
-              You have the right to withdraw from this contract within fourteen days without giving any reason.
+              You have the right to withdraw from this contract within thirty days without giving any reason.
             </p>
-            
+
             <p className="text-gray-700 leading-relaxed mb-4">
-              The withdrawal period is fourteen days from the day on which you or a third party named by you, 
+              The withdrawal period is thirty days from the day on which you or a third party named by you,
               who is not the carrier, took possession of the goods.
             </p>
 

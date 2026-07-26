@@ -47,7 +47,7 @@ export default function TermsPage() {
             <p className="text-gray-700 leading-relaxed mb-4">Consumers have a right of withdrawal in accordance with the following provisions:</p>
             <div className="bg-gray-50 p-6 rounded-lg my-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">Right of Withdrawal</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">You have the right to withdraw from this contract within 14 days without giving reasons. The withdrawal period is 14 days from the day on which you or a third party named by you, who is not the carrier, has taken possession of the goods.</p>
+              <p className="text-gray-700 leading-relaxed mb-4">You have the right to withdraw from this contract within 30 days without giving reasons. The withdrawal period is 30 days from the day on which you or a third party named by you, who is not the carrier, has taken possession of the goods.</p>
               <p className="text-gray-700 leading-relaxed mb-2">To exercise your right of withdrawal, you must inform us:</p>
               <div className="mt-2 pl-4 text-gray-700">
                 <p className="font-medium text-gray-900">ZAK Fine Art</p>
@@ -130,7 +130,7 @@ export default function TermsPage() {
             <p className="text-gray-700 leading-relaxed mb-4">Verbrauchern steht ein Widerrufsrecht nach den folgenden Bestimmungen zu.</p>
             <div className="bg-gray-50 p-6 rounded-lg my-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">Widerrufsrecht</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die Waren in Besitz genommen haben.</p>
+              <p className="text-gray-700 leading-relaxed mb-4">Sie haben das Recht, binnen dreißig Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt dreißig Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die Waren in Besitz genommen haben.</p>
               <p className="text-gray-700 leading-relaxed mb-2">Um Ihr Widerrufsrecht auszuüben, müssen Sie uns:</p>
               <div className="mt-2 pl-4 text-gray-700">
                 <p className="font-medium text-gray-900">ZAK Fine Art</p>
