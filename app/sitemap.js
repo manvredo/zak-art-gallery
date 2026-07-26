@@ -1,4 +1,31 @@
-export default function sitemap() {
+import { createClient } from '@supabase/supabase-js';
+import { productSlug } from './lib/slug';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
+export const revalidate = 3600;
+
+async function getProductEntries(baseUrl) {
+  const { data, error } = await supabase
+    .from('products')
+    .select('id, name, image, detail_image')
+    .order('id', { ascending: true });
+
+  if (error || !data) return [];
+
+  return data.map((product) => ({
+    url: `${baseUrl}/shop/${productSlug(product)}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+    images: [product.image, product.detail_image].filter(Boolean),
+  }));
+}
+
+export default async function sitemap() {
   const baseUrl = 'https://www.manfredzak.com';
 
   // Static pages
@@ -22,6 +49,12 @@ export default function sitemap() {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/vita`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -38,6 +71,12 @@ export default function sitemap() {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/archive`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.4,
     },
     {
       url: `${baseUrl}/imprint`,
@@ -83,5 +122,7 @@ export default function sitemap() {
     },
   ];
 
-  return staticPages;
+  const productPages = await getProductEntries(baseUrl);
+
+  return [...staticPages, ...productPages];
 }

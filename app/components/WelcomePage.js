@@ -50,7 +50,9 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             src={img.desktop}
             srcSet={`${img.desktop} 1920w, ${img.full} 3840w`}
             sizes="100vw"
-            alt={`Hero ${index + 1}`}
+            alt={`Contemporary oil painting by Manfred Zak – hero view ${index + 1}`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
               index === currentHero && initialFadeIn ? 'opacity-100' : 'opacity-0'
             }`}

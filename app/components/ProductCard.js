@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { productSlug } from '../lib/slug';
 import FavoriteButton from './FavoriteButton';
 
 export default function ProductCard({ product, onClick, showAddToCart = false, index = 0, size = 'default' }) {
@@ -41,27 +43,37 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
   }, [size]);
 
   const handleAddToCart = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     if (!isAvailable) return;
     addToCart(product);
   };
 
+  const handleCardClick = (e) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    onClick();
+  };
+
   return (
-    <div
+    <Link
+      href={`/shop/${productSlug(product)}`}
       ref={cardRef}
       className={
         size === 'large'
-          ? `cursor-pointer group scroll-reveal ${revealed ? 'visible' : ''}`
-          : 'cursor-pointer group animate-slide-up'
+          ? `block cursor-pointer group scroll-reveal ${revealed ? 'visible' : ''}`
+          : 'block cursor-pointer group animate-slide-up'
       }
       style={size === 'large' ? undefined : { animationDelay: `${index * 0.1}s` }}
-      onClick={onClick}
+      onClick={handleCardClick}
     >
       {/* Image Container with Rounded Corners */}
       <div className="relative aspect-square overflow-hidden rounded-[15px] group-hover:rounded-[20px] mb-6 group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] group-hover:translate-y-[6px] group-hover:scale-[1.019] group-hover:outline group-hover:outline-2 group-hover:outline-[#565656] transition-transform duration-200 ease-in transition-shadow duration-200 ease-in transition-[border-radius] duration-200 ease-in will-change-transform">
         <img
           src={product.image}
-          alt={product.name}
+          alt={`${product.name}${product.technique ? ` – ${product.technique}` : ''} von Manfred Zak`}
+          loading={index < 8 ? 'eager' : 'lazy'}
+          fetchPriority={index === 0 ? 'high' : 'auto'}
           className={`w-full h-full object-cover transition duration-200 ease-in ${!isAvailable && !isSold ? 'grayscale opacity-70' : ''}`}
         />
 
@@ -115,6 +127,6 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
           </p>
         )}
       </div>
-    </div>
+    </Link>
   );
 }

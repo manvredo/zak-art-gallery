@@ -77,7 +77,7 @@ export default function Home() {
           </button>
           <img
             src={lightboxImage}
-            alt="Full size"
+            alt={selectedProduct?.name ? `${selectedProduct.name} von Manfred Zak – Vollansicht` : 'Kunstwerk von Manfred Zak – Vollansicht'}
             className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />
