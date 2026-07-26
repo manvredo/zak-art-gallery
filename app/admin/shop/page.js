@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
+import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon, ArrowUp, ArrowDown } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
 
 const supabase = createClient(
@@ -127,6 +127,7 @@ export default function AdminProductsPage() {
     const { data, error } = await supabase
       .from('products')
       .select('*')
+      .order('sort_order', { ascending: true, nullsFirst: false })
       .order('id', { ascending: true });
 
     if (error) {
@@ -221,9 +222,10 @@ export default function AdminProductsPage() {
         await fetchProducts();
       }
     } else {
+      const maxOrder = products.reduce((max, p) => Math.max(max, p.sort_order ?? p.id ?? 0), 0);
       const { data, error } = await supabase
         .from('products')
-        .insert([productData])
+        .insert([{ ...productData, sort_order: maxOrder + 1 }])
         .select();
 
       if (error) {
@@ -282,6 +284,28 @@ export default function AdminProductsPage() {
     if (error) {
       console.error('Error toggling offline status:', error);
       alert('Error: ' + error.message);
+    } else {
+      await fetchProducts();
+    }
+  };
+
+  const handleMove = async (product, direction) => {
+    const index = products.findIndex((p) => p.id === product.id);
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if (swapIndex < 0 || swapIndex >= products.length) return;
+
+    const other = products[swapIndex];
+    const currentOrder = product.sort_order ?? product.id;
+    const otherOrder = other.sort_order ?? other.id;
+
+    const [{ error: error1 }, { error: error2 }] = await Promise.all([
+      supabase.from('products').update({ sort_order: otherOrder }).eq('id', product.id),
+      supabase.from('products').update({ sort_order: currentOrder }).eq('id', other.id),
+    ]);
+
+    if (error1 || error2) {
+      console.error('Error reordering products:', error1 || error2);
+      alert('Error: ' + (error1 || error2).message);
     } else {
       await fetchProducts();
     }
@@ -775,7 +799,7 @@ export default function AdminProductsPage() {
             <p className="text-gray-600 text-center py-8">Noch keine Produkte. Füge dein erstes Produkt oben hinzu.</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map(product => (
+              {products.map((product, index) => (
                 <div key={product.id} className={`border border-gray-200 rounded-lg overflow-hidden ${product.offline ? 'opacity-50' : ''}`}>
                   <div className="relative aspect-square overflow-hidden bg-gray-100">
                     <img
@@ -802,6 +826,24 @@ export default function AdminProductsPage() {
                     <p className="text-sm text-gray-600 mb-1">{product.artist}</p>
                     <p className="text-xs text-gray-500 mb-2">{product.size}</p>
                     <p className="text-lg font-light text-gray-900 mb-3">€{product.price.toLocaleString()}</p>
+                    <div className="flex gap-2 mb-2">
+                      <button
+                        onClick={() => handleMove(product, 'up')}
+                        disabled={index === 0}
+                        className="px-3 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition rounded text-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                        title="Nach oben"
+                      >
+                        <ArrowUp size={16} />
+                      </button>
+                      <button
+                        onClick={() => handleMove(product, 'down')}
+                        disabled={index === products.length - 1}
+                        className="px-3 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition rounded text-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                        title="Nach unten"
+                      >
+                        <ArrowDown size={16} />
+                      </button>
+                    </div>
                     <div className="flex gap-2 mb-2">
                       <button
                         onClick={() => handleToggleOffline(product)}

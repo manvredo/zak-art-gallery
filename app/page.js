@@ -24,6 +24,7 @@ export default function Home() {
     const { data, error } = await supabase
       .from('products')
       .select('*')
+      .order('sort_order', { ascending: true, nullsFirst: false })
       .order('id', { ascending: true });
 
     if (error) {
