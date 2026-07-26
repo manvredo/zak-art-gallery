@@ -56,11 +56,20 @@ export const metadata = {
     siteName: "ZAK Fine Art",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/images/hero-1920_01.jpg",
+        width: 1920,
+        height: 1080,
+        alt: "ZAK Fine Art — Manfred Zak",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "ZAK Fine Art — Manfred Zak",
     description: "Contemporary fine art by Manfred Zak (ZAK). Large-format oil paintings and oil stick works.",
+    images: ["/images/hero-1920_01.jpg"],
   },
   robots: {
     index: true,
