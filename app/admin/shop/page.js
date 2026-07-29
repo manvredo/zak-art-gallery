@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon, ArrowUp, ArrowDown } from 'lucide-react';
-import { CldUploadWidget } from 'next-cloudinary';
+import { CldUploadWidget, getCldImageUrl } from 'next-cloudinary';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -360,6 +360,11 @@ export default function AdminProductsPage() {
     setEditingId(null);
   };
 
+  const handleUploadError = (error) => {
+    console.error('Upload error:', error);
+    alert('Bild-Upload fehlgeschlagen. Bitte versuche es erneut.');
+  };
+
   const handleUploadSuccess = (result) => {
     console.log('Upload successful:', result);
     setFormData(prevFormData => ({
@@ -378,9 +383,21 @@ export default function AdminProductsPage() {
 
   const handleThumbnailUploadSuccess = (result) => {
     console.log('Thumbnail upload successful:', result);
+    const customCoords = result.info.coordinates?.custom?.[0];
+    const thumbnailUrl = customCoords
+      ? getCldImageUrl({
+          src: result.info.public_id,
+          crop: 'crop',
+          gravity: 'custom',
+          x: customCoords[0],
+          y: customCoords[1],
+          width: customCoords[2],
+          height: customCoords[3],
+        })
+      : result.info.secure_url;
     setFormData(prevFormData => ({
       ...prevFormData,
-      thumbnail_image: result.info.secure_url
+      thumbnail_image: thumbnailUrl
     }));
   };
 
@@ -666,6 +683,7 @@ export default function AdminProductsPage() {
                       maxFiles: 1
                     }}
                     onSuccess={handleUploadSuccess}
+                    onError={handleUploadError}
                   >
                     {({ open }) => (
                       <button
@@ -730,6 +748,7 @@ export default function AdminProductsPage() {
                       maxFiles: 1
                     }}
                     onSuccess={handleDetailUploadSuccess}
+                    onError={handleUploadError}
                   >
                     {({ open }) => (
                       <button
@@ -798,6 +817,7 @@ export default function AdminProductsPage() {
                       croppingDefaultSelectionRatio: 1,
                     }}
                     onSuccess={handleThumbnailUploadSuccess}
+                    onError={handleUploadError}
                   >
                     {({ open }) => (
                       <button
