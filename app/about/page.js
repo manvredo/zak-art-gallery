@@ -57,7 +57,7 @@ export default function AboutPage() {
   const [activeSlide, setActiveSlide] = useState(0);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
 
       {/* About Header */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
