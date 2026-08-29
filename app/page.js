@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import WelcomePage from '@/app/components/WelcomePage';
 import ProductModal from '@/app/components/ProductModal';
 import { X } from 'lucide-react';
+import { getActiveOffer } from '@/app/lib/offers';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -37,6 +38,12 @@ export default function Home() {
 
   const featuredProducts = products.slice(0, 4);
 
+  // Soonest-ending active offer, if any, shown as a countdown banner below the hero.
+  const soonestOffer = products
+    .map((product) => ({ product, offer: getActiveOffer(product) }))
+    .filter((entry) => entry.offer)
+    .sort((a, b) => a.offer.endDate - b.offer.endDate)[0] || null;
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
@@ -54,6 +61,7 @@ export default function Home() {
       <WelcomePage
         featuredProducts={featuredProducts}
         onProductClick={setSelectedProduct}
+        offerEntry={soonestOffer}
       />
 
       {selectedProduct && (

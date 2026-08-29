@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
+import OfferBanner from './OfferBanner';
 import { useLanguage } from '../context/LanguageContext';
 
 const heroImages = [
@@ -13,7 +14,7 @@ const heroImages = [
   { desktop: '/images/hero-1920_06.jpg', full: '/images/hero-3840_06.jpg' },
 ];
 
-export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true }) {
+export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true, offerEntry = null }) {
   const { t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
   const [currentHero, setCurrentHero] = useState(0);
@@ -119,6 +120,9 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
           </div>
         </div>
       </div>
+
+      {/* Offer Banner - shows the soonest-ending active offer, if any */}
+      <OfferBanner entry={offerEntry} />
 
       {/* Intro Section */}
       <div className="max-w-6xl mx-auto px-12 md:px-24 py-32">

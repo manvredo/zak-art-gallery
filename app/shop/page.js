@@ -7,6 +7,7 @@ import ProductModal from '@/app/components/ProductModal';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { useCart } from '@/app/context/CartContext';
 import { X } from 'lucide-react';
+import { getActiveOffer } from '@/app/lib/offers';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -63,10 +64,14 @@ export default function ShopPage() {
     setLoading(false);
   };
 
-  // Produkte filtern
-  const filteredProducts = selectedCategory === 'All'
+  // Produkte filtern - aktive Angebote zuerst, sonst normale Sortierung
+  const filteredProducts = (selectedCategory === 'All'
     ? products
-    : products.filter(p => p.category === selectedCategory);
+    : products.filter(p => p.category === selectedCategory)
+  )
+    .map((p, i) => ({ p, i, hasOffer: !!getActiveOffer(p) }))
+    .sort((a, b) => (b.hasOffer - a.hasOffer) || (a.i - b.i))
+    .map(({ p }) => p);
 
   const categoryOptions = [
     { key: 'All', label: t.shop?.all || 'All' },
