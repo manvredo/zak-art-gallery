@@ -453,7 +453,6 @@ header button:not(.rounded-full):hover::after {
 footer {
   border-top: 1px solid var(--color-border);
   padding: 3rem 0 1.5rem;
-  margin-top: 4rem;
 }
 
 footer h3 {
