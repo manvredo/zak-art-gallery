@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
 import { useLanguage } from '../context/LanguageContext';
@@ -16,12 +16,17 @@ const heroImages = [
 export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true }) {
   const { t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [currentHero, setCurrentHero] = useState(0);
   const [initialFadeIn, setInitialFadeIn] = useState(false);
+  const firstHeroRef = useRef(null);
 
+  // On a cold load the first hero image often hasn't finished downloading yet,
+  // so fading it in right after mount just makes it pop in once it arrives.
+  // Wait for the actual load (or an already-cached image) before fading in.
   useEffect(() => {
-    setInitialFadeIn(true);
+    if (firstHeroRef.current?.complete) {
+      setInitialFadeIn(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -35,7 +40,6 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentHero((prev) => (prev + 1) % heroImages.length);
-      setImageLoaded(false);
     }, 6000);
     return () => clearInterval(timer);
   }, []);
@@ -48,6 +52,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         {heroImages.map((img, index) => (
           <img
             key={index}
+            ref={index === 0 ? firstHeroRef : undefined}
             src={img.desktop}
             srcSet={`${img.desktop} 1920w, ${img.full} 3840w`}
             sizes="100vw"
@@ -61,7 +66,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
               transform: `translateY(${scrollY * 0.5}px)`,
               willChange: 'opacity',
             }}
-            onLoad={() => setImageLoaded(true)}
+            onLoad={index === 0 ? () => setInitialFadeIn(true) : undefined}
           />
         ))}
         {/* Navigation Dots */}
