@@ -158,8 +158,12 @@ export default function WelcomePage({ featuredProducts, showSlider = true, offer
         </div>
       </div>
 
+      <div className="max-w-6xl mx-auto px-12 md:px-24">
+        <hr className="border-gray-200" />
+      </div>
+
       {/* Featured Artworks */}
-      <div className="mb-12 px-8">
+      <div className="mt-16 mb-12 px-8">
         <h3 className="text-xl font-light text-gray-900 mb-6 text-center">
           {t.welcome.featured}
         </h3>

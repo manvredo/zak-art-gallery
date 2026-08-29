@@ -29,9 +29,6 @@ export default function OfferBanner({ entry }) {
 
   return (
     <div className="border-b border-gray-200 py-12 sm:py-16 px-6">
-      <h3 className="text-center text-xl font-light text-gray-900 mb-8">
-        {t.shop.offer}
-      </h3>
       <Link
         href={`/shop/${productSlug(product)}`}
         className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-8 sm:gap-12 group"
@@ -48,6 +45,9 @@ export default function OfferBanner({ entry }) {
         </div>
 
         <div className="flex-1 text-center sm:text-left">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-amber-600 text-white text-sm sm:text-base font-medium tracking-wide uppercase mb-3">
+            {t.shop.offer}
+          </span>
           <p className="text-lg text-gray-500 mb-1">{product.artist}</p>
           <h4 className="text-[23px] font-light text-gray-900 mb-1">{product.name}</h4>
           <p className="text-[15px] text-gray-600 mb-6">{product.size}</p>
