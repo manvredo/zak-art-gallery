@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Clock } from 'lucide-react';
 
-export default function Countdown({ endDate, onExpire }) {
+export default function Countdown({ endDate, onExpire, className = 'text-gray-900' }) {
   const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
@@ -39,9 +39,9 @@ export default function Countdown({ endDate, onExpire }) {
   }
 
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <Clock size={16} className="text-gray-900" />
-      <span className="font-medium text-gray-900">
+    <div className={`flex items-center gap-2 text-sm ${className}`}>
+      <Clock size={16} />
+      <span className="font-medium">
         {timeLeft.days > 0 && `${timeLeft.days}d `}
         {String(timeLeft.hours).padStart(2, '0')}:
         {String(timeLeft.minutes).padStart(2, '0')}:

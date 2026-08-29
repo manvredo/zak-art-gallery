@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon, ArrowUp, ArrowDown } from 'lucide-react';
 import { CldUploadWidget, getCldImageUrl } from 'next-cloudinary';
+import { getActiveOffer, getStockInfo } from '@/app/lib/offers';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -92,6 +93,10 @@ export default function AdminProductsPage() {
     available: true,
     sold: false,
     offline: false,
+    sale_price: '',
+    sale_end_date: '',
+    edition_size: '',
+    stock_quantity: '',
   });
 
   // Check authentication
@@ -139,6 +144,13 @@ export default function AdminProductsPage() {
       setProducts(data || []);
     }
     setLoading(false);
+  };
+
+  // Convert an ISO date string to the "YYYY-MM-DDTHH:mm" format expected by <input type="datetime-local">
+  const toDatetimeLocal = (isoString) => {
+    const d = new Date(isoString);
+    const pad = (n) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
   };
 
   // Convert cm to inch and format size string
@@ -189,6 +201,16 @@ export default function AdminProductsPage() {
       return;
     }
 
+    if (formData.sale_price && parseFloat(formData.sale_price) >= parseFloat(formData.price)) {
+      alert('Der Angebotspreis muss niedriger als der reguläre Preis sein!');
+      return;
+    }
+
+    if ((formData.sale_price && !formData.sale_end_date) || (!formData.sale_price && formData.sale_end_date)) {
+      alert('Für ein Angebot bitte sowohl Angebotspreis als auch Enddatum angeben!');
+      return;
+    }
+
     const productData = {
       name: formData.name,
       artist: ARTIST_NAME, // Always use fixed artist name
@@ -204,6 +226,10 @@ export default function AdminProductsPage() {
       available: formData.available,
       sold: formData.sold,
       offline: formData.offline,
+      sale_price: formData.sale_price ? parseFloat(formData.sale_price) : null,
+      sale_end_date: formData.sale_end_date ? new Date(formData.sale_end_date).toISOString() : null,
+      edition_size: formData.category === 'Prints' && formData.edition_size ? parseInt(formData.edition_size) : null,
+      stock_quantity: formData.category === 'Prints' && formData.stock_quantity !== '' ? parseInt(formData.stock_quantity) : null,
     };
 
     if (editingId) {
@@ -274,6 +300,10 @@ export default function AdminProductsPage() {
       available: product.available !== false,
       sold: product.sold === true,
       offline: product.offline === true,
+      sale_price: product.sale_price != null ? String(product.sale_price) : '',
+      sale_end_date: product.sale_end_date ? toDatetimeLocal(product.sale_end_date) : '',
+      edition_size: product.edition_size != null ? String(product.edition_size) : '',
+      stock_quantity: product.stock_quantity != null ? String(product.stock_quantity) : '',
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -353,6 +383,10 @@ export default function AdminProductsPage() {
       available: true,
       sold: false,
       offline: false,
+      sale_price: '',
+      sale_end_date: '',
+      edition_size: '',
+      stock_quantity: '',
     });
     setSelectedSize('');
     setCustomWidth('');
@@ -651,6 +685,95 @@ export default function AdminProductsPage() {
               </div>
             </div>
 
+            {/* Offer / Countdown */}
+            <div className="border-t border-gray-300 pt-6 mt-2">
+              <h3 className="text-lg font-medium text-gray-900 mb-1">
+                Angebot (optional)
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Setze einen befristeten Angebotspreis mit Countdown. Beide Felder werden zusammen benötigt.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Angebotspreis (€)
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max={MAX_PRICE}
+                    step="1"
+                    value={formData.sale_price}
+                    onChange={(e) => setFormData({ ...formData, sale_price: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder="z.B. 690"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Angebot endet am
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={formData.sale_end_date}
+                    onChange={(e) => setFormData({ ...formData, sale_end_date: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                  />
+                </div>
+              </div>
+              {formData.sale_price && (
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, sale_price: '', sale_end_date: '' })}
+                  className="text-sm text-gray-600 hover:text-gray-900 underline mt-2"
+                >
+                  Angebot entfernen
+                </button>
+              )}
+            </div>
+
+            {/* Stock / Edition (Prints only) */}
+            {formData.category === 'Prints' && (
+              <div className="border-t border-gray-300 pt-6 mt-2">
+                <h3 className="text-lg font-medium text-gray-900 mb-1">
+                  Auflage &amp; Stückzahl (nur Prints)
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Trage die verfügbare Restmenge ein, um "Nur noch X verfügbar" im Shop anzuzeigen. Bei 0 gilt der Print als ausverkauft.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Verfügbare Stückzahl
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={formData.stock_quantity}
+                      onChange={(e) => setFormData({ ...formData, stock_quantity: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                      placeholder="z.B. 12"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Gesamte Auflage (optional)
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      step="1"
+                      value={formData.edition_size}
+                      onChange={(e) => setFormData({ ...formData, edition_size: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                      placeholder="z.B. 50"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Image Upload Section */}
             <div className="border-t border-gray-300 pt-6 mt-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -920,12 +1043,45 @@ export default function AdminProductsPage() {
                         Nicht verfügbar / Not available
                       </div>
                     )}
+                    {getActiveOffer(product) && (
+                      <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-amber-600 text-white text-xs font-medium">
+                        Angebot
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="font-medium text-gray-900 mb-1">{product.name}</h3>
                     <p className="text-sm text-gray-600 mb-1">{product.artist}</p>
                     <p className="text-xs text-gray-500 mb-2">{product.size}</p>
-                    <p className="text-lg font-light text-gray-900 mb-3">€{product.price.toLocaleString()}</p>
+                    {(() => {
+                      const offer = getActiveOffer(product);
+                      const stock = getStockInfo(product);
+                      return (
+                        <>
+                          <p className="text-lg font-light text-gray-900 mb-1">
+                            {offer && (
+                              <span className="text-sm text-gray-400 line-through mr-2">
+                                €{product.price.toLocaleString()}
+                              </span>
+                            )}
+                            €{(offer ? offer.price : product.price).toLocaleString()}
+                          </p>
+                          {offer && (
+                            <p className="text-xs text-amber-700 mb-2">
+                              Angebot bis {offer.endDate.toLocaleString('de-DE')}
+                            </p>
+                          )}
+                          {stock && (
+                            <p className={`text-xs mb-2 ${stock.isOutOfStock ? 'text-red-600' : 'text-gray-600'}`}>
+                              {stock.isOutOfStock
+                                ? 'Ausverkauft'
+                                : `Auf Lager: ${stock.quantity}${stock.editionSize ? ` von ${stock.editionSize}` : ''}`}
+                            </p>
+                          )}
+                          {!offer && !stock && <div className="mb-3" />}
+                        </>
+                      );
+                    })()}
                     <div className="flex gap-2 mb-2">
                       <button
                         onClick={() => handleMove(product, 'up')}

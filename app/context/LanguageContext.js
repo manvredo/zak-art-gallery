@@ -36,9 +36,14 @@ const translations = {
       addToCart: 'Add to Cart',
       notAvailable: 'Not Available',
       sold: 'Sold',
+      soldOut: 'Sold Out',
       all: 'All',
       originals: 'Originals',
-      prints: 'Prints'
+      prints: 'Prints',
+      offer: 'Offer',
+      offerEndsIn: 'Offer ends in',
+      onlyLeft: 'Only {n} left',
+      onlyLeftOfEdition: 'Only {n} of {total} left'
     },
 
     // Cart
@@ -413,9 +418,14 @@ const translations = {
       addToCart: 'In den Warenkorb',
       notAvailable: 'Nicht verfügbar',
       sold: 'Verkauft',
+      soldOut: 'Ausverkauft',
       all: 'Alle',
       originals: 'Originale',
-      prints: 'Prints'
+      prints: 'Prints',
+      offer: 'Angebot',
+      offerEndsIn: 'Angebot endet in',
+      onlyLeft: 'Nur noch {n} verfügbar',
+      onlyLeftOfEdition: 'Nur noch {n} von {total} verfügbar'
     },
 
     // Cart

@@ -5,11 +5,14 @@ import { useState } from 'react';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { useCart } from '@/app/context/CartContext';
 import Link from 'next/link';
+import Countdown from './Countdowns';
+import { getActiveOffer, getEffectivePrice, getStockInfo } from '../lib/offers';
 
 export default function ProductModal({ product, onClose, onAddToCart }) {
   const [justAdded, setJustAdded] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  
+  const [offer, setOffer] = useState(() => getActiveOffer(product));
+
   const { language, t } = useLanguage();
   const { isInCart } = useCart();
 
@@ -18,8 +21,10 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   const alreadyInCart = isInCart(product.id);
   const locale = language === 'de' ? 'de-DE' : 'en-US';
   const pm = t.productModal;
+  const stock = getStockInfo(product);
   const isSold = product.sold === true;
-  const isAvailable = product.available !== false && !isSold;
+  const isOutOfStock = stock?.isOutOfStock === true;
+  const isAvailable = product.available !== false && !isSold && !isOutOfStock;
 
   const techniqueEn = (product.technique || '').replace(/\s*\([^)]*\)\s*$/, '').trim();
   const techniqueCommaIndex = techniqueEn.indexOf(',');
@@ -29,7 +34,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   const handleAddToCart = () => {
     if (alreadyInCart || !isAvailable) return; // Don't add if already in cart or not for sale
 
-    onAddToCart(product);
+    onAddToCart({ ...product, price: getEffectivePrice(product) });
     setJustAdded(true);
     setTimeout(() => {
       onClose();
@@ -103,9 +108,28 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           <div className="space-y-6">
             {/* Premium Price Box */}
             <div>
-              <div className="text-4xl font-light text-gray-900 mb-2">
-                €{product.price.toLocaleString(locale)}
+              {stock && !stock.isOutOfStock && (
+                <p className={`text-sm mb-2 ${stock.quantity <= 3 ? 'text-amber-700 font-medium' : 'text-gray-500'}`}>
+                  {stock.editionSize
+                    ? t.shop.onlyLeftOfEdition.replace('{n}', stock.quantity).replace('{total}', stock.editionSize)
+                    : t.shop.onlyLeft.replace('{n}', stock.quantity)}
+                </p>
+              )}
+
+              <div className="text-4xl font-light text-gray-900 mb-2 flex items-baseline gap-3">
+                {offer && (
+                  <span className="text-xl font-normal text-gray-400 line-through">
+                    €{Number(product.price).toLocaleString(locale)}
+                  </span>
+                )}
+                €{(offer ? offer.price : Number(product.price)).toLocaleString(locale)}
               </div>
+              {offer && (
+                <div className="mb-2">
+                  <span className="text-sm text-amber-700 font-medium block mb-1">{t.shop.offerEndsIn}</span>
+                  <Countdown endDate={offer.endDate} onExpire={() => setOffer(null)} className="text-amber-700" />
+                </div>
+              )}
               <p className="text-sm text-gray-600 mb-4">{pm.inclVAT}</p>
 
               {/* Add to Cart Button - Changes based on cart/availability status */}
@@ -114,7 +138,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                   disabled
                   className="w-full py-4 bg-gray-200 text-gray-500 rounded-full font-medium text-lg cursor-not-allowed"
                 >
-                  {isSold ? pm.sold : pm.notAvailable}
+                  {isSold ? pm.sold : isOutOfStock ? t.shop.soldOut : pm.notAvailable}
                 </button>
               ) : alreadyInCart || justAdded ? (
                 <Link
