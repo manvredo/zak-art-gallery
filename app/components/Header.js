@@ -71,7 +71,7 @@ export default function Header() {
   const isNearTop = scrollY < 50;
   const inHeroZone = scrollY < 1000;
   const shouldBeTransparent = isHomePage && (isNearTop || (inHeroZone && !headerVisible));
-  const headerBg = shouldBeTransparent ? 'transparent' : '#eaecee';
+  const headerBg = shouldBeTransparent ? 'transparent' : '#efeff0';
   const textColor = shouldBeTransparent ? '#ffffff' : '#010101';
   
   return (
@@ -237,7 +237,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className={`lg:hidden border-t ${isHomePage ? 'border-white/20 bg-[#0f0f0f]' : 'border-gray-200 bg-[#eaecee]'}`}>
+        <div className={`lg:hidden border-t ${isHomePage ? 'border-white/20 bg-[#0f0f0f]' : 'border-gray-200 bg-[#efeff0]'}`}>
           <div className="px-4 py-4 space-y-3">
             <Link
               href="/"
