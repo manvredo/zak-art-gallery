@@ -28,7 +28,7 @@ export default function OfferBanner({ entry }) {
   };
 
   return (
-    <div className="border-b border-gray-200 py-12 sm:py-16">
+    <div className="border-b border-gray-300 py-12 sm:py-16">
       <Link
         href={`/shop/${productSlug(product)}`}
         className="block max-w-6xl mx-auto px-12 md:px-24 grid md:grid-cols-2 gap-12 items-center group"

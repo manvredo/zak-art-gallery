@@ -135,7 +135,7 @@ export default function WelcomePage({ featuredProducts, showSlider = true, offer
             <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '25px', lineHeight: 1.6, color: '#56697f', letterSpacing: 0 }}>
               Manfred Zak
             </span>
-            <hr className="border-gray-200 mt-2 mb-2" />
+            <hr className="border-gray-300 mt-2 mb-2" />
             <span className="block" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '18px', lineHeight: '32.48px', color: '#56697f' }}>
               25.03.1979
             </span>
@@ -159,7 +159,7 @@ export default function WelcomePage({ featuredProducts, showSlider = true, offer
       </div>
 
       <div className="max-w-6xl mx-auto px-12 md:px-24">
-        <hr className="border-gray-200" />
+        <hr className="border-gray-300" />
       </div>
 
       {/* Featured Artworks */}
