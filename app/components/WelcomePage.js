@@ -123,21 +123,21 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#3e4a58', letterSpacing: 0 }}>
               ZAK Fine Art
             </h2>
-            <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '25px', lineHeight: 1.6, color: '#585858', letterSpacing: 0 }}>
+            <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '25px', lineHeight: 1.6, color: '#56697f', letterSpacing: 0 }}>
               Manfred Zak
             </span>
             <hr className="border-gray-200 mt-2 mb-2" />
-            <span className="block" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '18px', lineHeight: '32.48px', color: '#585858' }}>
+            <span className="block" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: '18px', lineHeight: '32.48px', color: '#56697f' }}>
               25.03.1979
             </span>
-            <p className="mt-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#585858' }}>
+            <p className="mt-6" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#56697f' }}>
               {t.welcome.intro1}
             </p>
-            <p className="mt-4" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#585858' }}>
+            <p className="mt-4" style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#56697f' }}>
               {t.welcome.intro2}
             </p>
             <div className="mt-8">
-              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#585858', cursor: 'pointer' }} className="hover:underline">
+              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px', fontWeight: 400, color: '#56697f', cursor: 'pointer' }} className="hover:underline">
                 Read more
               </span>
             </div>
