@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { idFromSlug, productSlug } from '@/app/lib/slug';
 import ProductDetailClient from './ProductDetailClient';
+import FadeInImage from '@/app/components/FadeInImage';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -143,7 +144,7 @@ export default async function ProductPage({ params }) {
         {/* Left: Images */}
         <div className="space-y-4">
           <div className="overflow-hidden rounded-[15px] shadow-lg">
-            <img
+            <FadeInImage
               src={product.image}
               alt={`${product.name}${product.technique ? ` – ${product.technique}` : ''} von Manfred Zak`}
               className="w-full"
@@ -163,7 +164,7 @@ export default async function ProductPage({ params }) {
             <div className="space-y-2">
               <p className="text-sm font-medium text-gray-900">Close-up Detail</p>
               <div className="overflow-hidden rounded-lg shadow-lg aspect-[2/1]">
-                <img
+                <FadeInImage
                   src={product.detail_image}
                   alt={`${product.name} – close-up detail von Manfred Zak`}
                   className="w-full h-full object-cover"
