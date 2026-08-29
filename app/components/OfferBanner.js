@@ -28,12 +28,12 @@ export default function OfferBanner({ entry }) {
   };
 
   return (
-    <div className="border-b border-gray-200 py-12 sm:py-16 px-6">
+    <div className="border-b border-gray-200 py-12 sm:py-16">
       <Link
         href={`/shop/${productSlug(product)}`}
-        className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-8 sm:gap-12 group"
+        className="block max-w-6xl mx-auto px-12 md:px-24 grid md:grid-cols-2 gap-12 items-center group"
       >
-        <div className="relative w-full max-w-xs sm:max-w-none sm:w-80 md:w-96 aspect-square flex-shrink-0 overflow-hidden rounded-[15px] group-hover:rounded-[20px] group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-[border-radius] duration-200 ease-in">
+        <div className="relative aspect-square w-full max-w-md mx-auto md:mx-0 overflow-hidden rounded-[15px] group-hover:rounded-[20px] group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-[border-radius] duration-200 ease-in">
           <img
             src={product.thumbnail_image || product.image}
             alt={`${product.name} von Manfred Zak`}
@@ -44,7 +44,7 @@ export default function OfferBanner({ entry }) {
           </div>
         </div>
 
-        <div className="flex-1 text-center sm:text-left">
+        <div className="text-center md:text-left">
           <span className="inline-block px-4 py-1.5 rounded-full bg-amber-600 text-white text-sm sm:text-base font-medium tracking-wide uppercase mb-3">
             {t.shop.offer}
           </span>
@@ -56,7 +56,7 @@ export default function OfferBanner({ entry }) {
             <Countdown endDate={offer.endDate} onExpire={() => setOffer(null)} className="text-amber-700" size="lg" />
           </div>
 
-          <div className="flex items-center justify-center sm:justify-start gap-6">
+          <div className="flex items-center justify-center md:justify-start gap-6">
             <span className="text-[23px] font-light text-gray-900 flex items-baseline gap-2">
               <span className="text-sm font-normal text-gray-400 line-through">
                 €{Number(product.price).toLocaleString('en-US')}
