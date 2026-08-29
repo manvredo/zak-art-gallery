@@ -22,8 +22,8 @@ export default function ArtwingmanPage() {
     <div>
 
       {/* Artwingman Header */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-24">
-        <div className="mb-10 flex items-center gap-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 pt-24">
+        <div className="mb-12 flex items-center gap-4">
           <h1
             className="font-light text-gray-900 whitespace-nowrap tracking-wide"
             style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: 32 }}
