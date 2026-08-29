@@ -142,9 +142,7 @@ export default function AboutPage() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <hr className="border-gray-200" />
-      </div>
+      <hr className="border-gray-300" />
 
       {/* How I Work */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
