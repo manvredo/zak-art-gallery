@@ -61,7 +61,7 @@ export default function NewsletterForm({ onSubscribed }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t.newsletter.emailPlaceholder}
-              className="w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 bg-white"
+              className="w-full pl-9 pr-3 py-2.5 border border-gray-900 rounded-full text-sm focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 bg-[#f6f6f6]"
               disabled={status === 'loading'}
             />
           </div>
@@ -95,7 +95,7 @@ export default function NewsletterForm({ onSubscribed }) {
         <button
           type="submit"
           disabled={status === 'loading' || !consent}
-          className="w-full py-2.5 bg-white border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full py-2.5 bg-[#f6f6f6] border border-gray-900 text-gray-900 hover:bg-gray-100 transition rounded-full cursor-pointer text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {status === 'loading' ? (
             <>
