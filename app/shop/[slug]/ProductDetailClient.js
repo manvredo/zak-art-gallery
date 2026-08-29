@@ -47,9 +47,9 @@ export default function ProductDetailClient({ product }) {
         €{(offer ? offer.price : Number(product.price)).toLocaleString(locale)}
       </div>
       {offer && (
-        <div className="mb-2">
-          <span className="text-sm text-amber-700 font-medium block mb-1">{t.shop.offerEndsIn}</span>
-          <Countdown endDate={offer.endDate} onExpire={() => setOffer(null)} className="text-amber-700" />
+        <div className="mb-3">
+          <span className="text-base text-amber-700 font-medium block mb-1.5">{t.shop.offerEndsIn}</span>
+          <Countdown endDate={offer.endDate} onExpire={() => setOffer(null)} className="text-amber-700" size="lg" />
         </div>
       )}
       <p className="text-sm text-gray-600 mb-4">{pm.inclVAT}</p>
