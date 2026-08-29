@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { productSlug } from '../lib/slug';
@@ -10,8 +11,9 @@ import Countdown from './Countdowns';
 import { getActiveOffer, getEffectivePrice, getStockInfo } from '../lib/offers';
 
 export default function ProductCard({ product, onClick, showAddToCart = false, index = 0, size = 'default' }) {
-  const { addToCart } = useCart();
+  const { addToCart, isInCart } = useCart();
   const { t } = useLanguage();
+  const alreadyInCart = isInCart(product.id);
   const [offer, setOffer] = useState(() => getActiveOffer(product));
   const stock = getStockInfo(product);
   const isSold = product.sold === true;
@@ -139,12 +141,21 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
               €{(offer ? offer.price : Number(product.price)).toLocaleString('en-US')}
             </span>
             {isAvailable ? (
-              <button
-                onClick={handleAddToCart}
-                className={`px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-[#ececec] transition rounded-full cursor-pointer ${size === 'large' ? 'text-base' : 'text-sm'}`}
-              >
-                {t.shop.addToCart}
-              </button>
+              alreadyInCart ? (
+                <span
+                  className={`px-5 py-2 bg-gray-900 border border-gray-900 text-[#ececec] rounded-full flex items-center gap-1.5 ${size === 'large' ? 'text-base' : 'text-sm'}`}
+                >
+                  <Check size={size === 'large' ? 18 : 16} />
+                  {t.productModal.added}
+                </span>
+              ) : (
+                <button
+                  onClick={handleAddToCart}
+                  className={`px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-[#ececec] transition rounded-full cursor-pointer ${size === 'large' ? 'text-base' : 'text-sm'}`}
+                >
+                  {t.shop.addToCart}
+                </button>
+              )
             ) : (
               <button
                 disabled
