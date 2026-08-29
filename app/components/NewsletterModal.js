@@ -57,7 +57,7 @@ export default function NewsletterModal() {
       onClick={handleClose}
     >
       <div
-        className="relative bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl"
+        className="relative bg-[#eee9e7] rounded-2xl max-w-md w-full p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
