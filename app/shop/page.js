@@ -102,10 +102,10 @@ export default function ShopPage() {
           <button
             key={key}
             onClick={() => setSelectedCategory(key)}
-            className={`px-6 py-2 rounded-full transition cursor-pointer font-sans tracking-wide text-sm ${
+            className={`px-6 py-2 rounded-full transition cursor-pointer font-sans tracking-wide text-sm border border-gray-900 text-gray-900 ${
               selectedCategory === key
-                ? 'bg-gray-900 text-white'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                ? 'bg-[#ececec]'
+                : 'bg-transparent hover:bg-[#ececec]'
             }`}
           >
             {label}
