@@ -83,7 +83,6 @@ p, span, a, button, input, textarea {
    ========================================== */
 
 header {
-  background: var(--color-bg-primary);
   border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
 }
@@ -452,7 +451,6 @@ header button:not(.rounded-full):hover::after {
    ========================================== */
 
 footer {
-  background: var(--color-bg-primary);
   border-top: 1px solid var(--color-border);
   padding: 3rem 0 1.5rem;
   margin-top: 4rem;

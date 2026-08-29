@@ -194,6 +194,10 @@ export default function RootLayout({ children }) {
                 </main>
                 <FooterExtension />
                 <Footer />
+                <div
+                  className="flex-1"
+                  style={{ background: 'linear-gradient(to bottom, #efeff0, #eee9e7)' }}
+                />
               </div>
               <CookieBanner />
               <NewsletterModal />
