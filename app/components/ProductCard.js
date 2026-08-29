@@ -126,7 +126,12 @@ export default function ProductCard({ product, onClick, showAddToCart = false, i
 
         {offer && (
           <div className="mb-2">
-            <Countdown endDate={offer.endDate} onExpire={() => setOffer(null)} className="text-amber-700" />
+            <Countdown
+              endDate={offer.endDate}
+              onExpire={() => setOffer(null)}
+              className="text-amber-700"
+              size={size === 'large' ? 'lg' : 'default'}
+            />
           </div>
         )}
 

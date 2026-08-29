@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Clock } from 'lucide-react';
 
-export default function Countdown({ endDate, onExpire, className = 'text-gray-900' }) {
+export default function Countdown({ endDate, onExpire, className = 'text-gray-900', size = 'default' }) {
   const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
@@ -38,10 +38,12 @@ export default function Countdown({ endDate, onExpire, className = 'text-gray-90
     return null;
   }
 
+  const isLarge = size === 'lg';
+
   return (
-    <div className={`flex items-center gap-2 text-sm ${className}`}>
-      <Clock size={16} />
-      <span className="font-medium">
+    <div className={`flex items-center gap-2 sm:gap-3 ${isLarge ? 'text-xl sm:text-3xl' : 'text-sm'} ${className}`}>
+      <Clock size={isLarge ? 24 : 16} className={isLarge ? 'w-6 h-6 sm:w-8 sm:h-8' : ''} />
+      <span className="font-medium tabular-nums">
         {timeLeft.days > 0 && `${timeLeft.days}d `}
         {String(timeLeft.hours).padStart(2, '0')}:
         {String(timeLeft.minutes).padStart(2, '0')}:
