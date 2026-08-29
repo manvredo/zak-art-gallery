@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import FooterExtension from './components/FooterExtension';
 import CookieBanner from './components/CookieBanner';
 import NewsletterModal from './components/NewsletterModal';
+import ScrollToTopButton from './components/ScrollToTopButton';
 import "./globals.css";
 import "./styles/art-gallery.css";
 
@@ -196,6 +197,7 @@ export default function RootLayout({ children }) {
               </div>
               <CookieBanner />
               <NewsletterModal />
+              <ScrollToTopButton />
             </CartProvider>
           </LanguageProvider>
         </AuthProvider>
