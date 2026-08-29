@@ -10,7 +10,7 @@ const Footer = () => {
   const { t, language } = useLanguage();
   
   return (
-    <footer className="bg-[#f5eeec] border-t border-gray-200 mt-16">
+    <footer className="bg-[#f8f2f0] border-t border-gray-200 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Social Links */}
         <div className="flex items-center justify-center md:justify-end gap-3 mb-10">
