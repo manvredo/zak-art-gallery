@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 const artwingmanIntro = {
@@ -17,6 +18,16 @@ const artwingmanIntro = {
 export default function ArtwingmanPage() {
   const { language } = useLanguage();
   const paragraphs = language === 'de' ? artwingmanIntro.de : artwingmanIntro.en;
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const imageRef = useRef(null);
+
+  // Fade the image in once it has actually finished loading (or is already
+  // cached), so a cold load doesn't just pop the image in unfaded.
+  useEffect(() => {
+    if (imageRef.current?.complete) {
+      setImageLoaded(true);
+    }
+  }, []);
 
   return (
     <div>
@@ -39,11 +50,15 @@ export default function ArtwingmanPage() {
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-6 md:gap-[calc(1.5rem+1cm)]">
           <div className="rounded-[15px] overflow-hidden bg-gray-100 md:relative md:min-h-0">
             <img
+              ref={imageRef}
               src="/artwingman/Artwingman-1920_01.jpg"
               srcSet="/artwingman/Artwingman-1920_01.jpg 1920w, /artwingman/Artwingman-3840_01.jpg 3840w"
               sizes="(max-width: 768px) 100vw, 55vw"
               alt="Artwingman"
-              className="w-full md:absolute md:inset-0 md:h-full md:object-cover md:w-full"
+              onLoad={() => setImageLoaded(true)}
+              className={`w-full md:absolute md:inset-0 md:h-full md:object-cover md:w-full transition-opacity duration-700 ease-in-out ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
             />
           </div>
           <div className="space-y-6 text-gray-700 font-light leading-relaxed">
