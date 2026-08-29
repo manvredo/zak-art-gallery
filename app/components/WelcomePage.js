@@ -14,7 +14,7 @@ const heroImages = [
   { desktop: '/images/hero-1920_06.jpg', full: '/images/hero-3840_06.jpg' },
 ];
 
-export default function WelcomePage({ featuredProducts, onProductClick, showSlider = true, offerEntry = null }) {
+export default function WelcomePage({ featuredProducts, showSlider = true, offerEntry = null }) {
   const { t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
   const [currentHero, setCurrentHero] = useState(0);
@@ -168,7 +168,6 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
             <ProductCard
               key={product.id}
               product={product}
-              onClick={() => onProductClick(product)}
               showAddToCart={true}
               index={index}
             />

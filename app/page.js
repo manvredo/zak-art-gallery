@@ -2,8 +2,6 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import WelcomePage from '@/app/components/WelcomePage';
-import ProductModal from '@/app/components/ProductModal';
-import { X } from 'lucide-react';
 import { getActiveOffer } from '@/app/lib/offers';
 
 const supabase = createClient(
@@ -14,8 +12,6 @@ const supabase = createClient(
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -56,42 +52,9 @@ export default function Home() {
   }
 
   return (
-    <>
-      {/* WelcomePage mit Hero */}
-      <WelcomePage
-        featuredProducts={featuredProducts}
-        onProductClick={setSelectedProduct}
-        offerEntry={soonestOffer}
-      />
-
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-          showAddToCart={false}
-          onImageClick={setLightboxImage}
-        />
-      )}
-
-      {lightboxImage && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
-          onClick={() => setLightboxImage(null)}
-        >
-          <button
-            onClick={() => setLightboxImage(null)}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
-          >
-            <X size={40} />
-          </button>
-          <img
-            src={lightboxImage}
-            alt={selectedProduct?.name ? `${selectedProduct.name} von Manfred Zak – Vollansicht` : 'Kunstwerk von Manfred Zak – Vollansicht'}
-            className="max-w-full max-h-full object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
-    </>
+    <WelcomePage
+      featuredProducts={featuredProducts}
+      offerEntry={soonestOffer}
+    />
   );
 }

@@ -3,10 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import ProductCard from '@/app/components/ProductCard';
-import ProductModal from '@/app/components/ProductModal';
 import { useLanguage } from '@/app/context/LanguageContext';
-import { useCart } from '@/app/context/CartContext';
-import { X } from 'lucide-react';
 import { getActiveOffer } from '@/app/lib/offers';
 
 const supabase = createClient(
@@ -16,38 +13,13 @@ const supabase = createClient(
 
 export default function ShopPage() {
   const { t } = useLanguage();
-  const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  useEffect(() => {
-    const handlePopState = () => {
-      setSelectedProduct(null);
-      setLightboxImage(null);
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
-  const openProduct = (product) => {
-    window.history.pushState({ modal: 'product' }, '');
-    setSelectedProduct(product);
-  };
-
-  const closeProduct = () => {
-    if (window.history.state?.modal === 'product') {
-      window.history.back();
-    } else {
-      setSelectedProduct(null);
-    }
-  };
 
   const fetchProducts = async () => {
     const { data, error } = await supabase
@@ -92,7 +64,7 @@ export default function ShopPage() {
 
   return (
     <div className="max-w-[1564px] mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      
+
       {/* Header */}
       <div className="mb-12 flex items-center gap-4">
         <h2 className="font-light text-gray-900 whitespace-nowrap tracking-wide" style={{ fontSize: 32 }}>
@@ -124,43 +96,12 @@ export default function ShopPage() {
           <ProductCard
             key={product.id}
             product={product}
-            onClick={() => openProduct(product)}
             showAddToCart={true}
             index={index}
             size="large"
           />
         ))}
       </div>
-
-      {/* Product Modal */}
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={closeProduct}
-          onAddToCart={addToCart}
-        />
-      )}
-
-      {/* Lightbox */}
-      {lightboxImage && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
-          onClick={() => setLightboxImage(null)}
-        >
-          <button 
-            onClick={() => setLightboxImage(null)}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
-          >
-            <X size={40} />
-          </button>
-          <img
-            src={lightboxImage}
-            alt={selectedProduct?.name ? `${selectedProduct.name} von Manfred Zak – Vollansicht` : 'Kunstwerk von Manfred Zak – Vollansicht'}
-            className="max-w-full max-h-full object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
     </div>
   );
 }
