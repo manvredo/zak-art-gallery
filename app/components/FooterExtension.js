@@ -24,7 +24,7 @@ const FooterExtension = () => {
   };
 
   return (
-    <div className="footer-extension bg-[#efeff0] border-t border-gray-200 shadow-[0_-1px_3px_rgba(0,0,0,0.04)]">
+    <div className="footer-extension bg-[#efeff0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
 
