@@ -122,7 +122,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
       </div>
 
       {/* Offer Banner - shows the soonest-ending active offer, if any */}
-      <OfferBanner entry={offerEntry} onProductClick={onProductClick} />
+      <OfferBanner entry={offerEntry} />
 
       {/* Intro Section */}
       <div className="max-w-6xl mx-auto px-12 md:px-24 py-32">
