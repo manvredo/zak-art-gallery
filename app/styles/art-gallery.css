@@ -27,7 +27,7 @@
    ========================================== */
 
 body {
-  background-color: var(--background, #f8f2f0);
+  background-color: var(--background, #f5eeec);
   color: var(--color-text-primary);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   line-height: 1.6;

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f2f0;
+  --background: #f5eeec;
   --foreground: #56697f;
   --font-inter: 'Inter', system-ui, sans-serif;
   --font-vollkorn: 'Vollkorn', serif;
