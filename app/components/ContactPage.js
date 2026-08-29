@@ -71,12 +71,12 @@ export default function ContactPage({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {t.contact.name}
               </label>
-              <input 
+              <input
                 type="text"
                 value={contactForm.name}
                 onChange={(e) => onFormChange({...contactForm, name: e.target.value})}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                className="w-full px-4 py-2.5 border border-gray-900 rounded-full bg-[#f6f6f6] text-gray-900 focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                 placeholder={t.contact.yourName}
               />
             </div>
@@ -84,12 +84,12 @@ export default function ContactPage({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {t.contact.email}
               </label>
-              <input 
+              <input
                 type="email"
                 value={contactForm.email}
                 onChange={(e) => onFormChange({...contactForm, email: e.target.value})}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                className="w-full px-4 py-2.5 border border-gray-900 rounded-full bg-[#f6f6f6] text-gray-900 focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                 placeholder={t.contact.yourEmail}
               />
             </div>
@@ -97,19 +97,19 @@ export default function ContactPage({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {t.contact.message}
               </label>
-              <textarea 
+              <textarea
                 rows="5"
                 value={contactForm.message}
                 onChange={(e) => onFormChange({...contactForm, message: e.target.value})}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                className="w-full px-4 py-2.5 border border-gray-900 rounded-2xl bg-[#f6f6f6] text-gray-900 focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                 placeholder={t.contact.yourMessage}
               ></textarea>
             </div>
-            <button 
+            <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gray-900 text-white hover:bg-gray-800 transition rounded-full cursor-pointer disabled:opacity-50"
+              className="w-full py-3 bg-[#f6f6f6] border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-[#ececec] transition rounded-full cursor-pointer disabled:opacity-50"
             >
               {loading ? t.contact.sending : t.contact.sendMessage}
             </button>
