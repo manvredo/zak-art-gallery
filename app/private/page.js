@@ -98,7 +98,7 @@ export default function PrivatePage() {
   // NICHT AUTHENTIFIZIERT - Zeige Passwort-Eingabe (OHNE Hero)
   if (!isAuthenticated && !loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-16">
+      <div className="min-h-screen flex items-center justify-center py-16">
         <div className="max-w-md w-full px-4">
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -167,7 +167,7 @@ export default function PrivatePage() {
   // AUTHENTIFIZIERT - Zeige Inhalte (OHNE Hero Header)
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900 mx-auto"></div>
           <p className="mt-4 text-gray-600">{language === 'de' ? 'Lädt...' : 'Loading...'}</p>
@@ -177,7 +177,7 @@ export default function PrivatePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Main Content - OHNE Hero Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         

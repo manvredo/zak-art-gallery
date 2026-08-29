@@ -30,7 +30,7 @@ export default function VerifyEmailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Main Content */}
       <div className="flex items-center justify-center px-4 py-12">
         <div className="max-w-md w-full">

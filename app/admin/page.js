@@ -63,7 +63,7 @@ export default function AdminPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     );
@@ -72,7 +72,7 @@ export default function AdminPage() {
   // ——— Logged In: Dashboard ———
   if (user) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen">
         <div className="max-w-4xl mx-auto px-4 py-12">
           {/* Header */}
           <div className="flex items-center justify-between mb-12">
@@ -119,7 +119,7 @@ export default function AdminPage() {
 
   // ——— Not Logged In: Login ———
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-light text-gray-900 mb-2">ZAK Admin</h1>
