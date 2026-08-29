@@ -120,7 +120,7 @@ export default function WelcomePage({ featuredProducts, onProductClick, showSlid
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left: Text */}
           <div style={{ maxWidth: 400 }}>
-            <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#171717', letterSpacing: 0 }}>
+            <h2 style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '60.9px', lineHeight: 1.6, color: '#3e4a58', letterSpacing: 0 }}>
               ZAK Fine Art
             </h2>
             <span style={{ fontFamily: "'Vollkorn', Georgia, serif", fontWeight: 400, fontSize: '25px', lineHeight: 1.6, color: '#585858', letterSpacing: 0 }}>
