@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { idFromSlug, productSlug } from '@/app/lib/slug';
 import ProductDetailClient from './ProductDetailClient';
 import FadeInImage from '@/app/components/FadeInImage';
+import ZoomableImage from '@/app/components/ZoomableImage';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -143,13 +144,12 @@ export default async function ProductPage({ params }) {
       <div className="grid md:grid-cols-2 gap-8">
         {/* Left: Images */}
         <div className="space-y-4">
-          <div className="overflow-hidden rounded-[15px] shadow-lg">
-            <FadeInImage
-              src={product.image}
-              alt={`${product.name}${product.technique ? ` – ${product.technique}` : ''} von Manfred Zak`}
-              className="w-full"
-            />
-          </div>
+          <ZoomableImage
+            src={product.image}
+            alt={`${product.name}${product.technique ? ` – ${product.technique}` : ''} von Manfred Zak`}
+            wrapperClassName="overflow-hidden rounded-[15px] hover:rounded-[20px] transition-[border-radius] duration-200 ease-in shadow-lg"
+            className="w-full"
+          />
 
           {product.description && (
             <p
