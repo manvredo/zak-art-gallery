@@ -149,17 +149,6 @@ export default function Header() {
               </Link>
 
               <Link
-                href="/archive"
-                className="relative group transition cursor-pointer uppercase"
-                style={{ color: textColor }}
-              >
-                <span className="relative inline-block">
-                  {t.nav.archive}
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
-                </span>
-              </Link>
-
-              <Link
                 href="/contact"
                 className="relative group transition cursor-pointer uppercase"
                 style={{ color: textColor }}
@@ -177,6 +166,17 @@ export default function Header() {
               >
                 <span className="relative inline-block">
                   Artwingman
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
+              </Link>
+
+              <Link
+                href="/archive"
+                className="relative group transition cursor-pointer uppercase"
+                style={{ color: textColor }}
+              >
+                <span className="relative inline-block">
+                  {t.nav.archive}
                   <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </Link>
@@ -310,15 +310,6 @@ export default function Header() {
             </Link>
 
             <Link
-              href="/archive"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left cursor-pointer uppercase"
-              style={{ color: textColor }}
-            >
-              {t.nav.archive}
-            </Link>
-
-            <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-left cursor-pointer uppercase"
@@ -334,6 +325,15 @@ export default function Header() {
               style={{ color: textColor }}
             >
               Artwingman
+            </Link>
+
+            <Link
+              href="/archive"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left cursor-pointer uppercase"
+              style={{ color: textColor }}
+            >
+              {t.nav.archive}
             </Link>
 
             <div className="border-t border-gray-200 pt-3 mt-3">
