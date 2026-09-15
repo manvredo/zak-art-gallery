@@ -1,8 +1,15 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { createClient } from '@supabase/supabase-js';
 import { createNewsletterToken } from '../_lib/token';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+const RATE_LIMIT_MS = 5 * 60 * 1000; // 5 minutes between confirmation emails per address
 
 const confirmEmailContent = {
   de: (confirmUrl) => ({
@@ -96,6 +103,21 @@ export async function POST(request) {
     }
 
     const normalizedEmail = email.trim().toLowerCase();
+
+    const { data: rateLimitRow } = await supabase
+      .from('newsletter_rate_limit')
+      .select('last_sent_at')
+      .eq('email', normalizedEmail)
+      .maybeSingle();
+
+    if (rateLimitRow && Date.now() - new Date(rateLimitRow.last_sent_at).getTime() < RATE_LIMIT_MS) {
+      return NextResponse.json({ error: 'Please wait a few minutes before requesting another confirmation email.' }, { status: 429 });
+    }
+
+    await supabase
+      .from('newsletter_rate_limit')
+      .upsert({ email: normalizedEmail, last_sent_at: new Date().toISOString() });
+
     const token = createNewsletterToken(normalizedEmail, lang);
     const confirmUrl = `${new URL(request.url).origin}/api/newsletter/confirm?token=${encodeURIComponent(token)}`;
 

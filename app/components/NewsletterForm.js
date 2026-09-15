@@ -33,6 +33,9 @@ export default function NewsletterForm({ onSubscribed }) {
         setEmail('');
         setConsent(false);
         onSubscribed?.();
+      } else if (res.status === 429) {
+        setStatus('error');
+        setMessage(t.newsletter.rateLimited);
       } else {
         setStatus('error');
         setMessage(t.newsletter.error);
