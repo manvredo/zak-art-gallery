@@ -10,6 +10,7 @@ const translations = {
     nav: {
       welcome: 'Welcome',
       about: 'About',
+      archive: 'Archive',
       shop: 'Shop',
       contact: 'Contact',
       login: 'Login',
@@ -392,6 +393,7 @@ const translations = {
     nav: {
       welcome: 'Willkommen',
       about: 'Über mich',
+      archive: 'Archiv',
       shop: 'Shop',
       contact: 'Kontakt',
       login: 'Anmelden',
