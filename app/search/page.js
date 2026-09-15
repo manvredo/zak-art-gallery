@@ -110,7 +110,7 @@ function SearchContent() {
         press.forEach(item => {
           const matches = [];
           const lowerQuery = searchTerm.toLowerCase();
-          
+
           if (item.title && item.title.toLowerCase().includes(lowerQuery)) {
             matches.push('Titel');
           }
@@ -127,6 +127,39 @@ function SearchContent() {
               description: item.content?.substring(0, 150) + '...',
               link: `/press`,
               matches: matches
+            });
+          }
+        });
+      }
+
+      // Suche im Archiv
+      const { data: archive, error: archiveError } = await supabase
+        .from('content')
+        .select('*')
+        .eq('category', 'archive');
+
+      if (archive && !archiveError) {
+        archive.forEach(item => {
+          const matches = [];
+          const lowerQuery = searchTerm.toLowerCase();
+
+          if (item.title && item.title.toLowerCase().includes(lowerQuery)) {
+            matches.push('Titel');
+          }
+          if (item.excerpt && item.excerpt.toLowerCase().includes(lowerQuery)) {
+            matches.push('Beschreibung');
+          }
+
+          if (matches.length > 0) {
+            foundResults.push({
+              type: 'archive',
+              id: item.id,
+              title: item.title,
+              subtitle: 'Archiv',
+              description: item.excerpt,
+              link: `/archive/${item.slug}`,
+              matches: matches,
+              image: item.featured_image
             });
           }
         });

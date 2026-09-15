@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { ShoppingCart, Menu, X, Search } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { useCart } from '@/app/context/CartContext';
 import { useLanguage } from '@/app/context/LanguageContext';
@@ -22,7 +22,25 @@ export default function Header() {
   const { cartItemCount } = useCart();
   const { language, toggleLanguage, t } = useLanguage();
   const pathname = usePathname();
+  const router = useRouter();
   const isHomePage = pathname === '/';
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef(null);
+
+  const submitSearch = (e) => {
+    e.preventDefault();
+    const query = searchQuery.trim();
+    if (!query) return;
+    router.push(`/search?q=${encodeURIComponent(query)}`);
+    setSearchOpen(false);
+  };
+
+  useEffect(() => {
+    if (searchOpen) {
+      searchInputRef.current?.focus();
+    }
+  }, [searchOpen]);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -226,7 +244,34 @@ export default function Header() {
                 </Link>
               </div>
             )}
-            
+
+            {/* Search */}
+            <div className="flex items-center">
+              {searchOpen && (
+                <form onSubmit={submitSearch} className="mr-2">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onBlur={() => { if (!searchQuery) setSearchOpen(false); }}
+                    placeholder={language === 'de' ? 'Suchen…' : 'Search…'}
+                    className="w-32 sm:w-48 px-3 py-1.5 text-sm rounded-full border bg-white/90 text-gray-900 outline-none"
+                    style={{ borderColor: textColor === '#ffffff' ? 'rgba(255,255,255,0.4)' : undefined }}
+                  />
+                </form>
+              )}
+              <button
+                type="button"
+                onClick={() => setSearchOpen((v) => !v)}
+                className="cursor-pointer"
+                style={{ color: textColor }}
+                aria-label={language === 'de' ? 'Suche' : 'Search'}
+              >
+                <Search size={20} />
+              </button>
+            </div>
+
             <Link
               href="/cart"
               className="relative group cursor-pointer"
