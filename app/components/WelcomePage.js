@@ -151,9 +151,13 @@ export default function WelcomePage({ featuredProducts, showSlider = true, offer
               </span>
             </div>
           </div>
-          {/* Right: Placeholder Image */}
-          <div className="rounded-sm overflow-hidden bg-gray-100 aspect-[3/4] flex items-center justify-center text-gray-400 text-sm">
-            Image placeholder
+          {/* Right: Studio Image */}
+          <div className="rounded-2xl overflow-hidden bg-gray-100 aspect-[3/4]">
+            <img
+              src="/images/welcome-workplace_01.jpg"
+              alt="Manfred Zak's studio courtyard"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>
