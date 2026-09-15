@@ -24,7 +24,6 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const isHomePage = pathname === '/';
-  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef(null);
 
@@ -33,14 +32,7 @@ export default function Header() {
     const query = searchQuery.trim();
     if (!query) return;
     router.push(`/search?q=${encodeURIComponent(query)}`);
-    setSearchOpen(false);
   };
-
-  useEffect(() => {
-    if (searchOpen) {
-      searchInputRef.current?.focus();
-    }
-  }, [searchOpen]);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -263,23 +255,20 @@ export default function Header() {
 
             {/* Search */}
             <div className="flex items-center" style={{ marginLeft: '2cm' }}>
-              {searchOpen && (
-                <form onSubmit={submitSearch} className="mr-2">
+              <form onSubmit={submitSearch} className="mr-2">
                   <input
                     ref={searchInputRef}
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    onBlur={() => { if (!searchQuery) setSearchOpen(false); }}
                     placeholder={language === 'de' ? 'Suchen…' : 'Search…'}
                     className="w-32 sm:w-48 px-3 py-1.5 text-sm rounded-full border bg-white/90 text-gray-900 outline-none"
                     style={{ borderColor: textColor === '#ffffff' ? 'rgba(255,255,255,0.4)' : undefined }}
                   />
-                </form>
-              )}
+              </form>
               <button
                 type="button"
-                onClick={() => setSearchOpen((v) => !v)}
+                onClick={submitSearch}
                 className="cursor-pointer"
                 style={{ color: textColor }}
                 aria-label={language === 'de' ? 'Suche' : 'Search'}
