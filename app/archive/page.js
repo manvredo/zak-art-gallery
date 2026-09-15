@@ -66,7 +66,7 @@ export default function ArchivePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         <div className="mb-8 flex items-center gap-4">
           <h1 className="font-light text-gray-900 whitespace-nowrap tracking-wide" style={{ fontSize: 32 }}>
-            Moving Images
+            40 Moving Images
           </h1>
           <div className="flex-1 h-px bg-gray-300"></div>
         </div>
