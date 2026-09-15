@@ -347,6 +347,10 @@ const translations = {
       confirmedInvalidMessage: 'This confirmation link is invalid or has expired. Please sign up again.',
       confirmedErrorTitle: 'Something went wrong',
       confirmedErrorMessage: 'We could not confirm your subscription. Please try again later.',
+      unsubscribedTitle: "You've been unsubscribed",
+      unsubscribedMessage: "You won't receive the ZAK Fine Art newsletter anymore. You're welcome to sign up again anytime.",
+      unsubscribedInvalidTitle: 'Link invalid',
+      unsubscribedInvalidMessage: 'This unsubscribe link is invalid. Please contact us if you still want to be removed from the list.',
       frequencyAndRetention: 'Sent approx. 1–2 times a month. Your data is stored until you unsubscribe.'
     },
     
@@ -730,6 +734,10 @@ const translations = {
       confirmedInvalidMessage: 'Dieser Bestätigungslink ist ungültig oder abgelaufen. Bitte melden Sie sich erneut an.',
       confirmedErrorTitle: 'Etwas ist schiefgelaufen',
       confirmedErrorMessage: 'Ihre Anmeldung konnte nicht bestätigt werden. Bitte versuchen Sie es später erneut.',
+      unsubscribedTitle: 'Sie wurden abgemeldet',
+      unsubscribedMessage: 'Sie erhalten den ZAK Fine Art Newsletter nicht mehr. Sie können sich jederzeit wieder anmelden.',
+      unsubscribedInvalidTitle: 'Link ungültig',
+      unsubscribedInvalidMessage: 'Dieser Abmeldelink ist ungültig. Bitte kontaktieren Sie uns, falls Sie weiterhin von der Liste entfernt werden möchten.',
       frequencyAndRetention: 'Versand ca. 1–2x im Monat. Ihre Daten werden gespeichert, bis Sie sich abmelden.'
     },
     

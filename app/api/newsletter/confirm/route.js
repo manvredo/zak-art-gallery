@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { verifyNewsletterToken } from '../_lib/token';
+import { createNewsletterToken, verifyNewsletterToken } from '../_lib/token';
 import { getOrCreateAudienceId } from '../_lib/audience';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const welcomeEmailContent = {
-  de: () => ({
+  de: (unsubscribeUrl) => ({
     subject: 'Willkommen beim ZAK Fine Art Newsletter',
     text: `Willkommen beim ZAK Fine Art Newsletter
 
@@ -15,7 +15,7 @@ Ihre Anmeldung ist bestätigt! Sie gehören nun zu den Ersten, die Neuigkeiten e
 - Neue Kollektionen & Gemälde — Erster Zugang zu neuen Kunstwerken, Limited Editions und exklusiven Vorschauen.
 - ArtWingman & KI-Einblicke — Hinter den Kulissen von KI-gestützten Kunstwerkzeugen und kreativer Technologie.
 
-Kein Spam. Jederzeit kündbar.
+Kein Spam. Jederzeit kündbar: ${unsubscribeUrl}
 
 Herzliche Grüße,
 Manfred Zak
@@ -35,7 +35,7 @@ info@manfredzak.com`,
           <p style="margin: 0;"><strong>ArtWingman &amp; KI-Einblicke</strong><br>
           <span style="color: #555;">Hinter den Kulissen von KI-gestützten Kunstwerkzeugen und kreativer Technologie.</span></p>
         </div>
-        <p style="color: #666; font-size: 13px;">Kein Spam. Jederzeit kündbar.</p>
+        <p style="color: #666; font-size: 13px;">Kein Spam. <a href="${unsubscribeUrl}" style="color: #666;">Jederzeit abbestellen</a>.</p>
         <p>Herzliche Grüße,<br>Manfred Zak</p>
         <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
         <p style="color: #666; font-size: 12px;">
@@ -47,7 +47,7 @@ info@manfredzak.com`,
       </div>
     `
   }),
-  en: () => ({
+  en: (unsubscribeUrl) => ({
     subject: 'Welcome to the ZAK Fine Art Newsletter',
     text: `Welcome to the ZAK Fine Art Newsletter
 
@@ -56,7 +56,7 @@ Your subscription is confirmed! You'll now be among the first to hear about:
 - New Collections & Paintings — first access to new artworks, limited editions, and exclusive previews.
 - ArtWingman & AI Insights — behind the scenes of AI-powered art tools and creative tech.
 
-No spam, unsubscribe anytime.
+No spam, unsubscribe anytime: ${unsubscribeUrl}
 
 Best regards,
 Manfred Zak
@@ -76,7 +76,7 @@ info@manfredzak.com`,
           <p style="margin: 0;"><strong>ArtWingman &amp; AI Insights</strong><br>
           <span style="color: #555;">Behind the scenes of AI-powered art tools and creative tech.</span></p>
         </div>
-        <p style="color: #666; font-size: 13px;">No spam. Unsubscribe anytime.</p>
+        <p style="color: #666; font-size: 13px;">No spam. <a href="${unsubscribeUrl}" style="color: #666;">Unsubscribe anytime</a>.</p>
         <p>Best regards,<br>Manfred Zak</p>
         <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
         <p style="color: #666; font-size: 12px;">
@@ -121,7 +121,9 @@ export async function GET(request) {
     }
 
     try {
-      const { subject, text, html } = welcomeEmailContent[lang]();
+      const unsubscribeToken = createNewsletterToken(email, lang, 'unsubscribe');
+      const unsubscribeUrl = `${origin}/api/newsletter/unsubscribe?token=${encodeURIComponent(unsubscribeToken)}`;
+      const { subject, text, html } = welcomeEmailContent[lang](unsubscribeUrl);
       await resend.emails.send({
         from: 'ZAK Fine Art <info@manfredzak.com>',
         to: [email],
