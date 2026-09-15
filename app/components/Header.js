@@ -245,8 +245,24 @@ export default function Header() {
               </div>
             )}
 
+            <Link
+              href="/cart"
+              className="relative group cursor-pointer"
+              style={{ color: textColor }}
+            >
+              <span className="relative inline-block">
+                <ShoppingCart size={20} />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+              </span>
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#0f0f0f] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Link>
+
             {/* Search */}
-            <div className="flex items-center">
+            <div className="flex items-center" style={{ marginLeft: '2cm' }}>
               {searchOpen && (
                 <form onSubmit={submitSearch} className="mr-2">
                   <input
@@ -271,22 +287,6 @@ export default function Header() {
                 <Search size={20} />
               </button>
             </div>
-
-            <Link
-              href="/cart"
-              className="relative group cursor-pointer"
-              style={{ color: textColor }}
-            >
-              <span className="relative inline-block">
-                <ShoppingCart size={20} />
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
-              </span>
-              {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#0f0f0f] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItemCount}
-                </span>
-              )}
-            </Link>
           </div>
         </div>
       </div>
