@@ -78,8 +78,24 @@ export default function ArchivePage() {
 
   return (
     <div className="min-h-screen">
+      {/* Intro */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+        <div className="mb-8 flex items-center gap-4">
+          <h1 className="font-light text-gray-900 whitespace-nowrap tracking-wide" style={{ fontSize: 32 }}>
+            Moving Images
+          </h1>
+          <div className="flex-1 h-px bg-gray-300"></div>
+        </div>
+        <p
+          className="max-w-3xl text-gray-700 leading-relaxed mb-12"
+          style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '18px', lineHeight: '32.48px' }}
+        >
+          Before returning to the physical canvas, I spent two decades exploring the boundaries of digital space. This archive holds a selection of past semi-abstract 3D animations and hybrid art films—constructed as fluid studies of light, form, and atmosphere. Today, this closed chapter of algorithmic and digital exploration serves as the invisible backbone and conceptual foundation for my analog painting practice.
+        </p>
+      </div>
+
       {/* Main Content - OHNE Hero Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="grid lg:grid-cols-4 gap-8">
           
           {/* Sidebar */}

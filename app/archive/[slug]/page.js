@@ -127,7 +127,6 @@ export default function ArchiveDetailPage() {
           </Link>
 
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-4xl">📦</span>
             <span className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
               {language === 'de' ? 'Archiv' : 'Archive'}
             </span>
