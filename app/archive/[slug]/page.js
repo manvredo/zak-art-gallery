@@ -139,7 +139,7 @@ export default function ArchiveDetailPage() {
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
           <div className="p-8 md:p-12">
             <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200">
-              <div className="flex items-center gap-2 text-gray-500">
+              <div className="flex items-center gap-2 text-gray-500 text-sm">
                 <Calendar size={18} />
                 <time>{formatDate(article.created_at)}</time>
               </div>
@@ -154,12 +154,15 @@ export default function ArchiveDetailPage() {
               </button>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h1 className="text-2xl font-light text-gray-900 mb-6">
               {article.title}
             </h1>
 
             {article.excerpt && (
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              <p
+                className="text-gray-700 mb-8 leading-relaxed"
+                style={{ fontFamily: "'Vollkorn', Georgia, serif", fontSize: '25px' }}
+              >
                 {article.excerpt}
               </p>
             )}
