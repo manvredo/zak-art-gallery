@@ -27,6 +27,94 @@ const about = {
   ],
 };
 
+const vita = {
+  title: { de: 'VITA / CV', en: 'VITA / CV' },
+  entries: {
+    de: [
+      {
+        period: 'Seit 2023',
+        role: 'Bildender Künstler (Analoger Fokus) | ZAK Fine Art, Berlin & Brandenburg',
+        bullets: [
+          'Umfassende Rückkehr zur traditionellen physischen Malerei als Antwort auf generative KI.',
+          'Erschaffer und Entwickler von ArtWingman v1.0 (Munsell-Farbmetrik- und Palettenmisch-Software für traditionelle Maler).',
+        ],
+      },
+      {
+        period: '2021 – 2023',
+        role: 'Web3-Künstler & Smart-Contract-Entwickler | Unabhängiges Studio',
+        bullets: [
+          'Technische und künstlerische Konzeption einer algorithmischen Kunstkollektion mit 10.000 Werken unter Verwendung von Houdini und Maya.',
+          'Entwicklung und Deployment nativer Ethereum-Smart-Contracts.',
+        ],
+      },
+      {
+        period: '2005 – 2021',
+        role: 'Senior 3D-Künstler, Visualisierer & Mixed-Media-Künstler | Zusammenarbeit unter NDA',
+        bullets: [
+          '2005–2012: Schnittstelle von analoger Malerei, Fotografie und digitaler Filmanimation (Scannen & Postproduktion).',
+          '2012–2021: High-End-CGI, prozedurales Shading und komplexe visuelle Pipelines für internationale Konzerne.',
+        ],
+      },
+      {
+        period: '2004 – 2007',
+        role: 'Studium: Audiovisuelle Medien & 3D-Visualisierung | Hochschule der Medien Stuttgart (HdM)',
+        bullets: [
+          'Praxisorientiertes technisches Studium mit Schwerpunkt auf digitalen Kunstsystemen, visuellen Medien und dreidimensionalen Formen.',
+        ],
+      },
+      {
+        period: 'Frühe Prägejahre',
+        role: 'Künstlerische Grundlagen & autodidaktische Praxis',
+        bullets: [
+          'Lebenslange Praxis in Malerei und Fotografie (erste Kamera im Alter von 14 Jahren).',
+          'Frühe Mentorschaft und tiefgehende künstlerische Anleitung in klassischer Malerei.',
+        ],
+      },
+    ],
+    en: [
+      {
+        period: 'Since 2023',
+        role: 'Fine Artist (Analog Focus) | ZAK Fine Art, Berlin & Brandenburg',
+        bullets: [
+          'Comprehensive return to traditional physical painting in response to generative AI.',
+          'Creator and developer of ArtWingman v1.0 (Munsell color metrics & palette mixing software for traditional painters).',
+        ],
+      },
+      {
+        period: '2021 – 2023',
+        role: 'Web3 Artist & Smart Contract Engineer | Independent Studio',
+        bullets: [
+          'Technical and artistic conceptualization of a 10,000-piece algorithmic fine-art collection using Houdini and Maya.',
+          'Engineering and deployment of native Ethereum smart contracts.',
+        ],
+      },
+      {
+        period: '2005 – 2021',
+        role: 'Senior 3D Artist, Visualizer & Mixed-Media Artist | Collaborations under NDA',
+        bullets: [
+          '2005–2012: Intersection of analogue painting, photography, and digital film animation (scanning & post-processing).',
+          '2012–2021: High-end CGI, procedural shading, and complex visual pipelines for international corporations.',
+        ],
+      },
+      {
+        period: '2004 – 2007',
+        role: 'Studies: Audiovisual Media & 3D Visualization | Stuttgart Media University (HdM)',
+        bullets: [
+          'Practice-driven tech studies focused on digital art systems, visual media, and three-dimensional forms.',
+        ],
+      },
+      {
+        period: 'Early Formative Years',
+        role: 'Artistic Foundations & Self-Taught Practice',
+        bullets: [
+          'Lifelong practice in painting and photography (acquired first camera at age 14).',
+          'Early mentorship and deep artistic guidance in classical painting.',
+        ],
+      },
+    ],
+  },
+};
+
 const howIWork = {
   title: { de: 'Wie ich arbeite', en: 'How I Work' },
   subtitle: { de: '… und warum ich so arbeite', en: '… and why I work this way' },
@@ -51,6 +139,7 @@ const howIWork = {
 export default function AboutPage() {
   const { language } = useLanguage();
   const paragraphs = language === 'de' ? about.de : about.en;
+  const vitaEntries = language === 'de' ? vita.entries.de : vita.entries.en;
   const workParagraphs = language === 'de' ? howIWork.paragraphs.de : howIWork.paragraphs.en;
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -88,6 +177,33 @@ export default function AboutPage() {
                 <p key={i}>{text}</p>
               ))}
             </div>
+
+            <div className="mt-12">
+              <h3 className="text-gray-900 uppercase tracking-wider text-lg mb-6">
+                {vita.title[language]}
+              </h3>
+              <div className="space-y-6">
+                {vitaEntries.map((entry, i) => (
+                  <div key={i} className="border-l-2 border-gray-300 pl-5">
+                    <div className="text-sm uppercase tracking-wider text-gray-500 mb-1">
+                      {entry.period}
+                    </div>
+                    <div className="text-gray-900 font-medium mb-2">
+                      {entry.role}
+                    </div>
+                    <ul className="space-y-1">
+                      {entry.bullets.map((bullet, j) => (
+                        <li key={j} className="text-gray-600 text-sm flex gap-2">
+                          <span className="text-gray-400">—</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <a
               href="/contact"
               className="inline-block mt-8 rounded-full bg-gray-900 text-white px-6 py-3 text-sm uppercase tracking-wider hover:bg-gray-800 transition"
