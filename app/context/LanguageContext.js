@@ -351,6 +351,9 @@ const translations = {
       unsubscribedMessage: "You won't receive the ZAK Fine Art newsletter anymore. You're welcome to sign up again anytime.",
       unsubscribedInvalidTitle: 'Link invalid',
       unsubscribedInvalidMessage: 'This unsubscribe link is invalid. Please contact us if you still want to be removed from the list.',
+      unsubscribeConfirmTitle: 'Unsubscribe from the newsletter?',
+      unsubscribeConfirmMessage: "We're sorry to see you go. Click the button below to confirm you no longer want to receive the ZAK Fine Art newsletter.",
+      unsubscribeButton: 'Yes, unsubscribe',
       frequencyAndRetention: 'Sent approx. 1–2 times a month. Your data is stored until you unsubscribe.'
     },
     
@@ -738,6 +741,9 @@ const translations = {
       unsubscribedMessage: 'Sie erhalten den ZAK Fine Art Newsletter nicht mehr. Sie können sich jederzeit wieder anmelden.',
       unsubscribedInvalidTitle: 'Link ungültig',
       unsubscribedInvalidMessage: 'Dieser Abmeldelink ist ungültig. Bitte kontaktieren Sie uns, falls Sie weiterhin von der Liste entfernt werden möchten.',
+      unsubscribeConfirmTitle: 'Newsletter abbestellen?',
+      unsubscribeConfirmMessage: 'Schade, dass Sie gehen. Klicken Sie auf den Button unten, um zu bestätigen, dass Sie den ZAK Fine Art Newsletter nicht mehr erhalten möchten.',
+      unsubscribeButton: 'Ja, abbestellen',
       frequencyAndRetention: 'Versand ca. 1–2x im Monat. Ihre Daten werden gespeichert, bis Sie sich abmelden.'
     },
     

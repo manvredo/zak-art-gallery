@@ -122,7 +122,7 @@ export async function GET(request) {
 
     try {
       const unsubscribeToken = createNewsletterToken(email, lang, 'unsubscribe');
-      const unsubscribeUrl = `${origin}/api/newsletter/unsubscribe?token=${encodeURIComponent(unsubscribeToken)}`;
+      const unsubscribeUrl = `${origin}/newsletter/unsubscribe?token=${encodeURIComponent(unsubscribeToken)}`;
       const { subject, text, html } = welcomeEmailContent[lang](unsubscribeUrl);
       await resend.emails.send({
         from: 'ZAK Fine Art <info@manfredzak.com>',
