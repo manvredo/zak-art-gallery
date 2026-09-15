@@ -48,6 +48,9 @@ export const metadata = {
   creator: "Manfred Zak",
   verification: {
     google: "BgvFvpANeaS6QMU87MuetLkegA1-pQlUzEDPjo9WiYs",
+    other: {
+      "p:domain_verify": "dce9d982513d35ff43211ec2d3569077",
+    },
   },
   metadataBase: new URL("https://www.manfredzak.com"),
   openGraph: {
