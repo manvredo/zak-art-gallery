@@ -14,13 +14,13 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Social Links */}
         <div className="flex items-center justify-center md:justify-end gap-3 mb-10">
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={socialIconClass}>
+          <a href="https://www.instagram.com/manvredo/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={socialIconClass}>
             <Instagram size={20} />
           </a>
           <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={socialIconClass}>
             <Facebook size={20} />
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className={socialIconClass}>
+          <a href="https://x.com/manfredzak_com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className={socialIconClass}>
             <Twitter size={20} />
           </a>
           <a href="mailto:info@manfredzak.com" aria-label="Email" className={socialIconClass}>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShoppingCart, Menu, X, Search } from 'lucide-react';
+import { ShoppingCart, Menu, X, Search, Instagram, Twitter } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { useCart } from '@/app/context/CartContext';
 import { useLanguage } from '@/app/context/LanguageContext';
@@ -94,7 +94,7 @@ export default function Header() {
       className="sticky top-0 z-50"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between lg:justify-center h-24 relative">
+        <div className="flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] h-24 relative">
 
           {/* Mobile Menu Button */}
           <button
@@ -104,8 +104,11 @@ export default function Header() {
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
+          {/* Desktop grid column 1: empty spacer so the center column stays truly centered */}
+          <div className="hidden lg:block" />
+
           {/* Desktop: inline-flex border wrapper (only as wide as content) */}
-          <div className="hidden lg:flex items-center self-stretch">
+          <div className="hidden lg:flex items-center justify-center self-stretch">
           {/* Logo & Navigation - Centered */}
           <div className="flex items-center justify-center">
             <Link href="/">
@@ -185,7 +188,7 @@ export default function Header() {
 
           {/* Right Icons - Desktop in border, Mobile ohne Border */}
           </div>
-          <div className="flex items-center space-x-4 lg:self-stretch lg:pl-8">
+          <div className="flex items-center space-x-4 lg:self-stretch lg:pl-8 lg:justify-self-end">
             {/* Language Switch mit animiertem Strich */}
             <div className="flex items-center gap-1">
               <button
@@ -275,6 +278,26 @@ export default function Header() {
               >
                 <Search size={20} />
               </button>
+              <a
+                href="https://www.instagram.com/manvredo/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="ml-4 cursor-pointer"
+                style={{ color: textColor }}
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://x.com/manfredzak_com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="ml-4 cursor-pointer"
+                style={{ color: textColor }}
+              >
+                <Twitter size={20} />
+              </a>
             </div>
           </div>
         </div>
@@ -335,6 +358,29 @@ export default function Header() {
             >
               {t.nav.archive}
             </Link>
+
+            <div className="flex items-center gap-4 pt-2">
+              <a
+                href="https://www.instagram.com/manvredo/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="cursor-pointer"
+                style={{ color: textColor }}
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://x.com/manfredzak_com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="cursor-pointer"
+                style={{ color: textColor }}
+              >
+                <Twitter size={20} />
+              </a>
+            </div>
 
             <div className="border-t border-gray-200 pt-3 mt-3">
               {user ? (
