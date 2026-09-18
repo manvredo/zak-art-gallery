@@ -93,6 +93,12 @@ export default function AdminProductsPage() {
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  // Genre/Name lock — off by default so a Genre pick can't drift the
+  // catalog numbering by accident; an explicit unlock is needed to fix
+  // older entries (e.g. adding "NR" to a pre-existing "Landscape 01").
+  // Always re-locks on a fresh edit/new-entry, so unlocking is a
+  // deliberate act every time, never a forgotten leftover state.
+  const [fieldsUnlocked, setFieldsUnlocked] = useState(false);
   const [selectedSize, setSelectedSize] = useState('');
   const [customWidth, setCustomWidth] = useState('');
   const [customHeight, setCustomHeight] = useState('');
@@ -383,7 +389,8 @@ export default function AdminProductsPage() {
 
   const handleEdit = (product) => {
     setEditingId(product.id);
-    
+    setFieldsUnlocked(false);
+
     // Check if the size matches a predefined format
     const matchingSize = SIZE_FORMATS.find(f => f.value === product.size);
     if (matchingSize) {
@@ -507,6 +514,7 @@ export default function AdminProductsPage() {
     setCustomWidth('');
     setCustomHeight('');
     setEditingId(null);
+    setFieldsUnlocked(false);
   };
 
   const handleUploadError = (error) => {
@@ -595,19 +603,19 @@ export default function AdminProductsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Genre Dropdown — picking one auto-fills Name/Description with
                   the next catalog number (e.g. "Landscape NR 11"). Locks itself
-                  right after so the catalog numbering can never drift out of
-                  sync by being changed later - extra info belongs in the
-                  Description field instead. */}
+                  right after so the catalog numbering can't drift by accident;
+                  the Entsperren button below is the deliberate escape hatch
+                  for fixing older entries (e.g. adding "NR" retroactively). */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Genre <span className="text-gray-500 font-normal">
-                    {formData.genre ? '(fest, für sichere Katalognummerierung)' : '(setzt Titel automatisch auf die nächste Katalognummer)'}
+                    {formData.genre && !fieldsUnlocked ? '(gesperrt, für sichere Katalognummerierung)' : '(setzt Titel automatisch auf die nächste Katalognummer)'}
                   </span>
                 </label>
                 <select
                   value={formData.genre}
                   onChange={(e) => handleGenreChange(e.target.value)}
-                  disabled={!!formData.genre}
+                  disabled={!!formData.genre && !fieldsUnlocked}
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 >
                   <option value="">-- kein Genre --</option>
@@ -622,7 +630,7 @@ export default function AdminProductsPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Titel / Name * <span className="text-gray-500 font-normal">
-                    {formData.genre ? '(fest, aus Genre — Ergänzungen bitte in der Beschreibung)' : '(automatisch aus Genre)'}
+                    {formData.genre && !fieldsUnlocked ? '(gesperrt — Ergänzungen bitte in der Beschreibung)' : '(automatisch aus Genre)'}
                   </span>
                 </label>
                 <input
@@ -630,10 +638,19 @@ export default function AdminProductsPage() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  disabled={!!formData.genre}
+                  disabled={!!formData.genre && !fieldsUnlocked}
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   placeholder="Genre oben wählen…"
                 />
+                {formData.genre && (
+                  <button
+                    type="button"
+                    onClick={() => setFieldsUnlocked(v => !v)}
+                    className="mt-2 text-xs text-gray-500 hover:text-gray-900 underline"
+                  >
+                    {fieldsUnlocked ? 'Wieder sperren' : 'Entsperren, um Genre/Titel zu korrigieren'}
+                  </button>
+                )}
               </div>
 
               {/* Artist Name - Fixed */}
