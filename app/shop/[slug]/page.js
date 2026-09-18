@@ -28,6 +28,21 @@ async function getProduct(slug) {
   return data;
 }
 
+// Small internal reference number (e.g. "Landscape 13") shown only on the
+// full detail page - never in shop grid/preview cards, so it can't disturb
+// that layout. Same zero-pad rule as the admin catalog: 01-99, then
+// unpadded from 100 on.
+async function getCatalogNumber(productId) {
+  const { data } = await supabase
+    .from('catalog')
+    .select('category, number')
+    .eq('product_id', productId)
+    .maybeSingle();
+
+  if (!data) return null;
+  return `${data.category} ${String(data.number).padStart(2, '0')}`;
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const product = await getProduct(slug);
@@ -63,6 +78,8 @@ export default async function ProductPage({ params }) {
   const { slug } = await params;
   const product = await getProduct(slug);
   if (!product) notFound();
+
+  const catalogNumber = await getCatalogNumber(product.id);
 
   const canonicalSlug = productSlug(product);
   const canonicalUrl = `https://www.manfredzak.com/shop/${canonicalSlug}`;
@@ -180,6 +197,9 @@ export default async function ProductPage({ params }) {
           <div>
             <p className="text-sm text-gray-500">{product.artist}</p>
             <h1 className="text-2xl font-light text-gray-900">{product.name}</h1>
+            {catalogNumber && (
+              <p className="text-xs text-gray-400 mt-1">{catalogNumber}</p>
+            )}
           </div>
 
           <ProductDetailClient product={product} />

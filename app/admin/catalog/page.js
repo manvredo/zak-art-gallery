@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import { LogOut, Eye, Plus, Trash2, Edit2, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
+import { CATALOG_CATEGORIES } from '@/app/lib/catalogCategories';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -12,9 +13,9 @@ const supabase = createClient(
 );
 
 // Umbrella genre terms — the professional vocabulary every catalog number
-// is filed under. Add new ones here as the body of work grows (e.g.
-// Seascape, Portrait, Abstract) — everything else adapts automatically.
-const CATEGORIES = ['Landscape', 'Seascape', 'Portrait', 'Animal', 'Still Life', 'Flora', 'Abstract', 'Studies'];
+// is filed under. Shared with the shop form's Genre field so both always
+// offer the same list — see app/lib/catalogCategories.js.
+const CATEGORIES = CATALOG_CATEGORIES;
 
 const STATUSES = [
   { value: 'catalog', label: 'Katalog (noch nicht im Shop)' },
@@ -76,7 +77,7 @@ export default function AdminCatalogPage() {
     setLoading(true);
     const [{ data: catalogData, error: catalogError }, { data: productData, error: productError }] = await Promise.all([
       supabase.from('catalog').select('*').order('category', { ascending: true }).order('number', { ascending: true }),
-      supabase.from('products').select('id, name').order('id', { ascending: true }),
+      supabase.from('products').select('id, name, image').order('id', { ascending: true }),
     ]);
 
     if (catalogError) console.error('Error fetching catalog:', catalogError);
@@ -289,7 +290,15 @@ export default function AdminCatalogPage() {
                 </label>
                 <select
                   value={productId}
-                  onChange={(e) => setProductId(e.target.value)}
+                  onChange={(e) => {
+                    const id = e.target.value;
+                    setProductId(id);
+                    // Reuse the shop product's own image instead of asking
+                    // for a second upload of the same picture - but never
+                    // clobber an image already chosen for this entry.
+                    const linked = products.find(p => String(p.id) === id);
+                    if (linked?.image && !imageUrl) setImageUrl(linked.image);
+                  }}
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                 >
                   <option value="">-- keine Verknüpfung --</option>

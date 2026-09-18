@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon, ArrowUp, ArrowDown } from 'lucide-react';
 import { CldUploadWidget, getCldImageUrl } from 'next-cloudinary';
 import { getActiveOffer, getStockInfo } from '@/app/lib/offers';
+import { CATALOG_CATEGORIES as GENRES } from '@/app/lib/catalogCategories';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -100,6 +101,7 @@ export default function AdminProductsPage() {
     artist: ARTIST_NAME,
     price: '',
     category: 'Originals',
+    genre: '',
     size: '',
     technique: TECHNIQUES[0],
     year: CURRENT_YEAR,
@@ -199,9 +201,70 @@ export default function AdminProductsPage() {
     }
   };
 
+  // Auto-creates (or updates) the matching work-catalog entry the moment a
+  // product is marked "Verkauft" - so the sale summary (number + picture +
+  // description) exists without a separate manual step in /admin/catalog.
+  // Needs a Genre to know which category/number to file it under; without
+  // one it just tells the user to add it there manually.
+  const ensureCatalogEntry = async (productId, data) => {
+    if (!data.sold) return;
+
+    const { data: existing, error: fetchError } = await supabase
+      .from('catalog')
+      .select('id')
+      .eq('product_id', productId)
+      .maybeSingle();
+
+    if (fetchError) {
+      console.error('Error checking catalog entry:', fetchError);
+      return;
+    }
+
+    if (existing) {
+      const { error } = await supabase
+        .from('catalog')
+        .update({ status: 'sold', title: data.name, year: data.year, image_url: data.image })
+        .eq('id', existing.id);
+      if (error) console.error('Error updating catalog entry:', error);
+      return;
+    }
+
+    if (!data.genre) {
+      alert('Als "Verkauft" markiert, aber ohne Genre konnte kein Katalog-Eintrag automatisch angelegt werden. Bitte im Werkkatalog manuell nachtragen (oder beim Produkt ein Genre setzen).');
+      return;
+    }
+
+    const { data: maxRow } = await supabase
+      .from('catalog')
+      .select('number')
+      .eq('category', data.genre)
+      .order('number', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    const nextNumber = (maxRow?.number ?? 0) + 1;
+
+    const { error } = await supabase.from('catalog').insert([{
+      category: data.genre,
+      number: nextNumber,
+      title: data.name,
+      year: data.year,
+      status: 'sold',
+      product_id: productId,
+      image_url: data.image,
+    }]);
+
+    if (error) {
+      console.error('Error creating catalog entry:', error);
+      alert('Katalog-Eintrag konnte nicht automatisch angelegt werden: ' + error.message);
+    } else {
+      alert(`Katalog-Eintrag automatisch angelegt: ${data.genre} ${String(nextNumber).padStart(2, '0')}`);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validation
     if (parseFloat(formData.price) > MAX_PRICE) {
       alert(`Preis darf maximal €${MAX_PRICE.toLocaleString()} sein!`);
@@ -233,6 +296,7 @@ export default function AdminProductsPage() {
       artist: ARTIST_NAME, // Always use fixed artist name
       price: parseFloat(formData.price),
       category: formData.category,
+      genre: formData.genre || null,
       size: formData.size,
       technique: formData.technique,
       year: parseInt(formData.year),
@@ -261,6 +325,7 @@ export default function AdminProductsPage() {
         alert('Error updating product: ' + error.message);
       } else {
         console.log('Update successful:', data);
+        await ensureCatalogEntry(editingId, productData);
         alert('Produkt erfolgreich aktualisiert!');
         setEditingId(null);
         resetForm();
@@ -278,6 +343,7 @@ export default function AdminProductsPage() {
         alert('Error adding product: ' + error.message);
       } else {
         console.log('Insert successful:', data);
+        if (data?.[0]?.id) await ensureCatalogEntry(data[0].id, productData);
         alert('Produkt erfolgreich hinzugefügt!');
         resetForm();
         await fetchProducts();
@@ -307,6 +373,7 @@ export default function AdminProductsPage() {
       artist: ARTIST_NAME,
       price: product.price.toString(),
       category: product.category,
+      genre: product.genre || '',
       size: product.size,
       technique: product.technique || TECHNIQUES[0],
       year: product.year,
@@ -390,6 +457,7 @@ export default function AdminProductsPage() {
       artist: ARTIST_NAME,
       price: '',
       category: 'Originals',
+      genre: '',
       size: '',
       technique: TECHNIQUES[0],
       year: CURRENT_YEAR,
@@ -553,6 +621,23 @@ export default function AdminProductsPage() {
                 >
                   {CATEGORIES.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Genre Dropdown — drives the auto-created work-catalog entry on sale */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Genre <span className="text-gray-500 font-normal">(für automatischen Katalog-Eintrag bei Verkauf)</span>
+                </label>
+                <select
+                  value={formData.genre}
+                  onChange={(e) => setFormData({...formData, genre: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                >
+                  <option value="">-- kein Genre --</option>
+                  {GENRES.map(g => (
+                    <option key={g} value={g}>{g}</option>
                   ))}
                 </select>
               </div>
