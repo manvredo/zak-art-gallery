@@ -237,7 +237,7 @@ export default function AdminProductsPage() {
     }
     if (number === undefined) number = await fetchNextCatalogNumber(genre);
 
-    const label = `${genre} ${String(number).padStart(2, '0')}`;
+    const label = `${genre} NR ${String(number).padStart(2, '0')}`;
     setFormData(prev => ({
       ...prev,
       genre,

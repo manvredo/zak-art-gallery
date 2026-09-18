@@ -28,7 +28,7 @@ const CURRENT_YEAR = new Date().getFullYear();
 
 // "Landscape" + 7 -> "Landscape 07"; "Landscape" + 107 -> "Landscape 107" —
 // zero-pad to 2 digits, which naturally stops padding once numbers hit 100.
-const displayName = (category, number) => `${category} ${String(number).padStart(2, '0')}`;
+const displayName = (category, number) => `${category} NR ${String(number).padStart(2, '0')}`;
 
 export default function AdminCatalogPage() {
   const router = useRouter();

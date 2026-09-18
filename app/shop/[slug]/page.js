@@ -40,7 +40,7 @@ async function getCatalogNumber(productId) {
     .maybeSingle();
 
   if (!data) return null;
-  return `${data.category} ${String(data.number).padStart(2, '0')}`;
+  return `${data.category} NR ${String(data.number).padStart(2, '0')}`;
 }
 
 export async function generateMetadata({ params }) {
