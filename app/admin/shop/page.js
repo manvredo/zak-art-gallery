@@ -39,6 +39,14 @@ const SIZE_FORMATS = [
   { label: '120 × 100 cm (47.2 × 39.4 in)', value: '120 × 100 cm (47.2 × 39.4 in)', width: 120, height: 100 },
   { label: '150 × 100 cm (59.1 × 39.4 in)', value: '150 × 100 cm (59.1 × 39.4 in)', width: 150, height: 100 },
   { label: '200 × 150 cm (78.7 × 59.1 in)', value: '200 × 150 cm (78.7 × 59.1 in)', width: 200, height: 150 },
+  // DIN A paper formats — portrait (width = short side)
+  { label: 'DIN A6 – 10.5 × 14.8 cm (4.1 × 5.8 in)', value: 'DIN A6 – 10.5 × 14.8 cm (4.1 × 5.8 in)', width: 10.5, height: 14.8 },
+  { label: 'DIN A5 – 14.8 × 21 cm (5.8 × 8.3 in)', value: 'DIN A5 – 14.8 × 21 cm (5.8 × 8.3 in)', width: 14.8, height: 21 },
+  { label: 'DIN A4 – 21 × 29.7 cm (8.3 × 11.7 in)', value: 'DIN A4 – 21 × 29.7 cm (8.3 × 11.7 in)', width: 21, height: 29.7 },
+  { label: 'DIN A3 – 29.7 × 42 cm (11.7 × 16.5 in)', value: 'DIN A3 – 29.7 × 42 cm (11.7 × 16.5 in)', width: 29.7, height: 42 },
+  { label: 'DIN A2 – 42 × 59.4 cm (16.5 × 23.4 in)', value: 'DIN A2 – 42 × 59.4 cm (16.5 × 23.4 in)', width: 42, height: 59.4 },
+  { label: 'DIN A1 – 59.4 × 84.1 cm (23.4 × 33.1 in)', value: 'DIN A1 – 59.4 × 84.1 cm (23.4 × 33.1 in)', width: 59.4, height: 84.1 },
+  { label: 'DIN A0 – 84.1 × 118.9 cm (33.1 × 46.8 in)', value: 'DIN A0 – 84.1 × 118.9 cm (33.1 × 46.8 in)', width: 84.1, height: 118.9 },
   { label: 'Benutzerdefiniert / Custom', value: 'custom', width: 0, height: 0 },
 ];
 
@@ -55,6 +63,7 @@ const TECHNIQUES = [
   'Oil Pastel on Handmade Paper with Deckle Edge, A4, 150gsm (Ölpastell auf handgeschöpftem Papier mit Büttenrand, A4, 150g/m²)',
   'Mixed Media on Paper (Mixed Media auf Papier)',
   'Charcoal on Paper, 180gsm (Kohle auf Papier, 180g/m²)',
+  'Pencil on Paper (Bleistift auf Papier)',
   'Oil Pastel on 100% Cotton Rag Paper – Handmade, A2, 250gsm, Deckle Edge (Ölpastell auf 100% Baumwoll-Rag-Papier – Handarbeit, A2, 250g/m², Büttenrand)',
   'Oil Pastel on 100% Cotton Rag Paper – Handmade, 45 × 30 cm, 250gsm, Cut Edge (Ölpastell auf 100% Baumwoll-Rag-Papier – Handarbeit, 45 × 30 cm, 250g/m², Glatter Rand)',
 ];
