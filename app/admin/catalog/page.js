@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-import { LogOut, Eye, Plus, Trash2, Edit2, Save, X } from 'lucide-react';
+import { LogOut, Eye, Plus, Trash2, Edit2, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
+import { CldUploadWidget } from 'next-cloudinary';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -44,6 +45,7 @@ export default function AdminCatalogPage() {
   const [status, setStatus] = useState('catalog');
   const [notes, setNotes] = useState('');
   const [productId, setProductId] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     checkAuth();
@@ -104,7 +106,17 @@ export default function AdminCatalogPage() {
     setStatus('catalog');
     setNotes('');
     setProductId('');
+    setImageUrl('');
     setEditingId(null);
+  };
+
+  const handleUploadSuccess = (result) => {
+    setImageUrl(result.info.secure_url);
+  };
+
+  const handleUploadError = (error) => {
+    console.error('Upload error:', error);
+    alert('Bild-Upload fehlgeschlagen. Bitte versuche es erneut.');
   };
 
   const handleSubmit = async (e) => {
@@ -117,6 +129,7 @@ export default function AdminCatalogPage() {
       status,
       notes: notes.trim() || null,
       product_id: productId || null,
+      image_url: imageUrl || null,
     };
 
     if (editingId) {
@@ -147,6 +160,7 @@ export default function AdminCatalogPage() {
     setStatus(entry.status);
     setNotes(entry.notes || '');
     setProductId(entry.product_id || '');
+    setImageUrl(entry.image_url || '');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -296,6 +310,47 @@ export default function AdminCatalogPage() {
               />
             </div>
 
+            {/* Small reference thumbnail */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Kleines Bild <span className="text-gray-500 font-normal">(optional, für die Übersicht unten)</span>
+              </label>
+              <div className="flex gap-4 items-start">
+                <div className="flex-1">
+                  <input
+                    type="url"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                    placeholder="https://res.cloudinary.com/..."
+                  />
+                </div>
+                <CldUploadWidget
+                  uploadPreset="zak_gallery"
+                  cloudName="dhjcx2xdd"
+                  options={{ folder: 'catalog', tags: ['catalog'], multiple: false, maxFiles: 1 }}
+                  onSuccess={handleUploadSuccess}
+                  onError={handleUploadError}
+                >
+                  {({ open }) => (
+                    <button
+                      type="button"
+                      onClick={() => open()}
+                      className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700 transition rounded flex items-center gap-2 whitespace-nowrap"
+                    >
+                      <Upload size={18} />
+                      Hochladen
+                    </button>
+                  )}
+                </CldUploadWidget>
+              </div>
+              {imageUrl && (
+                <div className="mt-3 w-20 h-20 border border-gray-300 rounded overflow-hidden bg-gray-100">
+                  <img src={imageUrl} alt="Vorschau" className="w-full h-full object-cover" />
+                </div>
+              )}
+            </div>
+
             <div className="flex gap-3">
               <button
                 type="submit"
@@ -331,6 +386,7 @@ export default function AdminCatalogPage() {
             <table className="min-w-full divide-y divide-gray-200 mt-4">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Bild</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nummer</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Beschreibung</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Jahr</th>
@@ -342,6 +398,15 @@ export default function AdminCatalogPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {entries.map((entry) => (
                   <tr key={entry.id}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {entry.image_url ? (
+                        <img src={entry.image_url} alt={displayName(entry.category, entry.number)} className="w-12 h-12 object-cover rounded border border-gray-200" />
+                      ) : (
+                        <div className="w-12 h-12 flex items-center justify-center rounded border border-gray-200 bg-gray-50 text-gray-300">
+                          <ImageIcon size={18} />
+                        </div>
+                      )}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {displayName(entry.category, entry.number)}
                     </td>
