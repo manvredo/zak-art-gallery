@@ -47,6 +47,14 @@ const SIZE_FORMATS = [
   { label: 'DIN A2 – 42 × 59.4 cm (16.5 × 23.4 in)', value: 'DIN A2 – 42 × 59.4 cm (16.5 × 23.4 in)', width: 42, height: 59.4 },
   { label: 'DIN A1 – 59.4 × 84.1 cm (23.4 × 33.1 in)', value: 'DIN A1 – 59.4 × 84.1 cm (23.4 × 33.1 in)', width: 59.4, height: 84.1 },
   { label: 'DIN A0 – 84.1 × 118.9 cm (33.1 × 46.8 in)', value: 'DIN A0 – 84.1 × 118.9 cm (33.1 × 46.8 in)', width: 84.1, height: 118.9 },
+  // DIN A paper formats — quer / landscape (width = long side)
+  { label: 'DIN A6 quer – 14.8 × 10.5 cm (5.8 × 4.1 in)', value: 'DIN A6 quer – 14.8 × 10.5 cm (5.8 × 4.1 in)', width: 14.8, height: 10.5 },
+  { label: 'DIN A5 quer – 21 × 14.8 cm (8.3 × 5.8 in)', value: 'DIN A5 quer – 21 × 14.8 cm (8.3 × 5.8 in)', width: 21, height: 14.8 },
+  { label: 'DIN A4 quer – 29.7 × 21 cm (11.7 × 8.3 in)', value: 'DIN A4 quer – 29.7 × 21 cm (11.7 × 8.3 in)', width: 29.7, height: 21 },
+  { label: 'DIN A3 quer – 42 × 29.7 cm (16.5 × 11.7 in)', value: 'DIN A3 quer – 42 × 29.7 cm (16.5 × 11.7 in)', width: 42, height: 29.7 },
+  { label: 'DIN A2 quer – 59.4 × 42 cm (23.4 × 16.5 in)', value: 'DIN A2 quer – 59.4 × 42 cm (23.4 × 16.5 in)', width: 59.4, height: 42 },
+  { label: 'DIN A1 quer – 84.1 × 59.4 cm (33.1 × 23.4 in)', value: 'DIN A1 quer – 84.1 × 59.4 cm (33.1 × 23.4 in)', width: 84.1, height: 59.4 },
+  { label: 'DIN A0 quer – 118.9 × 84.1 cm (46.8 × 33.1 in)', value: 'DIN A0 quer – 118.9 × 84.1 cm (46.8 × 33.1 in)', width: 118.9, height: 84.1 },
   { label: 'Benutzerdefiniert / Custom', value: 'custom', width: 0, height: 0 },
 ];
 
