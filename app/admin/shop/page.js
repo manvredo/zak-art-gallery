@@ -201,13 +201,58 @@ export default function AdminProductsPage() {
     }
   };
 
-  // Auto-creates (or updates) the matching work-catalog entry the moment a
-  // product is marked "Verkauft" - so the sale summary (number + picture +
-  // description) exists without a separate manual step in /admin/catalog.
-  // Needs a Genre to know which category/number to file it under; without
-  // one it just tells the user to add it there manually.
+  // Fetches the next free catalog number for a genre - the single source of
+  // truth for numbering (unique constraint lives on that table), so the
+  // shop's Name field never has to be hand-typed and risk a duplicate.
+  const fetchNextCatalogNumber = async (genre) => {
+    const { data: maxRow } = await supabase
+      .from('catalog')
+      .select('number')
+      .eq('category', genre)
+      .order('number', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    return (maxRow?.number ?? 0) + 1;
+  };
+
+  // Picking a Genre *is* the naming step now - it fills Name (and, if still
+  // empty, Description) with "<Genre> <NN>" straight away, so nothing has to
+  // be typed or counted by hand. Editing a product that's already linked to
+  // a catalog entry keeps that entry's existing number instead of grabbing
+  // a new one.
+  const handleGenreChange = async (genre) => {
+    if (!genre) {
+      setFormData(prev => ({ ...prev, genre: '' }));
+      return;
+    }
+
+    let number;
+    if (editingId) {
+      const { data: existing } = await supabase
+        .from('catalog')
+        .select('number, category')
+        .eq('product_id', editingId)
+        .maybeSingle();
+      if (existing && existing.category === genre) number = existing.number;
+    }
+    if (number === undefined) number = await fetchNextCatalogNumber(genre);
+
+    const label = `${genre} ${String(number).padStart(2, '0')}`;
+    setFormData(prev => ({
+      ...prev,
+      genre,
+      name: label,
+      description: prev.description?.trim() ? prev.description : label,
+    }));
+  };
+
+  // Auto-creates (or updates) the matching work-catalog entry whenever a
+  // product has a Genre set - so number, title, year and picture stay in
+  // sync with /admin/catalog without a separate manual step there.
   const ensureCatalogEntry = async (productId, data) => {
-    if (!data.sold) return;
+    if (!data.genre) return;
+
+    const status = data.sold ? 'sold' : 'listed';
 
     const { data: existing, error: fetchError } = await supabase
       .from('catalog')
@@ -223,33 +268,20 @@ export default function AdminProductsPage() {
     if (existing) {
       const { error } = await supabase
         .from('catalog')
-        .update({ status: 'sold', title: data.name, year: data.year, image_url: data.image })
+        .update({ status, title: data.name, year: data.year, image_url: data.image })
         .eq('id', existing.id);
       if (error) console.error('Error updating catalog entry:', error);
       return;
     }
 
-    if (!data.genre) {
-      alert('Als "Verkauft" markiert, aber ohne Genre konnte kein Katalog-Eintrag automatisch angelegt werden. Bitte im Werkkatalog manuell nachtragen (oder beim Produkt ein Genre setzen).');
-      return;
-    }
-
-    const { data: maxRow } = await supabase
-      .from('catalog')
-      .select('number')
-      .eq('category', data.genre)
-      .order('number', { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    const nextNumber = (maxRow?.number ?? 0) + 1;
+    const nextNumber = await fetchNextCatalogNumber(data.genre);
 
     const { error } = await supabase.from('catalog').insert([{
       category: data.genre,
       number: nextNumber,
       title: data.name,
       year: data.year,
-      status: 'sold',
+      status,
       product_id: productId,
       image_url: data.image,
     }]);
@@ -257,8 +289,6 @@ export default function AdminProductsPage() {
     if (error) {
       console.error('Error creating catalog entry:', error);
       alert('Katalog-Eintrag konnte nicht automatisch angelegt werden: ' + error.message);
-    } else {
-      alert(`Katalog-Eintrag automatisch angelegt: ${data.genre} ${String(nextNumber).padStart(2, '0')}`);
     }
   };
 
@@ -563,10 +593,30 @@ export default function AdminProductsPage() {
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Product Name */}
+              {/* Genre Dropdown — picking one auto-fills Name/Description with
+                  the next catalog number (e.g. "Landscape 11"), so titles and
+                  catalog numbering are one and the same thing. Comes first so
+                  the title below fills itself in right after. */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Titel / Name *
+                  Genre <span className="text-gray-500 font-normal">(setzt Titel automatisch auf die nächste Katalognummer)</span>
+                </label>
+                <select
+                  value={formData.genre}
+                  onChange={(e) => handleGenreChange(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                >
+                  <option value="">-- kein Genre --</option>
+                  {GENRES.map(g => (
+                    <option key={g} value={g}>{g}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Product Name — auto-filled from Genre above (e.g. "Landscape 11"); still editable */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Titel / Name * <span className="text-gray-500 font-normal">(automatisch aus Genre)</span>
                 </label>
                 <input
                   type="text"
@@ -574,7 +624,7 @@ export default function AdminProductsPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                  placeholder="Uckermark Sunset"
+                  placeholder="Genre oben wählen…"
                 />
               </div>
 
@@ -621,23 +671,6 @@ export default function AdminProductsPage() {
                 >
                   {CATEGORIES.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Genre Dropdown — drives the auto-created work-catalog entry on sale */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Genre <span className="text-gray-500 font-normal">(für automatischen Katalog-Eintrag bei Verkauf)</span>
-                </label>
-                <select
-                  value={formData.genre}
-                  onChange={(e) => setFormData({...formData, genre: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
-                >
-                  <option value="">-- kein Genre --</option>
-                  {GENRES.map(g => (
-                    <option key={g} value={g}>{g}</option>
                   ))}
                 </select>
               </div>
