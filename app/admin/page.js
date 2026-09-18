@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
-import { ShoppingCart, Package, Eye, EyeOff } from 'lucide-react';
+import { ShoppingCart, Package, BookOpen, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 
 const supabase = createClient(
@@ -106,6 +106,15 @@ export default function AdminPage() {
               <Package size={40} className="mx-auto mb-4 text-gray-900" />
               <h2 className="text-xl font-medium text-gray-900 mb-2">Bestellungen</h2>
               <p className="text-gray-500 text-sm">Alle Bestellungen ansehen</p>
+            </Link>
+
+            <Link
+              href="/admin/catalog"
+              className="block bg-white rounded-xl border border-gray-200 p-8 hover:shadow-md transition text-center"
+            >
+              <BookOpen size={40} className="mx-auto mb-4 text-gray-900" />
+              <h2 className="text-xl font-medium text-gray-900 mb-2">Werkkatalog</h2>
+              <p className="text-gray-500 text-sm">Durchgängige Nummerierung pro Kategorie</p>
             </Link>
           </div>
 
