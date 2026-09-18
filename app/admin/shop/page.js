@@ -594,17 +594,21 @@ export default function AdminProductsPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Genre Dropdown — picking one auto-fills Name/Description with
-                  the next catalog number (e.g. "Landscape 11"), so titles and
-                  catalog numbering are one and the same thing. Comes first so
-                  the title below fills itself in right after. */}
+                  the next catalog number (e.g. "Landscape NR 11"). Locks itself
+                  right after so the catalog numbering can never drift out of
+                  sync by being changed later - extra info belongs in the
+                  Description field instead. */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Genre <span className="text-gray-500 font-normal">(setzt Titel automatisch auf die nächste Katalognummer)</span>
+                  Genre <span className="text-gray-500 font-normal">
+                    {formData.genre ? '(fest, für sichere Katalognummerierung)' : '(setzt Titel automatisch auf die nächste Katalognummer)'}
+                  </span>
                 </label>
                 <select
                   value={formData.genre}
                   onChange={(e) => handleGenreChange(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                  disabled={!!formData.genre}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 >
                   <option value="">-- kein Genre --</option>
                   {GENRES.map(g => (
@@ -613,17 +617,21 @@ export default function AdminProductsPage() {
                 </select>
               </div>
 
-              {/* Product Name — auto-filled from Genre above (e.g. "Landscape 11"); still editable */}
+              {/* Product Name — auto-filled from Genre above, then locked for
+                  the same reason. Zusätzliches gehört in die Beschreibung. */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Titel / Name * <span className="text-gray-500 font-normal">(automatisch aus Genre)</span>
+                  Titel / Name * <span className="text-gray-500 font-normal">
+                    {formData.genre ? '(fest, aus Genre — Ergänzungen bitte in der Beschreibung)' : '(automatisch aus Genre)'}
+                  </span>
                 </label>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                  disabled={!!formData.genre}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   placeholder="Genre oben wählen…"
                 />
               </div>
