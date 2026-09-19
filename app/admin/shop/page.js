@@ -245,12 +245,20 @@ export default function AdminProductsPage() {
     if (number === undefined) number = await fetchNextCatalogNumber(genre);
 
     const label = `${genre} NR ${String(number).padStart(2, '0')}`;
-    setFormData(prev => ({
-      ...prev,
-      genre,
-      name: label,
-      description: prev.description?.trim() ? prev.description : label,
-    }));
+    setFormData(prev => {
+      // Description only auto-tracks the label while it still IS the label
+      // (empty, or untouched since the last Genre pick) - so unlocking and
+      // correcting the number also fixes the stale "Landscape NR 13" text
+      // below instead of leaving it behind, but a real hand-written
+      // description is never overwritten.
+      const descriptionIsAutoLabel = !prev.description?.trim() || prev.description === prev.name;
+      return {
+        ...prev,
+        genre,
+        name: label,
+        description: descriptionIsAutoLabel ? label : prev.description,
+      };
+    });
   };
 
   // Auto-creates (or updates) the matching work-catalog entry whenever a
@@ -653,7 +661,20 @@ export default function AdminProductsPage() {
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  onChange={(e) => {
+                    const newName = e.target.value;
+                    setFormData(prev => {
+                      // Same auto-label tracking as the Genre picker: while
+                      // Description still just echoes the old Title, keep it
+                      // in sync as the (unlocked) Title is corrected by hand.
+                      const descriptionIsAutoLabel = !prev.description?.trim() || prev.description === prev.name;
+                      return {
+                        ...prev,
+                        name: newName,
+                        description: descriptionIsAutoLabel ? newName : prev.description,
+                      };
+                    });
+                  }}
                   disabled={!!formData.genre && !fieldsUnlocked}
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   placeholder="Genre oben wählen…"
