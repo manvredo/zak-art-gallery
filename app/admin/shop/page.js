@@ -93,6 +93,7 @@ export default function AdminProductsPage() {
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // Genre/Name lock — off by default so a Genre pick can't drift the
   // catalog numbering by accident; an explicit unlock is needed to fix
   // older entries (e.g. adding "NR" to a pre-existing "Landscape 01").
@@ -293,13 +294,25 @@ export default function AdminProductsPage() {
     }]);
 
     if (error) {
-      console.error('Error creating catalog entry:', error);
-      alert('Katalog-Eintrag konnte nicht automatisch angelegt werden: ' + error.message);
+      // 23505 = unique_violation: a catalog entry for this product already
+      // landed (e.g. a near-simultaneous save) - nothing to fix, the number
+      // it grabbed just goes unused instead of being duplicated.
+      if (error.code !== '23505') {
+        console.error('Error creating catalog entry:', error);
+        alert('Katalog-Eintrag konnte nicht automatisch angelegt werden: ' + error.message);
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Guards against a duplicate catalog entry (and its stolen number) from
+    // a double-click or double-tap firing this handler twice before the
+    // first run's catalog insert has landed.
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
 
     // Validation
     if (parseFloat(formData.price) > MAX_PRICE) {
@@ -384,6 +397,9 @@ export default function AdminProductsPage() {
         resetForm();
         await fetchProducts();
       }
+    }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -1153,10 +1169,11 @@ export default function AdminProductsPage() {
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="px-6 py-2 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center gap-2"
+                disabled={isSubmitting}
+                className="px-6 py-2 bg-gray-900 text-white hover:bg-gray-800 transition rounded flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {editingId ? <Save size={18} /> : <Plus size={18} />}
-                {editingId ? 'Produkt aktualisieren' : 'Produkt hinzufügen'}
+                {isSubmitting ? 'Wird gespeichert...' : editingId ? 'Produkt aktualisieren' : 'Produkt hinzufügen'}
               </button>
               {editingId && (
                 <button
