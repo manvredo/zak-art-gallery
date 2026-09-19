@@ -128,6 +128,21 @@ const translations = {
       closeUp: 'Close-up Detail'
     },
 
+    // Product Reviews
+    reviews: {
+      title: 'Customer Reviews',
+      noReviews: 'No reviews yet — be the first to share your thoughts.',
+      basedOn: 'Based on {n} review(s)',
+      writeReview: 'Write a Review',
+      yourName: 'Your Name',
+      yourRating: 'Your Rating',
+      yourComment: 'Your Comment (optional)',
+      submit: 'Submit Review',
+      submitting: 'Submitting...',
+      thankYou: 'Thank you! Your review will appear after it has been checked.',
+      error: 'Something went wrong. Please try again.'
+    },
+
     // Categories
     categories: { 
       all: 'All', 
@@ -517,6 +532,21 @@ const translations = {
       daysReturn: '30 Tage',
       returnDetail: 'Rückgabe',
       closeUp: 'Nahaufnahme'
+    },
+
+    // Product Reviews
+    reviews: {
+      title: 'Kundenbewertungen',
+      noReviews: 'Noch keine Bewertungen — sei der/die Erste.',
+      basedOn: 'Basierend auf {n} Bewertung(en)',
+      writeReview: 'Bewertung schreiben',
+      yourName: 'Dein Name',
+      yourRating: 'Deine Bewertung',
+      yourComment: 'Dein Kommentar (optional)',
+      submit: 'Bewertung absenden',
+      submitting: 'Wird gesendet...',
+      thankYou: 'Danke! Deine Bewertung erscheint nach Prüfung.',
+      error: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.'
     },
 
     // Categories

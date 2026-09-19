@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { idFromSlug, productSlug } from '@/app/lib/slug';
 import ProductDetailClient from './ProductDetailClient';
+import ReviewsSection from './ReviewsSection';
 import FadeInImage from '@/app/components/FadeInImage';
 import ZoomableImage from '@/app/components/ZoomableImage';
 
@@ -43,6 +44,17 @@ async function getCatalogNumber(productId) {
   return `${data.category} NR ${String(data.number).padStart(2, '0')}`;
 }
 
+async function getApprovedReviews(productId) {
+  const { data } = await supabase
+    .from('reviews')
+    .select('id, author_name, rating, comment, created_at')
+    .eq('product_id', productId)
+    .eq('approved', true)
+    .order('created_at', { ascending: false });
+
+  return data || [];
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const product = await getProduct(slug);
@@ -80,6 +92,11 @@ export default async function ProductPage({ params }) {
   if (!product) notFound();
 
   const catalogNumber = await getCatalogNumber(product.id);
+  const reviews = await getApprovedReviews(product.id);
+  const reviewCount = reviews.length;
+  const averageRating = reviewCount
+    ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount
+    : null;
 
   const canonicalSlug = productSlug(product);
   const canonicalUrl = `https://www.manfredzak.com/shop/${canonicalSlug}`;
@@ -136,7 +153,61 @@ export default async function ProductPage({ params }) {
         '@type': 'Organization',
         name: 'ZAK Fine Art',
       },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'DE',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 30,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/ReturnShippingFees',
+      },
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '15.00',
+          currency: 'EUR',
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'DE',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 2,
+            unitCode: 'DAY',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 5,
+            maxValue: 7,
+            unitCode: 'DAY',
+          },
+        },
+      },
     },
+    ...(reviewCount > 0 && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: averageRating.toFixed(1),
+        reviewCount,
+      },
+      review: reviews.map((r) => ({
+        '@type': 'Review',
+        author: { '@type': 'Person', name: r.author_name },
+        datePublished: new Date(r.created_at).toISOString().slice(0, 10),
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: r.rating,
+          bestRating: 5,
+          worstRating: 1,
+        },
+        ...(r.comment && { reviewBody: r.comment }),
+      })),
+    }),
   };
 
   return (
@@ -205,6 +276,12 @@ export default async function ProductPage({ params }) {
           <ProductDetailClient product={product} />
         </div>
       </div>
+
+      <ReviewsSection
+        productId={product.id}
+        reviews={reviews}
+        averageRating={averageRating}
+      />
     </div>
   );
 }
