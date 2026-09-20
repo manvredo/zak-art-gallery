@@ -137,13 +137,18 @@ export async function POST(request) {
                   </div>
                   
                   <p>If you have any questions, please contact us at <a href="mailto:info@manfredzak.com">info@manfredzak.com</a></p>
-                  
+
                   <p>Best regards,<br>
                   <strong>ZAK Fine Art Team</strong></p>
                 </div>
-                
+
                 <div class="footer">
                   <p>ZAK Fine Art | Rudolf-Breitscheid-Str. 24 | 17326 Brüssow | Germany</p>
+                  <p>
+                    <a href="https://www.manfredzak.com/terms">Terms of Service</a>
+                    &nbsp;·&nbsp;
+                    <a href="https://www.manfredzak.com/withdrawal">Right of Withdrawal</a>
+                  </p>
                   <p>© 2026 ZAK Fine Art. All rights reserved.</p>
                 </div>
               </div>

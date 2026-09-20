@@ -35,6 +35,18 @@ export async function POST(request) {
       invoice_creation: {
         enabled: true,
       },
+      // Require the customer to actively accept the terms/withdrawal policy
+      // before paying, per EU distance-selling disclosure requirements.
+      consent_collection: {
+        terms_of_service: 'required',
+      },
+      custom_text: {
+        terms_of_service_acceptance: {
+          message: locale === 'de'
+            ? `Ich akzeptiere die [Allgemeinen Geschäftsbedingungen](${request.headers.get('origin')}/terms) und habe die [Widerrufsbelehrung](${request.headers.get('origin')}/withdrawal) zur Kenntnis genommen.`
+            : `I accept the [Terms of Service](${request.headers.get('origin')}/terms) and have read the [Right of Withdrawal](${request.headers.get('origin')}/withdrawal).`,
+        },
+      },
     });
 
     return NextResponse.json({ sessionId: session.id, url: session.url });
