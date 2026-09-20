@@ -122,7 +122,10 @@ export default function RootLayout({ children }) {
                 "email": "info@manfredzak.com",
                 "availableLanguage": ["English", "German"]
               },
-              "sameAs": [],
+              "sameAs": [
+                "https://www.instagram.com/manvredo/",
+                "https://x.com/manfredzak_com"
+              ],
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "DE"
@@ -179,7 +182,10 @@ export default function RootLayout({ children }) {
                 "name": "ZAK Fine Art",
                 "url": "https://www.manfredzak.com"
               },
-              "sameAs": []
+              "sameAs": [
+                "https://www.instagram.com/manvredo/",
+                "https://x.com/manfredzak_com"
+              ]
             })
           }}
         />
