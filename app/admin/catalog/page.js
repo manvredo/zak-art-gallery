@@ -1,16 +1,11 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import { LogOut, Eye, Plus, Trash2, Edit2, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
 import { CldUploadWidget } from 'next-cloudinary';
 import { CATALOG_CATEGORIES } from '@/app/lib/catalogCategories';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 // Umbrella genre terms — the professional vocabulary every catalog number
 // is filed under. Shared with the shop form's Genre field so both always

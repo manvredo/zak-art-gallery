@@ -1,9 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import { supabase } from '@/app/lib/supabaseClient';
 
 // Shared generateMetadata for content-table article detail pages (story,
 // press, archive) so each article gets its own title/description/OG tags

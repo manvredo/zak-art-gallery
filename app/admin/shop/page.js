@@ -1,17 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon, ArrowUp, ArrowDown } from 'lucide-react';
 import { CldUploadWidget, getCldImageUrl } from 'next-cloudinary';
 import { getActiveOffer, getStockInfo } from '@/app/lib/offers';
 import { CATALOG_CATEGORIES as GENRES } from '@/app/lib/catalogCategories';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 // Predefined size formats with cm and inch
 const SIZE_FORMATS = [

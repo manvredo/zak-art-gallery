@@ -1,16 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/app/lib/supabaseClient';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Calendar, ArrowLeft, Share2 } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 const CATEGORY_CONFIG = {
   story: { icon: '🎬', color: 'purple', titleDE: 'Making-of', titleEN: 'Making-of' },

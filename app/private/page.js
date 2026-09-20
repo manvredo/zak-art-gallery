@@ -1,16 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/app/lib/supabaseClient';
 import Link from 'next/link';
 import ContentSidebar from '@/app/components/ContentSidebar';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { Calendar, ArrowRight, Lock, Eye, EyeOff } from 'lucide-react';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 // ⚠️ WICHTIG: Ändere dieses Passwort!
 const PRIVATE_PASSWORD = 'gallery2025';

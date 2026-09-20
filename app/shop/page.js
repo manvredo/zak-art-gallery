@@ -1,15 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/app/lib/supabaseClient';
 import ProductCard from '@/app/components/ProductCard';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { getActiveOffer } from '@/app/lib/offers';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 export default function ShopPage() {
   const { t } = useLanguage();

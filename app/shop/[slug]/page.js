@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/app/lib/supabaseClient';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
@@ -7,11 +7,6 @@ import ProductDetailClient from './ProductDetailClient';
 import ReviewsSection from './ReviewsSection';
 import FadeInImage from '@/app/components/FadeInImage';
 import ZoomableImage from '@/app/components/ZoomableImage';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 export const revalidate = 3600;
 

@@ -1,15 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/app/lib/supabaseClient';
 import Link from 'next/link';
 import { Mail, CheckCircle, RefreshCw } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 export default function VerifyEmailPage() {
   const [resending, setResending] = useState(false);
