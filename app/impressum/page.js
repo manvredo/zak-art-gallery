@@ -40,12 +40,12 @@ export default function ImpressumPage() {
 
               <div>
                 <p className="font-medium text-gray-900">Umsatzsteuer-ID</p>
-                <p>DE243487042</p>
+                <p>DE328670055</p>
               </div>
 
               <div>
-                <p className="font-medium text-gray-900">Wirtschafts-ID</p>
-                <p>14/603/00081</p>
+                <p className="font-medium text-gray-900">Steuernummer</p>
+                <p>062/291/01259</p>
               </div>
 
               <div>

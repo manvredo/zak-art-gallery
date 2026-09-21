@@ -33,7 +33,7 @@ export default function PrivacyPage() {
               <p>Rudolf-Breitscheid-Str. 24</p>
               <p>17326 Brüssow, Germany</p>
               <p>Email: info@manfredzak.com</p>
-              <p>VAT ID: DE243487042</p>
+              <p>VAT ID: DE328670055</p>
             </div>
           </section>
           <section className="border-t border-gray-200 pt-8">
@@ -123,7 +123,7 @@ export default function PrivacyPage() {
               <p>Rudolf-Breitscheid-Str. 24</p>
               <p>17326 Brüssow, Deutschland</p>
               <p>E-Mail: info@manfredzak.com</p>
-              <p>USt-IdNr.: DE243487042</p>
+              <p>USt-IdNr.: DE328670055</p>
             </div>
           </section>
           <section className="border-t border-gray-200 pt-8">
