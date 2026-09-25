@@ -9,6 +9,7 @@ import { productSlug } from '../lib/slug';
 import FavoriteButton from './FavoriteButton';
 import Countdown from './Countdowns';
 import { getActiveOffer, getEffectivePrice, getStockInfo } from '../lib/offers';
+import { buyOnLabel } from '../lib/external';
 
 export default function ProductCard({ product, showAddToCart = false, index = 0, size = 'default' }) {
   const { addToCart, isInCart } = useCart();
@@ -54,6 +55,12 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
     e.stopPropagation();
     if (!isAvailable) return;
     addToCart({ ...product, price: getEffectivePrice(product) });
+  };
+
+  const handleBuyExternal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(product.external_url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -139,7 +146,14 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
               €{(offer ? offer.price : Number(product.price)).toLocaleString('en-US')}
             </span>
             {isAvailable ? (
-              alreadyInCart ? (
+              product.external_url ? (
+                <button
+                  onClick={handleBuyExternal}
+                  className={`px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-[#ececec] transition rounded-full cursor-pointer ${size === 'large' ? 'text-base' : 'text-sm'}`}
+                >
+                  {buyOnLabel(t, product.external_url)}
+                </button>
+              ) : alreadyInCart ? (
                 <span
                   className={`px-5 py-2 bg-gray-900 border border-gray-900 text-[#ececec] rounded-full flex items-center gap-1.5 ${size === 'large' ? 'text-base' : 'text-sm'}`}
                 >

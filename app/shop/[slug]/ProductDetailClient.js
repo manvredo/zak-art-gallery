@@ -7,6 +7,7 @@ import { useLanguage } from '@/app/context/LanguageContext';
 import { useCart } from '@/app/context/CartContext';
 import Countdown from '@/app/components/Countdowns';
 import { getActiveOffer, getEffectivePrice, getStockInfo } from '@/app/lib/offers';
+import { buyOnLabel } from '@/app/lib/external';
 
 export default function ProductDetailClient({ product }) {
   const [justAdded, setJustAdded] = useState(false);
@@ -61,6 +62,15 @@ export default function ProductDetailClient({ product }) {
         >
           {isSold ? pm.sold : isOutOfStock ? t.shop.soldOut : pm.notAvailable}
         </button>
+      ) : product.external_url ? (
+        <a
+          href={product.external_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-full font-medium text-lg flex items-center justify-center"
+        >
+          {buyOnLabel(t, product.external_url)}
+        </a>
       ) : alreadyInCart || justAdded ? (
         <Link
           href="/cart"

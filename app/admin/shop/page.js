@@ -118,6 +118,7 @@ export default function AdminProductsPage() {
     sale_end_date: '',
     edition_size: '',
     stock_quantity: '',
+    external_url: '',
   });
 
   // Check authentication
@@ -343,6 +344,12 @@ export default function AdminProductsPage() {
       return;
     }
 
+    const externalUrl = formData.external_url.trim();
+    if (externalUrl && !/^https?:\/\//i.test(externalUrl)) {
+      alert('Der Plattform-Link muss mit http:// oder https:// beginnen!');
+      return;
+    }
+
     const productData = {
       name: formData.name,
       artist: ARTIST_NAME, // Always use fixed artist name
@@ -363,6 +370,7 @@ export default function AdminProductsPage() {
       sale_end_date: formData.sale_end_date ? new Date(formData.sale_end_date).toISOString() : null,
       edition_size: formData.category === 'Prints' && formData.edition_size ? parseInt(formData.edition_size) : null,
       stock_quantity: formData.category === 'Prints' && formData.stock_quantity !== '' ? parseInt(formData.stock_quantity) : null,
+      external_url: externalUrl || null,
     };
 
     if (editingId) {
@@ -444,6 +452,7 @@ export default function AdminProductsPage() {
       sale_end_date: product.sale_end_date ? toDatetimeLocal(product.sale_end_date) : '',
       edition_size: product.edition_size != null ? String(product.edition_size) : '',
       stock_quantity: product.stock_quantity != null ? String(product.stock_quantity) : '',
+      external_url: product.external_url || '',
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -528,6 +537,7 @@ export default function AdminProductsPage() {
       sale_end_date: '',
       edition_size: '',
       stock_quantity: '',
+      external_url: '',
     });
     setSelectedSize('');
     setCustomWidth('');
@@ -1179,6 +1189,23 @@ export default function AdminProductsPage() {
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
                 placeholder="Eine atmosphärische Darstellung der Uckermark..."
               />
+            </div>
+
+            {/* Marketplace listing */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Verkauf über Plattform (optional)
+              </label>
+              <input
+                type="url"
+                value={formData.external_url}
+                onChange={(e) => setFormData({...formData, external_url: e.target.value})}
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                placeholder="https://www.artfinder.com/product/..."
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Link zum Bild auf Artfinder, DailyPaintWorks usw. Ist er gesetzt, führt der Kaufen-Button direkt dorthin statt in den Warenkorb. Leer lassen = Verkauf über den eigenen Shop.
+              </p>
             </div>
 
             {/* Submit Buttons */}

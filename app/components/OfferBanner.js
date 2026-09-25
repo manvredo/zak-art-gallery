@@ -8,6 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { productSlug } from '../lib/slug';
 import Countdown from './Countdowns';
 import { getEffectivePrice } from '../lib/offers';
+import { buyOnLabel } from '../lib/external';
 
 export default function OfferBanner({ entry }) {
   const { addToCart, isInCart } = useCart();
@@ -25,6 +26,12 @@ export default function OfferBanner({ entry }) {
     e.stopPropagation();
     if (!isAvailable) return;
     addToCart({ ...product, price: getEffectivePrice(product) });
+  };
+
+  const handleBuyExternal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(product.external_url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -64,7 +71,14 @@ export default function OfferBanner({ entry }) {
               €{Number(offer.price).toLocaleString('en-US')}
             </span>
             {isAvailable ? (
-              alreadyInCart ? (
+              product.external_url ? (
+                <button
+                  onClick={handleBuyExternal}
+                  className="px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-[#ececec] transition rounded-full cursor-pointer text-base"
+                >
+                  {buyOnLabel(t, product.external_url)}
+                </button>
+              ) : alreadyInCart ? (
                 <span className="px-5 py-2 bg-gray-900 border border-gray-900 text-[#ececec] rounded-full flex items-center gap-1.5 text-base">
                   <Check size={18} />
                   {t.productModal.added}
