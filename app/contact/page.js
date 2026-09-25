@@ -1,13 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContactPage from '@/app/components/ContactPage';
+import { useLanguage } from '@/app/context/LanguageContext';
+import { supabase } from '@/app/lib/supabaseClient';
 
 export default function Contact() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [contactLoading, setContactLoading] = useState(false);
   const [contactSuccess, setContactSuccess] = useState(false);
   const [contactError, setContactError] = useState(null);
+  const { t } = useLanguage();
+
+  // Enquiry for an "on request" artwork: /contact?artwork=<product id>
+  useEffect(() => {
+    const artworkId = new URLSearchParams(window.location.search).get('artwork');
+    if (!artworkId) return;
+    supabase
+      .from('products')
+      .select('name, size')
+      .eq('id', artworkId)
+      .single()
+      .then(({ data }) => {
+        if (!data) return;
+        const message = t.shop.inquiryMessage
+          .replace('{name}', data.name)
+          .replace('{size}', data.size || '');
+        setContactForm((form) => (form.message ? form : { ...form, message }));
+      });
+  }, [t]);
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();

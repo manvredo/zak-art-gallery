@@ -1,6 +1,7 @@
 // Shared logic for time-limited offers (sale price + countdown) on products.
 
 export function getActiveOffer(product) {
+  if (product?.on_request) return null; // price is hidden, so no sale either
   if (!product?.sale_price || !product?.sale_end_date) return null;
 
   const salePrice = Number(product.sale_price);

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -9,7 +10,7 @@ import { productSlug } from '../lib/slug';
 import FavoriteButton from './FavoriteButton';
 import Countdown from './Countdowns';
 import { getActiveOffer, getEffectivePrice, getStockInfo } from '../lib/offers';
-import { buyOnLabel } from '../lib/external';
+import { buyOnLabel, inquiryHref } from '../lib/external';
 
 export default function ProductCard({ product, showAddToCart = false, index = 0, size = 'default' }) {
   const { addToCart, isInCart } = useCart();
@@ -20,6 +21,8 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
   const isSold = product.sold === true;
   const isOutOfStock = stock?.isOutOfStock === true;
   const isAvailable = product.available !== false && !isSold && !isOutOfStock;
+  const onRequest = product.on_request === true;
+  const router = useRouter();
   const cardRef = useRef(null);
   const [revealed, setRevealed] = useState(false);
 
@@ -62,6 +65,25 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
     e.stopPropagation();
     window.open(product.external_url, '_blank', 'noopener,noreferrer');
   };
+
+  const handleInquire = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(inquiryHref(product));
+  };
+
+  const priceContent = onRequest ? (
+    t.shop.priceOnRequest
+  ) : (
+    <>
+      {offer && (
+        <span className="text-sm font-normal text-gray-400 line-through">
+          €{Number(product.price).toLocaleString('en-US')}
+        </span>
+      )}
+      €{(offer ? offer.price : Number(product.price)).toLocaleString('en-US')}
+    </>
+  );
 
   return (
     <Link
@@ -138,15 +160,17 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
         {showAddToCart ? (
           <div className="flex items-center justify-between mt-2">
             <span className={`${size === 'large' ? 'text-[23px]' : 'text-lg'} font-light text-gray-900 flex items-baseline gap-2`}>
-              {offer && (
-                <span className="text-sm font-normal text-gray-400 line-through">
-                  €{Number(product.price).toLocaleString('en-US')}
-                </span>
-              )}
-              €{(offer ? offer.price : Number(product.price)).toLocaleString('en-US')}
+              {priceContent}
             </span>
             {isAvailable ? (
-              product.external_url ? (
+              onRequest ? (
+                <button
+                  onClick={handleInquire}
+                  className={`px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-[#ececec] transition rounded-full cursor-pointer ${size === 'large' ? 'text-base' : 'text-sm'}`}
+                >
+                  {t.shop.inquire}
+                </button>
+              ) : product.external_url ? (
                 <button
                   onClick={handleBuyExternal}
                   className={`px-5 py-2 bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-[#ececec] transition rounded-full cursor-pointer ${size === 'large' ? 'text-base' : 'text-sm'}`}
@@ -179,12 +203,7 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
           </div>
         ) : (
           <p className={`${size === 'large' ? 'text-[23px]' : 'text-lg'} font-light text-gray-900 flex items-baseline gap-2`}>
-            {offer && (
-              <span className="text-sm font-normal text-gray-400 line-through">
-                €{Number(product.price).toLocaleString('en-US')}
-              </span>
-            )}
-            €{(offer ? offer.price : Number(product.price)).toLocaleString('en-US')}
+            {priceContent}
           </p>
         )}
       </div>

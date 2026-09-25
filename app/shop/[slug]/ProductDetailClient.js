@@ -7,7 +7,7 @@ import { useLanguage } from '@/app/context/LanguageContext';
 import { useCart } from '@/app/context/CartContext';
 import Countdown from '@/app/components/Countdowns';
 import { getActiveOffer, getEffectivePrice, getStockInfo } from '@/app/lib/offers';
-import { buyOnLabel } from '@/app/lib/external';
+import { buyOnLabel, inquiryHref } from '@/app/lib/external';
 
 export default function ProductDetailClient({ product }) {
   const [justAdded, setJustAdded] = useState(false);
@@ -22,6 +22,7 @@ export default function ProductDetailClient({ product }) {
   const isOutOfStock = stock?.isOutOfStock === true;
   const isAvailable = product.available !== false && !isSold && !isOutOfStock;
   const alreadyInCart = isInCart(product.id);
+  const onRequest = product.on_request === true;
 
   const handleAddToCart = () => {
     if (alreadyInCart || !isAvailable) return;
@@ -39,21 +40,27 @@ export default function ProductDetailClient({ product }) {
         </p>
       )}
 
-      <div className="text-4xl font-light text-gray-900 mb-2 flex items-baseline gap-3">
-        {offer && (
-          <span className="text-xl font-normal text-gray-400 line-through">
-            €{Number(product.price).toLocaleString(locale)}
-          </span>
-        )}
-        €{(offer ? offer.price : Number(product.price)).toLocaleString(locale)}
-      </div>
-      {offer && (
-        <div className="mb-3">
-          <span className="text-base text-amber-700 font-medium block mb-1.5">{t.shop.offerEndsIn}</span>
-          <Countdown endDate={offer.endDate} onExpire={() => setOffer(null)} className="text-amber-700" size="lg" />
-        </div>
+      {onRequest ? (
+        <div className="text-2xl font-light text-gray-900 mb-4">{t.shop.priceOnRequest}</div>
+      ) : (
+        <>
+          <div className="text-4xl font-light text-gray-900 mb-2 flex items-baseline gap-3">
+            {offer && (
+              <span className="text-xl font-normal text-gray-400 line-through">
+                €{Number(product.price).toLocaleString(locale)}
+              </span>
+            )}
+            €{(offer ? offer.price : Number(product.price)).toLocaleString(locale)}
+          </div>
+          {offer && (
+            <div className="mb-3">
+              <span className="text-base text-amber-700 font-medium block mb-1.5">{t.shop.offerEndsIn}</span>
+              <Countdown endDate={offer.endDate} onExpire={() => setOffer(null)} className="text-amber-700" size="lg" />
+            </div>
+          )}
+          <p className="text-sm text-gray-600 mb-4">{pm.inclVAT}</p>
+        </>
       )}
-      <p className="text-sm text-gray-600 mb-4">{pm.inclVAT}</p>
 
       {!isAvailable ? (
         <button
@@ -62,6 +69,13 @@ export default function ProductDetailClient({ product }) {
         >
           {isSold ? pm.sold : isOutOfStock ? t.shop.soldOut : pm.notAvailable}
         </button>
+      ) : onRequest ? (
+        <Link
+          href={inquiryHref(product)}
+          className="w-full py-4 bg-gray-900 text-white hover:bg-gray-800 transition rounded-full font-medium text-lg flex items-center justify-center"
+        >
+          {t.shop.inquire}
+        </Link>
       ) : product.external_url ? (
         <a
           href={product.external_url}

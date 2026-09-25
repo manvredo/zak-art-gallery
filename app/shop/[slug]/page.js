@@ -111,8 +111,8 @@ export default async function ProductPage({ params }) {
     },
     offers: {
       '@type': 'Offer',
-      price: product.price,
-      priceCurrency: 'EUR',
+      // "On request" hides the price, so don't publish it to search engines either.
+      ...(product.on_request ? {} : { price: product.price, priceCurrency: 'EUR' }),
       availability: product.sold
         ? 'https://schema.org/SoldOut'
         : product.available === false
@@ -135,8 +135,8 @@ export default async function ProductPage({ params }) {
     },
     offers: {
       '@type': 'Offer',
-      price: product.price,
-      priceCurrency: 'EUR',
+      // "On request" hides the price, so don't publish it to search engines either.
+      ...(product.on_request ? {} : { price: product.price, priceCurrency: 'EUR' }),
       availability: product.sold
         ? 'https://schema.org/SoldOut'
         : product.available === false

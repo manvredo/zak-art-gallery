@@ -114,6 +114,7 @@ export default function AdminProductsPage() {
     available: true,
     sold: false,
     offline: false,
+    on_request: false,
     sale_price: '',
     sale_end_date: '',
     edition_size: '',
@@ -366,6 +367,7 @@ export default function AdminProductsPage() {
       available: formData.available,
       sold: formData.sold,
       offline: formData.offline,
+      on_request: formData.on_request,
       sale_price: formData.sale_price ? parseFloat(formData.sale_price) : null,
       sale_end_date: formData.sale_end_date ? new Date(formData.sale_end_date).toISOString() : null,
       edition_size: formData.category === 'Prints' && formData.edition_size ? parseInt(formData.edition_size) : null,
@@ -448,6 +450,7 @@ export default function AdminProductsPage() {
       available: product.available !== false,
       sold: product.sold === true,
       offline: product.offline === true,
+      on_request: product.on_request === true,
       sale_price: product.sale_price != null ? String(product.sale_price) : '',
       sale_end_date: product.sale_end_date ? toDatetimeLocal(product.sale_end_date) : '',
       edition_size: product.edition_size != null ? String(product.edition_size) : '',
@@ -533,6 +536,7 @@ export default function AdminProductsPage() {
       available: true,
       sold: false,
       offline: false,
+      on_request: false,
       sale_price: '',
       sale_end_date: '',
       edition_size: '',
@@ -883,6 +887,23 @@ export default function AdminProductsPage() {
                 </label>
                 <p className="text-xs text-gray-500 mt-1 ml-6">
                   Werk wird komplett aus Shop und Startseite entfernt (nicht gelöscht). Einfach wieder online nehmen, um es zurückzuholen. / Artwork is completely hidden from shop and homepage (not deleted). Toggle back online anytime.
+                </p>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 cursor-pointer w-fit">
+                  <input
+                    type="checkbox"
+                    checked={formData.on_request}
+                    onChange={(e) => setFormData({ ...formData, on_request: e.target.checked })}
+                    className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    Nur auf Anfrage / On request
+                  </span>
+                </label>
+                <p className="text-xs text-gray-500 mt-1 ml-6">
+                  Preis wird ausgeblendet („Preis auf Anfrage“), der Button führt zum Kontaktformular mit dem Bildtitel. Z.B. für große Formate. / Price is hidden, the button opens the contact form for this artwork.
                 </p>
               </div>
             </div>
