@@ -103,7 +103,7 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
           alt={`${product.name}${product.technique ? ` – ${product.technique}` : ''} von Manfred Zak`}
           loading={index < 8 ? 'eager' : 'lazy'}
           fetchPriority={index === 0 ? 'high' : 'auto'}
-          className={`w-full h-full object-cover transition duration-200 ease-in ${!isAvailable && !isSold ? 'grayscale opacity-70' : ''}`}
+          className="w-full h-full object-cover transition duration-200 ease-in"
         />
 
         {/* Sold / Out of Stock / Not Available Badge - Top Left */}
