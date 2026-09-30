@@ -214,7 +214,10 @@ export default function AboutPage() {
 
           <div className="lg:col-span-3 lg:order-2">
             {/* Slider: Slide 0 = Portrait, Slides 1-5 = die 5 weiteren Bilder (Platzhalter bis vorhanden) */}
-            <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gray-100 ml-[1cm]">
+            <div
+              className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gray-100 ml-[1cm] -mb-[1cm]"
+              style={{ clipPath: 'inset(0 0 1cm 0 round 1rem)' }}
+            >
               <div
                 className="flex h-full transition-transform duration-500 ease-out"
                 style={{ transform: `translateX(-${activeSlide * 100}%)` }}
