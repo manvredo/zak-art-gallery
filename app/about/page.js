@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLanguage } from '@/app/context/LanguageContext';
 
 const aboutSlides = [
-  { src: '/about/Camera_01.png', alt: 'Manfred Zak' },
+  { src: '/about/I1s_MP2.gif', alt: 'Manfred Zak' },
   // Platzhalter – hier kommen die 5 weiteren Bilder rein, sobald vorhanden
   { placeholder: true, label: 'Foto 2' },
   { placeholder: true, label: 'Foto 3' },
