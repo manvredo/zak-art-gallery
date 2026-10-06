@@ -7,6 +7,7 @@ import { Trash2, Edit2, Plus, Save, X, Upload, Image as ImageIcon, ArrowUp, Arro
 import { CldUploadWidget, getCldImageUrl } from 'next-cloudinary';
 import { getActiveOffer, getStockInfo } from '@/app/lib/offers';
 import { CATALOG_CATEGORIES as GENRES } from '@/app/lib/catalogCategories';
+import { generateAccessCode, normalizeAccessCode } from '@/app/lib/reservations';
 
 // Predefined size formats with cm and inch
 const SIZE_FORMATS = [
@@ -84,6 +85,8 @@ const MAX_SIZE_CM = 500;
 export default function AdminProductsPage() {
   const router = useRouter();
   const [products, setProducts] = useState([]);
+  // product_id -> { customer_name, access_code } for paintings reserved for a customer
+  const [reservations, setReservations] = useState({});
   const [loading, setLoading] = useState(true);
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -115,6 +118,9 @@ export default function AdminProductsPage() {
     sold: false,
     offline: false,
     on_request: false,
+    reserved: false,
+    reservation_name: '',
+    reservation_code: '',
     sale_price: '',
     sale_end_date: '',
     edition_size: '',
@@ -165,6 +171,15 @@ export default function AdminProductsPage() {
     } else {
       console.log('Fetched products:', data);
       setProducts(data || []);
+    }
+
+    const { data: reservationRows, error: reservationsError } = await supabase
+      .from('product_reservations')
+      .select('product_id, customer_name, access_code');
+    if (reservationsError) {
+      console.error('Error fetching reservations:', reservationsError);
+    } else {
+      setReservations(Object.fromEntries((reservationRows || []).map((r) => [r.product_id, r])));
     }
     setLoading(false);
   };
@@ -345,6 +360,12 @@ export default function AdminProductsPage() {
       return;
     }
 
+    const reservationCode = normalizeAccessCode(formData.reservation_code);
+    if (formData.reserved && !formData.sold && reservationCode.length < 6) {
+      alert('Für eine Reservierung bitte einen Zugangscode mit mindestens 6 Zeichen angeben (oder „Code erzeugen“ klicken)!');
+      return;
+    }
+
     const externalUrl = formData.external_url.trim();
     if (externalUrl && !/^https?:\/\//i.test(externalUrl)) {
       alert('Der Plattform-Link muss mit http:// oder https:// beginnen!');
@@ -368,6 +389,7 @@ export default function AdminProductsPage() {
       sold: formData.sold,
       offline: formData.offline,
       on_request: formData.on_request,
+      reserved: formData.reserved,
       sale_price: formData.sale_price ? parseFloat(formData.sale_price) : null,
       sale_end_date: formData.sale_end_date ? new Date(formData.sale_end_date).toISOString() : null,
       edition_size: formData.category === 'Prints' && formData.edition_size ? parseInt(formData.edition_size) : null,
@@ -388,6 +410,7 @@ export default function AdminProductsPage() {
       } else {
         console.log('Update successful:', data);
         await ensureCatalogEntry(editingId, productData);
+        await syncReservation(editingId, reservationCode);
         alert('Produkt erfolgreich aktualisiert!');
         setEditingId(null);
         resetForm();
@@ -405,7 +428,10 @@ export default function AdminProductsPage() {
         alert('Error adding product: ' + error.message);
       } else {
         console.log('Insert successful:', data);
-        if (data?.[0]?.id) await ensureCatalogEntry(data[0].id, productData);
+        if (data?.[0]?.id) {
+          await ensureCatalogEntry(data[0].id, productData);
+          await syncReservation(data[0].id, reservationCode);
+        }
         alert('Produkt erfolgreich hinzugefügt!');
         resetForm();
         await fetchProducts();
@@ -413,6 +439,23 @@ export default function AdminProductsPage() {
     }
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Keeps the (non-public) access code in step with the product's "reserved"
+  // flag. Once the painting is sold the code is removed, so it can't be reused.
+  const syncReservation = async (productId, accessCode) => {
+    const { error } = formData.reserved && !formData.sold
+      ? await supabase.from('product_reservations').upsert({
+          product_id: productId,
+          customer_name: formData.reservation_name.trim() || null,
+          access_code: accessCode,
+        })
+      : await supabase.from('product_reservations').delete().eq('product_id', productId);
+
+    if (error) {
+      console.error('Error saving reservation:', error);
+      alert('Reservierung konnte nicht gespeichert werden: ' + error.message);
     }
   };
 
@@ -451,6 +494,9 @@ export default function AdminProductsPage() {
       sold: product.sold === true,
       offline: product.offline === true,
       on_request: product.on_request === true,
+      reserved: product.reserved === true,
+      reservation_name: reservations[product.id]?.customer_name || '',
+      reservation_code: reservations[product.id]?.access_code || '',
       sale_price: product.sale_price != null ? String(product.sale_price) : '',
       sale_end_date: product.sale_end_date ? toDatetimeLocal(product.sale_end_date) : '',
       edition_size: product.edition_size != null ? String(product.edition_size) : '',
@@ -537,6 +583,9 @@ export default function AdminProductsPage() {
       sold: false,
       offline: false,
       on_request: false,
+      reserved: false,
+      reservation_name: '',
+      reservation_code: '',
       sale_price: '',
       sale_end_date: '',
       edition_size: '',
@@ -905,6 +954,66 @@ export default function AdminProductsPage() {
                 <p className="text-xs text-gray-500 mt-1 ml-6">
                   Preis wird ausgeblendet („Preis auf Anfrage“), der Button führt zum Kontaktformular mit dem Bildtitel. Z.B. für große Formate. / Price is hidden, the button opens the contact form for this artwork.
                 </p>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 cursor-pointer w-fit">
+                  <input
+                    type="checkbox"
+                    checked={formData.reserved}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      reserved: e.target.checked,
+                      reservation_code: e.target.checked && !formData.reservation_code ? generateAccessCode() : formData.reservation_code,
+                    })}
+                    className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    Für Kunden reserviert / Reserved for a client
+                  </span>
+                </label>
+                <p className="text-xs text-gray-500 mt-1 ml-6">
+                  Im Shop steht „Reserviert“ und niemand sonst kann das Bild kaufen. Nur der Kunde mit dem Zugangscode kann es unter „Kundenzugang“ (oben im Menü) kaufen. Nach dem Kauf auf „Verkauft“ stellen – dann wird der Code gelöscht.
+                </p>
+
+                {formData.reserved && (
+                  <div className="ml-6 mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 border border-gray-200 rounded p-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Kundenname (optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.reservation_name}
+                        onChange={(e) => setFormData({ ...formData, reservation_name: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                        placeholder="z.B. Frau Müller"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Wird dem Kunden nach dem Login zur Begrüßung angezeigt.</p>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Zugangscode *
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={formData.reservation_code}
+                          onChange={(e) => setFormData({ ...formData, reservation_code: e.target.value.toUpperCase() })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900 font-mono tracking-widest"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, reservation_code: generateAccessCode() })}
+                          className="px-3 py-2 border border-gray-300 text-gray-700 hover:bg-gray-100 transition rounded text-sm whitespace-nowrap"
+                        >
+                          Code erzeugen
+                        </button>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">Diesen Code dem Kunden schicken. Gleicher Code bei mehreren Bildern = Kunde sieht alle.</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -1279,6 +1388,10 @@ export default function AdminProductsPage() {
                       <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-red-600 text-white text-xs font-medium">
                         Verkauft / Sold
                       </div>
+                    ) : product.reserved === true ? (
+                      <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-gray-800 text-white text-xs font-medium">
+                        Reserviert{reservations[product.id]?.customer_name ? ` für ${reservations[product.id].customer_name}` : ''}
+                      </div>
                     ) : product.available === false && (
                       <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-red-600 text-white text-xs font-medium">
                         Nicht verfügbar / Not available
@@ -1294,6 +1407,11 @@ export default function AdminProductsPage() {
                     <h3 className="font-medium text-gray-900 mb-1">{product.name}</h3>
                     <p className="text-sm text-gray-600 mb-1">{product.artist}</p>
                     <p className="text-xs text-gray-500 mb-2">{product.size}</p>
+                    {product.reserved === true && !product.sold && reservations[product.id] && (
+                      <p className="text-xs text-gray-700 mb-2">
+                        Zugangscode: <span className="font-mono tracking-widest">{reservations[product.id].access_code}</span>
+                      </p>
+                    )}
                     {(() => {
                       const offer = getActiveOffer(product);
                       const stock = getStockInfo(product);

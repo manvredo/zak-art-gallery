@@ -115,6 +115,8 @@ export default async function ProductPage({ params }) {
       ...(product.on_request ? {} : { price: product.price, priceCurrency: 'EUR' }),
       availability: product.sold
         ? 'https://schema.org/SoldOut'
+        : product.reserved
+        ? 'https://schema.org/Reserved'
         : product.available === false
         ? 'https://schema.org/OutOfStock'
         : 'https://schema.org/InStock',
@@ -139,6 +141,8 @@ export default async function ProductPage({ params }) {
       ...(product.on_request ? {} : { price: product.price, priceCurrency: 'EUR' }),
       availability: product.sold
         ? 'https://schema.org/SoldOut'
+        : product.reserved
+        ? 'https://schema.org/Reserved'
         : product.available === false
         ? 'https://schema.org/OutOfStock'
         : 'https://schema.org/InStock',

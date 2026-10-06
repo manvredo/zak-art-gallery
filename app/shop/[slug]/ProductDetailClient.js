@@ -8,6 +8,7 @@ import { useCart } from '@/app/context/CartContext';
 import Countdown from '@/app/components/Countdowns';
 import { getActiveOffer, getEffectivePrice, getStockInfo } from '@/app/lib/offers';
 import { buyOnLabel, inquiryHref } from '@/app/lib/external';
+import { isReserved } from '@/app/lib/reservations';
 
 export default function ProductDetailClient({ product }) {
   const [justAdded, setJustAdded] = useState(false);
@@ -20,7 +21,8 @@ export default function ProductDetailClient({ product }) {
   const stock = getStockInfo(product);
   const isSold = product.sold === true;
   const isOutOfStock = stock?.isOutOfStock === true;
-  const isAvailable = product.available !== false && !isSold && !isOutOfStock;
+  const reserved = isReserved(product);
+  const isAvailable = product.available !== false && !isSold && !isOutOfStock && !reserved;
   const alreadyInCart = isInCart(product.id);
   const onRequest = product.on_request === true;
 
@@ -67,7 +69,7 @@ export default function ProductDetailClient({ product }) {
           disabled
           className="w-full py-4 bg-gray-200 text-gray-500 rounded-full font-medium text-lg cursor-not-allowed"
         >
-          {isSold ? pm.sold : isOutOfStock ? t.shop.soldOut : pm.notAvailable}
+          {isSold ? pm.sold : isOutOfStock ? t.shop.soldOut : reserved ? t.shop.reserved : pm.notAvailable}
         </button>
       ) : onRequest ? (
         <Link

@@ -19,7 +19,7 @@ export default function OfferBanner({ entry }) {
 
   const { product } = entry;
   const alreadyInCart = isInCart(product.id);
-  const isAvailable = product.available !== false && product.sold !== true;
+  const isAvailable = product.available !== false && product.sold !== true && product.reserved !== true;
 
   const handleAddToCart = (e) => {
     e.preventDefault();

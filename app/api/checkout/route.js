@@ -1,12 +1,59 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { createClient } from '@supabase/supabase-js';
+import { normalizeAccessCode } from '@/app/lib/reservations';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+// Re-checks the cart against the database: sold/offline paintings can't be
+// bought, and a reserved painting only with its customer's access code.
+// Returns an error message, or null when the cart is fine.
+async function validateCart(items) {
+  const ids = items.map((item) => item.id).filter((id) => id != null);
+  if (!ids.length) return null;
+
+  const { data: products, error } = await supabase
+    .from('products')
+    .select('id, name, sold, offline, reserved')
+    .in('id', ids);
+  if (error) throw error;
+
+  const { data: reservations, error: reservationsError } = await supabase
+    .from('product_reservations')
+    .select('product_id, access_code')
+    .in('product_id', ids);
+  if (reservationsError) throw reservationsError;
+
+  for (const item of items) {
+    const product = products.find((p) => p.id === item.id);
+    if (!product) continue;
+    if (product.sold || product.offline) {
+      return `"${product.name}" is no longer available.`;
+    }
+    if (product.reserved) {
+      const reservation = reservations.find((r) => r.product_id === product.id);
+      if (!reservation || reservation.access_code !== normalizeAccessCode(item.reservation_code)) {
+        return `"${product.name}" is reserved for another customer.`;
+      }
+    }
+  }
+  return null;
+}
 
 export async function POST(request) {
   try {
     const { items, language = 'de' } = await request.json();
-    
+
+    const cartError = await validateCart(items);
+    if (cartError) {
+      return NextResponse.json({ error: cartError }, { status: 409 });
+    }
+
     // Determine locale for Stripe Checkout
     const locale = language === 'de' ? 'de' : 'en';
 

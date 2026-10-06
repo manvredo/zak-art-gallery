@@ -11,6 +11,7 @@ import FavoriteButton from './FavoriteButton';
 import Countdown from './Countdowns';
 import { getActiveOffer, getEffectivePrice, getStockInfo } from '../lib/offers';
 import { buyOnLabel, inquiryHref } from '../lib/external';
+import { isReserved } from '../lib/reservations';
 
 export default function ProductCard({ product, showAddToCart = false, index = 0, size = 'default' }) {
   const { addToCart, isInCart } = useCart();
@@ -20,7 +21,8 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
   const stock = getStockInfo(product);
   const isSold = product.sold === true;
   const isOutOfStock = stock?.isOutOfStock === true;
-  const isAvailable = product.available !== false && !isSold && !isOutOfStock;
+  const reserved = isReserved(product);
+  const isAvailable = product.available !== false && !isSold && !isOutOfStock && !reserved;
   const onRequest = product.on_request === true;
   const router = useRouter();
   const cardRef = useRef(null);
@@ -115,6 +117,10 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
           <div className="absolute top-2 left-2 z-10 px-3 py-1 rounded-full bg-red-600 text-white text-xs font-medium tracking-wide">
             {t.shop.soldOut}
           </div>
+        ) : reserved ? (
+          <div className="absolute top-2 left-2 z-10 px-3 py-1 rounded-full bg-gray-800 text-white text-xs font-medium tracking-wide">
+            {t.shop.reserved}
+          </div>
         ) : !isAvailable ? (
           <div className="absolute top-2 left-2 z-10 px-3 py-1 rounded-full bg-red-600 text-white text-xs font-medium tracking-wide">
             {t.shop.notAvailable}
@@ -197,7 +203,7 @@ export default function ProductCard({ product, showAddToCart = false, index = 0,
                 disabled
                 className={`px-5 py-2 bg-gray-100 border border-gray-200 text-gray-400 rounded-full cursor-not-allowed ${size === 'large' ? 'text-base' : 'text-sm'}`}
               >
-                {isSold ? t.shop.sold : isOutOfStock ? t.shop.soldOut : t.shop.notAvailable}
+                {isSold ? t.shop.sold : isOutOfStock ? t.shop.soldOut : reserved ? t.shop.reserved : t.shop.notAvailable}
               </button>
             )}
           </div>

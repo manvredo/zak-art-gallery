@@ -178,6 +178,17 @@ export default function Header() {
                   <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
                 </span>
               </Link>
+
+              <Link
+                href="/client-access"
+                className="relative group transition cursor-pointer uppercase"
+                style={{ color: textColor }}
+              >
+                <span className="relative inline-block">
+                  {t.nav.clientAccess}
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-current transition-all duration-300 ease-in-out group-hover:w-full" />
+                </span>
+              </Link>
             </nav>
           </div>
 
@@ -352,6 +363,15 @@ export default function Header() {
               style={{ color: textColor }}
             >
               {t.nav.archive}
+            </Link>
+
+            <Link
+              href="/client-access"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left cursor-pointer uppercase"
+              style={{ color: textColor }}
+            >
+              {t.nav.clientAccess}
             </Link>
 
             <div className="flex items-center gap-4 pt-2">
