@@ -45,9 +45,20 @@ async function validateCart(items) {
   return null;
 }
 
+// Returns the confirmed email of the logged-in customer, verified with
+// Supabase from the access token, or null for guests.
+async function getCustomerEmail(request) {
+  const token = request.headers.get('authorization')?.replace(/^Bearer /, '');
+  if (!token) return null;
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user?.email || !user.email_confirmed_at) return null;
+  return user.email;
+}
+
 export async function POST(request) {
   try {
     const { items, language = 'de' } = await request.json();
+    const customerEmail = await getCustomerEmail(request);
 
     const cartError = await validateCart(items);
     if (cartError) {
@@ -74,6 +85,7 @@ export async function POST(request) {
         quantity: item.quantity,
       })),
       mode: 'payment',
+      ...(customerEmail && { customer_email: customerEmail }),
       success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.headers.get('origin')}/cart?canceled=true`,
       locale: locale,

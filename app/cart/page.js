@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import CartPage from '@/app/components/CartPage';
 import { useCart } from '@/app/context/CartContext';
+import { supabase } from '@/app/lib/supabaseClient';
 
 export default function Cart() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -14,9 +15,15 @@ export default function Cart() {
       setCheckoutLoading(true);
       setCheckoutError(null);
 
+      // Logged-in customers get their account email prefilled in Stripe
+      const { data: { session } } = await supabase.auth.getSession();
+
       const response = await fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(session?.access_token && { Authorization: `Bearer ${session.access_token}` }),
+        },
         body: JSON.stringify({ items: cart }),
       });
 
