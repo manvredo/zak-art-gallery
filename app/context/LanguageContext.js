@@ -421,7 +421,7 @@ const translations = {
     // Navigation
     nav: {
       welcome: 'Willkommen',
-      about: 'Über mich',
+      about: 'Vita',
       archive: 'Archiv',
       clientAccess: 'Kunden',
       shop: 'Shop',
