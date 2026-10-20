@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
-import { ShoppingCart, Package, BookOpen, Star, Eye, EyeOff } from 'lucide-react';
+import { ShoppingCart, Package, BookOpen, Star, CalendarCheck, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminPage() {
@@ -119,6 +119,15 @@ export default function AdminPage() {
               <Star size={40} className="mx-auto mb-4 text-gray-900" />
               <h2 className="text-xl font-medium text-gray-900 mb-2">Bewertungen</h2>
               <p className="text-gray-500 text-sm">Kundenbewertungen prüfen und freigeben</p>
+            </Link>
+
+            <Link
+              href="/admin/arbeitsplan"
+              className="block bg-white rounded-xl border border-gray-200 p-8 hover:shadow-md transition text-center"
+            >
+              <CalendarCheck size={40} className="mx-auto mb-4 text-gray-900" />
+              <h2 className="text-xl font-medium text-gray-900 mb-2">Arbeitsplan</h2>
+              <p className="text-gray-500 text-sm">Tagesstruktur, Pomodoro, Aufgaben und Monatsziele</p>
             </Link>
           </div>
 

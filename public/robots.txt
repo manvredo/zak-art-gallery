@@ -8,7 +8,6 @@ Allow: /
 Disallow: /admin/
 Disallow: /private/
 Disallow: /api/
-Disallow: /arbeitsplan/
 Disallow: /login
 Disallow: /register
 Disallow: /forgot-password
