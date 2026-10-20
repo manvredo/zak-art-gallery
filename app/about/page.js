@@ -150,7 +150,7 @@ export default function AboutPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="mb-12 flex items-center gap-4">
           <h1 className="font-light text-gray-900 whitespace-nowrap tracking-wide" style={{ fontSize: 32 }}>
-            ABOUT
+            {language === 'de' ? 'ÜBER MICH' : 'ABOUT'}
           </h1>
           <div className="flex-1 h-px bg-gray-300"></div>
         </div>
