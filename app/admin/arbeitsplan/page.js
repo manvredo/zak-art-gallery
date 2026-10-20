@@ -144,9 +144,9 @@ export default function AdminArbeitsplanPage() {
     setLoading(false);
   };
 
-  // Uhr
+  // Uhr (ohne Sekunden, daher reicht ein Update alle 10 Sekunden)
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    const timer = setInterval(() => setCurrentTime(new Date()), 10000);
     return () => clearInterval(timer);
   }, []);
 
@@ -253,7 +253,7 @@ export default function AdminArbeitsplanPage() {
           <div className="flex flex-wrap gap-4 items-center text-gray-600">
             <span className="text-xl">{today}, {currentTime.toLocaleDateString('de-DE')}</span>
             <span className="text-2xl font-mono bg-gray-100 px-3 py-1 rounded">
-              {currentTime.toLocaleTimeString('de-DE')}
+              {currentTime.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}
             </span>
           </div>
         </div>
