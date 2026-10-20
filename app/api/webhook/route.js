@@ -263,6 +263,7 @@ export async function POST(request) {
         from: 'ZAK Fine Art <info@manfredzak.com>',
         to: [process.env.EMAIL_TO || 'info@manfredzak.com'],
         subject: `🎨 New Order - ${customerName}`,
+        ...(invoiceAttachment && { attachments: [invoiceAttachment] }),
         html: `
           <!DOCTYPE html>
           <html>
