@@ -2,6 +2,7 @@
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import { getStockInfo } from '@/app/lib/offers';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -10,6 +11,44 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
+
+// After payment: prints with stock tracking lose the bought quantity, every
+// other product (originals) is marked sold and its reservation removed.
+async function markProductsSold(lineItems) {
+  for (const item of lineItems) {
+    const productId = Number(item.price?.product?.metadata?.product_id);
+    if (!productId) continue;
+
+    const { data: product, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('id', productId)
+      .single();
+    if (error) throw error;
+
+    const stock = getStockInfo(product);
+    if (stock) {
+      const { error: updateError } = await supabase
+        .from('products')
+        .update({ stock_quantity: Math.max(0, stock.quantity - (item.quantity || 1)) })
+        .eq('id', productId);
+      if (updateError) throw updateError;
+    } else {
+      const { error: updateError } = await supabase
+        .from('products')
+        .update({ sold: true })
+        .eq('id', productId);
+      if (updateError) throw updateError;
+
+      const { error: reservationError } = await supabase
+        .from('product_reservations')
+        .delete()
+        .eq('product_id', productId);
+      if (reservationError) throw reservationError;
+    }
+    console.log('Product updated after sale:', productId);
+  }
+}
 
 export async function POST(request) {
   const body = await request.text();
@@ -57,6 +96,15 @@ export async function POST(request) {
       }
 
       console.log('Order saved successfully:', session.id);
+
+      if (session.payment_status === 'paid') {
+        try {
+          await markProductsSold(lineItems.data);
+        } catch (soldError) {
+          console.error('Error marking products sold:', soldError);
+          // Continue - the order is saved, the product can be marked by hand
+        }
+      }
 
       // ======== EMAIL BENACHRICHTIGUNGEN ========
 

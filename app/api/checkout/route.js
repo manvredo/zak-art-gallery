@@ -66,6 +66,8 @@ export async function POST(request) {
             name: item.name,
             images: [item.image],
             description: item.description || '',
+            // Lets the webhook mark the product sold / reduce stock after payment
+            ...(item.id != null && { metadata: { product_id: String(item.id) } }),
           },
           unit_amount: Math.round(item.price * 100), // Stripe uses cents
         },
