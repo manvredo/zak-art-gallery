@@ -11,7 +11,7 @@ export default function ImprintPage() {
         <div className="bg-white rounded-lg shadow-sm p-8 space-y-8">
           <section>
             <h2 className="text-2xl font-light text-gray-900 mb-4">
-              Information obligation according to § 5 TMG
+              Information obligation according to § 5 DDG
             </h2>
             
             <div className="space-y-4 text-gray-700">
@@ -42,22 +42,12 @@ export default function ImprintPage() {
                 <p className="font-medium text-gray-900">VAT ID</p>
                 <p>DE328670055</p>
               </div>
-
-              <div>
-                <p className="font-medium text-gray-900">Tax Number</p>
-                <p>062/291/01259</p>
-              </div>
-
-              <div>
-                <p className="font-medium text-gray-900">Supervisory Authority</p>
-                <p>Tax Office Berlin Kreuzberg Friedrichshain</p>
-              </div>
             </div>
           </section>
 
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-2xl font-light text-gray-900 mb-4">
-              Responsible for content according to § 55 Abs. 2 RStV
+              Responsible for content according to § 18 Abs. 2 MStV
             </h2>
             <div className="text-gray-700">
               <p>Manfred Zak</p>

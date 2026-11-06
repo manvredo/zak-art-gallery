@@ -11,7 +11,7 @@ export default function ImpressumPage() {
         <div className="bg-white rounded-lg shadow-sm p-8 space-y-8">
           <section>
             <h2 className="text-2xl font-light text-gray-900 mb-4">
-              Angaben gemäß § 5 TMG
+              Angaben gemäß § 5 DDG
             </h2>
 
             <div className="space-y-4 text-gray-700">
@@ -42,22 +42,12 @@ export default function ImpressumPage() {
                 <p className="font-medium text-gray-900">Umsatzsteuer-ID</p>
                 <p>DE328670055</p>
               </div>
-
-              <div>
-                <p className="font-medium text-gray-900">Steuernummer</p>
-                <p>062/291/01259</p>
-              </div>
-
-              <div>
-                <p className="font-medium text-gray-900">Zuständige Aufsichtsbehörde</p>
-                <p>Finanzamt Berlin Kreuzberg Friedrichshain</p>
-              </div>
             </div>
           </section>
 
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-2xl font-light text-gray-900 mb-4">
-              Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
+              Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
             </h2>
             <div className="text-gray-700">
               <p>Manfred Zak</p>
