@@ -40,7 +40,7 @@ export default function ImprintPage() {
 
               <div>
                 <p className="font-medium text-gray-900">VAT ID</p>
-                <p>DE243487042</p>
+                <p>DE328670055</p>
               </div>
             </div>
           </section>
